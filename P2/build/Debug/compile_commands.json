@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P2/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1d.dir/src/option1d.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P2/src/option1d.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/src/option1d.c",
+  "output": "CMakeFiles/1d.dir/src/option1d.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P2/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1d.dir/src/p2.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P2/src/p2.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/src/p2.c",
+  "output": "CMakeFiles/1d.dir/src/p2.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P2/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1d.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P2/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/src/mtx.c",
+  "output": "CMakeFiles/1d.dir/src/mtx.c.o"
+},
+{
+  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P2/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1d.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P2/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P2/src/spmv.c",
+  "output": "CMakeFiles/1d.dir/src/spmv.c.o"
+}
+]
