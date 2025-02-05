@@ -21,7 +21,9 @@ int main(int argc, char **argv) {
     int *p = malloc(sizeof(int) * size + 1);
 
     if (rank == 0) {
+        printf("Parsing graph\n");
         g = parse_and_validate_mtx(argv[1]);
+        printf("Done parsing graph\n");
 
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
@@ -31,6 +33,7 @@ int main(int argc, char **argv) {
         printf("Done partitioning graph\n");
     }
 
+    printf("Rank %d waiting at first barrier\n", rank);
     MPI_Barrier(MPI_COMM_WORLD);
     if (rank == 0)
         printf("Distributing graph\n");
