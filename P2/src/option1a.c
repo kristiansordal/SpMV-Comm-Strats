@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
         printf("NNZ: %d\n", g.num_cols);
     }
 
-    printf("Rank %d: %d -> %d with %d", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
+    printf("Rank %d: %d -> %d with %d\n", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
     for (size_t it = 0; it < 1; it++) {
         Vo[0] = 0xffffff;
 
