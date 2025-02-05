@@ -232,6 +232,8 @@ mtx internal_parse_mtx_seq(FILE *f) {
     }
 
     free(line);
+    printf("Done parsing mtx\n");
+    fflush(stdout);
 
     return m;
 }
@@ -309,6 +311,8 @@ CSR parse_mtx(FILE *f) {
 
 CSR parse_and_validate_mtx(const char *path) {
     FILE *f = fopen(path, "r");
+    printf("Parsing %s\n", path);
+    fflush(stdout);
     CSR g = parse_mtx(f);
     fclose(f);
 
