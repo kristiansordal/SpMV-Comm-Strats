@@ -19,10 +19,10 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
 
     // Parse command-line arguments
-    // if (argc != 3) {
-    //     printf("Give two arguments, scale and iterations\n");
-    //     return 1;
-    // }
+    if (argc != 3) {
+        printf("Give two arguments, scale and iterations\n");
+        return 1;
+    }
 
     CSR g;
     double *input;
@@ -235,14 +235,14 @@ int main(int argc, char **argv) {
     //         }
     //     }
 
-    // if (rank == 0)
-    //     free_mesh(&m);
+    //     if (rank == 0)
+    //         free_mesh(&m);
 
-    // free(A);
-    // free(I);
-    // free(Vn);
-    // free(Vo);
+    //     free(A);
+    //     free(I);
+    //     free(Vn);
+    //     free(Vo);
 
-    MPI_Finalize(); // End MPI, called by every processor
+    //     MPI_Finalize(); // End MPI, called by every processor
     return 0;
 }

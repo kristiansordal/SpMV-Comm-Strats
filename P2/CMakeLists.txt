@@ -18,8 +18,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(METIS REQUIRED)
 find_package(OpenMP REQUIRED)
 
-add_executable(1d 
-    src/option1d.c
+add_executable(1a 
+    src/option1a.c
     src/p2.c
     src/p2.h
     src/mtx.c
@@ -30,7 +30,7 @@ add_executable(1d
 
 # Correct the typo for including the project's header files
 include_directories(${CMAKE_SOURCE_DIR}/include)
-target_include_directories(1d PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(1d PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(1d PRIVATE)
-target_link_options(1d PRIVATE)
+target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+target_link_libraries(1a PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
+target_compile_options(1a PRIVATE)
+target_link_options(1a PRIVATE)

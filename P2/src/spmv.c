@@ -16,8 +16,9 @@ void spmv(CSR g, double *x, double *y) {
     }
 }
 
-void spmv_part(CSR g, int s, int t, double *x, double *y) {
-    for (int u = s; u < t; u++) {
+void spmv_part(CSR g, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
+#pragma omp parallel for schedule(static)
+    for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
             int v = g.col_idx[i];
@@ -27,10 +28,10 @@ void spmv_part(CSR g, int s, int t, double *x, double *y) {
     }
 }
 
-void partition_graph(CSR g, int k, int *p, double *x) {
-    if (k == 1) {
-        p[0] = 0;
-        p[1] = g.num_rows;
+void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
+    if (num_partitions == 1) {
+        partition_idx[0] = 0;
+        partition_idx[1] = g.num_rows;
         return;
     }
 
@@ -38,23 +39,24 @@ void partition_graph(CSR g, int k, int *p, double *x) {
     int objval;
     real_t ubvec = 1.01;
     int *part = malloc(sizeof(int) * g.num_rows);
-    int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &k, NULL, &ubvec, NULL,
-                                 &objval, part);
+    int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
+                                 &ubvec, NULL, &objval, part);
 
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
     int id = 0;
-    p[0] = 0;
-    for (int r = 0; r < k; r++) {
+    partition_idx[0] = 0;
+    for (int r = 0; r < num_partitions; r++) {
         for (int i = 0; i < g.num_rows; i++) {
             if (part[i] == r) {
                 old_id[id] = i;
                 new_id[i] = id++;
             }
         }
-        p[r + 1] = id;
+        partition_idx[r + 1] = id;
         printf("P: %d, %d\n", r, id);
     }
+    partition_idx[num_partitions] = g.num_rows;
 
     int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
     printf("%d\n", g.num_rows);
