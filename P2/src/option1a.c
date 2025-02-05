@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
         printf("Done partitioning graph\n");
     }
 
+    MPI_Barrier(MPI_COMM_WORLD);
     if (rank == 0)
         printf("Distributing graph\n");
 
