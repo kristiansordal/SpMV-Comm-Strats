@@ -1,3 +1,0 @@
-/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug/CMakeFiles/1d.dir
-/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug/CMakeFiles/edit_cache.dir
-/Users/kristiansordal/dev/uib/master/project/INF339/P2/build/Debug/CMakeFiles/rebuild_cache.dir
