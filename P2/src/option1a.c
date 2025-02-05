@@ -55,6 +55,11 @@ int main(int argc, char **argv) {
 
     printf("Rank %d: %d -> %d with %d\n", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
     fflush(stdout);
+
+    for (int i = p[rank]; i < p[rank + 1]; i++) {
+        Vo[i] = input[i - p[rank]];
+    }
+
     for (size_t it = 0; it < 1; it++) {
         Vo[0] = 0xffffff;
 
@@ -65,7 +70,6 @@ int main(int argc, char **argv) {
 
         for (int i = 0; i < 100; i++) {
             double tc1 = MPI_Wtime();
-
             spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
             int sendcount = p[rank + 1] - p[rank];
             MPI_Allgatherv(Vn, sendcount, MPI_DOUBLE, Vo, p, p, MPI_DOUBLE, MPI_COMM_WORLD);
