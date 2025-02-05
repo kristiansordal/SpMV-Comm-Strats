@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
             spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
             MPI_Barrier(MPI_COMM_WORLD);
             int sendcount = p[rank + 1] - p[rank];
-            MPI_Allgatherv(Vn + p[rank], sendcount, MPI_DOUBLE, Vo, p, p + 1, MPI_DOUBLE, MPI_COMM_WORLD);
+            MPI_Allgatherv(Vn, sendcount, MPI_DOUBLE, Vo, p, p + 1, MPI_DOUBLE, MPI_COMM_WORLD);
             MPI_Barrier(MPI_COMM_WORLD);
             double tc2 = MPI_Wtime();
 
