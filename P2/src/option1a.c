@@ -21,6 +21,9 @@ int main(int argc, char **argv) {
     int *p = malloc(sizeof(int) * size + 1);
 
     if (rank == 0) {
+        printf("%s", argv[1]);
+        printf("Parsing %d graph\n", rank);
+        printf("Parsing %d graph\n", rank);
         printf("Parsing graph\n");
         g = parse_and_validate_mtx(argv[1]);
         printf("Done parsing graph\n");
