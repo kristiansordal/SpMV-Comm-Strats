@@ -1,5 +1,4 @@
 #include "mtx.h"
-#include "p2.h"
 #include "spmv.h"
 #include <math.h>
 #include <mpi.h> // MPI header file
