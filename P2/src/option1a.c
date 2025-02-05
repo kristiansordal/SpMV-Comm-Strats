@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
         printf("%s", argv[1]);
         printf("Parsing %d graph\n", rank);
         printf("Parsing graph\n");
-        // g = parse_and_validate_mtx(argv[1]);
+        g = parse_and_validate_mtx(argv[1]);
         printf("Done parsing graph\n");
 
         input = malloc(sizeof(double) * g.num_rows);
