@@ -26,7 +26,9 @@ int main(int argc, char **argv) {
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
+        printf("Partitioning graph\n");
         partition_graph(g, size, p, input);
+        printf("Done partitioning graph\n");
     }
 
     if (rank == 0)
