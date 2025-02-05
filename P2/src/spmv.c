@@ -82,7 +82,6 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     }
 
     memcpy(x, new_X, sizeof(double) * g.num_rows);
-
     memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
     memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
     memcpy(g.values, new_A, sizeof(double) * g.num_cols);

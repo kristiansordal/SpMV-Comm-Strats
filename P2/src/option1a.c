@@ -31,21 +31,11 @@ int main(int argc, char **argv) {
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
-        printf("Partitioning graph\n");
         partition_graph(g, size, p, input);
-        printf("Done partitioning graph\n");
     }
 
-    printf("Rank %d waiting at first barrier\n", rank);
     MPI_Barrier(MPI_COMM_WORLD);
-    if (rank == 0)
-        printf("Distributing graph\n");
-
     distribute_graph(&g, rank);
-
-    if (rank == 0)
-        printf("Done distributing graph\n");
-
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     double *Vo = aligned_alloc(32, sizeof(double) * g.num_rows);
@@ -61,7 +51,7 @@ int main(int argc, char **argv) {
         }
         fflush(stdout);
     }
-    for (size_t it = 0; it < n_it; it++) {
+    for (size_t it = 0; it < 1; it++) {
         Vo[0] = 0xffffff;
 
         double tcomm = 0.0, tcomp = 0.0;
@@ -73,13 +63,13 @@ int main(int argc, char **argv) {
             double tc1 = MPI_Wtime();
 
             spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
-            MPI_Barrier(MPI_COMM_WORLD);
+            // MPI_Barrier(MPI_COMM_WORLD);
             int sendcount = p[rank + 1] - p[rank];
-            MPI_Allgatherv(Vn, sendcount, MPI_DOUBLE, Vo, p, p + 1, MPI_DOUBLE, MPI_COMM_WORLD);
+            MPI_Allgatherv(Vn, sendcount, MPI_DOUBLE, Vo, p, p, MPI_DOUBLE, MPI_COMM_WORLD);
             MPI_Barrier(MPI_COMM_WORLD);
             double tc2 = MPI_Wtime();
 
-            MPI_Barrier(MPI_COMM_WORLD);
+            // MPI_Barrier(MPI_COMM_WORLD);
             double tc3 = MPI_Wtime();
 
             tcomm += tc3 - tc2;
