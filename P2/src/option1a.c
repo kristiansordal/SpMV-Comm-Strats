@@ -44,6 +44,15 @@ int main(int argc, char **argv) {
         printf("NNZ: %d\n", g.num_cols);
     }
 
+    if (rank == 1) {
+        printf("Gonna print Vo\n");
+        for (int i = p[rank]; i < p[rank + 1]; i++) {
+            printf("%f ", Vo[i]);
+        }
+        printf("\n");
+        fflush(stdout);
+    }
+
     printf("Rank %d: %d -> %d with %d\n", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
     fflush(stdout);
     for (size_t it = 0; it < 1; it++) {
