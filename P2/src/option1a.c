@@ -38,12 +38,12 @@ int main(int argc, char **argv) {
 
     // -----Main program start-----
 
-    if (rank == 0) {
-        printf("Main program start\n");
-        printf("Num rows: %d\n", g.num_rows);
-        printf("NNZ: %d\n", g.num_cols);
-    }
+    // if (rank == 0) {
+    //     printf("Main program start\n");
+    //     printf("NNZ: %d\n", g.num_cols);
+    // }
 
+    printf("Rank %d num rows: %d\n", rank, g.num_rows);
     printf("Rank %d: %d -> %d with %d\n", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
     fflush(stdout);
 
