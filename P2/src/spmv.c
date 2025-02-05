@@ -17,6 +17,7 @@ void spmv(CSR g, double *x, double *y) {
 }
 
 void spmv_part(CSR g, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
+    printf("spmv_part: %d, %d\n", row_ptr_start_idx, row_ptr_end_idx);
 #pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
