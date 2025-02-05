@@ -45,6 +45,7 @@ int main(int argc, char **argv) {
     }
 
     printf("Rank %d: %d -> %d with %d\n", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
+    fflush(stdout);
     for (size_t it = 0; it < 1; it++) {
         Vo[0] = 0xffffff;
 
