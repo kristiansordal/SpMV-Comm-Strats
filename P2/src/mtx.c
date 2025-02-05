@@ -311,8 +311,6 @@ CSR parse_mtx(FILE *f) {
 
 CSR parse_and_validate_mtx(const char *path) {
     FILE *f = fopen(path, "r");
-    printf("Parsing %s\n", path);
-    fflush(stdout);
     CSR g = parse_mtx(f);
     fclose(f);
 

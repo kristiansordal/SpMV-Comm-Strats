@@ -21,13 +21,7 @@ int main(int argc, char **argv) {
     printf("I am rank: %d\n", rank);
 
     if (rank == 0) {
-        printf("%s", argv[1]);
-        printf("Parsing %d graph\n", rank);
-        printf("Parsing graph\n");
-        fflush(stdout);
         g = parse_and_validate_mtx(argv[1]);
-        printf("Done parsing graph\n");
-
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;

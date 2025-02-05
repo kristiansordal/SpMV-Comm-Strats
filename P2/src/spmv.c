@@ -17,7 +17,6 @@ void spmv(CSR g, double *x, double *y) {
 }
 
 void spmv_part(CSR g, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
-    printf("spmv_part: %d, %d\n", row_ptr_start_idx, row_ptr_end_idx);
 #pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
@@ -60,7 +59,6 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     partition_idx[num_partitions] = g.num_rows;
 
     int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
-    printf("%d\n", g.num_rows);
     int *new_E = malloc(sizeof(int) * g.num_cols);
     double *new_A = malloc(sizeof(double) * g.num_cols);
 
