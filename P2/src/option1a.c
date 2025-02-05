@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
     CSR g;
     double *input;
     int *p = malloc(sizeof(int) * size + 1);
+    printf("I am rank: %d\n", rank);
 
     if (rank == 0) {
         printf("%s", argv[1]);
