@@ -29,7 +29,14 @@ int main(int argc, char **argv) {
         partition_graph(g, size, p, input);
     }
 
+    if (rank == 0)
+        printf("Distributing graph\n");
+
     distribute_graph(&g, rank);
+
+    if (rank == 0)
+        printf("Done distributing graph\n");
+
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     double *Vo = aligned_alloc(32, sizeof(double) * g.num_rows);
@@ -38,6 +45,7 @@ int main(int argc, char **argv) {
     // -----Initialization end-----
 
     // -----Main program start-----
+    printf("Main program start\n");
     for (size_t it = 0; it < n_it; it++) {
         Vo[0] = 0xffffff;
 
