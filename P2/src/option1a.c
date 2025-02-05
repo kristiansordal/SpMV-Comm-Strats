@@ -59,6 +59,7 @@ int main(int argc, char **argv) {
         for (int i = 0; i <= size; i++) {
             printf("%d: %d\n", i, p[i]);
         }
+        fflush(stdout);
     }
     for (size_t it = 0; it < n_it; it++) {
         Vo[0] = 0xffffff;
