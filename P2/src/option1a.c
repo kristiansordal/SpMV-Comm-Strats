@@ -18,7 +18,6 @@ int main(int argc, char **argv) {
     CSR g;
     double *input;
     int *p = malloc(sizeof(int) * size + 1);
-    printf("I am rank: %d\n", rank);
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
@@ -38,9 +37,9 @@ int main(int argc, char **argv) {
     // -----Initialization end-----
 
     // -----Main program start-----
-    printf("Main program start\n");
 
     if (rank == 0) {
+        printf("Main program start\n");
         printf("Num rows: %d\n", g.num_rows);
         printf("NNZ: %d\n", g.num_cols);
     }
