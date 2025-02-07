@@ -47,9 +47,9 @@ int main(int argc, char **argv) {
     printf("Rank %d: %d -> %d with %d\n", rank, p[rank], p[rank + 1], p[rank + 1] - p[rank]);
     fflush(stdout);
 
-    // for (int i = p[rank]; i < p[rank + 1]; i++) {
-    //     Vo[i] = input[i];
-    // }
+    for (int i = 0; i < g.num_rows; i++) {
+        Vo[i] = input[i];
+    }
 
     if (rank == 1) {
         printf("Gonna print Vo\n");
