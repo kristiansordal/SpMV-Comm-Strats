@@ -53,6 +53,7 @@ int main(int argc, char **argv) {
 
     if (rank == 1) {
         printf("Gonna print Vo\n");
+        fflush(stdout);
         for (int i = p[rank]; i < p[rank + 1]; i++) {
             printf("%f ", Vo[i]);
         }
