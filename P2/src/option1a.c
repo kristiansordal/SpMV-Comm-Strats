@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     double *Vo = malloc(sizeof(double) * g.num_rows);
-    // double *Vn = aligned_alloc(32, sizeof(double) * g.num_rows);
+    double *Vn = malloc(sizeof(double) * g.num_rows);
 
     // -----Initialization end-----
 
