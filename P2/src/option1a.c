@@ -55,14 +55,16 @@ int main(int argc, char **argv) {
         printf("Gonna print Vo\n");
         fflush(stdout);
         for (int i = p[rank]; i < p[rank + 1]; i++) {
-            printf("%f ", Vo[i]);
+            printf("%d ", i);
         }
         printf("\n");
         fflush(stdout);
     }
 
+    printf("Rank %d at barrier", rank);
+    MPI_Barrier(MPI_COMM_WORLD);
     for (size_t it = 0; it < 1; it++) {
-        Vo[0] = 0xffffff;
+        // Vo[0] = 0xffffff;
 
         double tcomm = 0.0, tcomp = 0.0;
 
