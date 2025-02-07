@@ -62,6 +62,7 @@ int main(int argc, char **argv) {
     }
 
     printf("Rank %d at barrier", rank);
+    fflush(stdout);
     MPI_Barrier(MPI_COMM_WORLD);
     for (size_t it = 0; it < 1; it++) {
         // Vo[0] = 0xffffff;
