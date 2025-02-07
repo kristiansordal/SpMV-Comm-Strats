@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     fflush(stdout);
 
     for (int i = p[rank]; i < p[rank + 1]; i++) {
-        Vo[i] = input[i - p[rank]];
+        Vo[i] = input[i];
     }
 
     if (rank == 1) {
