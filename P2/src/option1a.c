@@ -58,10 +58,12 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
         int sendcount = p[rank + 1] - p[rank];
-
-        MPI_Allgatherv(Vo, sendcount, MPI_DOUBLE, Vo, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Allgatherv(Vo, sendcount, MPI_DOUBLE, Vn, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
+        double *tmp = Vo;
+        Vo = Vn;
+        Vn = tmp;
 
         double tc3 = MPI_Wtime();
 
@@ -80,7 +82,7 @@ int main(int argc, char **argv) {
 
     l2 = sqrt(l2);
 
-    double ops = (long long)g.num_cols * 8ll * 100ll; // 4 multiplications and 4 additions
+    double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
 
     if (rank == 0) {
