@@ -342,6 +342,18 @@ int compare(const void *a, const void *b, void *c) {
     return data[ia] - data[ib];
 }
 
+void insertion_sort(int *index, int *data, int size) {
+    for (int i = 1; i < size; i++) {
+        int key = index[i];
+        int j = i - 1;
+        while (j >= 0 && data[index[j]] > data[key]) {
+            index[j + 1] = index[j];
+            j--;
+        }
+        index[j + 1] = key;
+    }
+}
+
 void sort_edges(CSR g) {
 #pragma omp parallel
     {
@@ -352,10 +364,11 @@ void sort_edges(CSR g) {
 #pragma omp for
         for (int u = 0; u < g.num_rows; u++) {
             int degree = g.row_ptr[u + 1] - g.row_ptr[u];
+
             for (int i = 0; i < degree; i++)
                 index[i] = i;
 
-            qsort_r(index, degree, sizeof(int), compare, g.col_idx + g.row_ptr[u]);
+            insertion_sort(index, g.col_idx + g.row_ptr[u], degree);
 
             for (int i = 0; i < degree; i++) {
                 E_buffer[i] = g.col_idx[g.row_ptr[u] + index[i]];
