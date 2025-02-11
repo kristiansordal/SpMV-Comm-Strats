@@ -64,6 +64,13 @@ int main(int argc, char **argv) {
     printf("Rank %d at barrier", rank);
     fflush(stdout);
     MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 1) {
+        for (int i = 0; i < size + 1; i++) {
+            printf("%d ", p[i]);
+        }
+        printf("\n");
+        fflush(stdout);
+    }
     for (size_t it = 0; it < 1; it++) {
         // Vo[0] = 0xffffff;
 
@@ -72,11 +79,14 @@ int main(int argc, char **argv) {
         MPI_Barrier(MPI_COMM_WORLD);
         double t0 = MPI_Wtime();
 
+        // if (rank == 0) {
+        // }
+
         for (int i = 0; i < 100; i++) {
             double tc1 = MPI_Wtime();
-            // spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
+            spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
             int sendcount = p[rank + 1] - p[rank];
-            MPI_Allgatherv(Vn, sendcount, MPI_DOUBLE, Vo, p, p, MPI_DOUBLE, MPI_COMM_WORLD);
+            // MPI_Allgatherv(Vn, sendcount, MPI_DOUBLE, Vo, p, p, MPI_DOUBLE, MPI_COMM_WORLD);
             MPI_Barrier(MPI_COMM_WORLD);
             double tc2 = MPI_Wtime();
 
