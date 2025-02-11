@@ -82,15 +82,18 @@ int main(int argc, char **argv) {
 
     l2 = sqrt(l2);
 
-    double ops = (long long)g.num_cols * 2ll * 100ll;
+    // Compute FLOPs and memory bandwidth
+    double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
     double time = t1 - t0;
 
+    // Print results
     if (rank == 0) {
         printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
-               (ops / time) / 1e9, (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,
-               ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, l2);
+               (ops / time) / 1e9,                                             // GFLOPS
+               (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
+               ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
+               l2);
     }
-    // }
 
     free(Vn);
     free(Vo);
