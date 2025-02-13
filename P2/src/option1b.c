@@ -46,18 +46,6 @@ int main(int argc, char **argv) {
     find_sendlists(g, p, rank, size, c);
     find_receivelists(g, p, rank, size, c);
 
-    // printf("Rank %d: recv_count = %d\n", rank, c.send_count[rank]);
-    // if (rank == 1) {
-    //     int from = rank;
-    //     for (int to = 0; to < size; to++) {
-    //         for (int i = 0; i < c.send_count[to]; i++) {
-    //             printf("%d -> %d: send_items[%d][%d] = %d, send_lists[%d][%d] = %f\n", from, to, to, i,
-    //                    c.send_items[to][i], to, i, c.send_lists[to][i]);
-    //             fflush(stdout);
-    //         }
-    //     }
-    // }
-
     // -----Initialization start-----
     MPI_Barrier(MPI_COMM_WORLD);
     double ts0 = MPI_Wtime();
@@ -83,33 +71,34 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
         double tc2 = MPI_Wtime();
+        exchange_separators(c, Vo, rank, size);
 
-        // Communication of separator elements
-        for (int partner = 0; partner < size; partner++) {
-            if (partner == rank)
-                continue; // No self-communication
+        // // Communication of separator elements
+        // for (int partner = 0; partner < size; partner++) {
+        //     if (partner == rank)
+        //         continue; // No self-communication
 
-            // Non-blocking sends
-            for (int i = 0; i < c.send_count[partner]; i++) {
-                int u = Vo[c.send_items[partner][i]];
-                MPI_Isend(&u, 1, MPI_DOUBLE, partner, 1, MPI_COMM_WORLD, &sends[partner][i]);
-            }
+        //     // Non-blocking sends
+        //     for (int i = 0; i < c.send_count[partner]; i++) {
+        //         int u = Vo[c.send_items[partner][i]];
+        //         MPI_Isend(&u, 1, MPI_DOUBLE, partner, 1, MPI_COMM_WORLD, &sends[partner][i]);
+        //     }
 
-            // Non-blocking receives
-            for (int i = 0; i < c.receive_count[partner]; i++) {
-                MPI_Irecv(&Vn[c.receive_items[partner][i]], 1, MPI_DOUBLE, partner, 1, MPI_COMM_WORLD,
-                          &recvs[partner][i]);
-            }
-        }
+        //     // Non-blocking receives
+        //     for (int i = 0; i < c.receive_count[partner]; i++) {
+        //         MPI_Irecv(&Vn[c.receive_items[partner][i]], 1, MPI_DOUBLE, partner, 1, MPI_COMM_WORLD,
+        //                   &recvs[partner][i]);
+        //     }
+        // }
 
-        // Wait for all sends/receives to complete
-        for (int partner = 0; partner < size; partner++) {
-            if (partner == rank)
-                continue;
+        // // Wait for all sends/receives to complete
+        // for (int partner = 0; partner < size; partner++) {
+        //     if (partner == rank)
+        //         continue;
 
-            MPI_Waitall(c.send_count[partner], sends[partner], MPI_STATUSES_IGNORE);
-            MPI_Waitall(c.receive_count[partner], recvs[partner], MPI_STATUSES_IGNORE);
-        }
+        //     MPI_Waitall(c.send_count[partner], sends[partner], MPI_STATUSES_IGNORE);
+        //     MPI_Waitall(c.receive_count[partner], recvs[partner], MPI_STATUSES_IGNORE);
+        // }
 
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
