@@ -1,9 +1,8 @@
 #include "p2.h"
-#include <stdlib.h>
 #include <stdalign.h>
+#include <stdlib.h>
 
-mesh init_mesh_4(int scale, double alpha, double beta)
-{
+mesh init_mesh_4(int scale, double alpha, double beta) {
     int N = 1 << scale;
 
     mesh m;
@@ -12,8 +11,7 @@ mesh init_mesh_4(int scale, double alpha, double beta)
     m.A = aligned_alloc(32, sizeof(double) * m.N * 4);
     m.I = aligned_alloc(16, sizeof(int) * m.N * 4);
 
-    for (size_t i = 0; i < m.N; i++)
-    {
+    for (size_t i = 0; i < m.N; i++) {
         m.A[i * 4] = beta;
         m.A[i * 4 + 1] = beta;
         m.A[i * 4 + 2] = beta;
@@ -47,21 +45,16 @@ mesh init_mesh_4(int scale, double alpha, double beta)
     return m;
 }
 
-void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *new_id)
-{
+void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *new_id) {
     double *tA = malloc(sizeof(double) * nonzero * rows);
     int *tI = malloc(sizeof(int) * nonzero * rows);
 
-    for (size_t rank = 0; rank < size; rank++)
-    {
+    for (size_t rank = 0; rank < size; rank++) {
         sep[rank] = 0;
-        for (size_t i = 0; i < rows; i++)
-        {
-            for (size_t j = 0; j < nonzero; j++)
-            {
+        for (size_t i = 0; i < rows; i++) {
+            for (size_t j = 0; j < nonzero; j++) {
                 int u = m.I[(rank * rows + i) * nonzero + j];
-                if (u < rank * rows || u >= (rank + 1) * rows)
-                {
+                if (u < rank * rows || u >= (rank + 1) * rows) {
                     sep[rank]++;
                     break;
                 }
@@ -69,15 +62,12 @@ void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *
         }
 
         int ti = rank * rows, tj = rank * rows + sep[rank];
-        for (size_t i = 0; i < rows; i++)
-        {
+        for (size_t i = 0; i < rows; i++) {
             int any = 0;
             int u = i + rank * rows;
-            for (size_t j = 0; j < nonzero; j++)
-            {
+            for (size_t j = 0; j < nonzero; j++) {
                 int v = m.I[(rank * rows + i) * nonzero + j];
-                if (v < rank * rows || v >= (rank + 1) * rows)
-                {
+                if (v < rank * rows || v >= (rank + 1) * rows) {
                     old_id[ti] = u;
                     new_id[u] = ti;
                     ti++;
@@ -85,8 +75,7 @@ void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *
                     break;
                 }
             }
-            if (!any)
-            {
+            if (!any) {
                 old_id[tj] = u;
                 new_id[u] = tj;
                 tj++;
@@ -113,28 +102,23 @@ void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *
     free(tI);
 }
 
-void free_mesh(mesh *m)
-{
+void free_mesh(mesh *m) {
     m->N = 0;
     free(m->A);
     free(m->I);
 }
 
-void step_ref(mesh m, double *Vold, double *Vnew)
-{
-    for (size_t i = 0; i < m.N; i++)
-    {
+void step_ref(mesh m, double *Vold, double *Vnew) {
+    for (size_t i = 0; i < m.N; i++) {
         Vnew[i] = 0.0;
         for (size_t j = 0; j < nonzero; j++)
             Vnew[i] += m.A[i * nonzero + j] * Vold[m.I[i * nonzero + j]];
     }
 }
 
-void step_par(mesh m, double *Vold, double *Vnew)
-{
+void step_par(mesh m, double *Vold, double *Vnew) {
 #pragma omp parallel for
-    for (size_t i = 0.0; i < m.N; i++)
-    {
+    for (size_t i = 0.0; i < m.N; i++) {
         Vnew[i] = 0.0;
         for (size_t j = 0; j < nonzero; j++)
             Vnew[i] += m.A[i * nonzero + j] * Vold[m.I[i * nonzero + j]];
