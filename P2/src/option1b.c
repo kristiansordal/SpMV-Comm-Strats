@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
         double tc2 = MPI_Wtime();
-        exchange_separators(c, Vo, rank, size);
+        exchange_separators(c, Vn, rank, size);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     t1 = MPI_Wtime();
 
     // #pragma omp master
-    //
+
     //     {
     //         MPI_Barrier(MPI_COMM_WORLD);
     //         double tc2 = MPI_Wtime();
@@ -156,7 +156,7 @@ int main(int argc, char **argv) {
     t1 = MPI_Wtime();
     double l2 = 0.0;
     for (int j = 0; j < g.num_rows; j++)
-        l2 += Vn[j] * Vn[j];
+        l2 += Vo[j] * Vo[j];
 
     l2 = sqrt(l2);
 
