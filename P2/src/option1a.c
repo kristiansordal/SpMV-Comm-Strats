@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
         recvcounts[i] = p[i + 1] - p[i];                              // Each process sends its own chunk
         displs[i] = (i == 0) ? 0 : displs[i - 1] + recvcounts[i - 1]; // Compute displacements
     }
+
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);

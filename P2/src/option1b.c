@@ -57,49 +57,17 @@ int main(int argc, char **argv) {
     MPI_Bcast(new_id, g.num_rows, MPI_INT, 0, MPI_COMM_WORLD);
 
     // ----- Main Program Start -----
-    int num_send_reqs = 0, num_recv_reqs = 0;
-
-    MPI_Request **sends = malloc(size * sizeof(MPI_Request *));
-    MPI_Request **recvs = malloc(size * sizeof(MPI_Request *));
-    for (int i = 0; i < size; i++) {
-        sends[i] = malloc(c.send_count[i] * sizeof(MPI_Request));
-        recvs[i] = malloc(c.receive_count[i] * sizeof(MPI_Request));
+    for (int i = 0; i < g.num_rows; i++) {
+        Vo[i] = 1.0;
+        Vn[i] = 1.0;
     }
 
     t0 = MPI_Wtime();
-    for (int iter = 0; iter < 100; iter++) {
+    for (int iter = 0; iter < 10; iter++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
         double tc2 = MPI_Wtime();
         exchange_separators(c, Vo, rank, size);
-
-        // // Communication of separator elements
-        // for (int partner = 0; partner < size; partner++) {
-        //     if (partner == rank)
-        //         continue; // No self-communication
-
-        //     // Non-blocking sends
-        //     for (int i = 0; i < c.send_count[partner]; i++) {
-        //         int u = Vo[c.send_items[partner][i]];
-        //         MPI_Isend(&u, 1, MPI_DOUBLE, partner, 1, MPI_COMM_WORLD, &sends[partner][i]);
-        //     }
-
-        //     // Non-blocking receives
-        //     for (int i = 0; i < c.receive_count[partner]; i++) {
-        //         MPI_Irecv(&Vn[c.receive_items[partner][i]], 1, MPI_DOUBLE, partner, 1, MPI_COMM_WORLD,
-        //                   &recvs[partner][i]);
-        //     }
-        // }
-
-        // // Wait for all sends/receives to complete
-        // for (int partner = 0; partner < size; partner++) {
-        //     if (partner == rank)
-        //         continue;
-
-        //     MPI_Waitall(c.send_count[partner], sends[partner], MPI_STATUSES_IGNORE);
-        //     MPI_Waitall(c.receive_count[partner], recvs[partner], MPI_STATUSES_IGNORE);
-        // }
-
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
