@@ -119,8 +119,10 @@ int main(int argc, char **argv) {
         Vo = Vn;
         Vn = tmp;
     }
+    t1 = MPI_Wtime();
 
     // #pragma omp master
+    //
     //     {
     //         MPI_Barrier(MPI_COMM_WORLD);
     //         double tc2 = MPI_Wtime();
