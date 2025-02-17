@@ -1,20 +1,20 @@
 [
 {
-  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P3/build/Debug",
-  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P3/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1e.dir/src/main_dist.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P3/src/main_dist.c",
-  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P3/src/main_dist.c",
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1e.dir/src/main_dist.c.o -c /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/main_dist.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/main_dist.c",
   "output": "CMakeFiles/1e.dir/src/main_dist.c.o"
 },
 {
-  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P3/build/Debug",
-  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P3/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1e.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P3/src/spmv.c",
-  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P3/src/spmv.c",
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1e.dir/src/spmv.c.o -c /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/spmv.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/spmv.c",
   "output": "CMakeFiles/1e.dir/src/spmv.c.o"
 },
 {
-  "directory": "/Users/kristiansordal/dev/uib/master/project/INF339/P3/build/Debug",
-  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/INF339/P3/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1e.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/INF339/P3/src/mtx.c",
-  "file": "/Users/kristiansordal/dev/uib/master/project/INF339/P3/src/mtx.c",
+  "directory": "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/build/Debug",
+  "command": "/opt/homebrew/Cellar/gcc/14.1.0_2/bin/gcc-14  -I/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/include -I/opt/homebrew/Cellar/open-mpi/5.0.6/include -I/opt/homebrew/include -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk -fopenmp -o CMakeFiles/1e.dir/src/mtx.c.o -c /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/mtx.c",
+  "file": "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/mtx.c",
   "output": "CMakeFiles/1e.dir/src/mtx.c.o"
 }
 ]

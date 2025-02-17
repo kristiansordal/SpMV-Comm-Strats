@@ -7,10 +7,10 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/Users/kristiansordal/dev/uib/master/project/INF339/P3/CMakeLists.txt"
+  "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/CMakeLists.txt"
   "CMakeFiles/3.30.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.30.1/CMakeSystem.cmake"
-  "/Users/kristiansordal/dev/uib/master/project/INF339/P3/cmake/FindMETIS.cmake"
+  "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/cmake/FindMETIS.cmake"
   "/opt/homebrew/Cellar/cmake/3.30.1/share/cmake/Modules/CMakeCCompiler.cmake.in"
   "/opt/homebrew/Cellar/cmake/3.30.1/share/cmake/Modules/CMakeCCompilerABI.c"
   "/opt/homebrew/Cellar/cmake/3.30.1/share/cmake/Modules/CMakeCInformation.cmake"

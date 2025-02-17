@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/kristiansordal/dev/uib/master/project/INF339/P3/src/main_dist.c" "CMakeFiles/1e.dir/src/main_dist.c.o" "gcc" "CMakeFiles/1e.dir/src/main_dist.c.o.d"
-  "/Users/kristiansordal/dev/uib/master/project/INF339/P3/src/mtx.c" "CMakeFiles/1e.dir/src/mtx.c.o" "gcc" "CMakeFiles/1e.dir/src/mtx.c.o.d"
-  "/Users/kristiansordal/dev/uib/master/project/INF339/P3/src/spmv.c" "CMakeFiles/1e.dir/src/spmv.c.o" "gcc" "CMakeFiles/1e.dir/src/spmv.c.o.d"
+  "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/main_dist.c" "CMakeFiles/1e.dir/src/main_dist.c.o" "gcc" "CMakeFiles/1e.dir/src/main_dist.c.o.d"
+  "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/mtx.c" "CMakeFiles/1e.dir/src/mtx.c.o" "gcc" "CMakeFiles/1e.dir/src/mtx.c.o.d"
+  "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/spmv.c" "CMakeFiles/1e.dir/src/spmv.c.o" "gcc" "CMakeFiles/1e.dir/src/spmv.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

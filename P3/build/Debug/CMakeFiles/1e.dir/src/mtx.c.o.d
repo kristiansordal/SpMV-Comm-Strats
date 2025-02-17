@@ -1,6 +1,6 @@
 CMakeFiles/1e.dir/src/mtx.c.o: \
- /Users/kristiansordal/dev/uib/master/project/INF339/P3/src/mtx.c \
- /Users/kristiansordal/dev/uib/master/project/INF339/P3/include/mtx.h \
+ /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/mtx.c \
+ /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/include/mtx.h \
  /opt/homebrew/Cellar/gcc/14.1.0_2/lib/gcc/current/gcc/aarch64-apple-darwin23/14/include-fixed/stdio.h \
  /opt/homebrew/Cellar/gcc/14.1.0_2/lib/gcc/current/gcc/aarch64-apple-darwin23/14/include/stdarg.h \
  /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/_stdio.h \

@@ -1,6 +1,6 @@
 CMakeFiles/1e.dir/src/main_dist.c.o: \
- /Users/kristiansordal/dev/uib/master/project/INF339/P3/src/main_dist.c \
- /Users/kristiansordal/dev/uib/master/project/INF339/P3/include/mtx.h \
+ /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/src/main_dist.c \
+ /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/include/mtx.h \
  /opt/homebrew/Cellar/gcc/14.1.0_2/lib/gcc/current/gcc/aarch64-apple-darwin23/14/include-fixed/stdio.h \
  /opt/homebrew/Cellar/gcc/14.1.0_2/lib/gcc/current/gcc/aarch64-apple-darwin23/14/include/stdarg.h \
  /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/_stdio.h \
@@ -38,7 +38,7 @@ CMakeFiles/1e.dir/src/main_dist.c.o: \
  /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/sys/_types/_ssize_t.h \
  /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/secure/_stdio.h \
  /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/secure/_common.h \
- /Users/kristiansordal/dev/uib/master/project/INF339/P3/include/spmv.h \
+ /Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P3/include/spmv.h \
  /opt/homebrew/Cellar/gcc/14.1.0_2/lib/gcc/current/gcc/aarch64-apple-darwin23/14/include-fixed/math.h \
  /opt/homebrew/Cellar/open-mpi/5.0.6/include/mpi.h \
  /opt/homebrew/Cellar/gcc/14.1.0_2/lib/gcc/current/gcc/aarch64-apple-darwin23/14/include/stddef.h \
