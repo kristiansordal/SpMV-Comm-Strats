@@ -249,56 +249,56 @@ void internal_free_mtx(mtx *m) {
     m->A = NULL;
 }
 
-graph parse_mtx(FILE *f) {
+CSR parse_mtx(FILE *f) {
     mtx m = internal_parse_mtx_seq(f);
 
-    graph g;
-    g.N = m.N > m.M ? m.N : m.M;
-    g.V = calloc(g.N + 1, sizeof(int));
+    CSR g;
+    g.num_rows = m.N > m.M ? m.N : m.M;
+    g.row_ptr = calloc(g.num_rows + 1, sizeof(int));
 
     // Count degree
 
 #pragma omp parallel for
     for (int i = 0; i < m.L; i++) {
-        __atomic_add_fetch(g.V + (m.I[i] - 1), 1, __ATOMIC_RELAXED);
+        __atomic_add_fetch(g.row_ptr + (m.I[i] - 1), 1, __ATOMIC_RELAXED);
 
         if (m.I[i] != m.J[i] && m.symmetry == SYMMETRIC)
-            __atomic_add_fetch(g.V + (m.J[i] - 1), 1, __ATOMIC_RELAXED);
+            __atomic_add_fetch(g.row_ptr + (m.J[i] - 1), 1, __ATOMIC_RELAXED);
 
-        // g.V[m.I[i] - 1]++;
+        // g.row_ptr[m.I[i] - 1]++;
         // if (m.I[i] != m.J[i] && m.symmetry == SYMMETRIC)
-        //     g.V[m.J[i] - 1]++;
+        //     g.row_ptr[m.J[i] - 1]++;
     }
 
-    for (int i = 1; i <= g.N; i++) {
-        g.V[i] += g.V[i - 1];
+    for (int i = 1; i <= g.num_rows; i++) {
+        g.row_ptr[i] += g.row_ptr[i - 1];
     }
 
-    g.M = g.V[g.N];
-    g.E = malloc(sizeof(int) * g.M);
-    g.A = malloc(sizeof(double) * g.M);
+    g.num_cols = g.row_ptr[g.num_rows];
+    g.col_idx = malloc(sizeof(int) * g.num_cols);
+    g.values = malloc(sizeof(double) * g.num_cols);
 
 #pragma omp parallel for
     for (int i = 0; i < m.L; i++) {
-        int j = __atomic_sub_fetch(g.V + (m.I[i] - 1), 1, __ATOMIC_RELAXED);
-        g.E[j] = m.J[i] - 1;
-        g.A[j] = m.A[i];
+        int j = __atomic_sub_fetch(g.row_ptr + (m.I[i] - 1), 1, __ATOMIC_RELAXED);
+        g.col_idx[j] = m.J[i] - 1;
+        g.values[j] = m.A[i];
 
         if (m.I[i] != m.J[i] && m.symmetry == SYMMETRIC) {
-            j = __atomic_sub_fetch(g.V + (m.J[i] - 1), 1, __ATOMIC_RELAXED);
-            g.E[j] = m.I[i] - 1;
-            g.A[j] = m.A[i];
+            j = __atomic_sub_fetch(g.row_ptr + (m.J[i] - 1), 1, __ATOMIC_RELAXED);
+            g.col_idx[j] = m.I[i] - 1;
+            g.values[j] = m.A[i];
         }
 
-        // g.V[m.I[i] - 1]--;
-        // g.E[g.V[m.I[i] - 1]] = m.J[i] - 1;
-        // g.A[g.V[m.I[i] - 1]] = m.A[i];
+        // g.row_ptr[m.I[i] - 1]--;
+        // g.col_idx[g.row_ptr[m.I[i] - 1]] = m.J[i] - 1;
+        // g.values[g.row_ptr[m.I[i] - 1]] = m.A[i];
 
         // if (m.I[i] != m.J[i] && m.symmetry == SYMMETRIC)
         // {
-        //     g.V[m.J[i] - 1]--;
-        //     g.E[g.V[m.J[i] - 1]] = m.I[i] - 1;
-        //     g.A[g.V[m.J[i] - 1]] = m.A[i];
+        //     g.row_ptr[m.J[i] - 1]--;
+        //     g.col_idx[g.row_ptr[m.J[i] - 1]] = m.I[i] - 1;
+        //     g.values[g.row_ptr[m.J[i] - 1]] = m.A[i];
         // }
     }
 
@@ -307,12 +307,12 @@ graph parse_mtx(FILE *f) {
     return g;
 }
 
-graph parse_and_validate_mtx(const char *path) {
+CSR parse_and_validate_mtx(const char *path) {
     FILE *f = fopen(path, "r");
-    graph g = parse_mtx(f);
+    CSR g = parse_mtx(f);
     fclose(f);
 
-    printf("|V|=%d |E|=%d\n", g.N, g.M);
+    printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);
 
     normalize_graph(g);
     sort_edges(g);
@@ -322,15 +322,15 @@ graph parse_and_validate_mtx(const char *path) {
     return g;
 }
 
-void free_graph(graph *g) {
-    g->N = 0;
-    g->M = 0;
-    free(g->A);
-    free(g->V);
-    free(g->E);
-    g->A = NULL;
-    g->V = NULL;
-    g->E = NULL;
+void free_graph(CSR *g) {
+    g->num_rows = 0;
+    g->num_cols = 0;
+    free(g->values);
+    free(g->row_ptr);
+    free(g->col_idx);
+    g->values = NULL;
+    g->row_ptr = NULL;
+    g->col_idx = NULL;
 }
 
 int compare(const void *a, const void *b, void *c) {
@@ -352,28 +352,28 @@ void insertion_sort(int *index, int *data, int size) {
     }
 }
 
-void sort_edges(graph g) {
+void sort_edges(CSR g) {
 #pragma omp parallel
     {
-        int *index = malloc(sizeof(int) * g.N);
-        int *E_buffer = malloc(sizeof(int) * g.N);
-        double *A_buffer = malloc(sizeof(double) * g.N);
+        int *index = malloc(sizeof(int) * g.num_rows);
+        int *E_buffer = malloc(sizeof(int) * g.num_rows);
+        double *A_buffer = malloc(sizeof(double) * g.num_rows);
 
 #pragma omp for
-        for (int u = 0; u < g.N; u++) {
-            int degree = g.V[u + 1] - g.V[u];
+        for (int u = 0; u < g.num_rows; u++) {
+            int degree = g.row_ptr[u + 1] - g.row_ptr[u];
             for (int i = 0; i < degree; i++)
                 index[i] = i;
 
-            insertion_sort(index, g.E + g.V[u], degree);
+            insertion_sort(index, g.col_idx + g.row_ptr[u], degree);
 
             for (int i = 0; i < degree; i++) {
-                E_buffer[i] = g.E[g.V[u] + index[i]];
-                A_buffer[i] = g.A[g.V[u] + index[i]];
+                E_buffer[i] = g.col_idx[g.row_ptr[u] + index[i]];
+                A_buffer[i] = g.values[g.row_ptr[u] + index[i]];
             }
 
-            memcpy(g.E + g.V[u], E_buffer, degree * sizeof(int));
-            memcpy(g.A + g.V[u], A_buffer, degree * sizeof(double));
+            memcpy(g.col_idx + g.row_ptr[u], E_buffer, degree * sizeof(int));
+            memcpy(g.values + g.row_ptr[u], A_buffer, degree * sizeof(double));
         }
 
         free(index);
@@ -383,48 +383,48 @@ void sort_edges(graph g) {
     printf("Graph sorted\n");
 }
 
-void normalize_graph(graph g) {
+void normalize_graph(CSR g) {
     double mean = 0.0;
 #pragma omp parallel for reduction(+ : mean)
-    for (int i = 0; i < g.M; i++) {
-        mean += g.A[i];
+    for (int i = 0; i < g.num_cols; i++) {
+        mean += g.values[i];
     }
 
     if (mean == 0.0) // All zero input
     {
 #pragma omp parallel for
-        for (int i = 0; i < g.M; i++)
-            g.A[i] = 2.0;
+        for (int i = 0; i < g.num_cols; i++)
+            g.values[i] = 2.0;
         return;
     }
 
-    mean /= (double)g.M;
+    mean /= (double)g.num_cols;
 
     double std = 0.0;
 #pragma omp parallel for reduction(+ : std)
-    for (int i = 0; i < g.M; i++) {
-        std += (g.A[i] - mean) * (g.A[i] - mean);
+    for (int i = 0; i < g.num_cols; i++) {
+        std += (g.values[i] - mean) * (g.values[i] - mean);
     }
 
-    std = sqrt(std / (double)g.M);
+    std = sqrt(std / (double)g.num_cols);
 
 #pragma omp parallel for
-    for (int i = 0; i < g.M; i++) {
-        g.A[i] = (g.A[i] - mean) / (std + __DBL_EPSILON__);
+    for (int i = 0; i < g.num_cols; i++) {
+        g.values[i] = (g.values[i] - mean) / (std + __DBL_EPSILON__);
     }
     printf("Graph normiazlied\n");
 }
 
-int validate_graph(graph g) {
-    for (int u = 0; u < g.N; u++) {
-        int degree = g.V[u + 1] - g.V[u];
-        if (degree < 0 || degree > g.M)
+int validate_graph(CSR g) {
+    for (int u = 0; u < g.num_rows; u++) {
+        int degree = g.row_ptr[u + 1] - g.row_ptr[u];
+        if (degree < 0 || degree > g.num_cols)
             return 0;
 
-        for (int i = g.V[u]; i < g.V[u + 1]; i++) {
-            if (g.E[i] < 0 || g.E[i] > g.M)
+        for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
+            if (g.col_idx[i] < 0 || g.col_idx[i] > g.num_cols)
                 return 0;
-            if (i > g.V[u] && g.E[i] <= g.E[i - 1])
+            if (i > g.row_ptr[u] && g.col_idx[i] <= g.col_idx[i - 1])
                 return 0;
         }
     }

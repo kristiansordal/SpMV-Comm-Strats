@@ -4,48 +4,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-void spmv(graph g, double *x, double *y) {
+void spmv(CSR g, double *x, double *y) {
 #pragma omp parallel for
-    for (int u = 0; u < g.N; u++) {
+    for (int u = 0; u < g.num_rows; u++) {
         double z = 0.0;
-        for (int i = g.V[u]; i < g.V[u + 1]; i++) {
-            int v = g.E[i];
-            z += x[v] * g.A[i];
+        for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
+            int v = g.col_idx[i];
+            z += x[v] * g.values[i];
         }
         y[u] = z;
     }
 }
 
-void spmv_part(graph g, int s, int t, double *x, double *y) {
+void spmv_part(CSR g, int s, int t, double *x, double *y) {
     for (int u = s; u < t; u++) {
         double z = 0.0;
-        for (int i = g.V[u]; i < g.V[u + 1]; i++) {
-            int v = g.E[i];
-            z += x[v] * g.A[i];
+        for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
+            int v = g.col_idx[i];
+            z += x[v] * g.values[i];
         }
         y[u] = z;
     }
 }
 
-void partition_graph(graph g, int k, int *p, double *x) {
+void partition_graph(CSR g, int k, int *p, double *x) {
     if (k == 1) {
         p[0] = 0;
-        p[1] = g.N;
+        p[1] = g.num_rows;
         return;
     }
 
     int ncon = 1;
     int objval;
     real_t ubvec = 1.01;
-    int *part = malloc(sizeof(int) * g.N);
-    int rc = METIS_PartGraphKway(&g.N, &ncon, g.V, g.E, NULL, NULL, NULL, &k, NULL, &ubvec, NULL, &objval, part);
+    int *part = malloc(sizeof(int) * g.num_rows);
+    int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &k, NULL, &ubvec, NULL,
+                                 &objval, part);
 
-    int *new_id = malloc(sizeof(int) * g.N);
-    int *old_id = malloc(sizeof(int) * g.N);
+    int *new_id = malloc(sizeof(int) * g.num_rows);
+    int *old_id = malloc(sizeof(int) * g.num_rows);
     int id = 0;
     p[0] = 0;
     for (int r = 0; r < k; r++) {
-        for (int i = 0; i < g.N; i++) {
+        for (int i = 0; i < g.num_rows; i++) {
             if (part[i] == r) {
                 old_id[id] = i;
                 new_id[i] = id++;
@@ -55,33 +56,33 @@ void partition_graph(graph g, int k, int *p, double *x) {
         printf("P: %d, %d\n", r, id);
     }
 
-    int *new_V = malloc(sizeof(int) * (g.N + 1));
-    printf("%d\n", g.N);
-    int *new_E = malloc(sizeof(int) * g.M);
-    double *new_A = malloc(sizeof(double) * g.M);
+    int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
+    printf("%d\n", g.num_rows);
+    int *new_E = malloc(sizeof(int) * g.num_cols);
+    double *new_A = malloc(sizeof(double) * g.num_cols);
 
     new_V[0] = 0;
-    for (int i = 0; i < g.N; i++) {
-        int d = g.V[old_id[i] + 1] - g.V[old_id[i]];
+    for (int i = 0; i < g.num_rows; i++) {
+        int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
         new_V[i + 1] = new_V[i] + d;
-        memcpy(new_E + new_V[i], g.E + g.V[old_id[i]], sizeof(int) * d);
-        memcpy(new_A + new_V[i], g.A + g.V[old_id[i]], sizeof(double) * d);
+        memcpy(new_E + new_V[i], g.col_idx + g.row_ptr[old_id[i]], sizeof(int) * d);
+        memcpy(new_A + new_V[i], g.values + g.row_ptr[old_id[i]], sizeof(double) * d);
 
         for (int j = new_V[i]; j < new_V[i + 1]; j++) {
             new_E[j] = new_id[new_E[j]];
         }
     }
 
-    double *new_X = malloc(sizeof(double) * g.N);
-    for (int i = 0; i < g.N; i++) {
+    double *new_X = malloc(sizeof(double) * g.num_rows);
+    for (int i = 0; i < g.num_rows; i++) {
         new_X[i] = x[old_id[i]];
     }
 
-    memcpy(x, new_X, sizeof(double) * g.N);
+    memcpy(x, new_X, sizeof(double) * g.num_rows);
 
-    memcpy(g.V, new_V, sizeof(int) * (g.N + 1));
-    memcpy(g.E, new_E, sizeof(int) * g.M);
-    memcpy(g.A, new_A, sizeof(double) * g.M);
+    memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
+    memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
+    memcpy(g.values, new_A, sizeof(double) * g.num_cols);
 
     free(new_V);
     free(new_E);
@@ -93,12 +94,12 @@ void partition_graph(graph g, int k, int *p, double *x) {
     free(part);
 }
 
-void partition_graph_naive(graph g, int s, int t, int k, int *p) {
-    int edges_per = (g.V[t] - g.V[s]) / k;
+void partition_graph_naive(CSR g, int s, int t, int k, int *p) {
+    int edges_per = (g.row_ptr[t] - g.row_ptr[s]) / k;
     p[0] = s;
     int id = 1;
     for (int u = s; u < t; u++) {
-        if ((g.V[u] - g.V[s]) >= edges_per * id)
+        if ((g.row_ptr[u] - g.row_ptr[s]) >= edges_per * id)
             p[id++] = u;
     }
     while (id <= k)
@@ -106,19 +107,19 @@ void partition_graph_naive(graph g, int s, int t, int k, int *p) {
     p[k] = t;
 }
 
-void distribute_graph(graph *g, int rank) {
-    MPI_Bcast(&g->N, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&g->M, 1, MPI_INT, 0, MPI_COMM_WORLD);
+void distribute_graph(CSR *g, int rank) {
+    MPI_Bcast(&g->num_rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&g->num_cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank != 0) {
-        g->V = malloc(sizeof(int) * (g->N + 1));
-        g->E = malloc(sizeof(int) * g->M);
-        g->A = malloc(sizeof(double) * g->M);
+        g->row_ptr = malloc(sizeof(int) * (g->num_rows + 1));
+        g->col_idx = malloc(sizeof(int) * g->num_cols);
+        g->values = malloc(sizeof(double) * g->num_cols);
     }
 
-    MPI_Bcast(g->V, g->N + 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(g->E, g->M, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(g->A, g->M, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Bcast(g->row_ptr, g->num_rows + 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(g->col_idx, g->num_cols, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(g->values, g->num_cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 }
 
 comm_lists init_comm_lists(int size) {
@@ -149,8 +150,8 @@ void free_comm_lists(comm_lists *c, int size) {
     free(c->receive_lists);
 }
 
-void find_sendlists(graph g, int *p, int rank, int size, comm_lists c) {
-    int *send_mark = malloc(sizeof(int) * g.N);
+void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c) {
+    int *send_mark = malloc(sizeof(int) * g.num_rows);
     for (int r = 0; r < size; r++) {
         c.send_count[r] = 0;
         c.send_items[r] = NULL;
@@ -164,8 +165,8 @@ void find_sendlists(graph g, int *p, int rank, int size, comm_lists c) {
 
         // Find separators
         for (int u = p[r]; u < p[r + 1]; u++) {
-            for (int i = g.V[u]; i < g.V[u + 1]; i++) {
-                int v = g.E[i];
+            for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
+                int v = g.col_idx[i];
                 if (v >= p[rank] && v < p[rank + 1])
                     send_mark[v] = 1;
             }
@@ -191,8 +192,8 @@ void find_sendlists(graph g, int *p, int rank, int size, comm_lists c) {
     free(send_mark);
 }
 
-void find_receivelists(graph g, int *p, int rank, int size, comm_lists c) {
-    int *receive_mark = malloc(sizeof(int) * g.N);
+void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c) {
+    int *receive_mark = malloc(sizeof(int) * g.num_rows);
     for (int r = 0; r < size; r++) {
         c.receive_count[r] = 0;
         c.receive_items[r] = NULL;
@@ -206,8 +207,8 @@ void find_receivelists(graph g, int *p, int rank, int size, comm_lists c) {
 
         // Find separators
         for (int u = p[rank]; u < p[rank + 1]; u++) {
-            for (int i = g.V[u]; i < g.V[u + 1]; i++) {
-                int v = g.E[i];
+            for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
+                int v = g.col_idx[i];
                 if (v >= p[r] && v < p[r + 1])
                     receive_mark[v] = 1;
             }

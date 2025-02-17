@@ -10,9 +10,9 @@
 #define COMPUTE 1
 #define COMMUNICATION 2
 
-void run(graph g, int it, double *input, int rank, int size, comm_lists c, int *p, int opt) {
-    double *V = malloc(sizeof(double) * g.N);
-    double *Y = malloc(sizeof(double) * g.N);
+void run(CSR g, int it, double *input, int rank, int size, comm_lists c, int *p, int opt) {
+    double *V = malloc(sizeof(double) * g.num_rows);
+    double *Y = malloc(sizeof(double) * g.num_rows);
 
     int *p_local;
 #pragma omp parallel shared(p)
@@ -31,10 +31,10 @@ void run(graph g, int it, double *input, int rank, int size, comm_lists c, int *
     for (int t = 0; t < it; t++) {
         if (rank == 0) {
 #pragma omp parallel for
-            for (int i = 0; i < g.N; i++)
+            for (int i = 0; i < g.num_rows; i++)
                 V[i] = input[i];
         }
-        MPI_Bcast(V, g.N, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+        MPI_Bcast(V, g.num_rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
         MPI_Barrier(MPI_COMM_WORLD);
         double t0 = MPI_Wtime();
@@ -78,18 +78,18 @@ void run(graph g, int it, double *input, int rank, int size, comm_lists c, int *
 
         if (rank == 0) {
             double a = 1.0;
-            for (int i = 0; i < g.N; i++)
+            for (int i = 0; i < g.num_rows; i++)
                 a = a < fabs(V[i]) ? fabs(V[i]) : a;
 
             double L2 = 0.0;
-            for (int i = 0; i < g.N; i++)
+            for (int i = 0; i < g.num_rows; i++)
                 L2 += (V[i] / a) * (V[i] / a);
 
-            double ops = (double)g.M * 2.0 * 100.0;
+            double ops = (double)g.num_cols * 2.0 * 100.0;
             double GFLOPS = (ops / (t1 - t0)) / 1e9;
 
             //                            g.E,  g.A                   g.V,   V,    Y
-            double data = ((double)g.M * (4.0 + 8.0) + (double)g.N * (4.0 + 8.0 + 8.0)) * 100.0;
+            double data = ((double)g.num_cols * (4.0 + 8.0) + (double)g.num_rows * (4.0 + 8.0 + 8.0)) * 100.0;
             double GBs = (data / (t1 - t0)) / 1e9;
 
             double comm_data = (double)commc_total * 8.0 * 100.0;
@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank); // get current process id
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
 
-    graph g;
+    CSR g;
     double *input;
     int *p = malloc(sizeof(int) * (size + 1));
     comm_lists c = init_comm_lists(size);
@@ -122,8 +122,8 @@ int main(int argc, char **argv) {
         double t1 = omp_get_wtime();
         printf("%.2lfs parsing\n", t1 - t0);
 
-        input = malloc(sizeof(double) * g.N);
-        for (int i = 0; i < g.N; i++)
+        input = malloc(sizeof(double) * g.num_rows);
+        for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
 
         t0 = omp_get_wtime();
