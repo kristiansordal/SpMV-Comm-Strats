@@ -66,8 +66,10 @@ int main(int argc, char **argv) {
     for (int iter = 0; iter < 10; iter++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
+        MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
         exchange_separators(c, Vn, rank, size);
+        MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
