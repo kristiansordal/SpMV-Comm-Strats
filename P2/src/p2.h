@@ -1,9 +1,9 @@
 #pragma once
 
+#include "mtx.h"
 #define nonzero 4
 
-typedef struct
-{
+typedef struct {
     int N;
     double *A;
     int *I;
@@ -11,7 +11,7 @@ typedef struct
 
 mesh init_mesh_4(int scale, double alpha, double beta);
 
-void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *new_id);
+void reorder_separators(CSR g, int size, int rows, int *p, int *num_separators);
 
 void free_mesh(mesh *m);
 

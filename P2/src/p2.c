@@ -1,4 +1,5 @@
 #include "p2.h"
+#include "mtx.h"
 #include <stdalign.h>
 #include <stdlib.h>
 
@@ -45,61 +46,77 @@ mesh init_mesh_4(int scale, double alpha, double beta) {
     return m;
 }
 
-void reorder_separators(mesh m, int size, int rows, int *sep, int *old_id, int *new_id) {
-    double *tA = malloc(sizeof(double) * nonzero * rows);
-    int *tI = malloc(sizeof(int) * nonzero * rows);
+/* Reorders separators by putting them at indices ranging from p[rank]-> p[rank] + sep[rank]
+ * CSR g: graph
+ * int size: number of ranks
+ * int *p: partition vector
+ * int *num_separator: number of separators for each rank
+ * int *old_id: old id of each vertex
+ * int *new_id: new id of each vertex
+ */
+void reorder_separators(CSR g, int size, int rows, int *p, int *num_separators) {
+    int *sep_marker = calloc(g.num_rows, sizeof(int));
+    int *new_id = malloc(g.num_rows * sizeof(int));
+    int total_rows = g.num_rows;
 
+    // First pass: count separators
     for (size_t rank = 0; rank < size; rank++) {
-        sep[rank] = 0;
-        for (size_t i = 0; i < rows; i++) {
-            for (size_t j = 0; j < nonzero; j++) {
-                int u = m.I[(rank * rows + i) * nonzero + j];
-                if (u < rank * rows || u >= (rank + 1) * rows) {
-                    sep[rank]++;
+        num_separators[rank] = 0;
+        for (size_t i = p[rank]; i < p[rank + 1]; i++) {
+            sep_marker[i] = 0;
+            for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+                int u = g.col_idx[j];
+                if (u < p[rank] || u >= p[rank + 1]) { // If neighbor is outside rank
+                    num_separators[rank]++;
+                    sep_marker[i] = 1;
                     break;
                 }
             }
         }
-
-        int ti = rank * rows, tj = rank * rows + sep[rank];
-        for (size_t i = 0; i < rows; i++) {
-            int any = 0;
-            int u = i + rank * rows;
-            for (size_t j = 0; j < nonzero; j++) {
-                int v = m.I[(rank * rows + i) * nonzero + j];
-                if (v < rank * rows || v >= (rank + 1) * rows) {
-                    old_id[ti] = u;
-                    new_id[u] = ti;
-                    ti++;
-                    any = 1;
-                    break;
-                }
-            }
-            if (!any) {
-                old_id[tj] = u;
-                new_id[u] = tj;
-                tj++;
-            }
-
-            for (size_t k = 0; k < nonzero; k++)
-                tA[(new_id[u] - rank * rows) * nonzero + k] = m.A[u * nonzero + k];
-
-            for (size_t k = 0; k < nonzero; k++)
-                tI[(new_id[u] - rank * rows) * nonzero + k] = m.I[u * nonzero + k];
-        }
-
-        for (size_t i = 0; i < nonzero * rows; i++)
-            m.A[rank * rows * nonzero + i] = tA[i];
-
-        for (size_t i = 0; i < nonzero * rows; i++)
-            m.I[rank * rows * nonzero + i] = tI[i];
     }
 
-    for (size_t i = 0; i < m.N * nonzero; i++)
-        m.I[i] = new_id[m.I[i]];
+    // Compute new row order
+    int *new_row_ptr = malloc((total_rows + 1) * sizeof(int));
+    int *new_col_idx = malloc(g.num_cols * sizeof(int));
+    double *new_values = malloc(g.num_cols * sizeof(double));
 
-    free(tA);
-    free(tI);
+    int row_idx = 0, col_idx = 0;
+    for (size_t rank = 0; rank < size; rank++) {
+        int sep_count = 0, non_sep_count = 0;
+
+        // First, place separators at the start of the rank’s range
+        for (size_t i = p[rank]; i < p[rank + 1]; i++) {
+            if (sep_marker[i]) {
+                new_id[i] = p[rank] + sep_count++;
+            } else {
+                new_id[i] = p[rank] + num_separators[rank] + non_sep_count++;
+            }
+        }
+
+        // Copy row data in new order
+        for (size_t i = p[rank]; i < p[rank + 1]; i++) {
+            int new_pos = new_id[i];
+            new_row_ptr[new_pos] = col_idx;
+            for (size_t j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+                new_col_idx[col_idx] = g.col_idx[j];
+                new_values[col_idx] = g.values[j];
+                col_idx++;
+            }
+        }
+    }
+    new_row_ptr[total_rows] = col_idx; // Final row pointer
+
+    // Free old arrays
+    free(g.row_ptr);
+    free(g.col_idx);
+    free(g.values);
+
+    // Assign new arrays
+    g.row_ptr = new_row_ptr;
+    g.col_idx = new_col_idx;
+    g.values = new_values;
+
+    free(sep_marker);
 }
 
 void free_mesh(mesh *m) {

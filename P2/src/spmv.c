@@ -1,4 +1,5 @@
 #include "spmv.h"
+#include "p2.h"
 #include <metis.h>
 #include <mpi.h>
 #include <stdlib.h>
@@ -17,7 +18,6 @@ void spmv(CSR g, double *x, double *y) {
 }
 
 void spmv_part(CSR g, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
-#pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
@@ -44,23 +44,41 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
 
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
+    int *sep_marker = calloc(g.num_rows, sizeof(int));
     int id = 0;
     partition_idx[0] = 0;
+
+    // Identify separators
+    for (int i = 0; i < g.num_rows; i++) {
+        for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+            if (part[i] != part[g.col_idx[j]]) {
+                sep_marker[i] = 1;
+                break;
+            }
+        }
+    }
+
+    // Reorder: first separators, then internal nodes
     for (int r = 0; r < num_partitions; r++) {
         for (int i = 0; i < g.num_rows; i++) {
-            if (part[i] == r) {
+            if (part[i] == r && sep_marker[i]) {
+                old_id[id] = i;
+                new_id[i] = id++;
+            }
+        }
+        for (int i = 0; i < g.num_rows; i++) {
+            if (part[i] == r && !sep_marker[i]) {
                 old_id[id] = i;
                 new_id[i] = id++;
             }
         }
         partition_idx[r + 1] = id;
-        printf("P: %d, %d\n", r, id);
     }
-    partition_idx[num_partitions] = g.num_rows;
 
     int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
     int *new_E = malloc(sizeof(int) * g.num_cols);
     double *new_A = malloc(sizeof(double) * g.num_cols);
+    double *new_X = malloc(sizeof(double) * g.num_rows);
 
     new_V[0] = 0;
     for (int i = 0; i < g.num_rows; i++) {
@@ -72,10 +90,7 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
         for (int j = new_V[i]; j < new_V[i + 1]; j++) {
             new_E[j] = new_id[new_E[j]];
         }
-    }
 
-    double *new_X = malloc(sizeof(double) * g.num_rows);
-    for (int i = 0; i < g.num_rows; i++) {
         new_X[i] = x[old_id[i]];
     }
 
@@ -88,10 +103,10 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     free(new_E);
     free(new_A);
     free(new_X);
-
     free(new_id);
     free(old_id);
     free(part);
+    free(sep_marker);
 }
 
 void partition_graph_naive(CSR g, int s, int t, int k, int *p) {
@@ -171,7 +186,6 @@ void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c) {
                     send_mark[v] = 1;
             }
         }
-
         // Count separators
         for (int i = p[rank]; i < p[rank + 1]; i++)
             c.send_count[r] += send_mark[i];
@@ -234,33 +248,59 @@ void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c) {
     free(receive_mark);
 }
 
-void exchange_separators(comm_lists c, double *y, int rank, int size) {
-    MPI_Request sends[size], receives[size];
-    // Start sends
-    for (int r = 0; r < size; r++) {
-        if (c.send_count[r] == 0)
-            continue;
-        for (int j = 0; j < c.send_count[r]; j++)
-            c.send_lists[r][j] = y[c.send_items[r][j]];
+void alltoall_separators(comm_lists c, double *y, int rank, int size) {
+    // int a = 1;
+    // int sendcounts = c.
+    return;
+}
 
-        MPI_Isend(c.send_lists[r], c.send_count[r], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &sends[r]);
-    }
-    // Start receives
-    for (int r = 0; r < size; r++)
-        if (c.receive_count[r] > 0)
-            MPI_Irecv(c.receive_lists[r], c.receive_count[r], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &receives[r]);
+// void reorder_separators(CSR g, int size, int rows, int *sep, int *old_id, int *new_id) { return; }
+void exchange_separators(comm_lists c, double *Vn, int rank, int size) {
+    int total_send = 0, total_recv = 0;
 
-    // Wait for receives and unpack
-    for (int r = 0; r < size; r++) {
-        if (c.receive_count[r] > 0)
-            MPI_Wait(&receives[r], MPI_STATUS_IGNORE);
-
-        for (int j = 0; j < c.receive_count[r]; j++)
-            y[c.receive_items[r][j]] = c.receive_lists[r][j];
+    // Compute total send and receive counts
+    for (int i = 0; i < size; i++) {
+        total_send += c.send_count[i];
+        total_recv += c.receive_count[i];
     }
 
-    // Wait for sends (could go after spmv)
-    for (int r = 0; r < size; r++)
-        if (c.send_count[r] > 0)
-            MPI_Wait(&sends[r], MPI_STATUS_IGNORE);
+    // Allocate send and receive buffers
+    double *send_buffer = malloc(sizeof(double) * total_send);
+    double *recv_buffer = malloc(sizeof(double) * total_recv);
+
+    // Pack send buffer
+    int send_offset = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < c.send_count[i]; j++) {
+            send_buffer[send_offset++] = Vn[c.send_items[i][j]];
+        }
+    }
+
+    // Compute displacement arrays for MPI_Alltoallv
+    int *sdispls = malloc(sizeof(int) * size);
+    int *rdispls = malloc(sizeof(int) * size);
+    sdispls[0] = 0;
+    rdispls[0] = 0;
+
+    for (int i = 1; i < size; i++) {
+        sdispls[i] = sdispls[i - 1] + c.send_count[i - 1];
+        rdispls[i] = rdispls[i - 1] + c.receive_count[i - 1];
+    }
+
+    // Exchange separator values using MPI_Alltoallv
+    MPI_Alltoallv(send_buffer, c.send_count, sdispls, MPI_DOUBLE, recv_buffer, c.receive_count, rdispls, MPI_DOUBLE,
+                  MPI_COMM_WORLD);
+
+    // Unpack received values into Vn
+    int recv_offset = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < c.receive_count[i]; j++) {
+            Vn[c.receive_items[i][j]] = recv_buffer[recv_offset++];
+        }
+    }
+
+    free(send_buffer);
+    free(recv_buffer);
+    free(sdispls);
+    free(rdispls);
 }
