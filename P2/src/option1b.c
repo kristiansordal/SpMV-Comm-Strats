@@ -85,21 +85,21 @@ int main(int argc, char **argv) {
         MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
         // Before communication
-        printf("Rank %d, before exchange:\n", rank);
-        for (int i = p[rank]; i < p[rank + 1]; i++) {
-            printf("Vn[%d] = %lf\n", i, Vn[i]);
-        }
-        fflush(stdout);
+        // printf("Rank %d, before exchange:\n", rank);
+        // for (int i = p[rank]; i < p[rank + 1]; i++) {
+        //     printf("Vn[%d] = %lf\n", i, Vn[i]);
+        // }
+        // fflush(stdout);
 
         // Exchange separator values
         exchange_separators(c, Vn, rank, size);
 
         // After communication
-        printf("Rank %d, after exchange:\n", rank);
-        for (int i = p[rank]; i < p[rank + 1]; i++) {
-            printf("Vn[%d] = %lf\n", i, Vn[i]);
-        }
-        fflush(stdout);
+        // printf("Rank %d, after exchange:\n", rank);
+        // for (int i = p[rank]; i < p[rank + 1]; i++) {
+        //     printf("Vn[%d] = %lf\n", i, Vn[i]);
+        // }
+        // fflush(stdout);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
