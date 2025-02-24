@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 typedef struct {
-    int num_rows, num_cols;
+    int num_rows, num_cols, nnz;
     int *row_ptr, *col_idx;
     double *values;
 } CSR;

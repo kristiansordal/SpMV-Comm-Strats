@@ -32,13 +32,12 @@ int main(int argc, char **argv) {
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
 
-        partition_graph(g, size, p, input);
-        // reorder_separators(g, size, g.num_rows, p, c.send_count);
-        // printf("Done partitioning\n");
-        fflush(stdout);
+        partition_graph(g, size, p, input, &c);
     }
 
     distribute_graph(&g, rank);
+    MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     double *V = malloc(sizeof(double) * g.num_rows);
@@ -46,31 +45,9 @@ int main(int argc, char **argv) {
     double *Vo = malloc(sizeof(double) * g.num_rows);
     double *Vn = malloc(sizeof(double) * g.num_rows);
 
-    find_sendlists(g, p, rank, size, c);
-    find_receivelists(g, p, rank, size, c);
-    if (rank == 0) {
-    }
-
     // -----Initialization start-----
     MPI_Barrier(MPI_COMM_WORLD);
     double ts0 = MPI_Wtime();
-
-    int *sep = malloc(sizeof(int) * size);
-    int *new_id = malloc(sizeof(int) * g.num_rows);
-    int *sendcounts = malloc(sizeof(int) * size);
-    int *recvcounts = malloc(sizeof(int) * size);
-
-    printf("rank = %d, %d\n", rank, *c.send_count);
-    MPI_Allgather(c.send_count, 1, MPI_INT, sendcounts, 1, MPI_INT, MPI_COMM_WORLD);
-    MPI_Allgather(c.receive_count, 1, MPI_INT, recvcounts, 1, MPI_INT, MPI_COMM_WORLD);
-    if (rank == 3) {
-        for (int i = 0; i < size; i++) {
-            printf("recvcounts[%d] = %d\n", i, recvcounts[i]);
-        }
-    }
-
-    MPI_Bcast(sep, size, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(new_id, g.num_rows, MPI_INT, 0, MPI_COMM_WORLD);
 
     // ----- Main Program Start -----
     for (int i = 0; i < g.num_rows; i++) {
@@ -83,23 +60,9 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
         MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Allgatherv(Vn + p[rank], c.send_count[rank], MPI_DOUBLE, Vo, c.send_count, p, MPI_DOUBLE, MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
-        // Before communication
-        // printf("Rank %d, before exchange:\n", rank);
-        // for (int i = p[rank]; i < p[rank + 1]; i++) {
-        //     printf("Vn[%d] = %lf\n", i, Vn[i]);
-        // }
-        // fflush(stdout);
-
-        // Exchange separator values
-        exchange_separators(c, Vn, rank, size);
-
-        // After communication
-        // printf("Rank %d, after exchange:\n", rank);
-        // for (int i = p[rank]; i < p[rank + 1]; i++) {
-        //     printf("Vn[%d] = %lf\n", i, Vn[i]);
-        // }
-        // fflush(stdout);
+        // exchange_separators(c, Vn, rank, size);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
