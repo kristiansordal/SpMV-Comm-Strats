@@ -158,17 +158,6 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x, c
     memcpy(g.values, new_A, sizeof(double) * g.num_cols);
     g.nnz = g.num_cols;
 
-    for (int r = 0; r < num_partitions; r++) {
-        for (int i = partition_idx[r]; i < partition_idx[r + 1]; i++) {
-            printf("%d%s -> ", i, (i < partition_idx[r + 1] && sep_marker[old_id[i]]) ? " [SEP]" : "");
-            for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-                printf("%d ", g.col_idx[j]);
-            }
-            printf("\n");
-        }
-        printf("\n");
-    }
-
     free(new_V);
     free(new_E);
     free(new_A);

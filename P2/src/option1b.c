@@ -55,14 +55,20 @@ int main(int argc, char **argv) {
         Vn[i] = 1.0;
     }
 
+    if (rank == 0) {
+        for (int i = 0; i < size; i++) {
+            printf("%d, ", p[i]);
+        }
+        fflush(stdout);
+    }
+
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 10; iter++) {
         double tc1 = MPI_Wtime();
-        spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
+        spmv_part(g, p[rank], p[rank + 1], Vn, Vo);
         MPI_Barrier(MPI_COMM_WORLD);
         MPI_Allgatherv(Vn + p[rank], c.send_count[rank], MPI_DOUBLE, Vo, c.send_count, p, MPI_DOUBLE, MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
-        // exchange_separators(c, Vn, rank, size);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
