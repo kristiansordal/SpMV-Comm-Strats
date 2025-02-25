@@ -28,7 +28,11 @@ int main(int argc, char **argv) {
     double tcomm, tcomp, t0, t1;
 
     if (rank == 0) {
+        printf("Reading matrix\n");
+        fflush(stdout);
         g = parse_and_validate_mtx(argv[1]);
+        printf("done reading matrix\n");
+        fflush(stdout);
 
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)

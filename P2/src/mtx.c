@@ -311,7 +311,11 @@ CSR parse_mtx(FILE *f) {
 
 CSR parse_and_validate_mtx(const char *path) {
     FILE *f = fopen(path, "r");
+    printf("parsing matrix\n");
+    fflush(stdout);
     CSR g = parse_mtx(f);
+    printf("done reading matrix\n");
+    fflush(stdout);
     fclose(f);
 
     printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);
@@ -419,11 +423,6 @@ void normalize_graph(CSR g) {
     for (int i = 0; i < g.num_cols; i++) {
         g.values[i] = (g.values[i] - mean) / (std + __DBL_EPSILON__);
     }
-
-    // double *sorted_values = malloc(sizeof(double) * g.num_cols);
-    // for (int i = 0; i < g.num_cols; i++) {
-    //     sorted_values[i] = g.values[i];
-    // }
 
     printf("Graph normiazlied\n");
 }
