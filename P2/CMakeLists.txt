@@ -7,7 +7,7 @@ project(SpMV
 )
 
 set(CMAKE_C_STANDARD 11)
-# set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -fsanitize=address")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 
 # Find MPI
 find_package(MPI REQUIRED)
@@ -42,12 +42,12 @@ add_executable(1b
 include_directories(${CMAKE_SOURCE_DIR}/include)
 target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
 target_link_libraries(1a PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-# target_compile_options(1a PRIVATE -O3 -march=native -funroll-loops -DNDEBUG)
-target_compile_options(1a PRIVATE -O3)
+target_compile_options(1a PRIVATE)
 target_link_options(1a PRIVATE)
 
 target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
 target_link_libraries(1b PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-# target_compile_options(1b PRIVATE -O3 -march=native -funroll-loops -DNDEBUG)
-target_compile_options(1a PRIVATE -O3)
+target_compile_options(1b PRIVATE)
 target_link_options(1b PRIVATE)
+
+
