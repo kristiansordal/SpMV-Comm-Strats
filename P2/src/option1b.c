@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 
     // Compute L2 and GLOPS
 
-    double ops = (long long)g.num_rows * 2ll * 100ll; // 4 multiplications and 4 additions
+    double ops = (long long)g.num_cols * 2ll * 100ll; // 4 multiplications and 4 additions
     double time = t1 - t0;
 
     t1 = MPI_Wtime();
