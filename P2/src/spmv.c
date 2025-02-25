@@ -104,21 +104,10 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     int objval;
     real_t ubvec = 1.01;
     int *part = malloc(sizeof(int) * g.num_rows);
-    if (!part)
-        return;
     int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
                                  &ubvec, NULL, &objval, part);
 
-    if (rc != METIS_OK) {
-        free(part);
-        return;
-    }
-
     int *sep_marker = calloc(g.num_rows, sizeof(int));
-    if (!sep_marker) {
-        free(part);
-        return;
-    }
 
     for (int i = 0; i < g.num_rows; i++) {
         for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
@@ -132,17 +121,10 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
 
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
-    if (!new_id || !old_id) {
-        free(part);
-        free(sep_marker);
-        free(new_id);
-        free(old_id);
-        return;
-    }
-
     int id = 0;
     partition_idx[0] = 0;
     for (int r = 0; r < num_partitions; r++) {
+
         for (int i = 0; i < g.num_rows; i++) {
             if (part[i] == r && sep_marker[i]) {
                 old_id[id] = i;
@@ -161,18 +143,6 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
     int *new_E = malloc(sizeof(int) * g.num_cols);
     double *new_A = malloc(sizeof(double) * g.num_cols);
-    double *new_X = malloc(sizeof(double) * g.num_rows);
-    if (!new_V || !new_E || !new_A || !new_X) {
-        free(part);
-        free(sep_marker);
-        free(new_id);
-        free(old_id);
-        free(new_V);
-        free(new_E);
-        free(new_A);
-        free(new_X);
-        return;
-    }
 
     new_V[0] = 0;
     for (int i = 0; i < g.num_rows; i++) {
@@ -186,6 +156,7 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
         }
     }
 
+    double *new_X = malloc(sizeof(double) * g.num_rows);
     for (int i = 0; i < g.num_rows; i++) {
         new_X[i] = x[old_id[i]];
     }
@@ -200,10 +171,10 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     free(new_E);
     free(new_A);
     free(new_X);
+
     free(new_id);
     free(old_id);
     free(part);
-    free(sep_marker);
 }
 
 void partition_graph_naive(CSR g, int s, int t, int k, int *p) {
