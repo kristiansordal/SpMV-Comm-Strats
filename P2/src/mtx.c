@@ -415,7 +415,7 @@ void normalize_graph(CSR g) {
     std = sqrt(std / (double)g.num_cols);
     printf("Std of graph: %f\n", std);
 
-    // #pragma omp parallel for
+#pragma omp parallel for
     for (int i = 0; i < g.num_cols; i++) {
         g.values[i] = (g.values[i] - mean) / (std + __DBL_EPSILON__);
     }
