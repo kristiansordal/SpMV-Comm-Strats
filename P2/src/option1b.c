@@ -23,7 +23,12 @@ int main(int argc, char **argv) {
     CSR g;
     int *p = malloc(sizeof(int) * (size + 1));
     double *input;
+
+    printf("init commlists\n");
+    fflush(stdout);
     comm_lists c = init_comm_lists(size);
+    printf("done init commlists\n");
+    fflush(stdout);
 
     double tcomm, tcomp, t0, t1;
 
