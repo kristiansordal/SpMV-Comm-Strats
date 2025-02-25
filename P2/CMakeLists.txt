@@ -7,7 +7,7 @@ project(SpMV
 )
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -fsanitize=address")
 
 # Find MPI
 find_package(MPI REQUIRED)
