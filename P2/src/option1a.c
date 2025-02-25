@@ -24,22 +24,23 @@ int main(int argc, char **argv) {
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
-        // partition_graph(g, size, p, input);
+        partition_graph(g, size, p, input);
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    double *Vo = malloc(sizeof(double) * g.num_rows);
-    double *Vn = malloc(sizeof(double) * g.num_rows);
+    double *x = malloc(sizeof(double) * g.num_rows);
+    double *y = malloc(sizeof(double) * g.num_rows);
 
     // -----Initialization end-----
 
     // -----Main program start-----
-
-    for (int i = 0; i < g.num_rows; i++)
-        Vo[i] = 1.0;
+    for (int i = 0; i < g.num_rows; i++) {
+        x[i] = 1.0;
+        y[i] = 1.0;
+    }
 
     MPI_Barrier(MPI_COMM_WORLD);
     double tcomm = 0.0, tcomp = 0.0;
@@ -48,23 +49,22 @@ int main(int argc, char **argv) {
     double t0 = MPI_Wtime();
 
     int *recvcounts = malloc(size * sizeof(int));
-    int *displs = malloc(size * sizeof(int));
+    int sendcount = p[rank + 1] - p[rank];
 
     for (int i = 0; i < size; i++) {
-        recvcounts[i] = p[i + 1] - p[i];                              // Each process sends its own chunk
-        displs[i] = (i == 0) ? 0 : displs[i - 1] + recvcounts[i - 1]; // Compute displacements
+        recvcounts[i] = p[i + 1] - p[i]; // Each process sends its own chunk
     }
 
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
-        spmv_part(g, p[rank], p[rank + 1], Vo, Vn);
-        double tc2 = MPI_Wtime();
-        int sendcount = p[rank + 1] - p[rank];
-        MPI_Allgatherv(Vo, sendcount, MPI_DOUBLE, Vn, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         MPI_Barrier(MPI_COMM_WORLD);
-        double *tmp = Vo;
-        Vo = Vn;
-        Vn = tmp;
+        double tc2 = MPI_Wtime();
+        MPI_Allgatherv(y, sendcount, MPI_DOUBLE, x, recvcounts, p, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Barrier(MPI_COMM_WORLD);
+        double *tmp = x;
+        x = y;
+        y = tmp;
 
         double tc3 = MPI_Wtime();
 
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 
     double l2 = 0.0;
     for (int j = 0; j < g.num_rows; j++)
-        l2 += Vo[j] * Vo[j];
+        l2 += x[j] * x[j];
 
     l2 = sqrt(l2);
 
@@ -96,8 +96,8 @@ int main(int argc, char **argv) {
                l2);
     }
 
-    free(Vn);
-    free(Vo);
+    free(y);
+    free(x);
 
     MPI_Finalize(); // End MPI, called by every processor
     return 0;

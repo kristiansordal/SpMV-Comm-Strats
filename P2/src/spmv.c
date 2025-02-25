@@ -17,7 +17,7 @@ void spmv(CSR g, double *x, double *y) {
     }
 }
 
-void spmv_part(CSR g, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
+void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
 #pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
@@ -29,60 +29,71 @@ void spmv_part(CSR g, int row_ptr_start_idx, int row_ptr_end_idx, double *x, dou
     }
 }
 
-void determine_separators(CSR g, int num_partitions, int *partition_idx, int *partition_map, double *x) {
-    int *new_row_ptr = malloc(sizeof(int) * (g.num_rows + 1));
-    int *new_col_idx = malloc(sizeof(int) * g.num_cols);
-    double *new_values = malloc(sizeof(double) * g.num_cols);
-
-    int *sep_marker = malloc(sizeof(int) * g.num_rows);
-
-    for (int i = 0; i < g.num_rows; i++)
-        sep_marker[i] = 0;
-
-    for (int i = 0; i < g.num_rows + 1; i++)
-        new_row_ptr[i] = 0;
-
-    new_row_ptr[g.num_rows] = g.nnz;
-
-    for (int i = 0; i < g.num_cols; i++) {
-        new_col_idx[i] = 0;
-        new_values[i] = 0;
+void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
+    if (num_partitions == 1) {
+        partition_idx[0] = 0;
+        partition_idx[1] = g.num_rows;
+        return;
     }
+
+    int ncon = 1;
+    int objval;
+    real_t ubvec = 1.01;
+    int *part = malloc(sizeof(int) * g.num_rows);
+    int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
+                                 &ubvec, NULL, &objval, part);
 
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
-
+    int id = 0;
+    partition_idx[0] = 0;
     for (int r = 0; r < num_partitions; r++) {
-        int idx = 0;
-        for (int i = partition_idx[r]; i < partition_idx[r + 1]; i++) {
-            if (sep_marker[i]) {
-                old_id[idx] = i;
-                new_id[i] = idx++;
-                // new_row_ptr[i] = partition_idx[r] + idx;
-                // for (int u = g.row_ptr[i]; u < g.row_ptr[i + 1]; u++) {
-                //     new_col_idx[partition_idx[r] + idx] = g.col_idx[u];
-                //     new_values[partition_idx[r] + idx++] = g.values[u];
-                // }
+        for (int i = 0; i < g.num_rows; i++) {
+            if (part[i] == r) {
+                old_id[id] = i;
+                new_id[i] = id++;
             }
         }
+        partition_idx[r + 1] = id;
+    }
 
-        for (int i = partition_idx[r]; i < partition_idx[r + 1]; i++) {
-            if (!sep_marker[i]) {
-                new_row_ptr[i] = partition_idx[r] + idx;
-                for (int u = g.row_ptr[i]; u < g.row_ptr[i + 1]; u++) {
-                    new_col_idx[partition_idx[r] + idx] = g.col_idx[u];
-                    new_values[partition_idx[r] + idx++] = g.values[u];
-                }
-            }
+    int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
+    int *new_E = malloc(sizeof(int) * g.num_cols);
+    double *new_A = malloc(sizeof(double) * g.num_cols);
+
+    new_V[0] = 0;
+    for (int i = 0; i < g.num_rows; i++) {
+        int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
+        new_V[i + 1] = new_V[i] + d;
+        memcpy(new_E + new_V[i], g.col_idx + g.row_ptr[old_id[i]], sizeof(int) * d);
+        memcpy(new_A + new_V[i], g.values + g.row_ptr[old_id[i]], sizeof(double) * d);
+
+        for (int j = new_V[i]; j < new_V[i + 1]; j++) {
+            new_E[j] = new_id[new_E[j]];
         }
     }
 
-    // int *new_id = malloc(sizeof(int) * g.num_rows);
-    // int *old_id = malloc(sizeof(int) * g.num_rows);
-    // int id = 0;
-}
+    double *new_X = malloc(sizeof(double) * g.num_rows);
+    for (int i = 0; i < g.num_rows; i++) {
+        new_X[i] = x[old_id[i]];
+    }
 
-void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c) {
+    memcpy(x, new_X, sizeof(double) * g.num_rows);
+
+    memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
+    memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
+    memcpy(g.values, new_A, sizeof(double) * g.num_cols);
+
+    free(new_V);
+    free(new_E);
+    free(new_A);
+    free(new_X);
+
+    free(new_id);
+    free(old_id);
+    free(part);
+}
+void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c) {
     if (num_partitions == 1) {
         partition_idx[0] = 0;
         partition_idx[1] = g.num_rows;
@@ -133,8 +144,6 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x, c
     int *new_E = malloc(sizeof(int) * g.num_cols);
     double *new_A = malloc(sizeof(double) * g.num_cols);
 
-    // reorder according to the partition - makes sense
-    // need to do something similar for separators
     new_V[0] = 0;
     for (int i = 0; i < g.num_rows; i++) {
         int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
@@ -338,121 +347,6 @@ void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c) {
     // free(c.receive_mark);
 }
 
-void reorder_separators(CSR g, int *p, int rank, int size, comm_lists c) {
-    int n_local = p[rank + 1] - p[rank];
-    int nnz_local = g.row_ptr[p[rank + 1]] - g.row_ptr[p[rank]];
-
-    int *new_row_ptr_local = malloc(sizeof(int) * (n_local + 1));
-    int *new_col_idx_local = malloc(sizeof(int) * nnz_local);
-    double *new_values_local = malloc(sizeof(double) * nnz_local);
-
-    int row_idx = 0;
-    int col_idx = 0;
-    new_row_ptr_local[0] = 0;
-
-    for (int i = p[rank]; i < p[rank + 1]; i++) {
-        if (c.send_mark[i]) {
-            new_row_ptr_local[row_idx + 1] = new_row_ptr_local[row_idx];
-            for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-                new_col_idx_local[col_idx] = g.col_idx[j];
-                new_values_local[col_idx] = g.values[j];
-                col_idx++;
-                new_row_ptr_local[row_idx + 1]++;
-            }
-            row_idx++;
-        }
-    }
-
-    for (int i = p[rank]; i < p[rank + 1]; i++) {
-        if (!c.send_mark[i]) {
-            new_row_ptr_local[row_idx + 1] = new_row_ptr_local[row_idx];
-            for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-                new_col_idx_local[col_idx] = g.col_idx[j];
-                new_values_local[col_idx] = g.values[j];
-                col_idx++;
-                new_row_ptr_local[row_idx + 1]++;
-            }
-            row_idx++;
-        }
-    }
-
-    free(g.row_ptr);
-    free(g.col_idx);
-    free(g.values);
-
-    g.row_ptr = new_row_ptr_local;
-    g.col_idx = new_col_idx_local;
-    g.values = new_values_local;
-}
-
-void gather_reordered_csr(CSR *g, int rank, int size, int *p, comm_lists c) {
-    int local_nnz = g->row_ptr[p[rank + 1]] - g->row_ptr[p[rank]]; // Local nonzeros
-    int local_rows = p[rank + 1] - p[rank];                        // Local rows
-
-    // Step 1: Gather all nonzero counts and row counts
-    int *all_nnz_counts = NULL, *displs_nnz = NULL;
-    int *all_row_counts = NULL, *displs_row = NULL;
-
-    if (rank == 0) {
-        all_nnz_counts = malloc(sizeof(int) * size);
-        displs_nnz = malloc(sizeof(int) * size);
-        all_row_counts = malloc(sizeof(int) * size);
-        displs_row = malloc(sizeof(int) * size);
-    }
-
-    MPI_Gather(&local_nnz, 1, MPI_INT, all_nnz_counts, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Gather(&local_rows, 1, MPI_INT, all_row_counts, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-    // Compute displacements
-    if (rank == 0) {
-        displs_nnz[0] = 0;
-        displs_row[0] = 0;
-        for (int i = 1; i < size; i++) {
-            displs_nnz[i] = displs_nnz[i - 1] + all_nnz_counts[i - 1];
-            displs_row[i] = displs_row[i - 1] + all_row_counts[i - 1];
-        }
-    }
-
-    // Step 2: Allocate buffers for global storage on rank 0
-    int *global_col_idx = NULL;
-    double *global_values = NULL;
-    int *global_row_ptr = NULL;
-
-    if (rank == 0) {
-        int total_nnz = displs_nnz[size - 1] + all_nnz_counts[size - 1];
-        int total_rows = displs_row[size - 1] + all_row_counts[size - 1];
-
-        global_col_idx = malloc(sizeof(int) * total_nnz);
-        global_values = malloc(sizeof(double) * total_nnz);
-        global_row_ptr = malloc(sizeof(int) * (total_rows + 1));
-    }
-
-    // Step 3: Gather col_idx and values
-    MPI_Gatherv(g->col_idx + g->row_ptr[p[rank]], local_nnz, MPI_INT, global_col_idx, all_nnz_counts, displs_nnz,
-                MPI_INT, 0, MPI_COMM_WORLD);
-
-    MPI_Gatherv(g->values + g->row_ptr[p[rank]], local_nnz, MPI_DOUBLE, global_values, all_nnz_counts, displs_nnz,
-                MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
-    // Step 4: Gather row_ptr
-    MPI_Gatherv(g->row_ptr + p[rank], local_rows, MPI_INT, global_row_ptr, all_row_counts, displs_row, MPI_INT, 0,
-                MPI_COMM_WORLD);
-
-    // Step 5: Finalize & Cleanup
-    if (rank == 0) {
-        // Assign gathered arrays to global CSR structure (if needed)
-        g->col_idx = global_col_idx;
-        g->values = global_values;
-        g->row_ptr = global_row_ptr;
-    }
-
-    free(all_nnz_counts);
-    free(displs_nnz);
-    free(all_row_counts);
-    free(displs_row);
-}
-
-// void reorder_separators(CSR g, int size, int rows, int *sep, int *old_id, int *new_id) { return; }
 void exchange_separators(comm_lists c, double *Vn, int rank, int size) {
     int total_send = 0, total_recv = 0;
 

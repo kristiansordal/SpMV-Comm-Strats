@@ -12,6 +12,8 @@
 
 typedef double v4df __attribute__((vector_size(32)));
 
+// int cmpfunc(const void *a, const void *b) { return (*(double *)a - *(double *)b); }
+
 int main(int argc, char **argv) {
     int rank, size;
     MPI_Init(&argc, &argv);               // starts MPI, called by every processor
@@ -32,7 +34,7 @@ int main(int argc, char **argv) {
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
 
-        partition_graph(g, size, p, input, &c);
+        partition_graph_and_reorder_separators(g, size, p, input, &c);
     }
 
     distribute_graph(&g, rank);
@@ -42,8 +44,8 @@ int main(int argc, char **argv) {
 
     double *V = malloc(sizeof(double) * g.num_rows);
     double *Y = malloc(sizeof(double) * g.num_rows);
-    double *Vo = malloc(sizeof(double) * g.num_rows);
-    double *Vn = malloc(sizeof(double) * g.num_rows);
+    double *x = malloc(sizeof(double) * g.num_rows);
+    double *y = malloc(sizeof(double) * g.num_rows);
 
     // -----Initialization start-----
     MPI_Barrier(MPI_COMM_WORLD);
@@ -51,32 +53,27 @@ int main(int argc, char **argv) {
 
     // ----- Main Program Start -----
     for (int i = 0; i < g.num_rows; i++) {
-        Vo[i] = 1.0;
-        Vn[i] = 1.0;
+        x[i] = 1.0;
+        y[i] = 1.0;
     }
 
-    if (rank == 0) {
-        for (int i = 0; i < size; i++) {
-            printf("%d, ", p[i]);
-        }
-        fflush(stdout);
-    }
+    MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
-    for (int iter = 0; iter < 10; iter++) {
+    for (int iter = 0; iter < 100; iter++) {
         double tc1 = MPI_Wtime();
-        spmv_part(g, p[rank], p[rank + 1], Vn, Vo);
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         MPI_Barrier(MPI_COMM_WORLD);
-        MPI_Allgatherv(Vn + p[rank], c.send_count[rank], MPI_DOUBLE, Vo, c.send_count, p, MPI_DOUBLE, MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
+        MPI_Allgatherv(y, c.send_count[rank], MPI_DOUBLE, x, c.send_count, p, MPI_DOUBLE, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
 
-        double *tmp = Vo;
-        Vo = Vn;
-        Vn = tmp;
+        double *tmp = x;
+        x = y;
+        y = tmp;
     }
     t1 = MPI_Wtime();
 
@@ -88,7 +85,7 @@ int main(int argc, char **argv) {
     t1 = MPI_Wtime();
     double l2 = 0.0;
     for (int j = 0; j < g.num_rows; j++)
-        l2 += Vo[j] * Vo[j];
+        l2 += x[j] * x[j];
 
     l2 = sqrt(l2);
 
@@ -101,8 +98,8 @@ int main(int argc, char **argv) {
                l2);
     }
 
-    free(Vn);
-    free(Vo);
+    free(y);
+    free(x);
 
     MPI_Finalize(); // End MPI, called by every processor
     return 0;

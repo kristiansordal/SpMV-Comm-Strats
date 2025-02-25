@@ -12,9 +12,11 @@ typedef struct {
 
 void spmv(CSR g, double *x, double *y);
 
-void spmv_part(CSR g, int s, int t, double *x, double *y);
+void spmv_part(CSR g, int rank, int s, int t, double *x, double *y);
 
-void partition_graph(CSR g, int k, int *p, double *x, comm_lists *c);
+void partition_graph_and_reorder_separators(CSR g, int k, int *p, double *x, comm_lists *c);
+
+void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x);
 
 void partition_graph_naive(CSR g, int s, int t, int k, int *p);
 
@@ -28,8 +30,6 @@ void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c);
 
 void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c);
 
-void reorder_separators(CSR g, int *p, int rank, int size, comm_lists c);
-
-void gather_reordered_csr(CSR *g, int rank, int size, int *p, comm_lists c);
+void reorder_separators(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c);
 
 void exchange_separators(comm_lists c, double *y, int rank, int size);
