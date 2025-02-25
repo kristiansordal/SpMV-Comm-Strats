@@ -420,10 +420,10 @@ void normalize_graph(CSR g) {
         g.values[i] = (g.values[i] - mean) / (std + __DBL_EPSILON__);
     }
 
-    double *sorted_values = malloc(sizeof(double) * g.num_cols);
-    for (int i = 0; i < g.num_cols; i++) {
-        sorted_values[i] = g.values[i];
-    }
+    // double *sorted_values = malloc(sizeof(double) * g.num_cols);
+    // for (int i = 0; i < g.num_cols; i++) {
+    //     sorted_values[i] = g.values[i];
+    // }
 
     printf("Graph normiazlied\n");
 }
