@@ -88,6 +88,7 @@ int main(int argc, char **argv) {
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 100; iter++) {
         double tc1 = MPI_Wtime();
+        MPI_Barrier(MPI_COMM_WORLD);
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
