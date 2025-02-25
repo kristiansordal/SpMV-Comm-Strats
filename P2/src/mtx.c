@@ -122,7 +122,7 @@ mtx internal_parse_mtx(FILE *f) {
     size_t size = ftell(f);
     fseek(f, 0, SEEK_SET);
 
-    char *data = mmap(0, size, PROT_READ, MAP_SHARED, fileno_unlocked(f), 0);
+    char *data = (char *)mmap(0, size, PROT_READ, MAP_SHARED, fileno_unlocked(f), 0);
     size_t p = 0;
 
     mtx m = internal_parse_mtx_header(data, &p);
@@ -134,9 +134,9 @@ mtx internal_parse_mtx(FILE *f) {
     parse_int(data, &p, &m.N);
     parse_int(data, &p, &m.L);
 
-    m.I = malloc(sizeof(int) * m.L);
-    m.J = malloc(sizeof(int) * m.L);
-    m.A = malloc(sizeof(double) * m.L);
+    m.I = (int *)malloc(sizeof(int) * m.L);
+    m.J = (int *)malloc(sizeof(int) * m.L);
+    m.A = (double *)malloc(sizeof(double) * m.L);
 
     int *tc;
 
@@ -151,7 +151,7 @@ mtx internal_parse_mtx(FILE *f) {
             t = size;
 
         if (tid == 0)
-            tc = malloc(sizeof(int) * nt);
+            tc = (int *)malloc(sizeof(int) * nt);
 
 #pragma omp barrier
 
@@ -218,9 +218,9 @@ mtx internal_parse_mtx_seq(FILE *f) {
     parse_int(line, &p, &m.N);
     parse_int(line, &p, &m.L);
 
-    m.I = malloc(sizeof(int) * m.L);
-    m.J = malloc(sizeof(int) * m.L);
-    m.A = malloc(sizeof(double) * m.L);
+    m.I = (int *)malloc(sizeof(int) * m.L);
+    m.J = (int *)malloc(sizeof(int) * m.L);
+    m.A = (double *)malloc(sizeof(double) * m.L);
 
     for (int i = 0; i < m.L; i++) {
         rc = getline(&line, &size, f);
@@ -256,7 +256,7 @@ CSR parse_mtx(FILE *f) {
 
     CSR g;
     g.num_rows = m.N > m.M ? m.N : m.M;
-    g.row_ptr = calloc(g.num_rows + 1, sizeof(int));
+    g.row_ptr = (int *)calloc(g.num_rows + 1, sizeof(int));
 
     // Count degree
 
@@ -277,8 +277,8 @@ CSR parse_mtx(FILE *f) {
     }
 
     g.num_cols = g.row_ptr[g.num_rows];
-    g.col_idx = malloc(sizeof(int) * g.num_cols);
-    g.values = malloc(sizeof(double) * g.num_cols);
+    g.col_idx = (int *)malloc(sizeof(int) * g.num_cols);
+    g.values = (double *)malloc(sizeof(double) * g.num_cols);
 
 #pragma omp parallel for
     for (int i = 0; i < m.L; i++) {
@@ -357,9 +357,9 @@ void insertion_sort(int *index, int *data, int size) {
 void sort_edges(CSR g) {
 #pragma omp parallel
     {
-        int *index = malloc(sizeof(int) * g.num_rows);
-        int *E_buffer = malloc(sizeof(int) * g.num_rows);
-        double *A_buffer = malloc(sizeof(double) * g.num_rows);
+        int *index = (int *)malloc(sizeof(int) * g.num_rows);
+        int *E_buffer = (int *)malloc(sizeof(int) * g.num_rows);
+        double *A_buffer = (double *)malloc(sizeof(double) * g.num_rows);
 
 #pragma omp for
         for (int u = 0; u < g.num_rows; u++) {
