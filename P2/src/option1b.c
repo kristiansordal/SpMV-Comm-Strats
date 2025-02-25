@@ -43,7 +43,11 @@ int main(int argc, char **argv) {
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
 
+        printf("partition matrix\n");
+        fflush(stdout);
         partition_graph_and_reorder_separators(g, size, p, input, &c);
+        printf("done partition matrix\n");
+        fflush(stdout);
     }
 
     if (rank == 0) {
