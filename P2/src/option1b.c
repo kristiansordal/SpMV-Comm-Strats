@@ -46,10 +46,19 @@ int main(int argc, char **argv) {
         partition_graph_and_reorder_separators(g, size, p, input, &c);
     }
 
+    if (rank == 0) {
+        printf("distributing\n");
+        fflush(stdout);
+    }
     distribute_graph(&g, rank);
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (rank == 0) {
+        printf("done distributing\n");
+        fflush(stdout);
+    }
 
     double *V = malloc(sizeof(double) * g.num_rows);
     double *Y = malloc(sizeof(double) * g.num_rows);
@@ -68,6 +77,10 @@ int main(int argc, char **argv) {
 
     MPI_Barrier(MPI_COMM_WORLD);
 
+    if (rank == 0) {
+        printf("starting spmv\n");
+        fflush(stdout);
+    }
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 100; iter++) {
         double tc1 = MPI_Wtime();
@@ -86,6 +99,11 @@ int main(int argc, char **argv) {
         y = tmp;
     }
     t1 = MPI_Wtime();
+
+    if (rank == 0) {
+        printf("starting spmv\n");
+        fflush(stdout);
+    }
 
     // Compute L2 and GLOPS
 
