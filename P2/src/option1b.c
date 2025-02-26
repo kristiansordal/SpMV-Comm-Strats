@@ -20,13 +20,23 @@ int main(int argc, char **argv) {
     MPI_Init(&argc, &argv);               // starts MPI, called by every processor
     MPI_Comm_rank(MPI_COMM_WORLD, &rank); // get current process id
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
-    printf("done init mpi\n");
+    if (rank == 0) {
+        printf("done init mpi\n");
+        fflush(stdout);
+    }
 
-    printf("init csr\n");
+    if (rank == 0) {
+        printf("init csr\n");
+        fflush(stdout);
+    }
     CSR g;
     int *p = malloc(sizeof(int) * (size + 1));
     double *input;
-    printf("init csr\n");
+
+    if (rank == 0) {
+        printf("done init csr\n");
+        fflush(stdout);
+    }
 
     printf("init commlists\n");
     fflush(stdout);
