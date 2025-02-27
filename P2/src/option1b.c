@@ -15,70 +15,33 @@ typedef double v4df __attribute__((vector_size(32)));
 // int cmpfunc(const void *a, const void *b) { return (*(double *)a - *(double *)b); }
 
 int main(int argc, char **argv) {
-    printf("init mpi\n");
     int rank, size;
     MPI_Init(&argc, &argv);               // starts MPI, called by every processor
     MPI_Comm_rank(MPI_COMM_WORLD, &rank); // get current process id
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
-    printf("size: %d", size);
 
-    if (rank == 0) {
-        printf("done init mpi\n");
-        fflush(stdout);
-    }
-
-    if (rank == 0) {
-        printf("init csr\n");
-        fflush(stdout);
-    }
     CSR g;
     int *p = malloc(sizeof(int) * (size + 1));
     double *input;
 
-    if (rank == 0) {
-        printf("done init csr\n");
-        fflush(stdout);
-    }
-
-    printf("init commlists\n");
-    fflush(stdout);
     comm_lists c = init_comm_lists(size);
-    printf("done init commlists\n");
-    fflush(stdout);
 
     double tcomm, tcomp, t0, t1;
 
     if (rank == 0) {
-        printf("Reading matrix\n");
-        fflush(stdout);
         g = parse_and_validate_mtx(argv[1]);
-        printf("done reading matrix\n");
-        fflush(stdout);
 
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
 
-        printf("partition matrix\n");
-        fflush(stdout);
         partition_graph_and_reorder_separators(g, size, p, input, &c);
-        printf("done partition matrix\n");
-        fflush(stdout);
     }
 
-    if (rank == 0) {
-        printf("distributing\n");
-        fflush(stdout);
-    }
     distribute_graph(&g, rank);
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-    if (rank == 0) {
-        printf("done distributing\n");
-        fflush(stdout);
-    }
 
     double *V = malloc(sizeof(double) * g.num_rows);
     double *Y = malloc(sizeof(double) * g.num_rows);
@@ -99,34 +62,8 @@ int main(int argc, char **argv) {
 
     int *displs = (int *)malloc(sizeof(int) * size);
 
-    if (rank == 0) {
-        printf("p before copy:\n");
-        fflush(stdout);
-        for (int i = 0; i < size; i++) {
-            printf("%d ", p[i]);
-        }
-    }
-    printf("\n");
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
-
-    if (rank == 0) {
-        printf("displs after copy:\n");
-        fflush(stdout);
-        for (int i = 0; i < size; i++) {
-            printf("%d ", displs[i]);
-        }
-        printf("\n");
-    }
-
-    if (rank == 0) {
-        printf("starting spmv\n");
-        fflush(stdout);
-        printf("num rows: %d\n", g.num_rows);
-        for (int i = 0; i < size + 1; i++) {
-            printf("p[%d]: %d\n", i, p[i]);
-        }
-    }
 
     MPI_Barrier(MPI_COMM_WORLD);
 
@@ -148,7 +85,7 @@ int main(int argc, char **argv) {
     }
     t1 = MPI_Wtime();
 
-    double ops = (long long)g.nnz * 2ll * 100ll;
+    double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
 
     t1 = MPI_Wtime();
