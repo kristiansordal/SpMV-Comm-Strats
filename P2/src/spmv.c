@@ -128,7 +128,6 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
         } else {
             sep = 0;
             sep_marker[i] = 1;
-            printf("part[%d]: %d\n", i, part[i]);
             c->send_count[part[i]]++;
         }
     }
