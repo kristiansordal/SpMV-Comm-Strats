@@ -20,6 +20,8 @@ int main(int argc, char **argv) {
     MPI_Init(&argc, &argv);               // starts MPI, called by every processor
     MPI_Comm_rank(MPI_COMM_WORLD, &rank); // get current process id
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
+    printf("size: %d", size);
+
     if (rank == 0) {
         printf("done init mpi\n");
         fflush(stdout);
@@ -105,6 +107,7 @@ int main(int argc, char **argv) {
     }
 
     int *displs = malloc(sizeof(int) * size);
+
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
 
