@@ -107,17 +107,20 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
                                  &ubvec, NULL, &objval, part);
 
-    int *sep_marker = calloc(g.num_rows, sizeof(int));
+    int *sep_marker = malloc(g.num_rows * sizeof(int));
+    for (int i = 0; i < g.num_rows; i++) {
+        sep_marker[i] = 0;
+    }
 
-    // for (int i = 0; i < g.num_rows; i++) {
-    //     for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-    //         if (part[i] != part[g.col_idx[j]]) {
-    //             sep_marker[i] = 1; // Mark separator nodes
-    //             c->send_count[part[i]]++;
-    //             break;
-    //         }
-    //     }
-    // }
+    for (int i = 0; i < g.num_rows; i++) {
+        for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+            if (part[i] != part[g.col_idx[j]]) {
+                sep_marker[i] = 1; // Mark separator nodes
+                c->send_count[part[i]]++;
+                break;
+            }
+        }
+    }
 
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
