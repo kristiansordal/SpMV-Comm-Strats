@@ -108,8 +108,8 @@ int main(int argc, char **argv) {
 
     int *displs = malloc(sizeof(int) * (size_t)size);
 
-    // for (int i = 0; i < size; i++)
-    //     displs[i] = p[i];
+    for (int i = 0; i < size; i++)
+        displs[i] = p[i];
 
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 5; iter++) {
