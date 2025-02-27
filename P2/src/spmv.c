@@ -108,10 +108,14 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
                                  &ubvec, NULL, &objval, part);
 
     int *sep_marker = malloc(g.num_rows * sizeof(int));
+    for (int i = 0; i < num_partitions; i++) {
+        c->send_count[i] = 0;
+    }
     for (int i = 0; i < g.num_rows; i++) {
         sep_marker[i] = 0;
     }
 
+    printf("g.num_rows: %d\n", g.num_rows);
     for (int i = 0; i < g.num_rows; i++) {
         int sep = 0;
         if (!sep) {
