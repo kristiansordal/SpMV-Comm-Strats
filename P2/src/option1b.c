@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    int *displs = calloc(sizeof(int) * (size_t)size, 0);
+    int *displs = malloc(sizeof(int) * (size_t)size);
 
     if (rank == 1) {
         printf("p before copy:\n");
