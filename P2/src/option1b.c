@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    printf("rank %d sendcount: %d\n", rank, c.send_count[rank]);
+    printf("rank %d sendcount: %d\n", rank, (c.send_count[rank]) == 0 ? 0 : c.send_count[rank]);
 
     MPI_Barrier(MPI_COMM_WORLD);
 
