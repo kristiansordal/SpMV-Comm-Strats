@@ -101,6 +101,7 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         printf("p before copy:\n");
+        fflush(stdout);
         for (int i = 0; i < size; i++) {
             printf("%d ", p[i]);
         }
@@ -111,6 +112,7 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         printf("displs after copy:\n");
+        fflush(stdout);
         for (int i = 0; i < size; i++) {
             printf("%d ", displs[i]);
         }
