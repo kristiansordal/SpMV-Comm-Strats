@@ -148,7 +148,7 @@ int main(int argc, char **argv) {
     }
     t1 = MPI_Wtime();
 
-    double ops = (long long)g.num_cols * 2ll * 100ll;
+    double ops = (long long)g.nnz * 2ll * 100ll;
     double time = t1 - t0;
 
     t1 = MPI_Wtime();
