@@ -99,6 +99,9 @@ int main(int argc, char **argv) {
         printf("starting spmv\n");
         fflush(stdout);
         printf("num rows: %d\n", g.num_rows);
+        for (int i = 0; i < size + 1; i++) {
+            printf("p[%d]: %d\n", i, p[i]);
+        }
     }
 
     int *displs = malloc(sizeof(int) * size);
