@@ -128,8 +128,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    // printf("rank %d sendcount: %d\n", rank, (c.send_count[rank]) == 0 ? 0 : c.send_count[rank]);
-
     MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
@@ -137,7 +135,6 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-        MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
         MPI_Allgatherv(y, c.send_count[rank], MPI_DOUBLE, x, c.send_count, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
@@ -151,7 +148,7 @@ int main(int argc, char **argv) {
     }
     t1 = MPI_Wtime();
 
-    double ops = (long long)g.num_cols * 2ll * 100ll; // 4 multiplications and 4 additions
+    double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
 
     t1 = MPI_Wtime();
