@@ -113,12 +113,17 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     }
 
     for (int i = 0; i < g.num_rows; i++) {
-        for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-            if (part[i] != part[g.col_idx[j]]) {
-                sep_marker[i] = 1; // Mark separator nodes
-                c->send_count[part[i]]++;
-                break;
+        int sep = 0;
+        if (!sep) {
+            for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+                if (part[i] != part[g.col_idx[j]]) {
+                    sep = 1;
+                    break;
+                }
             }
+        } else {
+            sep_marker[i] = 1;
+            c->send_count[part[i]]++;
         }
     }
 
