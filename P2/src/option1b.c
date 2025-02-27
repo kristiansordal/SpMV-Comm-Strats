@@ -106,10 +106,25 @@ int main(int argc, char **argv) {
         }
     }
 
-    int *displs = malloc(sizeof(int) * (size_t)size);
+    int *displs = calloc(sizeof(int) * (size_t)size, 0);
 
+    if (rank == 0) {
+        printf("p before copy:\n");
+        for (int i = 0; i < size; i++) {
+            printf("%d ", p[i]);
+        }
+    }
+    printf("\n");
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
+
+    if (rank == 0) {
+        printf("displs after copy:\n");
+        for (int i = 0; i < size; i++) {
+            printf("%d ", displs[i]);
+        }
+        printf("\n");
+    }
 
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 5; iter++) {
