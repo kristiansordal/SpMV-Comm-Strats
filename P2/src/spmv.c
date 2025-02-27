@@ -116,8 +116,8 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     }
 
     printf("g.num_rows: %d\n", g.num_rows);
+    int sep = 0;
     for (int i = 0; i < g.num_rows; i++) {
-        int sep = 0;
         if (!sep) {
             for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
                 if (part[i] != part[g.col_idx[j]]) {
@@ -126,6 +126,7 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
                 }
             }
         } else {
+            sep = 0;
             sep_marker[i] = 1;
             printf("part[%d]: %d\n", i, part[i]);
             c->send_count[part[i]]++;
