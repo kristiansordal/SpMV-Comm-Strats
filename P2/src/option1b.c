@@ -97,16 +97,7 @@ int main(int argc, char **argv) {
 
     MPI_Barrier(MPI_COMM_WORLD);
 
-    if (rank == 0) {
-        printf("starting spmv\n");
-        fflush(stdout);
-        printf("num rows: %d\n", g.num_rows);
-        for (int i = 0; i < size + 1; i++) {
-            printf("p[%d]: %d\n", i, p[i]);
-        }
-    }
-
-    int *displs = malloc(sizeof(int) * (size_t)size);
+    int *displs = (int *)malloc(sizeof(int) * size);
 
     if (rank == 0) {
         printf("p before copy:\n");
@@ -125,6 +116,17 @@ int main(int argc, char **argv) {
         }
         printf("\n");
     }
+
+    if (rank == 0) {
+        printf("starting spmv\n");
+        fflush(stdout);
+        printf("num rows: %d\n", g.num_rows);
+        for (int i = 0; i < size + 1; i++) {
+            printf("p[%d]: %d\n", i, p[i]);
+        }
+    }
+
+    MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 5; iter++) {
