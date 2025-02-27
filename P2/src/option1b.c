@@ -108,8 +108,8 @@ int main(int argc, char **argv) {
 
     int *displs = malloc(sizeof(int) * (size_t)size);
 
-    for (int i = 0; i < size; i++)
-        displs[i] = p[i];
+    // for (int i = 0; i < size; i++)
+    //     displs[i] = p[i];
 
     t0 = MPI_Wtime();
     for (int iter = 0; iter < 5; iter++) {
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
-        MPI_Allgatherv(y, c.send_count[rank], MPI_DOUBLE, x, c.send_count, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Allgatherv(y, c.send_count[rank], MPI_DOUBLE, x, c.send_count, p, MPI_DOUBLE, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
