@@ -128,6 +128,8 @@ int main(int argc, char **argv) {
         }
     }
 
+    printf("rank %d sendcount: %d\n", rank, c.send_count[rank]);
+
     MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
@@ -148,13 +150,6 @@ int main(int argc, char **argv) {
         y = tmp;
     }
     t1 = MPI_Wtime();
-
-    if (rank == 0) {
-        printf("starting spmv\n");
-        fflush(stdout);
-    }
-
-    // Compute L2 and GLOPS
 
     double ops = (long long)g.num_cols * 2ll * 100ll; // 4 multiplications and 4 additions
     double time = t1 - t0;
