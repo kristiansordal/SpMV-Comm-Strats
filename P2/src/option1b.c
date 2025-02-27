@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
 
     int *displs = calloc(sizeof(int) * (size_t)size, 0);
 
-    if (rank == 0) {
+    if (rank == 1) {
         printf("p before copy:\n");
         for (int i = 0; i < size; i++) {
             printf("%d ", p[i]);
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
 
-    if (rank == 0) {
+    if (rank == 1) {
         printf("displs after copy:\n");
         for (int i = 0; i < size; i++) {
             printf("%d ", displs[i]);
