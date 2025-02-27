@@ -127,6 +127,10 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
         }
     }
 
+    for (int i = 0; i < num_partitions; i++) {
+        printf("rank %d sendcount: %d\n", i, c->send_count[i]);
+    }
+
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
     int id = 0;
