@@ -68,20 +68,21 @@ int main(int argc, char **argv) {
     MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
-    for (int iter = 0; iter < 100; iter++) {
+    for (int iter = 0; iter < 5; iter++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
         MPI_Allgatherv(y, c.send_count[rank], MPI_DOUBLE, x, c.send_count, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
-        double tc3 = MPI_Wtime();
-        tcomm += tc3 - tc2;
-        tcomp += tc2 - tc1;
-
         double *tmp = x;
         x = y;
         y = tmp;
+
+        double tc3 = MPI_Wtime();
+
+        tcomm += tc3 - tc2;
+        tcomp += tc2 - tc1;
     }
     t1 = MPI_Wtime();
 
@@ -90,8 +91,8 @@ int main(int argc, char **argv) {
 
     t1 = MPI_Wtime();
     double l2 = 0.0;
-    for (int j = 0; j < g.num_rows; j++)
-        l2 += x[j] * x[j];
+    for (int i = 0; i < g.num_rows; i++)
+        l2 += x[i] * x[i];
 
     l2 = sqrt(l2);
 

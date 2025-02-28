@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
         recvcounts[i] = p[i + 1] - p[i]; // Each process sends its own chunk
     }
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 5; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         MPI_Barrier(MPI_COMM_WORLD);
@@ -64,7 +64,9 @@ int main(int argc, char **argv) {
         MPI_Barrier(MPI_COMM_WORLD);
         double *tmp = x;
         x = y;
-        y = tmp;
+        for (int i = 0; i < g.num_rows; i++) {
+            y[i] = 1.0;
+        }
 
         double tc3 = MPI_Wtime();
 
@@ -78,8 +80,8 @@ int main(int argc, char **argv) {
     // Compute L2 and GLOPS
 
     double l2 = 0.0;
-    for (int j = 0; j < g.num_rows; j++)
-        l2 += x[j] * x[j];
+    for (int i = 0; i < g.num_rows; i++)
+        l2 += x[i] * x[i];
 
     l2 = sqrt(l2);
 
