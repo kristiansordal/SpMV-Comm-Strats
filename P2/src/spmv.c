@@ -6,7 +6,6 @@
 #include <string.h>
 
 void spmv(CSR g, double *x, double *y) {
-#pragma omp parallel for
     for (int u = 0; u < g.num_rows; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
@@ -18,7 +17,7 @@ void spmv(CSR g, double *x, double *y) {
 }
 
 void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
-#pragma omp parallel for schedule(static)
+#pragma omp parallel for schedule(dynamic)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {

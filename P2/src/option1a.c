@@ -64,9 +64,7 @@ int main(int argc, char **argv) {
         MPI_Barrier(MPI_COMM_WORLD);
         double *tmp = x;
         x = y;
-        for (int i = 0; i < g.num_rows; i++) {
-            y[i] = 1.0;
-        }
+        y = tmp;
 
         double tc3 = MPI_Wtime();
 
