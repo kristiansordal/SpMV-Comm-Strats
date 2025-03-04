@@ -4,6 +4,7 @@
 #include <mpi.h> // MPI header file
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define n_it 100
 
@@ -31,8 +32,8 @@ int main(int argc, char **argv) {
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    double *x = malloc(sizeof(double) * g.num_rows);
-    double *y = malloc(sizeof(double) * g.num_rows);
+    double *x = (double *)malloc(sizeof(double) * g.num_rows);
+    double *y = (double *)malloc(sizeof(double) * g.num_rows);
 
     // -----Initialization end-----
 
@@ -50,18 +51,41 @@ int main(int argc, char **argv) {
 
     int *recvcounts = malloc(size * sizeof(int));
     int sendcount = p[rank + 1] - p[rank];
+    int *displs = malloc(size * sizeof(int));
 
     for (int i = 0; i < size; i++) {
-        recvcounts[i] = p[i + 1] - p[i]; // Each process sends its own chunk
+        recvcounts[i] = p[i + 1] - p[i];
+        displs[i] = p[i];
+    }
+
+    if (rank == 1) {
+        printf("recvcounts: ");
+        for (int i = 0; i < size; i++) {
+            printf("%d ", recvcounts[i]);
+        }
+        printf("\ndispls: ");
+        for (int i = 0; i < size; i++) {
+            printf("%d ", displs[i]);
+        }
+        printf("\n");
     }
 
     for (int i = 0; i < 5; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-        MPI_Barrier(MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
-        MPI_Allgatherv(y, sendcount, MPI_DOUBLE, x, recvcounts, p, MPI_DOUBLE, MPI_COMM_WORLD);
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, x, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        if (rank == 0) {
+            for (int j = 0; j < g.num_rows; j++) {
+                printf("%d: y[%d] = %.1f\n", i, j, y[j]);
+            }
+        }
+        // printf("%p\n%p\n", x, y);
+
+        // if (rank == 0) {
+        //     printf("\n");
+        // }
+
         double *tmp = x;
         x = y;
         y = tmp;
@@ -72,16 +96,17 @@ int main(int argc, char **argv) {
         tcomp += tc2 - tc1;
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);
     double t1 = MPI_Wtime();
 
     // Compute L2 and GLOPS
 
+    t1 = MPI_Wtime();
     double l2 = 0.0;
-    for (int i = 0; i < g.num_rows; i++)
-        l2 += x[i] * x[i];
-
-    l2 = sqrt(l2);
+    if (rank == 0) {
+        for (int j = 0; j < g.num_rows; j++)
+            l2 += y[j] * y[j];
+        l2 = sqrt(l2);
+    }
 
     // Compute FLOPs and memory bandwidth
     double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations

@@ -30,6 +30,7 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
+
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
@@ -41,7 +42,6 @@ int main(int argc, char **argv) {
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
-    g.nnz = g.num_cols;
 
     double *V = malloc(sizeof(double) * g.num_rows);
     double *Y = malloc(sizeof(double) * g.num_rows);
@@ -66,23 +66,15 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
 
     MPI_Barrier(MPI_COMM_WORLD);
-    printf("rank %d: %d -> %d, sendcount: %d\n", rank, p[rank], p[rank + 1], c.send_count[rank]);
 
     t0 = MPI_Wtime();
-    for (int i = 0; i < 5; i++) {
+    for (int iter = 0; iter < 3; iter++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
-        MPI_Allgatherv(y + p[rank], c.send_count[rank], MPI_DOUBLE, x, c.send_count, displs, MPI_DOUBLE,
-                       MPI_COMM_WORLD);
-
-        if (rank == 0) {
-            for (int j = 0; j < g.num_rows; j++) {
-                printf("%d: y[%d] = %.1f\n", i, j, y[j]);
-            }
-            printf("\n");
-        }
+        MPI_Allgatherv(y, c.send_count[rank], MPI_DOUBLE, x, c.send_count, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
@@ -93,26 +85,15 @@ int main(int argc, char **argv) {
     }
     t1 = MPI_Wtime();
 
-    if (rank == 0) {
-        for (int i = 0; i < g.num_rows; i++) {
-            printf("%f ", x[i]);
-        }
-        printf("\n");
-    }
     double ops = (long long)g.nnz * 2ll * 100ll;
     double time = t1 - t0;
 
-    double *recvbuf = calloc(sizeof(double) * g.num_rows, 0);
-    MPI_Gather(x, p[rank + 1] - p[rank], MPI_DOUBLE, y, p[rank + 1] - p[rank], MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
     t1 = MPI_Wtime();
     double l2 = 0.0;
-    if (rank == 0) {
-        for (int j = 0; j < g.num_rows; j++)
-            l2 += x[j] * x[j];
+    for (int j = 0; j < g.num_rows; j++)
+        l2 += x[j] * x[j];
 
-        l2 = sqrt(l2);
-    }
+    l2 = sqrt(l2);
 
     // Print results
     if (rank == 0) {
@@ -125,7 +106,6 @@ int main(int argc, char **argv) {
 
     free(y);
     free(x);
-    free(recvbuf);
     free_graph(&g);
 
     MPI_Finalize(); // End MPI, called by every processor

@@ -13,11 +13,13 @@ void spmv(CSR g, double *x, double *y) {
             z += x[v] * g.values[i];
         }
         y[u] = z;
+        printf("y[%d] = %f\n", u, z);
     }
+    printf("\n");
 }
 
 void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
-#pragma omp parallel for schedule(dynamic)
+#pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
@@ -25,6 +27,7 @@ void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, doub
             z += x[v] * g.values[i];
         }
         y[u] = z;
+        // printf("y[%d] = %f\n", u, z);
     }
 }
 
@@ -42,6 +45,8 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
                                  &ubvec, NULL, &objval, part);
 
+    // new_id[i] stores the new position of node i
+    // old_id[i] stores the old position of node i
     int *new_id = malloc(sizeof(int) * g.num_rows);
     int *old_id = malloc(sizeof(int) * g.num_rows);
     int id = 0;
@@ -61,8 +66,10 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     double *new_A = malloc(sizeof(double) * g.num_cols);
 
     new_V[0] = 0;
+    int degs = 0;
     for (int i = 0; i < g.num_rows; i++) {
         int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
+        degs += d;
         new_V[i + 1] = new_V[i] + d;
         memcpy(new_E + new_V[i], g.col_idx + g.row_ptr[old_id[i]], sizeof(int) * d);
         memcpy(new_A + new_V[i], g.values + g.row_ptr[old_id[i]], sizeof(double) * d);
@@ -72,13 +79,6 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
         }
     }
 
-    double *new_X = malloc(sizeof(double) * g.num_rows);
-    for (int i = 0; i < g.num_rows; i++) {
-        new_X[i] = x[old_id[i]];
-    }
-
-    memcpy(x, new_X, sizeof(double) * g.num_rows);
-
     memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
     memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
     memcpy(g.values, new_A, sizeof(double) * g.num_cols);
@@ -86,7 +86,7 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     free(new_V);
     free(new_E);
     free(new_A);
-    free(new_X);
+    // free(new_X);
 
     free(new_id);
     free(old_id);
@@ -129,10 +129,6 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
             sep_marker[i] = 1;
             c->send_count[part[i]]++;
         }
-    }
-
-    for (int i = 0; i < num_partitions; i++) {
-        printf("rank %d sendcount: %d\n", i, c->send_count[i]);
     }
 
     int *new_id = malloc(sizeof(int) * g.num_rows);
@@ -181,7 +177,8 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
     memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
     memcpy(g.values, new_A, sizeof(double) * g.num_cols);
-    g.nnz = g.num_cols;
+
+    printf("\n");
 
     free(new_V);
     free(new_E);

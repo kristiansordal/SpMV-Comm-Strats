@@ -394,14 +394,14 @@ int cmpfunc(const void *a, const void *b) { return (*(double *)a - *(double *)b)
 
 void normalize_graph(CSR g) {
     double mean = 0.0;
-#pragma omp parallel for reduction(+ : mean)
+#pragma omp parallel for schedule(static) reduction(+ : mean)
     for (int i = 0; i < g.num_cols; i++) {
         mean += g.values[i];
     }
 
     if (mean == 0.0) // All zero input
     {
-#pragma omp parallel for
+#pragma omp parallel for schedule(static)
         for (int i = 0; i < g.num_cols; i++)
             g.values[i] = 2.0;
         return;
@@ -411,7 +411,7 @@ void normalize_graph(CSR g) {
     printf("Mean of graph: %f\n", mean);
 
     double std = 0.0;
-#pragma omp parallel for reduction(+ : std)
+#pragma omp parallel for schedule(static) reduction(+ : std)
     for (int i = 0; i < g.num_cols; i++) {
         std += (g.values[i] - mean) * (g.values[i] - mean);
     }
@@ -419,7 +419,7 @@ void normalize_graph(CSR g) {
     std = sqrt(std / (double)g.num_cols);
     printf("Std of graph: %f\n", std);
 
-#pragma omp parallel for
+#pragma omp parallel for schedule(static)
     for (int i = 0; i < g.num_cols; i++) {
         g.values[i] = (g.values[i] - mean) / (std + __DBL_EPSILON__);
     }
