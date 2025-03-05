@@ -430,14 +430,20 @@ void normalize_graph(CSR g) {
 int validate_graph(CSR g) {
     for (int u = 0; u < g.num_rows; u++) {
         int degree = g.row_ptr[u + 1] - g.row_ptr[u];
-        if (degree < 0 || degree > g.num_cols)
+        if (degree < 0 || degree > g.num_cols) {
+            printf("Invalid degree: %d\n", degree);
             return 0;
+        }
 
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
-            if (g.col_idx[i] < 0 || g.col_idx[i] > g.num_cols)
+            if (g.col_idx[i] < 0 || g.col_idx[i] > g.num_cols) {
+                printf("Invalid column index: %d\n", g.col_idx[i]);
                 return 0;
-            if (i > g.row_ptr[u] && g.col_idx[i] <= g.col_idx[i - 1])
+            }
+            if (i > g.row_ptr[u] && g.col_idx[i] <= g.col_idx[i - 1]) {
+                printf("Invalid column index order: %d %d\n", g.col_idx[i], g.col_idx[i - 1]);
                 return 0;
+            }
         }
     }
     return 1;

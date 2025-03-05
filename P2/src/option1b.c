@@ -78,9 +78,9 @@ int main(int argc, char **argv) {
                        MPI_COMM_WORLD);
 
         if (rank == 0) {
-            for (int j = 0; j < g.num_rows; j++) {
-                printf("%d: y[%d] = %.1f\n", i, j, y[j]);
-            }
+            //     for (int j = 0; j < g.num_rows; j++) {
+            //         printf("%d: y[%d] = %.1f\n", i, j, y[j]);
+            //     }
             printf("\n");
         }
         double tc3 = MPI_Wtime();
@@ -93,12 +93,12 @@ int main(int argc, char **argv) {
     }
     t1 = MPI_Wtime();
 
-    if (rank == 0) {
-        for (int i = 0; i < g.num_rows; i++) {
-            printf("%f ", x[i]);
-        }
-        printf("\n");
-    }
+    // if (rank == 0) {
+    //     for (int i = 0; i < g.num_rows; i++) {
+    //         printf("%f ", x[i]);
+    //     }
+    //     printf("\n");
+    // }
     double ops = (long long)g.nnz * 2ll * 100ll;
     double time = t1 - t0;
 

@@ -19,7 +19,6 @@ void spmv(CSR g, double *x, double *y) {
 }
 
 void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
-#pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
@@ -27,7 +26,6 @@ void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, doub
             z += x[v] * g.values[i];
         }
         y[u] = z;
-        // printf("y[%d] = %f\n", u, z);
     }
 }
 
@@ -61,15 +59,19 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
         partition_idx[r + 1] = id;
     }
 
+    printf("partition_idx: ");
+    for (int i = 0; i <= num_partitions; i++) {
+        printf("%d ", partition_idx[i]);
+    }
+    printf("\n");
+
     int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
     int *new_E = malloc(sizeof(int) * g.num_cols);
     double *new_A = malloc(sizeof(double) * g.num_cols);
 
     new_V[0] = 0;
-    int degs = 0;
     for (int i = 0; i < g.num_rows; i++) {
         int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
-        degs += d;
         new_V[i + 1] = new_V[i] + d;
         memcpy(new_E + new_V[i], g.col_idx + g.row_ptr[old_id[i]], sizeof(int) * d);
         memcpy(new_A + new_V[i], g.values + g.row_ptr[old_id[i]], sizeof(double) * d);

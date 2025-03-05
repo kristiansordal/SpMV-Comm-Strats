@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
     }
 
-    if (rank == 1) {
+    if (rank == 0) {
         printf("recvcounts: ");
         for (int i = 0; i < size; i++) {
             printf("%d ", recvcounts[i]);
@@ -69,27 +69,23 @@ int main(int argc, char **argv) {
         }
         printf("\n");
     }
+    printf("rank %d sendcount: %d\n", rank, sendcount);
 
     for (int i = 0; i < 5; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
         MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, x, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
-        if (rank == 0) {
-            for (int j = 0; j < g.num_rows; j++) {
-                printf("%d: y[%d] = %.1f\n", i, j, y[j]);
-            }
-        }
-        // printf("%p\n%p\n", x, y);
-
-        // if (rank == 0) {
-        //     printf("\n");
-        // }
-
         double *tmp = x;
         x = y;
         y = tmp;
 
+        // if (rank == 0) {
+        //     for (int j = 0; j < g.num_rows; j++) {
+        //         printf("y[%d]: %f\n", j, y[j]);
+        //
+        //     printf("\n");
+        // }
         double tc3 = MPI_Wtime();
 
         tcomm += tc3 - tc2;
@@ -104,8 +100,15 @@ int main(int argc, char **argv) {
     double l2 = 0.0;
     if (rank == 0) {
         for (int j = 0; j < g.num_rows; j++)
-            l2 += y[j] * y[j];
+            l2 += x[j] * x[j];
         l2 = sqrt(l2);
+    }
+
+    double l3 = 0.0;
+    if (rank == 0) {
+        for (int j = 0; j < g.num_rows; j++)
+            l3 += y[j] * y[j];
+        l3 = sqrt(l3);
     }
 
     // Compute FLOPs and memory bandwidth
@@ -114,11 +117,11 @@ int main(int argc, char **argv) {
 
     // Print results
     if (rank == 0) {
-        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
+        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf, L3 = %lf\n", time, tcomp, tcomm,
                (ops / time) / 1e9,                                             // GFLOPS
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
-               l2);
+               l2, l3);
     }
 
     free(y);
