@@ -6,7 +6,6 @@
 #include <string.h>
 
 void spmv(CSR g, double *x, double *y) {
-    printf("g.num_rows: %d\n", g.num_rows);
     for (int u = 0; u < g.num_rows; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
@@ -14,20 +13,16 @@ void spmv(CSR g, double *x, double *y) {
             z += x[v] * g.values[i];
         }
         y[u] = z;
-        printf("y[%d] = %f\n", u, z);
     }
-    printf("\n");
 }
 
 void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
-    printf("rank %d: %d -> %d\n", rank, row_ptr_start_idx, row_ptr_end_idx);
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
             int v = g.col_idx[i];
             z += x[v] * g.values[i];
         }
-        printf("y[%d] = %.1f\n", u, z);
         y[u] = z;
     }
 }

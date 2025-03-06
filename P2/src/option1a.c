@@ -40,15 +40,9 @@ int main(int argc, char **argv) {
 
     // -----Main program start-----
     for (int i = 0; i < g.num_rows; i++) {
-        x[i] = 2;
-        y[i] = 2;
+        x[i] = 2.0;
+        y[i] = 2.0;
     }
-
-    // printf("g.values: \n");
-
-    // for (int i = 0; i < g.num_cols; i++) {
-    //     printf("%f ", g.values[i]);
-    // }
 
     MPI_Barrier(MPI_COMM_WORLD);
     double tcomm = 0.0, tcomp = 0.0;
@@ -65,38 +59,11 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
     }
 
-    if (rank == 0) {
-        for (int i = 0; i < size; i++) {
-            printf("p[%d] = %d\n", i, p[i]);
-        }
-    }
-
-    if (rank == 0) {
-        printf("recvcounts: ");
-        for (int i = 0; i < size; i++) {
-            printf("%d ", recvcounts[i]);
-        }
-        printf("\ndispls: ");
-        for (int i = 0; i < size; i++) {
-            printf("%d ", displs[i]);
-        }
-        printf("\n");
-    }
-    printf("rank %d sendcount: %d\n", rank, sendcount);
-
     for (int i = 0; i < 2; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
         MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
-
-        if (rank == 0) {
-            printf("before swap\n");
-            for (int i = 0; i < g.num_rows; i++) {
-                printf("y[%d]: %.1f\n", i, y[i]);
-            }
-            printf("\n");
-        }
 
         double *tmp = x;
         x = y;
