@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
         input = malloc(sizeof(double) * g.num_rows);
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
+        // optional for method 1a. - p can be created separately from this function
         partition_graph(g, size, p, input);
     }
 
@@ -39,9 +40,15 @@ int main(int argc, char **argv) {
 
     // -----Main program start-----
     for (int i = 0; i < g.num_rows; i++) {
-        x[i] = 1.0;
-        y[i] = 1.0;
+        x[i] = 2;
+        y[i] = 2;
     }
+
+    // printf("g.values: \n");
+
+    // for (int i = 0; i < g.num_cols; i++) {
+    //     printf("%f ", g.values[i]);
+    // }
 
     MPI_Barrier(MPI_COMM_WORLD);
     double tcomm = 0.0, tcomp = 0.0;
@@ -53,9 +60,15 @@ int main(int argc, char **argv) {
     int sendcount = p[rank + 1] - p[rank];
     int *displs = malloc(size * sizeof(int));
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size + 1; i++) {
         recvcounts[i] = p[i + 1] - p[i];
         displs[i] = p[i];
+    }
+
+    if (rank == 0) {
+        for (int i = 0; i < size; i++) {
+            printf("p[%d] = %d\n", i, p[i]);
+        }
     }
 
     if (rank == 0) {
@@ -71,21 +84,24 @@ int main(int argc, char **argv) {
     }
     printf("rank %d sendcount: %d\n", rank, sendcount);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 2; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
-        MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, x, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+
+        if (rank == 0) {
+            printf("before swap\n");
+            for (int i = 0; i < g.num_rows; i++) {
+                printf("y[%d]: %.1f\n", i, y[i]);
+            }
+            printf("\n");
+        }
+
         double *tmp = x;
         x = y;
         y = tmp;
 
-        // if (rank == 0) {
-        //     for (int j = 0; j < g.num_rows; j++) {
-        //         printf("y[%d]: %f\n", j, y[j]);
-        //
-        //     printf("\n");
-        // }
         double tc3 = MPI_Wtime();
 
         tcomm += tc3 - tc2;
@@ -104,24 +120,17 @@ int main(int argc, char **argv) {
         l2 = sqrt(l2);
     }
 
-    double l3 = 0.0;
-    if (rank == 0) {
-        for (int j = 0; j < g.num_rows; j++)
-            l3 += y[j] * y[j];
-        l3 = sqrt(l3);
-    }
-
     // Compute FLOPs and memory bandwidth
     double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
     double time = t1 - t0;
 
     // Print results
     if (rank == 0) {
-        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf, L3 = %lf\n", time, tcomp, tcomm,
+        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
                (ops / time) / 1e9,                                             // GFLOPS
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
-               l2, l3);
+               l2);
     }
 
     free(y);

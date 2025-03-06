@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
         MPI_Barrier(MPI_COMM_WORLD);
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
-        MPI_Allgatherv(y + p[rank], c.send_count[rank], MPI_DOUBLE, x, c.send_count, displs, MPI_DOUBLE,
+        MPI_Allgatherv(y + p[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
                        MPI_COMM_WORLD);
 
         if (rank == 0) {
@@ -102,8 +102,8 @@ int main(int argc, char **argv) {
     double ops = (long long)g.nnz * 2ll * 100ll;
     double time = t1 - t0;
 
-    double *recvbuf = calloc(sizeof(double) * g.num_rows, 0);
-    MPI_Gather(x, p[rank + 1] - p[rank], MPI_DOUBLE, y, p[rank + 1] - p[rank], MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    // double *recvbuf = calloc(sizeof(double) * g.num_rows, 0);
+    // MPI_Gather(x, p[rank + 1] - p[rank], MPI_DOUBLE, y, p[rank + 1] - p[rank], MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     t1 = MPI_Wtime();
     double l2 = 0.0;
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 
     free(y);
     free(x);
-    free(recvbuf);
+    // frbe(recvbuf);
     free_graph(&g);
 
     MPI_Finalize(); // End MPI, called by every processor
