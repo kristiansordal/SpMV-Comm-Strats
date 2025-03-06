@@ -399,6 +399,9 @@ void normalize_graph(CSR g) {
         mean += g.values[i];
     }
 
+    printf("Mean of graph: %f\n", mean);
+    fflush(stdout);
+
     if (mean == 0.0) // All zero input
     {
 #pragma omp parallel for schedule(static)
@@ -408,7 +411,6 @@ void normalize_graph(CSR g) {
     }
 
     mean /= (double)g.num_cols;
-    printf("Mean of graph: %f\n", mean);
 
     double std = 0.0;
 #pragma omp parallel for schedule(static) reduction(+ : std)
@@ -418,6 +420,7 @@ void normalize_graph(CSR g) {
 
     std = sqrt(std / (double)g.num_cols);
     printf("Std of graph: %f\n", std);
+    fflush(stdout);
 
 #pragma omp parallel for schedule(static)
     for (int i = 0; i < g.num_cols; i++) {
