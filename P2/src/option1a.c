@@ -48,7 +48,6 @@ int main(int argc, char **argv) {
     double tcomm = 0.0, tcomp = 0.0;
 
     // MPI_Barrier(MPI_COMM_WORLD);
-    double t0 = MPI_Wtime();
 
     int *recvcounts = malloc(size * sizeof(int));
     int sendcount = p[rank + 1] - p[rank];
@@ -59,7 +58,8 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
     }
 
-    for (int i = 0; i < 2; i++) {
+    double t0 = MPI_Wtime();
+    for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
     }
 
     // Compute FLOPs and memory bandwidth
-    double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
+    double ops = (long long)g.nnz * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
     double time = t1 - t0;
 
     // Print results

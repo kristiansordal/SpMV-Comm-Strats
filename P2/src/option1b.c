@@ -93,17 +93,8 @@ int main(int argc, char **argv) {
     }
     t1 = MPI_Wtime();
 
-    // if (rank == 0) {
-    //     for (int i = 0; i < g.num_rows; i++) {
-    //         printf("%f ", x[i]);
-    //     }
-    //     printf("\n");
-    // }
     double ops = (long long)g.nnz * 2ll * 100ll;
     double time = t1 - t0;
-
-    // double *recvbuf = calloc(sizeof(double) * g.num_rows, 0);
-    // MPI_Gather(x, p[rank + 1] - p[rank], MPI_DOUBLE, y, p[rank + 1] - p[rank], MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     t1 = MPI_Wtime();
     double l2 = 0.0;
