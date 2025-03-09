@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
 
     for (int i = 0; i < 2; i++) {
         spmv(g, x, y);
+        printf("\n");
         double *tmp = x;
         x = y;
         y = tmp;

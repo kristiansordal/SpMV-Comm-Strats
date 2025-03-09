@@ -22,6 +22,9 @@ int main(int argc, char **argv) {
 
     CSR g;
     int *p = malloc(sizeof(int) * (size + 1));
+    for (int i = 0; i < size + 1; i++) {
+        p[i] = 0;
+    }
     double *input;
 
     comm_lists c = init_comm_lists(size);
@@ -54,46 +57,48 @@ int main(int argc, char **argv) {
 
     // ----- Main Program Start -----
     for (int i = 0; i < g.num_rows; i++) {
-        x[i] = 1.0;
-        y[i] = 1.0;
+        x[i] = 2.0;
+        y[i] = 2.0;
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
 
-    int *displs = (int *)malloc(sizeof(int) * size);
+    int *recvcounts = malloc(size * sizeof(int));
+    int *displs = malloc(size * sizeof(int));
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++) {
+        recvcounts[i] = p[i + 1] - p[i];
         displs[i] = p[i];
+    }
 
     MPI_Barrier(MPI_COMM_WORLD);
-    printf("rank %d: %d -> %d, sendcount: %d\n", rank, p[rank], p[rank + 1], c.send_count[rank]);
 
     t0 = MPI_Wtime();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
+        MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
+                       MPI_COMM_WORLD);
+        double *tmp = y;
+        y = x;
+        x = tmp;
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
-        MPI_Allgatherv(y + p[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
-                       MPI_COMM_WORLD);
 
-        if (rank == 0) {
-            //     for (int j = 0; j < g.num_rows; j++) {
-            //         printf("%d: y[%d] = %.1f\n", i, j, y[j]);
-            //     }
-            printf("\n");
-        }
+        MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
-
-        double *tmp = x;
-        x = y;
-        y = tmp;
     }
+
+    MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+
+    double *tmp = x;
+    x = y;
+    y = tmp;
     t1 = MPI_Wtime();
 
-    double ops = (long long)g.nnz * 2ll * 100ll;
+    double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
 
     t1 = MPI_Wtime();
@@ -101,7 +106,6 @@ int main(int argc, char **argv) {
     if (rank == 0) {
         for (int j = 0; j < g.num_rows; j++)
             l2 += x[j] * x[j];
-
         l2 = sqrt(l2);
     }
 
@@ -116,7 +120,6 @@ int main(int argc, char **argv) {
 
     free(y);
     free(x);
-    // frbe(recvbuf);
     free_graph(&g);
 
     MPI_Finalize(); // End MPI, called by every processor

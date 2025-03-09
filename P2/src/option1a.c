@@ -55,6 +55,8 @@ int main(int argc, char **argv) {
 
     for (int i = 0; i < size + 1; i++) {
         recvcounts[i] = p[i + 1] - p[i];
+    }
+    for (int i = 0; i < size; i++) {
         displs[i] = p[i];
     }
 

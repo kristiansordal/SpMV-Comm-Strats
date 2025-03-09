@@ -17,6 +17,7 @@ void spmv(CSR g, double *x, double *y) {
 }
 
 void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y) {
+#pragma omp parallel for schedule(static)
     for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
@@ -92,6 +93,8 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     free(old_id);
     free(part);
 }
+
+// I think that maybe the col_idx is what that needs to be reordered aswell.
 void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c) {
     if (num_partitions == 1) {
         partition_idx[0] = 0;
@@ -107,27 +110,19 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
                                  &ubvec, NULL, &objval, part);
 
     int *sep_marker = malloc(g.num_rows * sizeof(int));
-    for (int i = 0; i < num_partitions; i++) {
+    for (int i = 0; i < num_partitions; i++)
         c->send_count[i] = 0;
-    }
-    for (int i = 0; i < g.num_rows; i++) {
+    for (int i = 0; i < g.num_rows; i++)
         sep_marker[i] = 0;
-    }
 
-    printf("g.num_rows: %d\n", g.num_rows);
     int sep = 0;
     for (int i = 0; i < g.num_rows; i++) {
-        if (!sep) {
-            for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-                if (part[i] != part[g.col_idx[j]]) {
-                    sep = 1;
-                    break;
-                }
+        for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+            if (part[i] != part[g.col_idx[j]]) {
+                sep_marker[i] = 1;
+                c->send_count[part[i]]++;
+                break;
             }
-        } else {
-            sep = 0;
-            sep_marker[i] = 1;
-            c->send_count[part[i]]++;
         }
     }
 
@@ -136,19 +131,20 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     int id = 0;
     partition_idx[0] = 0;
     for (int r = 0; r < num_partitions; r++) {
-
         for (int i = 0; i < g.num_rows; i++) {
             if (part[i] == r && sep_marker[i]) {
                 old_id[id] = i;
                 new_id[i] = id++;
             }
         }
+
         for (int i = 0; i < g.num_rows; i++) {
             if (part[i] == r && !sep_marker[i]) {
                 old_id[id] = i;
                 new_id[i] = id++;
             }
         }
+
         partition_idx[r + 1] = id;
     }
 
@@ -177,8 +173,6 @@ void partition_graph_and_reorder_separators(CSR g, int num_partitions, int *part
     memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
     memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
     memcpy(g.values, new_A, sizeof(double) * g.num_cols);
-
-    printf("\n");
 
     free(new_V);
     free(new_E);
@@ -282,10 +276,6 @@ void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c) {
         // Store list of separators
         c.send_items[r] = malloc(sizeof(int) * c.send_count[r]);
         c.send_lists[r] = malloc(sizeof(double) * c.send_count[r]);
-
-        // for (int i = 0; i < c.send_count[r]; i++) {
-        //     printf("%d, c.send_items[%d][%d] = %d\n", rank, r, i, c.send_items[r][i]);
-        // }
 
         int j = 0;
         for (int i = p[rank]; i < p[rank + 1]; i++)
