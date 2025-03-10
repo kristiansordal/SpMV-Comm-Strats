@@ -2,8 +2,10 @@
 #include "spmv.h"
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
 int main(int argc, char **argv) {
     CSR g;
+    clock_t start, end;
     g = parse_and_validate_mtx(argv[1]);
 
     double *x = malloc(sizeof(double) * g.num_rows);
@@ -14,20 +16,31 @@ int main(int argc, char **argv) {
         y[i] = 2.0;
     }
 
-    for (int i = 0; i < 2; i++) {
+    start = clock();
+    for (int i = 0; i < 100; i++) {
         spmv(g, x, y);
-        printf("\n");
         double *tmp = x;
         x = y;
         y = tmp;
     }
+    end = clock();
+    double ops = (long long)g.nnz * 2ll * 100ll;
+
+    printf("g.num_rows: %d\n", g.num_rows);
+    printf("g.num_cols: %d\n", g.num_cols);
+    printf("g.nnz: %d\n", g.nnz);
+    printf("ops: %f\n", ops);
 
     double l2 = 0.0;
     for (int i = 0; i < g.num_rows; i++)
         l2 += x[i] * x[i];
     l2 = sqrt(l2);
 
+    double time = (double)(end - start) / CLOCKS_PER_SEC;
+
     printf("L2 norm: %f\n", l2);
+    printf("Time: %f\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("GFLOPS: %f\n", (ops / (time * 1e9)));
 
     free(x);
     free(y);

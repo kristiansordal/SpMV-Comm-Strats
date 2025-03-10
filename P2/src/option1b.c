@@ -44,7 +44,6 @@ int main(int argc, char **argv) {
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
-    g.nnz = g.num_cols;
 
     double *V = malloc(sizeof(double) * g.num_rows);
     double *Y = malloc(sizeof(double) * g.num_rows);
@@ -82,6 +81,7 @@ int main(int argc, char **argv) {
         double *tmp = y;
         y = x;
         x = tmp;
+
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
 
@@ -96,13 +96,13 @@ int main(int argc, char **argv) {
     double *tmp = x;
     x = y;
     y = tmp;
+
     t1 = MPI_Wtime();
 
-    double ops = (long long)g.num_cols * 2ll * 100ll;
+    double ops = (long long)g.nnz * 2ll * 100ll;
     double time = t1 - t0;
-
-    t1 = MPI_Wtime();
     double l2 = 0.0;
+
     if (rank == 0) {
         for (int j = 0; j < g.num_rows; j++)
             l2 += x[j] * x[j];
@@ -112,7 +112,7 @@ int main(int argc, char **argv) {
     // Print results
     if (rank == 0) {
         printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
-               (ops / time) / 1e9,                                             // GFLOPS
+               (ops / (time * 1e9)),                                           // GFLOPS
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
                l2);

@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
 
     CSR g;
     double *input;
+    double tcomm, tcomp, t0, t1, tc1, tc2, tc3;
     int *p = malloc(sizeof(int) * size + 1);
 
     if (rank == 0) {
@@ -45,42 +46,34 @@ int main(int argc, char **argv) {
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
-    double tcomm = 0.0, tcomp = 0.0;
-
-    // MPI_Barrier(MPI_COMM_WORLD);
+    tcomm = 0.0, tcomp = 0.0;
 
     int *recvcounts = malloc(size * sizeof(int));
     int sendcount = p[rank + 1] - p[rank];
     int *displs = malloc(size * sizeof(int));
 
-    for (int i = 0; i < size + 1; i++) {
+    for (int i = 0; i < size + 1; i++)
         recvcounts[i] = p[i + 1] - p[i];
-    }
-    for (int i = 0; i < size; i++) {
-        displs[i] = p[i];
-    }
 
-    double t0 = MPI_Wtime();
+    for (int i = 0; i < size; i++)
+        displs[i] = p[i];
+
+    t0 = MPI_Wtime();
     for (int i = 0; i < 100; i++) {
-        double tc1 = MPI_Wtime();
+        tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-        double tc2 = MPI_Wtime();
+        tc2 = MPI_Wtime();
         MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
 
         double *tmp = x;
         x = y;
         y = tmp;
 
-        double tc3 = MPI_Wtime();
+        tc3 = MPI_Wtime();
 
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
     }
-
-    double t1 = MPI_Wtime();
-
-    // Compute L2 and GLOPS
-
     t1 = MPI_Wtime();
     double l2 = 0.0;
     if (rank == 0) {
@@ -96,7 +89,7 @@ int main(int argc, char **argv) {
     // Print results
     if (rank == 0) {
         printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
-               (ops / time) / 1e9,                                             // GFLOPS
+               (ops / (time * 1e9)),                                           // GFLOPS
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
                l2);
