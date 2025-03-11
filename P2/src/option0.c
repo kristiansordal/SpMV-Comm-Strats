@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
         y = tmp;
     }
     end = clock();
-    double ops = (long long)g.nnz * 2ll * 100ll;
+    double ops = (long long)g.num_cols * 2ll * 100ll;
 
     printf("g.num_rows: %d\n", g.num_rows);
     printf("g.num_cols: %d\n", g.num_cols);

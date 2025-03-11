@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
         for (int i = 0; i < g.num_rows; i++)
             input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
 
-        partition_graph_and_reorder_separators(g, size, p, input, &c);
+        partition_graph_1b(g, size, p, input, &c);
     }
 
     distribute_graph(&g, rank);
@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
     MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 2; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
 
     t1 = MPI_Wtime();
 
-    double ops = (long long)g.nnz * 2ll * 100ll;
+    double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
     double l2 = 0.0;
 

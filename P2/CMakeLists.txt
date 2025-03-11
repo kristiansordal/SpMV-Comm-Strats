@@ -48,6 +48,16 @@ add_executable(1b
     src/spmv.h
 )
 
+add_executable(1c 
+    src/option1c.c
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
+
 # Correct the typo for including the project's header files
 include_directories(${CMAKE_SOURCE_DIR}/include)
 target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
@@ -59,6 +69,12 @@ target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS
 target_link_libraries(1b PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
 target_compile_options(1b PRIVATE)
 target_link_options(1b PRIVATE)
+
+
+target_include_directories(1c PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+target_link_libraries(1c PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
+target_compile_options(1c PRIVATE)
+target_link_options(1c PRIVATE)
 
 target_include_directories(0a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
 target_link_libraries(0a PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
