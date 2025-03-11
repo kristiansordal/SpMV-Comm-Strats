@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
     }
 
     // Compute FLOPs and memory bandwidth
-    double ops = (long long)g.nnz * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
+    double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
     double time = t1 - t0;
 
     // Print results

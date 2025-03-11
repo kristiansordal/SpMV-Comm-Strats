@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     }
 
     start = clock();
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 2; i++) {
         spmv(g, x, y);
         double *tmp = x;
         x = y;

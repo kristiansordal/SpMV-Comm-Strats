@@ -72,6 +72,9 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i++) {
         recvcounts[i] = p[i + 1] - p[i];
         displs[i] = p[i];
+        if (rank == 0) {
+            printf("rank: %d, recvcounts[%d]: %d, displs[%d]: %d\n", rank, i, recvcounts[i], i, displs[i]);
+        }
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -83,11 +86,12 @@ int main(int argc, char **argv) {
         // MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
         //                MPI_COMM_WORLD);
 
-        exchange_separators(c, y, rank, size);
+        // exchange_separators(c, y, rank, size);
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-        double *tmp = y;
-        y = x;
-        x = tmp;
+        exchange_separators(c, y, rank, size);
+        // double *tmp = y;
+        // y = x;
+        // x = tmp;
         double tc2 = MPI_Wtime();
 
         MPI_Barrier(MPI_COMM_WORLD);
@@ -96,18 +100,14 @@ int main(int argc, char **argv) {
         tcomp += tc2 - tc1;
     }
 
-    // MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE,
-    // MPI_COMM_WORLD);
+    MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
 
-    // double *tmp = x;
-    // x = y;
-    // y = tmp;
+    double *tmp = x;
+    x = y;
+    y = tmp;
 
     t1 = MPI_Wtime();
 
-    if (rank == 0) {
-        printf("g.nnz: %d, g.num_cols: %d\n", g.nnz, g.num_cols);
-    }
     double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
     double l2 = 0.0;

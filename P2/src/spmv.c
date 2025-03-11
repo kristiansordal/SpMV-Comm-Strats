@@ -13,6 +13,7 @@ void spmv(CSR g, double *x, double *y) {
             z += x[v] * g.values[i];
         }
         y[u] = z;
+        printf("y[%d] = %f\n", u, y[u]);
     }
 }
 
@@ -25,6 +26,7 @@ void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, doub
             z += x[v] * g.values[i];
         }
         y[u] = z;
+        printf("y[%d] = %f\n", u, y[u]);
     }
 }
 
