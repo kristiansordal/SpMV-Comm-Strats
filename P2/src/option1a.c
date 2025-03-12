@@ -17,17 +17,12 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
 
     CSR g;
-    double *input;
     double tcomm, tcomp, t0, t1, tc1, tc2, tc3;
     int *p = malloc(sizeof(int) * size + 1);
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        input = malloc(sizeof(double) * g.num_rows);
-        for (int i = 0; i < g.num_rows; i++)
-            input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
-        // optional for method 1a. - p can be created separately from this function
-        partition_graph(g, size, p, input);
+        partition_graph(g, size, p);
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -97,7 +92,10 @@ int main(int argc, char **argv) {
 
     free(y);
     free(x);
+    free(p);
+    free(recvcounts);
+    free(displs);
 
-    MPI_Finalize(); // End MPI, called by every processor
+    MPI_Finalize();
     return 0;
 }

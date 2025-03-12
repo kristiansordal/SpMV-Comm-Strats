@@ -22,7 +22,7 @@ void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c);
 
 void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c);
 
-void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x);
+void partition_graph(CSR g, int num_partitions, int *partition_idx);
 
 void partition_graph_naive(CSR g, int s, int t, int k, int *p);
 

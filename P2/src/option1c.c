@@ -25,20 +25,14 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size + 1; i++) {
         p[i] = 0;
     }
-    double *input;
 
     comm_lists c = init_comm_lists(size);
 
     double tcomm, tcomp, t0, t1;
 
     if (rank == 0) {
-
         g = parse_and_validate_mtx(argv[1]);
-        input = malloc(sizeof(double) * g.num_rows);
-        for (int i = 0; i < g.num_rows; i++)
-            input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
-
-        partition_graph(g, size, p, input);
+        partition_graph(g, size, p);
         printf("Partitioning done\n");
     }
 

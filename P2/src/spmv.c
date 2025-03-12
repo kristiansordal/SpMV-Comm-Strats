@@ -30,7 +30,7 @@ void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, doub
     }
 }
 
-void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
+void partition_graph(CSR g, int num_partitions, int *partition_idx) {
     if (num_partitions == 1) {
         partition_idx[0] = 0;
         partition_idx[1] = g.num_rows;
@@ -83,7 +83,6 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx, double *x) {
     free(new_V);
     free(new_E);
     free(new_A);
-    // free(new_X);
 
     free(new_id);
     free(old_id);

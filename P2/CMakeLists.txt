@@ -7,7 +7,7 @@ project(SpMV
 )
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 ")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 
 # Find MPI
 find_package(MPI REQUIRED)
@@ -58,9 +58,9 @@ add_executable(1c
     src/spmv.h
 )
 
-add_executable(test 
-    src/test_bcast.c
-)
+# add_executable(test 
+#     src/test_bcast.c
+# )
 
 # Correct the typo for including the project's header files
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -86,7 +86,7 @@ target_compile_options(0a PRIVATE)
 target_link_options(0a PRIVATE)
 
 
-target_include_directories(test PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(test PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(test PRIVATE)
-target_link_options(test PRIVATE)
+# target_include_directories(test PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+# target_link_libraries(test PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
+# target_compile_options(test PRIVATE)
+# target_link_options(test PRIVATE)
