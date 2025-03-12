@@ -320,8 +320,12 @@ CSR parse_and_validate_mtx(const char *path) {
 
     printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);
 
+    printf("Normalizing graph\n");
     normalize_graph(g);
+    printf("Done normalizing graph\n");
+    printf("Sorting edges\n");
     sort_edges(g);
+    printf("Done sorting edges\n");
     if (!validate_graph(g))
         printf("Error in graph\n");
 
