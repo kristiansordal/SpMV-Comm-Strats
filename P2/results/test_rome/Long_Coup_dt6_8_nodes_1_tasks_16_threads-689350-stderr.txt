@@ -1,0 +1,382 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-051,053,057-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 689350
+srun: job-name            : Long_Coup_dt6_8_nodes_1_tasks_16_threads
+srun: nodes               : 8
+srun: ntasks              : 8
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 689350: nodes(8):`n[049-051,053,057-060]', cpu counts: 32(x8)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=689350.0 on host n049, 1 tasks: 0
+srun: launching StepId=689350.0 on host n050, 1 tasks: 1
+srun: launching StepId=689350.0 on host n051, 1 tasks: 2
+srun: launching StepId=689350.0 on host n053, 1 tasks: 3
+srun: launching StepId=689350.0 on host n057, 1 tasks: 4
+srun: launching StepId=689350.0 on host n058, 1 tasks: 5
+srun: launching StepId=689350.0 on host n059, 1 tasks: 6
+srun: launching StepId=689350.0 on host n060, 1 tasks: 7
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: Sent KVS info to 8 nodes, up to 1 tasks per node
+srun: Sent KVS info to 8 nodes, up to 1 tasks per node
+[n060:612502:0:612502]       ud_ep.c:268  Fatal: UD endpoint 0x555555a67ef0 to <no debug data>: unhandled timeout error
+[n050:838321:0:838321]       ud_ep.c:268  Fatal: UD endpoint 0x5555559d0760 to <no debug data>: unhandled timeout error
+[n057:490027:0:490027]       ud_ep.c:268  Fatal: UD endpoint 0x555555a68570 to <no debug data>: unhandled timeout error
+[n059:670297:0:670297]       ud_ep.c:268  Fatal: UD endpoint 0x555555aaa7a0 to <no debug data>: unhandled timeout error
+[n051:654419:0:654419]       ud_ep.c:268  Fatal: UD endpoint 0x555555a68490 to <no debug data>: unhandled timeout error
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+==== backtrace (tid: 612502) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n060:612502] *** Process received signal ***
+[n060:612502] Signal: Aborted (6)
+[n060:612502] Signal code:  (-6)
+[n060:612502] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n060:612502] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n060:612502] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n060:612502] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n060:612502] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x155554072a37]
+[n060:612502] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x155554072b62]
+[n060:612502] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f76b61b]
+[n060:612502] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x155554067f1a]
+[n060:612502] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n060:612502] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540bc4df]
+[n060:612502] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n060:612502] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n060:612502] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n060:612502] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n060:612502] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n060:612502] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n060:612502] *** End of error message ***
+==== backtrace (tid: 838321) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n050:838321] *** Process received signal ***
+[n050:838321] Signal: Aborted (6)
+[n050:838321] Signal code:  (-6)
+[n050:838321] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n050:838321] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n050:838321] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n050:838321] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n050:838321] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x15554f967a37]
+[n050:838321] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15554f967b62]
+[n050:838321] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f6e461b]
+[n050:838321] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x15554f95cf1a]
+[n050:838321] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n050:838321] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540324df]
+[n050:838321] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n050:838321] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n050:838321] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n050:838321] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n050:838321] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n050:838321] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n050:838321] *** End of error message ***
+==== backtrace (tid: 670297) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n059:670297] *** Process received signal ***
+[n059:670297] Signal: Aborted (6)
+[n059:670297] Signal code:  (-6)
+[n059:670297] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n059:670297] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n059:670297] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n059:670297] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n059:670297] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x155554072a37]
+[n059:670297] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x155554072b62]
+[n059:670297] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f76b61b]
+[n059:670297] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x155554067f1a]
+[n059:670297] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n059:670297] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540bc4df]
+[n059:670297] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n059:670297] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n059:670297] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n059:670297] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n059:670297] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n059:670297] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n059:670297] *** End of error message ***
+==== backtrace (tid: 490027) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n057:490027] *** Process received signal ***
+[n057:490027] Signal: Aborted (6)
+[n057:490027] Signal code:  (-6)
+[n057:490027] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n057:490027] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n057:490027] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n057:490027] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n057:490027] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x155554072a37]
+[n057:490027] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x155554072b62]
+[n057:490027] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f76b61b]
+[n057:490027] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x155554067f1a]
+[n057:490027] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n057:490027] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540bc4df]
+[n057:490027] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n057:490027] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n057:490027] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n057:490027] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n057:490027] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n057:490027] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n057:490027] *** End of error message ***
+==== backtrace (tid: 654419) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n051:654419] *** Process received signal ***
+[n051:654419] Signal: Aborted (6)
+[n051:654419] Signal code:  (-6)
+[n051:654419] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n051:654419] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n051:654419] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n051:654419] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n051:654419] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x155554072a37]
+[n051:654419] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x155554072b62]
+[n051:654419] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f76b61b]
+[n051:654419] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x155554067f1a]
+[n051:654419] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n051:654419] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540bc4df]
+[n051:654419] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n051:654419] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n051:654419] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n051:654419] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n051:654419] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n051:654419] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n051:654419] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n060: task 7: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n050: task 1: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n051: task 2: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n057: task 4: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n059: task 6: Aborted (core dumped)
+[n049:1031804:0:1031804]       ud_ep.c:268  Fatal: UD endpoint 0x555555aaa7a0 to <no debug data>: unhandled timeout error
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+==== backtrace (tid:1031804) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n049:1031804] *** Process received signal ***
+[n049:1031804] Signal: Aborted (6)
+[n049:1031804] Associated errno: Unknown error 21845 (21845)
+[n049:1031804] Signal code:  (1434569056)
+[n049:1031804] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n049:1031804] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n049:1031804] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n049:1031804] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n049:1031804] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x155554072a37]
+[n049:1031804] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x155554072b62]
+[n049:1031804] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f76b61b]
+[n049:1031804] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x155554067f1a]
+[n049:1031804] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n049:1031804] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540bc4df]
+[n049:1031804] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n049:1031804] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n049:1031804] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n049:1031804] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n049:1031804] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n049:1031804] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n049:1031804] *** End of error message ***
+[n053:772461:0:772461]       ud_ep.c:268  Fatal: UD endpoint 0x555555aa9710 to <no debug data>: unhandled timeout error
+
+/cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c: [ uct_ud_ep_deferred_timeout_handler() ]
+      ...
+      265                                      &ep->super.super,
+      266                                      UCS_ERR_ENDPOINT_TIMEOUT);
+      267     if (status != UCS_OK) {
+==>   268         ucs_fatal("UD endpoint %p to "UCT_UD_EP_PEER_NAME_FMT": "
+      269                   "unhandled timeout error",
+      270                   ep, UCT_UD_EP_PEER_NAME_ARG(ep));
+      271     }
+
+==== backtrace (tid: 772461) ====
+ 0 0x000000000007b61b uct_ud_ep_deferred_timeout_handler()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/ud/base/ud_ep.c:268
+ 1 0x0000000000025f1a ucs_callbackq_slow_proxy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.c:404
+ 2 0x000000000004a2ba ucs_callbackq_dispatch()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/datastruct/callbackq.h:211
+ 3 0x000000000004a2ba uct_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/api/uct.h:2589
+ 4 0x000000000004a2ba ucp_worker_progress()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2636
+ 5 0x00000000000054df mca_pml_ucx_send()  ???:0
+ 6 0x00000000000bc55b ompi_coll_base_barrier_intra_recursivedoubling()  ???:0
+ 7 0x000000000006b950 MPI_Barrier()  ???:0
+ 8 0x000000000000231b main()  ???:0
+ 9 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+11 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+12 0x0000000000002845 _start()  ???:0
+=================================
+[n053:772461] *** Process received signal ***
+[n053:772461] Signal: Aborted (6)
+[n053:772461] Signal code:  (-6)
+[n053:772461] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n053:772461] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n053:772461] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n053:772461] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n053:772461] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30a37)[0x155554072a37]
+[n053:772461] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x155554072b62]
+[n053:772461] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x7b61b)[0x15554f76b61b]
+[n053:772461] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x25f1a)[0x155554067f1a]
+[n053:772461] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_progress+0x7a)[0x15554f9ee2ba]
+[n053:772461] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555540bc4df]
+[n053:772461] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n053:772461] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n053:772461] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x231b)[0x55555555631b]
+[n053:772461] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n053:772461] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n053:772461] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2845)[0x555555556845]
+[n053:772461] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n053: task 3: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689350.0 (status=0x0086).
+srun: error: n049: task 0: Aborted (core dumped)
+srun: Complete StepId=689350.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 689350 ON n049 CANCELLED AT 2025-02-27T16:14:17 DUE TO TIME LIMIT ***

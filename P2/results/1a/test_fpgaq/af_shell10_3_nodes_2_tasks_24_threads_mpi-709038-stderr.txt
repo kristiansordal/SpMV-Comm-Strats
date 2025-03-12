@@ -1,0 +1,67 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-019]
+srun: cpus-per-task       : 24
+srun: distribution        : block:block
+srun: jobid               : 709038
+srun: job-name            : af_shell10_3_nodes_2_tasks_24_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 709038: nodes(3):`n[017-019]', cpu counts: 96(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=709038.0 on host n017, 2 tasks: [0-1]
+srun: launching StepId=709038.0 on host n018, 2 tasks: [2-3]
+srun: launching StepId=709038.0 on host n019, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 2 tasks started
+srun: launch/slurm: _task_start: Node n018, 2 tasks started
+srun: launch/slurm: _task_start: Node n019, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+corrupted size vs. prev_size
+[n018:2553274] *** Process received signal ***
+[n018:2553274] Signal: Aborted (6)
+[n018:2553274] Signal code:  (-6)
+munmap_chunk(): invalid pointer
+[n019:3107096] *** Process received signal ***
+[n019:3107096] Signal: Aborted (6)
+[n019:3107096] Signal code:  (-6)
+[n019:3107096] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n019:3107096] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n019:3107096] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n019:3107096] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n019:3107096] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89676)[0x155554e60676]
+[n019:3107096] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n019:3107096] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa0fdc)[0x155554e77fdc]
+[n019:3107096] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0xba)[0x155554e7c49a]
+[n019:3107096] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_class_finalize+0x55)[0x155554c34b35]
+[n019:3107096] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_finalize_util+0x8b)[0x155554c3e24b]
+[n019:3107096] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x95c)[0x15555542810c]
+[n019:3107096] [11] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x275f)[0x55555555675f]
+[n019:3107096] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n019:3107096] [13] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n019:3107096] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2865)[0x555555556865]
+[n019:3107096] *** End of error message ***
+corrupted size vs. prev_size
+[n017:4066777] *** Process received signal ***
+[n017:4066777] Signal: Aborted (6)
+[n017:4066777] Signal code:  (-6)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=709038.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n019: task 4: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=709038.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n018: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=709038.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n017: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=709038.0 (status=0x0086).
+srun: error: n019: task 5: Aborted (core dumped)
+srun: Complete StepId=709038.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 709038 ON n017 CANCELLED AT 2025-03-10T17:07:35 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 709038.0 ON n017 CANCELLED AT 2025-03-10T17:07:35 DUE TO TIME LIMIT ***

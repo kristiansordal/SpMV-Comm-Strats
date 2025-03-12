@@ -1,0 +1,9 @@
+Loading openmpi-4.1.6
+  Loading requirement: xz-5.2.7 libxml2-2.9.12 hwloc-2.10.0 knem-1.1.4
+    numactl-2.0.13 libnl-3.2.25 rdma-core-44.0 ucx-1.12.1 libfabric-1.17.0
+    util-linux-2.34
+Done parsing mtx
+|V|=2911419 |E|=127729899
+Graph normiazlied
+Graph sorted
+1.148231s (0.909740s, 0.238459s), 22.248114 GFLOPS, 20.481755 GBs mem, 19.534861 GBs comm, L2 = 1706.288076

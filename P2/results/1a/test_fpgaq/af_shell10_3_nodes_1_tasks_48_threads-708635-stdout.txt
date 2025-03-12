@@ -1,0 +1,11 @@
+Loading openmpi-4.1.6
+  Loading requirement: xz-5.2.7 libxml2-2.9.12 hwloc-2.10.0 knem-1.1.4
+    numactl-2.0.13 libnl-3.2.25 rdma-core-44.0 ucx-1.12.1 libfabric-1.17.0
+    util-linux-2.34
+parsing matrix
+[1741604473.266514] [n018:2511364:a]       ib_device.c:1333 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=::ffff:192.168.249.20 sgid_index=3 traffic_class=106) for RC DevX QP connect on mlx5_2 failed: Connection timed out
+Done parsing mtx
+done reading matrix
+|V|=1508065 |E|=52672325
+Mean of graph: 14922526663.662281
+Std of graph: 54964.762948

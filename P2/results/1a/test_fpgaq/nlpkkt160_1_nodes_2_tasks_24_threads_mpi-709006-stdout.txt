@@ -1,0 +1,14 @@
+Loading openmpi-4.1.6
+  Loading requirement: xz-5.2.7 libxml2-2.9.12 hwloc-2.10.0 knem-1.1.4
+    numactl-2.0.13 libnl-3.2.25 rdma-core-44.0 ucx-1.12.1 libfabric-1.17.0
+    util-linux-2.34
+parsing matrix
+Done parsing mtx
+done reading matrix
+|V|=8345600 |E|=229518112
+Mean of graph: 24308172.138978
+Std of graph: 38.869424
+Graph normiazlied
+Graph sorted
+partition_idx: 0 4172801 8345600 
+3.665175s (2.866706s, 0.798389s), 77.722159 GFLOPS, 18.631783 GBs mem, 16.724883 GBs comm, L2 = 1072370369666743748380238669431822014015963060371005423023206557363660814846787584.000000

@@ -1,0 +1,458 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[051-052,054,056,058-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 689293
+srun: job-name            : nlpkkt240_7_nodes_1_tasks_16_threads
+srun: nodes               : 7
+srun: ntasks              : 7
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 689293: nodes(7):`n[051-052,054,056,058-060]', cpu counts: 32(x7)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=689293.0 on host n051, 1 tasks: 0
+srun: launching StepId=689293.0 on host n052, 1 tasks: 1
+srun: launching StepId=689293.0 on host n054, 1 tasks: 2
+srun: launching StepId=689293.0 on host n056, 1 tasks: 3
+srun: launching StepId=689293.0 on host n058, 1 tasks: 4
+srun: launching StepId=689293.0 on host n059, 1 tasks: 5
+srun: launching StepId=689293.0 on host n060, 1 tasks: 6
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+=================================================================
+=================================================================
+=================================================================
+==789862==ERROR: AddressSanitizer: heap-use-after-free on address 0x61a000033c80 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61a000033c80 thread T0
+=================================================================
+==586978==ERROR: AddressSanitizer: heap-use-after-free on address 0x61a000033c80 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61a000033c80 thread T0
+==482319==ERROR: AddressSanitizer: heap-use-after-free on address 0x61a000033c80 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61a000033c80 thread T0
+==546219==ERROR: AddressSanitizer: heap-use-after-free on address 0x61a000033c80 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61a000033c80 thread T0
+=================================================================
+=================================================================
+==652407==ERROR: AddressSanitizer: heap-use-after-free on address 0x61a000025880 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61a000025880 thread T0
+==603302==ERROR: AddressSanitizer: heap-use-after-free on address 0x61c000012080 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61c000012080 thread T0
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555371ab0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555371e00b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155553720294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61a000033c80 is located 0 bytes inside of 1324-byte region [0x61a000033c80,0x61a0000341ac)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61a000033a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b80: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+  0x61a000033c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61a000033c80:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033f00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==789862==ABORTING
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555371ab0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555371e00b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155553720294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61a000033c80 is located 0 bytes inside of 1324-byte region [0x61a000033c80,0x61a0000341ac)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61a000033a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b80: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+  0x61a000033c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61a000033c80:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033f00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==482319==ABORTING
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555371ab0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555371e00b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155553720294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61a000033c80 is located 0 bytes inside of 1324-byte region [0x61a000033c80,0x61a0000341ac)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61a000033a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b80: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+  0x61a000033c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61a000033c80:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033f00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==586978==ABORTING
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555371ab0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555371e00b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155553720294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61a000033c80 is located 0 bytes inside of 1324-byte region [0x61a000033c80,0x61a0000341ac)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61a000033a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b80: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+  0x61a000033c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61a000033c80:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033f00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==546219==ABORTING
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n058: task 4: Exited with exit code 1
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555214cb0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555215000b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155552152294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61a000025880 is located 0 bytes inside of 1324-byte region [0x61a000025880,0x61a000025dac)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61a000025600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000025680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000025700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000025780: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+  0x61a000025800: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61a000025880:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000025900: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000025980: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000025a00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000025a80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000025b00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==652407==ABORTING
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n052: task 1: Exited with exit code 1
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555371ab0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555371e00b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155553720294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61c000012080 is located 0 bytes inside of 1700-byte region [0x61c000012080,0x61c000012724)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61c000011e00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x61c000011e80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x61c000011f00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x61c000011f80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x61c000012000: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61c000012080:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61c000012100: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61c000012180: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61c000012200: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61c000012280: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61c000012300: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==603302==ABORTING
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n051: task 0: Exited with exit code 1
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n060: task 6: Exited with exit code 1
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n056: task 3: Exited with exit code 1
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n059: task 5: Exited with exit code 1
+=================================================================
+==607273==ERROR: AddressSanitizer: heap-use-after-free on address 0x61a000033c80 at pc 0x155554edd411 bp 0x7fffffff59f0 sp 0x7fffffff51b0
+READ of size 3 at 0x61a000033c80 thread T0
+    #0 0x155554edd410 in __interceptor_strlen ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461
+    #1 0x155554387d47 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced47) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+    #2 0x155553b7eb1f in s1_put (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so+0x2b1f) (BuildId: 4a330723be73cc62a12cc70df59654f03e2771f0)
+    #3 0x15555371ab0b in mca_pml_ucx_send_worker_address_type (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x3b0b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #4 0x15555371e00b in mca_pml_ucx_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x700b) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #5 0x155553720294 in mca_pml_ucx_component_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so+0x9294) (BuildId: d33a4f108e48e072b4e21109214ba4fb7016539c)
+    #6 0x155554e15ca1 in mca_pml_base_select (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xe1ca1) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #7 0x155554e22d78 in ompi_mpi_init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0xeed78) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #8 0x155554db6681 in PMPI_Init (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40+0x82681) (BuildId: 2c4898b5ac94533e42406de23872da2dbde0f071)
+    #9 0x555555556492 in main (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2492) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+    #10 0x155554719d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #11 0x155554719e3f in __libc_start_main_impl ../csu/libc-start.c:392
+    #12 0x555555556fa4 in _start (/home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a+0x2fa4) (BuildId: 56ff77bacf81c7370244f9610cba125ed7a6c5dd)
+
+0x61a000033c80 is located 0 bytes inside of 1324-byte region [0x61a000033c80,0x61a0000341ac)
+freed by thread T0 here:
+    #0 0x155554f4ef35 in __interceptor_realloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x155554387d37 in opal_pmix_base_partial_commit_packed (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xced37) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+previously allocated by thread T0 here:
+    #0 0x155554f4fa17 in __interceptor_calloc ../../../../libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x155554386902 in pmi_encode (/cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40+0xcd902) (BuildId: fde2b8676cac91c6ac8f6c7e291abd6fc5ef2d56)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:461 in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x61a000033a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033a80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x61a000033b80: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa fa fa
+  0x61a000033c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x61a000033c80:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x61a000033f00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==607273==ABORTING
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=689293.0 (status=0x0100).
+srun: error: n054: task 2: Exited with exit code 1
