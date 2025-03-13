@@ -22,9 +22,7 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        printf("Partitioning...\n");
         partition_graph(g, size, p);
-        printf("Done partitioning...\n");
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -57,7 +55,6 @@ int main(int argc, char **argv) {
 
     t0 = MPI_Wtime();
     for (int i = 0; i < 100; i++) {
-        printf("Iteration %d\n", i);
         tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         tc2 = MPI_Wtime();

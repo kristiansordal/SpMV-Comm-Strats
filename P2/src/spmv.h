@@ -32,9 +32,9 @@ comm_lists init_comm_lists(int size);
 
 void free_comm_lists(comm_lists *c, int size);
 
-void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c);
+// void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c);
 
-void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c);
+// void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c);
 
 void reorder_separators(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c);
 
