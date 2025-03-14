@@ -32,9 +32,7 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        printf("Partitioning graph...\n");
         partition_graph(g, size, p);
-        printf("Partitioning done\n");
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -44,10 +42,6 @@ int main(int argc, char **argv) {
 
     find_sendlists(g, p, rank, size, c);
     find_receivelists(g, p, rank, size, c);
-
-    for (int i = 0; i < size; i++) {
-        printf("rank %d -> %d: %d\n", rank, i, c.send_count[i]);
-    }
 
     double *x = malloc(sizeof(double) * g.num_rows);
     double *y = malloc(sizeof(double) * g.num_rows);
@@ -70,24 +64,21 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i++) {
         recvcounts[i] = p[i + 1] - p[i];
         displs[i] = p[i];
-        if (rank == 0) {
-            printf("rank: %d, recvcounts[%d]: %d, displs[%d]: %d\n", rank, i, recvcounts[i], i, displs[i]);
-        }
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
-        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         exchange_separators(c, y, rank, size);
         double *tmp = y;
         y = x;
         x = tmp;
-        double tc2 = MPI_Wtime();
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
 
+        double tc2 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;

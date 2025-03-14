@@ -88,7 +88,7 @@ void partition_graph(CSR g, int num_partitions, int *partition_idx) {
     free(part);
 }
 
-void partition_graph_1b(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c) {
+void partition_graph_1b(CSR g, int num_partitions, int *partition_idx, comm_lists *c) {
     if (num_partitions == 1) {
         partition_idx[0] = 0;
         partition_idx[1] = g.num_rows;
@@ -157,12 +157,6 @@ void partition_graph_1b(CSR g, int num_partitions, int *partition_idx, double *x
         }
     }
 
-    double *new_X = malloc(sizeof(double) * g.num_rows);
-    for (int i = 0; i < g.num_rows; i++) {
-        new_X[i] = x[old_id[i]];
-    }
-
-    memcpy(x, new_X, sizeof(double) * g.num_rows);
     memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
     memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
     memcpy(g.values, new_A, sizeof(double) * g.num_cols);
@@ -170,7 +164,6 @@ void partition_graph_1b(CSR g, int num_partitions, int *partition_idx, double *x
     free(new_V);
     free(new_E);
     free(new_A);
-    free(new_X);
 
     free(new_id);
     free(old_id);
@@ -211,11 +204,11 @@ void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c) {
         c.send_lists[r] = malloc(sizeof(double) * c.send_count[r]);
 
         int j = 0;
-        for (int i = p[rank]; i < p[rank + 1]; i++)
+        for (int i = p[rank]; i < p[rank + 1]; i++) {
             if (send_mark[i]) {
                 c.send_items[r][j++] = i;
-                // printf("rank %d -> %d: (%d, %d)\n", rank, r, j - 1, i);
             }
+        }
     }
 
     free(send_mark);
@@ -261,126 +254,6 @@ void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c) {
     }
 
     free(receive_mark);
-}
-
-void partition_graph_1c(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c) {
-    if (num_partitions == 1) {
-        partition_idx[0] = 0;
-        partition_idx[1] = g.num_rows;
-        return;
-    }
-
-    int ncon = 1;
-    int objval;
-    real_t ubvec = 1.01;
-    int *part = malloc(sizeof(int) * g.num_rows);
-
-    printf("Partition\n");
-    int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
-                                 &ubvec, NULL, &objval, part);
-
-    printf("Done Partition\n");
-    fflush(stdout);
-
-    // for (int i = 0; i < num_partitions; i++) {
-    //     for (int j = 0; j < num_partitions; j++) {
-    //         if (i != j) {
-    //             c->send_items[i][j] = 0;
-    //             c->receive_items[i][j] = 0;
-    //         }
-    //     }
-    // }
-
-    printf("%d\n", g.num_rows);
-    fflush(stdout);
-    printf("Computing recieve and send items %d\n", g.num_rows);
-    for (int i = 0; i < g.num_rows; i++) {
-        for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
-            if (part[i] != part[g.col_idx[j]]) {
-                printf("%d %d\n", part[i], part[g.col_idx[j]]);
-                // fflush(stdout);
-                c->send_items[part[i]][0]++;
-                printf("%d\n", c->send_items[part[i]][0]);
-                // c->receive_items[part[g.col_idx[j]]][part[i]]++;
-                break;
-            }
-        }
-    }
-
-    // printf("Done computing recieve and send items\n");
-
-    // // Allocate send and receive lists based on counts.
-    // for (int from = 0; from < num_partitions; from++) {
-    //     for (int to = 0; to < num_partitions; to++) {
-    //         if (from == to || c->send_items[from][to] == 0)
-    //             continue;
-    //         c->send_lists[from] = malloc(sizeof(double) * c->send_items[from][to]);
-    //     }
-    // }
-    // for (int to = 0; to < num_partitions; to++) {
-    //     for (int from = 0; from < num_partitions; from++) {
-    //         if (from == to || c->receive_items[to][from] == 0)
-    //             continue;
-    //         c->receive_lists[to] = malloc(sizeof(double) * c->receive_items[to][from]);
-    //     }
-    // }
-
-    // int *new_id = malloc(sizeof(int) * g.num_rows);
-    // int *old_id = malloc(sizeof(int) * g.num_rows);
-    // int id = 0;
-    // // partition_idx[0] = 0;
-    // // for (int r = 0; r < num_partitions; r++) {
-    // //     for (int i = 0; i < g.num_rows; i++) {
-    // //         if (part[i] == r && sep_marker[i]) {
-    // //             old_id[id] = i;
-    // //             new_id[i] = id++;
-    // //         }
-    // //     }
-
-    // //     for (int i = 0; i < g.num_rows; i++) {
-    // //         if (part[i] == r && !sep_marker[i]) {
-    // //             old_id[id] = i;
-    // //             new_id[i] = id++;
-    // //         }
-    // //     }
-
-    // //     partition_idx[r + 1] = id;
-    // // }
-
-    // int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
-    // int *new_E = malloc(sizeof(int) * g.num_cols);
-    // double *new_A = malloc(sizeof(double) * g.num_cols);
-
-    // // new_V[0] = 0;
-    // // for (int i = 0; i < g.num_rows; i++) {
-    // //     int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
-    // //     new_V[i + 1] = new_V[i] + d;
-    // //     memcpy(new_E + new_V[i], g.col_idx + g.row_ptr[old_id[i]], sizeof(int) * d);
-    // //     memcpy(new_A + new_V[i], g.values + g.row_ptr[old_id[i]], sizeof(double) * d);
-
-    // //     for (int j = new_V[i]; j < new_V[i + 1]; j++) {
-    // //         new_E[j] = new_id[new_E[j]];
-    // //     }
-    // // }
-
-    // double *new_X = malloc(sizeof(double) * g.num_rows);
-    // // for (int i = 0; i < g.num_rows; i++) {
-    // //     new_X[i] = x[old_id[i]];
-    // // }
-
-    // // memcpy(x, new_X, sizeof(double) * g.num_rows);
-    // // memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
-    // // memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
-    // // memcpy(g.values, new_A, sizeof(double) * g.num_cols);
-
-    // free(new_V);
-    // free(new_E);
-    // free(new_A);
-    // free(new_X);
-
-    // free(new_id);
-    // free(old_id);
-    // free(part);
 }
 
 // attempts to make good load balancing without splitting the rows.

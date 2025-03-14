@@ -14,9 +14,7 @@ void spmv(CSR g, double *x, double *y);
 
 void spmv_part(CSR g, int rank, int s, int t, double *x, double *y);
 
-void partition_graph_1b(CSR g, int k, int *p, double *x, comm_lists *c);
-
-void partition_graph_1c(CSR g, int k, int *p, double *x, comm_lists *c);
+void partition_graph_1b(CSR g, int k, int *p, comm_lists *c);
 
 void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c);
 

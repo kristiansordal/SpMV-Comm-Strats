@@ -25,19 +25,13 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size + 1; i++) {
         p[i] = 0;
     }
-    double *input;
-
     comm_lists c = init_comm_lists(size);
 
     double tcomm, tcomp, t0, t1;
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        input = malloc(sizeof(double) * g.num_rows);
-        for (int i = 0; i < g.num_rows; i++)
-            input[i] = ((double)rand() / (double)RAND_MAX) - 0.5;
-
-        partition_graph_1b(g, size, p, input, &c);
+        partition_graph_1b(g, size, p, &c);
     }
 
     distribute_graph(&g, rank);
@@ -60,8 +54,6 @@ int main(int argc, char **argv) {
         y[i] = 2.0;
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);
-
     int *recvcounts = malloc(size * sizeof(int));
     int *displs = malloc(size * sizeof(int));
 
@@ -69,13 +61,13 @@ int main(int argc, char **argv) {
         recvcounts[i] = p[i + 1] - p[i];
         displs[i] = p[i];
     }
-
     MPI_Barrier(MPI_COMM_WORLD);
 
     t0 = MPI_Wtime();
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
+
         MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
                        MPI_COMM_WORLD);
         double *tmp = y;
