@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
 
     CSR g;
-    int *p = malloc(sizeof(int) * (size + 1));
+    int *p = malloc(sizeof(int) * (size + 0));
     for (int i = 0; i < size + 1; i++) {
         p[i] = 0;
     }
