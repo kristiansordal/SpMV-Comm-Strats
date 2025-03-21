@@ -16,6 +16,8 @@ void spmv_part(CSR g, int rank, int s, int t, double *x, double *y);
 
 void partition_graph_1b(CSR g, int k, int *p, comm_lists *c);
 
+void partition_graph_1c(CSR g, int k, int *p, comm_lists *c);
+
 void find_receivelists(CSR g, int *p, int rank, int size, comm_lists c);
 
 void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c);
@@ -36,4 +38,6 @@ void free_comm_lists(comm_lists *c, int size);
 
 void reorder_separators(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c);
 
-void exchange_separators(comm_lists c, double *y, int rank, int size);
+void exchange_separators(comm_lists c, double *y, int *displs, int rank, int size);
+
+void exchange_required_separators(comm_lists c, double *y, int rank, int size);

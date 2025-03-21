@@ -28,11 +28,14 @@ int main(int argc, char **argv) {
 
     comm_lists c = init_comm_lists(size);
 
+    for (int i = 0; i < size; i++)
+        c.send_items[i] = malloc(sizeof(int) * size);
+
     double tcomm, tcomp, t0, t1;
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        partition_graph(g, size, p);
+        partition_graph_1c(g, size, p, &c);
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -40,8 +43,11 @@ int main(int argc, char **argv) {
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    find_sendlists(g, p, rank, size, c);
-    find_receivelists(g, p, rank, size, c);
+    for (int i = 0; i < size; i++)
+        MPI_Bcast(c.send_items[i], size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    // find_sendlists(g, p, rank, size, c);
+    // find_receivelists(g, p, rank, size, c);
 
     double *x = malloc(sizeof(double) * g.num_rows);
     double *y = malloc(sizeof(double) * g.num_rows);
@@ -72,12 +78,11 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
-        exchange_separators(c, y, rank, size);
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
+        exchange_separators(c, x, displs, rank, size);
         double *tmp = y;
         y = x;
         x = tmp;
-        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-
         double tc2 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();

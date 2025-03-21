@@ -58,6 +58,16 @@ add_executable(1c
     src/spmv.h
 )
 
+add_executable(1d 
+    src/option1d.c
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
+
 # add_executable(test 
 #     src/test_bcast.c
 # )
@@ -79,6 +89,11 @@ target_include_directories(1c PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS
 target_link_libraries(1c PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
 target_compile_options(1c PRIVATE)
 target_link_options(1c PRIVATE)
+
+target_include_directories(1d PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+target_link_libraries(1d PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
+target_compile_options(1d PRIVATE)
+target_link_options(1d PRIVATE)
 
 target_include_directories(0a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
 target_link_libraries(0a PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)

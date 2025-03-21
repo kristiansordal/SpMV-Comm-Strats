@@ -170,6 +170,90 @@ void partition_graph_1b(CSR g, int num_partitions, int *partition_idx, comm_list
     free(part);
 }
 
+void partition_graph_1c(CSR g, int num_partitions, int *partition_idx, comm_lists *c) {
+    if (num_partitions == 1) {
+        partition_idx[0] = 0;
+        partition_idx[1] = g.num_rows;
+        return;
+    }
+
+    int ncon = 1;
+    int objval;
+    real_t ubvec = 1.01;
+    int *part = malloc(sizeof(int) * g.num_rows);
+    int rc = METIS_PartGraphKway(&g.num_rows, &ncon, g.row_ptr, g.col_idx, NULL, NULL, NULL, &num_partitions, NULL,
+                                 &ubvec, NULL, &objval, part);
+
+    int *sep_marker = malloc(g.num_rows * sizeof(int));
+    for (int i = 0; i < num_partitions; i++)
+        c->send_count[i] = 0;
+    for (int i = 0; i < g.num_rows; i++)
+        sep_marker[i] = 0;
+
+    int sep = 0;
+
+    for (int i = 0; i < g.num_rows; i++) {
+        for (int j = g.row_ptr[i]; j < g.row_ptr[i + 1]; j++) {
+            if (part[i] != part[g.col_idx[j]]) {
+                sep_marker[i] = 1;
+                c->send_count[part[i]]++;
+                c->send_items[part[i]][part[g.col_idx[j]]] = 1;
+                break;
+            }
+        }
+    }
+
+    int *new_id = malloc(sizeof(int) * g.num_rows);
+    int *old_id = malloc(sizeof(int) * g.num_rows);
+    int id = 0;
+    partition_idx[0] = 0;
+    for (int r = 0; r < num_partitions; r++) {
+        for (int i = 0; i < g.num_rows; i++) {
+            if (part[i] == r && sep_marker[i]) {
+                old_id[id] = i;
+                new_id[i] = id++;
+            }
+        }
+
+        for (int i = 0; i < g.num_rows; i++) {
+            if (part[i] == r && !sep_marker[i]) {
+                old_id[id] = i;
+                new_id[i] = id++;
+            }
+        }
+
+        partition_idx[r + 1] = id;
+    }
+
+    int *new_V = malloc(sizeof(int) * (g.num_rows + 1));
+    int *new_E = malloc(sizeof(int) * g.num_cols);
+    double *new_A = malloc(sizeof(double) * g.num_cols);
+
+    new_V[0] = 0;
+    for (int i = 0; i < g.num_rows; i++) {
+        int d = g.row_ptr[old_id[i] + 1] - g.row_ptr[old_id[i]];
+        new_V[i + 1] = new_V[i] + d;
+        memcpy(new_E + new_V[i], g.col_idx + g.row_ptr[old_id[i]], sizeof(int) * d);
+        memcpy(new_A + new_V[i], g.values + g.row_ptr[old_id[i]], sizeof(double) * d);
+
+        for (int j = new_V[i]; j < new_V[i + 1]; j++) {
+            new_E[j] = new_id[new_E[j]];
+        }
+    }
+
+    memcpy(g.row_ptr, new_V, sizeof(int) * (g.num_rows + 1));
+    memcpy(g.col_idx, new_E, sizeof(int) * g.num_cols);
+    memcpy(g.values, new_A, sizeof(double) * g.num_cols);
+
+    free(new_V);
+    free(new_E);
+    free(new_A);
+
+    free(new_id);
+    free(old_id);
+    free(part);
+}
+
 void find_sendlists(CSR g, int *p, int rank, int size, comm_lists c) {
     int *send_mark = malloc(sizeof(int) * g.num_rows);
     for (int r = 0; r < size; r++) {
@@ -313,7 +397,30 @@ void free_comm_lists(comm_lists *c, int size) {
     free(c->receive_lists);
 }
 
-void exchange_separators(comm_lists c, double *Vn, int rank, int size) {
+void exchange_separators(comm_lists c, double *x, int *displs, int rank, int size) {
+    MPI_Request *requests = malloc(sizeof(MPI_Request) * 2 * size);
+    int req_count = 0;
+
+    // Post receives fist
+    for (int r = 0; r < size; r++) {
+        if (r == rank || c.send_items[r][rank] == 0) // If r doesn't send to me
+            continue;
+        MPI_Irecv(x + displs[rank], c.send_count[r], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &requests[req_count++]);
+    }
+
+    // Send data
+    for (int r = 0; r < size; r++) {
+        if (r == rank || c.send_items[rank][r] == 0) // If I don't send to r
+            continue;
+        MPI_Isend(x + displs[rank], c.send_count[rank], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &requests[req_count++]);
+    }
+
+    // Wait for all communication to complete
+    MPI_Waitall(req_count, requests, MPI_STATUSES_IGNORE);
+    free(requests);
+}
+
+void exchange_required_separators(comm_lists c, double *Vn, int rank, int size) {
     int total_send = 0, total_recv = 0;
 
     // Compute total send and receive counts
