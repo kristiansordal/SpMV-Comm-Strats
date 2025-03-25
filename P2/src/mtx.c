@@ -318,7 +318,9 @@ CSR parse_and_validate_mtx(const char *path) {
 
     printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);
 
+    printf("normalizing graph\n");
     normalize_graph(g);
+    printf("done normalizing graph\n");
     printf("sorting edges\n");
     sort_edges(g);
     printf("done sorting edges\n");
