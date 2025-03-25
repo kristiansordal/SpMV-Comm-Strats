@@ -311,21 +311,15 @@ CSR parse_mtx(FILE *f) {
 
 CSR parse_and_validate_mtx(const char *path) {
     FILE *f = fopen(path, "r");
-    printf("parsing matrix\n");
     fflush(stdout);
     CSR g = parse_mtx(f);
-    printf("done reading matrix\n");
     fflush(stdout);
     fclose(f);
 
     printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);
 
-    printf("Normalizing graph\n");
     normalize_graph(g);
-    printf("Done normalizing graph\n");
-    printf("Sorting edges\n");
     sort_edges(g);
-    printf("Done sorting edges\n");
     if (!validate_graph(g))
         printf("Error in graph\n");
 
@@ -391,7 +385,6 @@ void sort_edges(CSR g) {
         free(E_buffer);
         free(A_buffer);
     }
-    printf("Graph sorted\n");
 }
 
 int cmpfunc(const void *a, const void *b) { return (*(double *)a - *(double *)b); }
@@ -430,8 +423,6 @@ void normalize_graph(CSR g) {
     for (int i = 0; i < g.num_cols; i++) {
         g.values[i] = (g.values[i] - mean) / (std + __DBL_EPSILON__);
     }
-
-    printf("Graph normiazlied\n");
 }
 
 int validate_graph(CSR g) {
