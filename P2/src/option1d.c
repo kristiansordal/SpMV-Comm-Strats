@@ -39,7 +39,6 @@ int main(int argc, char **argv) {
     distribute_graph(&g, rank);
     MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
-    printf("Graph and p distributed\n");
 
     find_sendlists(g, p, rank, size, c);
     find_receivelists(g, p, rank, size, c);

@@ -318,12 +318,8 @@ CSR parse_and_validate_mtx(const char *path) {
 
     printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);
 
-    printf("normalizing graph\n");
     normalize_graph(g);
-    printf("done normalizing graph\n");
-    printf("sorting edges\n");
     sort_edges(g);
-    printf("done sorting edges\n");
     if (!validate_graph(g))
         printf("Error in graph\n");
 
@@ -421,7 +417,6 @@ void normalize_graph(CSR g) {
 
     std = sqrt(std / (double)g.num_cols);
     printf("Std of graph: %f\n", std);
-    fflush(stdout);
 
 #pragma omp parallel for schedule(static)
     for (int i = 0; i < g.num_cols; i++) {
