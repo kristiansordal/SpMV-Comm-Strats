@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
     }
+
     t1 = MPI_Wtime();
     double l2 = 0.0;
     if (rank == 0) {
@@ -77,17 +78,23 @@ int main(int argc, char **argv) {
         l2 = sqrt(l2);
     }
 
+    long double max_comm_size = ((double)g.num_rows * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
+    long double min_comm_size = ((double)g.num_rows * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
+    long double avg_comm_size = ((double)g.num_rows * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
+
     // Compute FLOPs and memory bandwidth
     double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
     double time = t1 - t0;
 
     // Print results
     if (rank == 0) {
-        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
+        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm,L2 = %lf\n", time, tcomp, tcomm,
                (ops / (time * 1e9)),                                           // GFLOPS
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
                l2);
+        printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
+               avg_comm_size);
     }
 
     free(y);

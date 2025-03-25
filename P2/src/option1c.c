@@ -21,30 +21,33 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
 
     CSR g;
-    int *p = malloc(sizeof(int) * (size + 0));
+    int *p = malloc(sizeof(int) * (size + 1));
     for (int i = 0; i < size + 1; i++) {
         p[i] = 0;
     }
-
     comm_lists c = init_comm_lists(size);
 
-    for (int i = 0; i < size; i++)
-        c.send_items[i] = malloc(sizeof(int) * size);
-
     double tcomm, tcomp, t0, t1;
+
+    for (int i = 0; i < size; i++) {
+        c.send_items[i] = malloc(sizeof(int) * size);
+        c.receive_items[i] = malloc(sizeof(int) * size);
+    }
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
         partition_graph_1c(g, size, p, &c);
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    for (int i = 0; i < size; i++) {
+        MPI_Bcast(c.send_items[i], size, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(c.receive_items[i], size, MPI_INT, 0, MPI_COMM_WORLD);
+    }
+
     distribute_graph(&g, rank);
     MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-    for (int i = 0; i < size; i++)
-        MPI_Bcast(c.send_items[i], size, MPI_INT, 0, MPI_COMM_WORLD);
 
     // find_sendlists(g, p, rank, size, c);
     // find_receivelists(g, p, rank, size, c);
@@ -78,11 +81,15 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
-        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-        exchange_separators(c, x, displs, rank, size);
+
+        exchange_separators(c, y, displs, rank, size);
         double *tmp = y;
         y = x;
         x = tmp;
+        MPI_Barrier(MPI_COMM_WORLD);
+
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
+
         double tc2 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         double tc3 = MPI_Wtime();
@@ -97,6 +104,24 @@ int main(int argc, char **argv) {
     y = tmp;
 
     t1 = MPI_Wtime();
+
+    long double comm_size = 0.0;
+
+    for (int i = 0; i < size; i++) {
+        if (c.send_items[rank][i] > 0) {
+            comm_size += c.send_count[i];
+        }
+    }
+    comm_size = (comm_size * 64.0 * 100.0) / (1024.0 * 1024.0 * 1024.0);
+
+    long double max_comm_size = 0.0;
+    long double min_comm_size = 0.0;
+    long double avg_comm_size = 0.0;
+
+    MPI_Reduce(&comm_size, &max_comm_size, 1, MPI_LONG_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&comm_size, &min_comm_size, 1, MPI_LONG_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&comm_size, &avg_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    avg_comm_size /= size;
 
     double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
@@ -115,6 +140,9 @@ int main(int argc, char **argv) {
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
                l2);
+
+        printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
+               avg_comm_size);
     }
 
     free(y);

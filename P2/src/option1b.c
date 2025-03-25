@@ -39,8 +39,6 @@ int main(int argc, char **argv) {
     MPI_Bcast(c.send_count, size, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    double *V = malloc(sizeof(double) * g.num_rows);
-    double *Y = malloc(sizeof(double) * g.num_rows);
     double *x = malloc(sizeof(double) * g.num_rows);
     double *y = malloc(sizeof(double) * g.num_rows);
 
@@ -67,7 +65,6 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
-
         MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
                        MPI_COMM_WORLD);
         double *tmp = y;
@@ -91,6 +88,18 @@ int main(int argc, char **argv) {
 
     t1 = MPI_Wtime();
 
+    // compute max min and average communication load
+    long double comm_size = ((double)c.send_count[rank] * (size - 1) * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
+
+    long double max_comm_size = 0.0;
+    long double min_comm_size = 0.0;
+    long double avg_comm_size = 0.0;
+
+    MPI_Reduce(&comm_size, &max_comm_size, 1, MPI_LONG_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&comm_size, &min_comm_size, 1, MPI_LONG_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&comm_size, &avg_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    avg_comm_size /= size;
+
     double ops = (long long)g.num_cols * 2ll * 100ll;
     double time = t1 - t0;
     double l2 = 0.0;
@@ -108,6 +117,8 @@ int main(int argc, char **argv) {
                (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
                ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
                l2);
+        printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
+               avg_comm_size);
     }
 
     free(y);

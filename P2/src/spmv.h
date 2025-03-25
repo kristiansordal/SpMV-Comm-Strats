@@ -4,8 +4,6 @@ typedef struct {
     int send_count_total, receive_count_total;
     int *send_mark, *receive_mark;
     int *send_count, *receive_count;
-    int *send_items_flat, *receive_items_flat;
-    double *send_lists_flat, *receive_lists_flat;
     int **send_items, **receive_items;
     double **send_lists, **receive_lists;
 } comm_lists;
@@ -39,5 +37,7 @@ void free_comm_lists(comm_lists *c, int size);
 void reorder_separators(CSR g, int num_partitions, int *partition_idx, double *x, comm_lists *c);
 
 void exchange_separators(comm_lists c, double *y, int *displs, int rank, int size);
+
+// void exchange_separators(comm_lists c, double *x, double *y, int *displs, int rank, int size);
 
 void exchange_required_separators(comm_lists c, double *y, int rank, int size);

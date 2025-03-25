@@ -13,7 +13,6 @@ void spmv(CSR g, double *x, double *y) {
             z += x[v] * g.values[i];
         }
         y[u] = z;
-        printf("y[%d] = %f\n", u, y[u]);
     }
 }
 
@@ -198,6 +197,7 @@ void partition_graph_1c(CSR g, int num_partitions, int *partition_idx, comm_list
                 sep_marker[i] = 1;
                 c->send_count[part[i]]++;
                 c->send_items[part[i]][part[g.col_idx[j]]] = 1;
+                c->send_items[part[g.col_idx[j]]][part[i]] = 1;
                 break;
             }
         }
@@ -397,22 +397,20 @@ void free_comm_lists(comm_lists *c, int size) {
     free(c->receive_lists);
 }
 
-void exchange_separators(comm_lists c, double *x, int *displs, int rank, int size) {
+void exchange_separators(comm_lists c, double *y, int *displs, int rank, int size) {
     MPI_Request *requests = malloc(sizeof(MPI_Request) * 2 * size);
     int req_count = 0;
 
-    // Post receives fist
     for (int r = 0; r < size; r++) {
-        if (r == rank || c.send_items[r][rank] == 0) // If r doesn't send to me
+        if (rank == r || c.send_items[r][rank] == 0) // If r doesn't send to me
             continue;
-        MPI_Irecv(x + displs[rank], c.send_count[r], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &requests[req_count++]);
+        MPI_Irecv(y + displs[r], c.send_count[r], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &requests[req_count++]);
     }
 
-    // Send data
     for (int r = 0; r < size; r++) {
-        if (r == rank || c.send_items[rank][r] == 0) // If I don't send to r
+        if (rank == r || c.send_items[rank][r] == 0) // If I don't send to r
             continue;
-        MPI_Isend(x + displs[rank], c.send_count[rank], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &requests[req_count++]);
+        MPI_Isend(y + displs[rank], c.send_count[rank], MPI_DOUBLE, r, 0, MPI_COMM_WORLD, &requests[req_count++]);
     }
 
     // Wait for all communication to complete
@@ -452,9 +450,12 @@ void exchange_required_separators(comm_lists c, double *Vn, int rank, int size) 
         rdispls[i] = rdispls[i - 1] + c.receive_count[i - 1];
     }
 
-    // Exchange separator values using MPI_Alltoallv
-    MPI_Alltoallv(send_buffer, c.send_count, sdispls, MPI_DOUBLE, recv_buffer, c.receive_count, rdispls, MPI_DOUBLE,
-                  MPI_COMM_WORLD);
+    MPI_Request *reqs = malloc(sizeof(MPI_Request) * size);
+    int num_reqs = 0;
+    MPI_Ialltoallv(send_buffer, c.send_count, sdispls, MPI_DOUBLE, recv_buffer, c.receive_count, rdispls, MPI_DOUBLE,
+                   MPI_COMM_WORLD, &reqs[num_reqs++]);
+
+    MPI_Waitall(num_reqs, reqs, MPI_STATUSES_IGNORE);
 
     // Unpack received values into Vn
     int recv_offset = 0;
