@@ -12,6 +12,7 @@ class Result:
         self.threads = threads
         self.mpi = mpi
 
+
     def __str__(self):
         return f"Name: {self.name}\n Nodes: {self.nodes}\n Tasks: {self.tasks}\n Threads: {self.threads}\n MPI: {self.mpi}"
 
@@ -30,6 +31,8 @@ def parse_file_name(file_name: str) -> Result:
         elif token == "mpi":
             mpi = 1
     return Result(name, nodes, tasks, threads, mpi)
+
+def parse_file(file: Path) -> Result:
 
 
 # compares the performance of communication strategy 1a-d
