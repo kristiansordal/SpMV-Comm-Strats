@@ -23,7 +23,7 @@ export OMPI_MCA_opal_common_ucx_opal_mem_hooks=1
 export OMPI_MCA_pml_ucx_verbose=100
 export OMPI_MCA_btl_openib_allow_ib=1
 export OMPI_MCA_btl_openib_warn_no_device_params_found=1
-export OMPI_MCA_btl_openib_if_include="mlx5_1:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'rome16q'
+export OMPI_MCA_btl_openib_if_include="mlx5_1:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'defq16q'
 export OMPI_MCA_pml="^ucx"
 export OMPI_MCA_btl_tcp_if_exclude=lo,dis0,eno1,eno2,enp113s0f0,ib0,ib1,enp33s0f0,enp33s0f1,docker0,docker_gwbridge
 
@@ -41,13 +41,13 @@ sbatch_script=$(cat <<EOF
 #SBATCH --distribution=block:block
 #SBATCH --exclusive
 #SBATCH --time=0-0:10:00
-#SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/new/1a/rome/%x-%j-stdout.txt
-#SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/new/1a/rome/%x-%j-stderr.txt
+#SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/new/1d/defq/%x-%j-stdout.txt
+#SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/new/1d/defq/%x-%j-stderr.txt
 
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
-srun --verbose numactl -C0-16 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/mtx/datasets/suitesparse/$matrix
+srun --verbose numactl -C0-63 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1d /global/D1/projects/mtx/datasets/suitesparse/$matrix
 EOF
 )
 
