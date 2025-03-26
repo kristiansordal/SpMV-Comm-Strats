@@ -1,0 +1,165 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 712315
+srun: job-name            : Serena_3_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 712315: nodes(3):`n[001-003]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=712315.0 on host n001, 2 tasks: [0-1]
+srun: launching StepId=712315.0 on host n002, 2 tasks: [2-3]
+srun: launching StepId=712315.0 on host n003, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n001
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n003
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n001
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n003
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n002
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n002
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+corrupted size vs. prev_size while consolidating
+[n003:2977728] *** Process received signal ***
+[n003:2977728] Signal: Aborted (6)
+[n003:2977728] Signal code:  (-6)
+[n003:2977728] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n003:2977728] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n003:2977728] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n003:2977728] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n003:2977728] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n003:2977728] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n003:2977728] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2f22)[0x155554e79f22]
+[n003:2977728] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n003:2977728] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(uct_rc_iface_qp_cleanup_progress+0x36)[0x15554e80c406]
+[n003:2977728] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(uct_rc_iface_cleanup_qps+0x3b)[0x15554e80c4eb]
+[n003:2977728] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x47d6d)[0x15554e823d6d]
+[n003:2977728] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_class_call_cleanup_chain+0x76)[0x1555540ebf76]
+[n003:2977728] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x483bc)[0x15554e8243bc]
+[n003:2977728] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_iface_cleanup+0xa7)[0x15554eae9f67]
+[n003:2977728] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(+0x46d01)[0x15554eaead01]
+[n003:2977728] [15] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0x3ed)[0x15554eaedbbd]
+[n003:2977728] [16] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x15555411f38b]
+[n003:2977728] [17] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x155555427d5b]
+[n003:2977728] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n003:2977728] [19] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n003:2977728] [20] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n003:2977728] [21] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n003:2977728] *** End of error message ***
+corrupted size vs. prev_size
+[n002:1296165] *** Process received signal ***
+[n002:1296165] Signal: Aborted (6)
+[n002:1296165] Signal code:  (-6)
+[n002:1296165] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n002:1296165] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n002:1296165] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n002:1296165] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n002:1296165] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n002:1296165] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n002:1296165] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa17e2)[0x155554e787e2]
+[n002:1296165] [ 7] /lib/x86_64-linux-gnu/libc.so.6(+0xa1969)[0x155554e78969]
+[n002:1296165] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0xa2ea0)[0x155554e79ea0]
+[n002:1296165] [ 9] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n002:1296165] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(uct_rc_iface_qp_cleanup_progress+0x36)[0x15554e80c406]
+[n002:1296165] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(uct_rc_iface_cleanup_qps+0x3b)[0x15554e80c4eb]
+[n002:1296165] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x47d6d)[0x15554e823d6d]
+[n002:1296165] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_class_call_cleanup_chain+0x76)[0x1555540ebf76]
+[n002:1296165] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x483bc)[0x15554e8243bc]
+[n002:1296165] [15] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_iface_cleanup+0xa7)[0x15554eae9f67]
+[n002:1296165] [16] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(+0x46d01)[0x15554eaead01]
+[n002:1296165] [17] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0x3ed)[0x15554eaedbbd]
+[n002:1296165] [18] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x15555411f38b]
+[n002:1296165] [19] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x155555427d5b]
+[n002:1296165] [20] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n002:1296165] [21] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n002:1296165] [22] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n002:1296165] [23] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n002:1296165] *** End of error message ***
+corrupted size vs. prev_size
+[n003:2977729] *** Process received signal ***
+[n003:2977729] Signal: Aborted (6)
+[n003:2977729] Signal code:  (-6)
+corrupted size vs. prev_size
+[n001:1912282] *** Process received signal ***
+[n001:1912282] Signal: Aborted (6)
+[n001:1912282] Signal code:  (-6)
+corrupted size vs. prev_size
+[n002:1296166] *** Process received signal ***
+[n002:1296166] Signal: Aborted (6)
+[n002:1296166] Signal code:  (-6)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712315.0 (status=0x0086).
+srun: error: n003: task 4: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712315.0 (status=0x0086).
+srun: error: n002: task 2: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712315.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: task 0: Completed
+srun: Complete StepId=712315.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 712315 ON n001 CANCELLED AT 2025-03-18T01:56:37 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 712315.0 ON n001 CANCELLED AT 2025-03-18T01:56:37 DUE TO TIME LIMIT ***

@@ -1,0 +1,53 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[055-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 714889
+srun: job-name            : Cube_Coup_dt0_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 714889: nodes(6):`n[055-060]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=714889.0 on host n055, 1 tasks: 0
+srun: launching StepId=714889.0 on host n056, 1 tasks: 1
+srun: launching StepId=714889.0 on host n057, 1 tasks: 2
+srun: launching StepId=714889.0 on host n058, 1 tasks: 3
+srun: launching StepId=714889.0 on host n059, 1 tasks: 4
+srun: launching StepId=714889.0 on host n060, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS: 
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS: 
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS: 
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS: 
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS: 
+
+libgomp: Invalid value for environment variable OMP_NUM_THREADS: 
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+malloc(): invalid size (unsorted)
+[n059:414492] *** Process received signal ***
+[n059:414492] Signal: Aborted (6)
+[n059:414492] Signal code:  (-6)
+free(): invalid pointer
+free(): invalid pointer
+srun: Complete StepId=714889.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 714889 ON n055 CANCELLED AT 2025-03-19T13:12:46 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 714889.0 ON n055 CANCELLED AT 2025-03-19T13:12:46 DUE TO TIME LIMIT ***

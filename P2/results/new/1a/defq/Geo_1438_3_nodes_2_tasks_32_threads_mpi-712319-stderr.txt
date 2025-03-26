@@ -1,0 +1,216 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 712319
+srun: job-name            : Geo_1438_3_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 712319: nodes(3):`n[001-003]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=712319.0 on host n001, 2 tasks: [0-1]
+srun: launching StepId=712319.0 on host n002, 2 tasks: [2-3]
+srun: launching StepId=712319.0 on host n003, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n001
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n001
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n003
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n002
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n003
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n002
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+munmap_chunk(): invalid pointer
+[n002:1298693] *** Process received signal ***
+[n002:1298693] Signal: Aborted (6)
+[n002:1298693] Signal code:  (-6)
+[n002:1298693] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n002:1298693] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n002:1298693] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n002:1298693] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n002:1298693] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n002:1298693] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n002:1298693] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa0fdc)[0x155554e77fdc]
+[n002:1298693] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0xba)[0x155554e7c49a]
+[n002:1298693] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_ep_remove_ref+0x8c)[0x15554e9d16fc]
+[n002:1298693] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0xc6)[0x15554e9ec896]
+[n002:1298693] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x15555401f38b]
+[n002:1298693] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x155555427d5b]
+[n002:1298693] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n002:1298693] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n002:1298693] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n002:1298693] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n002:1298693] *** End of error message ***
+corrupted size vs. prev_size while consolidating
+[n003:2980147] *** Process received signal ***
+[n003:2980147] Signal: Aborted (6)
+[n003:2980147] Signal code:  (-6)
+[n003:2980147] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n003:2980147] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n003:2980147] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n003:2980147] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n003:2980147] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n003:2980147] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n003:2980147] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2f22)[0x155554e79f22]
+[n003:2980147] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n003:2980147] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(uct_rc_iface_qp_cleanup_progress+0x36)[0x15554e80c406]
+[n003:2980147] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(uct_rc_iface_cleanup_qps+0x3b)[0x15554e80c4eb]
+[n003:2980147] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x47d6d)[0x15554e823d6d]
+[n003:2980147] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_class_call_cleanup_chain+0x76)[0x1555540ebf76]
+[n003:2980147] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x483bc)[0x15554e8243bc]
+[n003:2980147] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_iface_cleanup+0xa7)[0x15554eae9f67]
+[n003:2980147] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(+0x46d01)[0x15554eaead01]
+[n003:2980147] [15] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0x3ed)[0x15554eaedbbd]
+[n003:2980147] [16] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x15555411f38b]
+[n003:2980147] [17] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x155555427d5b]
+[n003:2980147] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n003:2980147] [19] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n003:2980147] [20] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n003:2980147] [21] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n003:2980147] *** End of error message ***
+munmap_chunk(): invalid pointer
+[n001:1914932] *** Process received signal ***
+[n001:1914932] Signal: Aborted (6)
+[n001:1914932] Associated errno: Unknown error 21845 (21845)
+[n001:1914932] Signal code:  (1433740848)
+[n001:1914932] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:1914932] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n001:1914932] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n001:1914932] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n001:1914932] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n001:1914932] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n001:1914932] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa0fdc)[0x155554e77fdc]
+[n001:1914932] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0xba)[0x155554e7c49a]
+[n001:1914932] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x7bfa9)[0x155554c7efa9]
+[n001:1914932] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpiinfo_finalize+0x69)[0x1555554213b9]
+[n001:1914932] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x783)[0x155555427f33]
+[n001:1914932] [11] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n001:1914932] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n001:1914932] [13] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n001:1914932] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n001:1914932] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712319.0 (status=0x0086).
+srun: error: n002: task 3: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712319.0 (status=0x0086).
+srun: error: n003: task 4: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712319.0 (status=0x0086).
+srun: error: n001: task 0: Aborted (core dumped)
+free(): invalid next size (fast)
+[n003:2980148] *** Process received signal ***
+[n003:2980148] Signal: Aborted (6)
+[n003:2980148] Signal code:  (-6)
+[n003:2980148] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n003:2980148] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n003:2980148] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n003:2980148] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n003:2980148] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n003:2980148] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n003:2980148] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2a9d)[0x155554e79a9d]
+[n003:2980148] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n003:2980148] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x4ae2e)[0x155554c4de2e]
+[n003:2980148] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0xcfce9)[0x155554cd2ce9]
+[n003:2980148] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_pmix_base_hash_finalize+0x19a)[0x155554cd2f1a]
+[n003:2980148] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so(+0x2cce)[0x155554866cce]
+[n003:2980148] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_ess_pmi.so(+0x2795)[0x155554b99795]
+[n003:2980148] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-rte.so.40(orte_finalize+0x65)[0x155554d34265]
+[n003:2980148] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x8bc)[0x15555542806c]
+[n003:2980148] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n003:2980148] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n003:2980148] [17] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n003:2980148] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n003:2980148] *** End of error message ***
+free(): invalid next size (fast)
+[n001:1914933] *** Process received signal ***
+[n001:1914933] Signal: Aborted (6)
+[n001:1914933] Signal code:  (-6)
+[n001:1914933] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:1914933] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n001:1914933] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n001:1914933] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n001:1914933] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n001:1914933] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n001:1914933] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2a9d)[0x155554e79a9d]
+[n001:1914933] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n001:1914933] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x4ae2e)[0x155554c4de2e]
+[n001:1914933] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0xcfce9)[0x155554cd2ce9]
+[n001:1914933] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_pmix_base_hash_finalize+0x19a)[0x155554cd2f1a]
+[n001:1914933] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so(+0x2cce)[0x155554866cce]
+[n001:1914933] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_ess_pmi.so(+0x2795)[0x155554b99795]
+[n001:1914933] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-rte.so.40(orte_finalize+0x65)[0x155554d34265]
+[n001:1914933] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x8bc)[0x15555542806c]
+[n001:1914933] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2759)[0x555555556759]
+[n001:1914933] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n001:1914933] [17] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n001:1914933] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2805)[0x555555556805]
+[n001:1914933] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712319.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712319.0 (status=0x0086).
+srun: error: n003: task 5: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712319.0 (status=0x0086).
+srun: error: n001: task 1: Aborted (core dumped)

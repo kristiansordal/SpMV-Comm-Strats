@@ -1,0 +1,47 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n004
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 712281
+srun: job-name            : nlpkkt160_1_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 1
+srun: ntasks              : 2
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 712281: nodes(1):`n004', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=712281.0 on host n004, 2 tasks: [0-1]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n004, 2 tasks started
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n004
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n004
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712281.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n004: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=712281.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n004: task 0: Completed

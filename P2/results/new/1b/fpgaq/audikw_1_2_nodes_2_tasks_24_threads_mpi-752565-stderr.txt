@@ -1,0 +1,29 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[018-019]
+srun: cpus-per-task       : 24
+srun: distribution        : block:block
+srun: jobid               : 752565
+srun: job-name            : audikw_1_2_nodes_2_tasks_24_threads_mpi
+srun: nodes               : 2
+srun: ntasks              : 4
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 752565: nodes(2):`n[018-019]', cpu counts: 96(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=752565.0 on host n018, 2 tasks: [0-1]
+srun: launching StepId=752565.0 on host n019, 2 tasks: [2-3]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n018, 2 tasks started
+srun: launch/slurm: _task_start: Node n019, 2 tasks started
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=752565.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n019: tasks 2-3: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=752565.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n018: tasks 0-1: Completed

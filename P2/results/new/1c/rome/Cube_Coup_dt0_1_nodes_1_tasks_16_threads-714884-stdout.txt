@@ -1,0 +1,13 @@
+parsing matrix
+Done parsing mtx
+done reading matrix
+|V|=2164760 |E|=127206144
+Normalizing graph
+Mean of graph: 2865558760433331.000000
+Std of graph: 36977394423.930206
+Graph normiazlied
+Done normalizing graph
+Sorting edges
+Graph sorted
+Done sorting edges
+1.344547s (1.344482s, 0.000043s), 18.921779 GFLOPS, 10.304689 GBs mem, 0.000000 GBs comm, L2 = inf

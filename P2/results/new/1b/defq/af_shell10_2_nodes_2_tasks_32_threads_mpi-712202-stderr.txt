@@ -1,0 +1,69 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[003-004]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 712202
+srun: job-name            : af_shell10_2_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 2
+srun: ntasks              : 4
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 712202: nodes(2):`n[003-004]', cpu counts: 128(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=712202.0 on host n003, 2 tasks: [0-1]
+srun: launching StepId=712202.0 on host n004, 2 tasks: [2-3]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: launch/slurm: _task_start: Node n004, 2 tasks started
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n004
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n003
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n004
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Could not generate an xpmem segment id for this process'
+address space.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: n003
+  Error code: 2 (No such file or directory)
+--------------------------------------------------------------------------
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=712202.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n004: tasks 2-3: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=712202.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 0-1: Completed

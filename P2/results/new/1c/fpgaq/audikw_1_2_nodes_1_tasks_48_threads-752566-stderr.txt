@@ -1,0 +1,25 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[018-019]
+srun: cpus-per-task       : 48
+srun: distribution        : block:block
+srun: jobid               : 752566
+srun: job-name            : audikw_1_2_nodes_1_tasks_48_threads
+srun: nodes               : 2
+srun: ntasks              : 2
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 752566: nodes(2):`n[018-019]', cpu counts: 96(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=752566.0 on host n018, 1 tasks: 0
+srun: launching StepId=752566.0 on host n019, 1 tasks: 1
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n018, 1 tasks started
+srun: launch/slurm: _task_start: Node n019, 1 tasks started
+srun: Complete StepId=752566.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 752566 ON n018 CANCELLED AT 2025-03-25T14:10:44 ***
+slurmstepd: error: *** STEP 752566.0 ON n018 CANCELLED AT 2025-03-25T14:10:44 ***
