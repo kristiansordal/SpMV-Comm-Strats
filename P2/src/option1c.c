@@ -80,30 +80,24 @@ int main(int argc, char **argv) {
     t0 = MPI_Wtime();
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
-        MPI_Barrier(MPI_COMM_WORLD);
-
         exchange_separators(c, y, displs, rank, size);
         double *tmp = y;
         y = x;
         x = tmp;
-        MPI_Barrier(MPI_COMM_WORLD);
-
-        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-
         double tc2 = MPI_Wtime();
-        MPI_Barrier(MPI_COMM_WORLD);
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc3 = MPI_Wtime();
-        tcomm += tc3 - tc2;
-        tcomp += tc2 - tc1;
+        tcomm += tc2 - tc1;
+        tcomp += tc3 - tc2;
     }
+
+    t1 = MPI_Wtime();
 
     MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
 
     double *tmp = x;
     x = y;
     y = tmp;
-
-    t1 = MPI_Wtime();
 
     long double comm_size = 0.0;
 

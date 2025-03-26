@@ -70,23 +70,20 @@ int main(int argc, char **argv) {
         double *tmp = y;
         y = x;
         x = tmp;
-
-        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc2 = MPI_Wtime();
-
-        MPI_Barrier(MPI_COMM_WORLD);
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc3 = MPI_Wtime();
-        tcomm += tc3 - tc2;
-        tcomp += tc2 - tc1;
+        tcomm += tc2 - tc1;
+        tcomp += tc3 - tc2;
     }
+
+    t1 = MPI_Wtime();
 
     MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
 
     double *tmp = x;
     x = y;
     y = tmp;
-
-    t1 = MPI_Wtime();
 
     // compute max min and average communication load
     long double comm_size = ((double)c.send_count[rank] * (size - 1) * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);

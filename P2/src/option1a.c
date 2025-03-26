@@ -59,13 +59,10 @@ int main(int argc, char **argv) {
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         tc2 = MPI_Wtime();
         MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
-
         double *tmp = x;
         x = y;
         y = tmp;
-
         tc3 = MPI_Wtime();
-
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
     }
