@@ -1,4 +1,4 @@
-partition=$1
+artition=$1
 matrix=$2
 last_entry="${matrix##*/}"
 matrix_name=${last_entry%.mtx}
@@ -26,10 +26,10 @@ export OMPI_MCA_pml_ucx_verbose=100
 export OMPI_MCA_btl_openib_allow_ib=1
 export OMPI_MCA_btl_openib_warn_no_device_params_found=1
 export OMPI_MCA_btl_openib_if_include="mlx5_1:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'fpgaq16q'
-# export OMPI_MCA_pml="^ucx"
-# export OMPI_MCA_btl=self,vader
+export UCX_TLS=rc,ud,self
 export OMPI_MCA_pml=ucx
-export OMPI_MCA_btl=self,vader,tcp
+# export OMPI_MCA_pml=ucx
+# export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,dis0,eno1,eno2,enp113s0f0,ib0,ib1,enp33s0f0,enp33s0f1,docker0,docker_gwbridge
 
 export OMP_NUM_THREADS=$omp_num_threads
