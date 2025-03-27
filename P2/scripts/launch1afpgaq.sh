@@ -23,6 +23,7 @@ module load numactl/gcc/2.0.18
 module load hwloc/gcc/2.10.0
 module load openmpi-4.1.6
 module load ucx  # Ensure UCX is loaded
+module load metis
 
 # Force OpenMPI to use UCX
 export OMPI_MCA_pml=ucx
