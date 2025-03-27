@@ -18,6 +18,8 @@ ulimit -s 10240
 module load slurm/21.08.8
 module load numactl/gcc/2.0.18
 module load hwloc/gcc/2.10.0
+module load metis
+module load ucx
 
 export OMPI_MCA_opal_common_ucx_opal_mem_hooks=1
 export OMPI_MCA_pml_ucx_verbose=100
