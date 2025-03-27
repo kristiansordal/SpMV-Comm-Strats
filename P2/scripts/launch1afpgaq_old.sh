@@ -14,7 +14,7 @@ fi
 ulimit -s 10240
 
 # module purge
-# # Modules on all architectures
+# Modules on all architectures
 module load slurm/21.08.8
 module load numactl/gcc/2.0.18
 module load hwloc/gcc/2.10.0
