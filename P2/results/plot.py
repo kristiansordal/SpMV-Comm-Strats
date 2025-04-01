@@ -11,7 +11,12 @@ class Result:
         self.tasks = tasks
         self.threads = threads
         self.mpi = mpi
-
+        self.tcomm: float = 0
+        self.tcomp: float = 0
+        self.gflops: float = 0
+        self.comm_min: float = 0
+        self.comm_max: float = 0
+        self.comm_avg: float = 0
 
     def __str__(self):
         return f"Name: {self.name}\n Nodes: {self.nodes}\n Tasks: {self.tasks}\n Threads: {self.threads}\n MPI: {self.mpi}"
@@ -32,7 +37,24 @@ def parse_file_name(file_name: str) -> Result:
             mpi = 1
     return Result(name, nodes, tasks, threads, mpi)
 
+
+def parse_file_contents(file_name: str, result: Result) -> Result:
+    with open(file_name, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            if "Total Time" in line:
+                tokens = line.split()
+                result.tcomm = float(tokens[3])
+                result.tcomp = float(tokens[5])
+            elif "GFLOPS" in line:
+                tokens = line.split()
+                result.gflops = float(tokens[1])
+    return result
+
+
 def parse_file(file: Path) -> Result:
+    res = parse_file_name(file.stem)
+    res = parse_file_contents(file, res)
 
 
 # compares the performance of communication strategy 1a-d
