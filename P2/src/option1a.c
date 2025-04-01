@@ -54,6 +54,9 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
 
     t0 = MPI_Wtime();
+    if (rank == 0) {
+        printf("starting spmv\n");
+    }
     for (int i = 0; i < 100; i++) {
         tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
@@ -65,6 +68,9 @@ int main(int argc, char **argv) {
         tc3 = MPI_Wtime();
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
+    }
+    if (rank == 0) {
+        printf("done spmv\n");
     }
 
     t1 = MPI_Wtime();
