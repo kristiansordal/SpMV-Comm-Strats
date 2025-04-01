@@ -1,0 +1,119 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-019]
+srun: cpus-per-task       : 48
+srun: distribution        : block:block
+srun: jobid               : 773851
+srun: job-name            : Bump_2911_3_nodes_1_tasks_48_threads
+srun: nodes               : 3
+srun: ntasks              : 3
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 773851: nodes(3):`n[017-019]', cpu counts: 96(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=773851.0 on host n017, 1 tasks: 0
+srun: launching StepId=773851.0 on host n018, 1 tasks: 1
+srun: launching StepId=773851.0 on host n019, 1 tasks: 2
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 1 tasks started
+srun: launch/slurm: _task_start: Node n018, 1 tasks started
+srun: launch/slurm: _task_start: Node n019, 1 tasks started
+[n017:2209895] common_ucx.c:174 using OPAL memory hooks as external events
+[n017:2209895] pml_ucx.c:197 mca_pml_ucx_open: UCX version 1.15.0
+[n018:704645] common_ucx.c:174 using OPAL memory hooks as external events
+[n018:704645] pml_ucx.c:197 mca_pml_ucx_open: UCX version 1.15.0
+[n019:2018104] common_ucx.c:174 using OPAL memory hooks as external events
+[n019:2018104] pml_ucx.c:197 mca_pml_ucx_open: UCX version 1.15.0
+[n017:2209895] common_ucx.c:332 self/memory: did not match transport list
+[n017:2209895] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n017:2209895] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n017:2209895] common_ucx.c:337 support level is transports and devices
+[n017:2209895] pml_ucx.c:289 mca_pml_ucx_init
+[n018:704645] common_ucx.c:332 self/memory: did not match transport list
+[n018:704645] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n018:704645] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n018:704645] common_ucx.c:337 support level is transports and devices
+[n018:704645] pml_ucx.c:289 mca_pml_ucx_init
+[n019:2018104] common_ucx.c:332 self/memory: did not match transport list
+[n019:2018104] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n019:2018104] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n019:2018104] common_ucx.c:337 support level is transports and devices
+[n019:2018104] pml_ucx.c:289 mca_pml_ucx_init
+[n017:2209895] pml_ucx.c:114 Pack remote worker address, size 303
+[n017:2209895] pml_ucx.c:114 Pack local worker address, size 332
+[n017:2209895] pml_ucx.c:351 created ucp context 0x55555594a080, worker 0x555555c21340
+[n017:2209895] pml_ucx_component.c:147 returning priority 51
+[n018:704645] pml_ucx.c:114 Pack remote worker address, size 303
+[n018:704645] pml_ucx.c:114 Pack local worker address, size 332
+[n018:704645] pml_ucx.c:351 created ucp context 0x555555935d70, worker 0x555555c1f180
+[n018:704645] pml_ucx_component.c:147 returning priority 51
+[n019:2018104] pml_ucx.c:114 Pack remote worker address, size 303
+[n019:2018104] pml_ucx.c:114 Pack local worker address, size 332
+[n019:2018104] pml_ucx.c:351 created ucp context 0x555555892460, worker 0x555555c217e0
+[n019:2018104] pml_ucx_component.c:147 returning priority 51
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n018:704645] common_ucx.c:332 self/memory: did not match transport list
+[n018:704645] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n018:704645] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n018:704645] common_ucx.c:337 support level is transports and devices
+[n018:704645] osc_ucx_component.c:222 returning priority 60
+[n018:704645] pml_ucx.c:182 Got proc 1 address, size 332
+[n018:704645] pml_ucx.c:416 connecting to proc. 1
+[n017:2209895] common_ucx.c:332 self/memory: did not match transport list
+[n017:2209895] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n017:2209895] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n017:2209895] common_ucx.c:337 support level is transports and devices
+[n017:2209895] osc_ucx_component.c:222 returning priority 60
+[n017:2209895] pml_ucx.c:182 Got proc 0 address, size 332
+[n017:2209895] pml_ucx.c:416 connecting to proc. 0
+[n019:2018104] common_ucx.c:332 self/memory: did not match transport list
+[n019:2018104] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n019:2018104] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n019:2018104] common_ucx.c:337 support level is transports and devices
+[n019:2018104] osc_ucx_component.c:222 returning priority 60
+[n019:2018104] pml_ucx.c:182 Got proc 2 address, size 332
+[n019:2018104] pml_ucx.c:416 connecting to proc. 2
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n018:704645] pml_ucx.c:182 Got proc 0 address, size 332
+[n018:704645] pml_ucx.c:416 connecting to proc. 0
+[n019:2018104] pml_ucx.c:182 Got proc 0 address, size 332
+[n019:2018104] pml_ucx.c:416 connecting to proc. 0
+[n017:2209895] pml_ucx.c:182 Got proc 1 address, size 332
+[n017:2209895] pml_ucx.c:416 connecting to proc. 1
+[n017:2209895] pml_ucx.c:182 Got proc 2 address, size 332
+[n017:2209895] pml_ucx.c:416 connecting to proc. 2
+[n018:704645] pml_ucx.c:182 Got proc 2 address, size 332
+[n018:704645] pml_ucx.c:416 connecting to proc. 2
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n017:2209895] common_ucx.c:468 disconnecting from rank 0
+[n017:2209895] common_ucx.c:468 disconnecting from rank 1
+[n017:2209895] common_ucx.c:432 waiting for 1 disconnect requests
+[n017:2209895] common_ucx.c:468 disconnecting from rank 2
+[n017:2209895] common_ucx.c:432 waiting for 1 disconnect requests
+[n017:2209895] common_ucx.c:432 waiting for 0 disconnect requests
+[n018:704645] common_ucx.c:468 disconnecting from rank 0
+[n019:2018104] common_ucx.c:468 disconnecting from rank 2
+[n018:704645] common_ucx.c:432 waiting for 1 disconnect requests
+[n019:2018104] common_ucx.c:468 disconnecting from rank 0
+[n018:704645] common_ucx.c:468 disconnecting from rank 2
+[n018:704645] common_ucx.c:432 waiting for 1 disconnect requests
+[n018:704645] common_ucx.c:468 disconnecting from rank 1
+[n019:2018104] common_ucx.c:432 waiting for 1 disconnect requests
+[n018:704645] common_ucx.c:432 waiting for 0 disconnect requests
+[n019:2018104] common_ucx.c:432 waiting for 0 disconnect requests
+[n017:2209895] pml_ucx.c:367 mca_pml_ucx_cleanup
+[n019:2018104] pml_ucx.c:367 mca_pml_ucx_cleanup
+[n018:704645] pml_ucx.c:367 mca_pml_ucx_cleanup
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n018:704645] pml_ucx.c:268 mca_pml_ucx_close
+[n019:2018104] pml_ucx.c:268 mca_pml_ucx_close
+[n017:2209895] pml_ucx.c:268 mca_pml_ucx_close
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=773851.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n018: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=773851.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n019: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=773851.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n017: task 0: Completed
