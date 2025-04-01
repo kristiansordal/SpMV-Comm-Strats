@@ -1,0 +1,131 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-018,020]
+srun: cpus-per-task       : 48
+srun: distribution        : block:block
+srun: jobid               : 774037
+srun: job-name            : Bump_2911_3_nodes_1_tasks_48_threads
+srun: nodes               : 3
+srun: ntasks              : 3
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 774037: nodes(3):`n[017-018,020]', cpu counts: 96(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=774037.0 on host n017, 1 tasks: 0
+srun: launching StepId=774037.0 on host n018, 1 tasks: 1
+srun: launching StepId=774037.0 on host n020, 1 tasks: 2
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 1 tasks started
+srun: launch/slurm: _task_start: Node n018, 1 tasks started
+srun: launch/slurm: _task_start: Node n020, 1 tasks started
+[n018:826946] common_ucx.c:174 using OPAL memory hooks as external events
+[n018:826946] pml_ucx.c:197 mca_pml_ucx_open: UCX version 1.15.0
+[n017:2311203] common_ucx.c:174 using OPAL memory hooks as external events
+[n017:2311203] pml_ucx.c:197 mca_pml_ucx_open: UCX version 1.15.0
+[n020:1128627] common_ucx.c:174 using OPAL memory hooks as external events
+[n020:1128627] pml_ucx.c:197 mca_pml_ucx_open: UCX version 1.15.0
+[n017:2311203] common_ucx.c:332 self/memory: did not match transport list
+[n017:2311203] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n017:2311203] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n017:2311203] common_ucx.c:337 support level is transports and devices
+[n017:2311203] pml_ucx.c:289 mca_pml_ucx_init
+[n018:826946] common_ucx.c:332 self/memory: did not match transport list
+[n018:826946] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n018:826946] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n018:826946] common_ucx.c:337 support level is transports and devices
+[n018:826946] pml_ucx.c:289 mca_pml_ucx_init
+[n017:2311203] pml_ucx.c:114 Pack remote worker address, size 303
+[n017:2311203] pml_ucx.c:114 Pack local worker address, size 332
+[n017:2311203] pml_ucx.c:351 created ucp context 0x55555594a080, worker 0x555555c21340
+[n017:2311203] pml_ucx_component.c:147 returning priority 51
+[n018:826946] pml_ucx.c:114 Pack remote worker address, size 303
+[n018:826946] pml_ucx.c:114 Pack local worker address, size 332
+[n018:826946] pml_ucx.c:351 created ucp context 0x555555935960, worker 0x555555c1ef50
+[n018:826946] pml_ucx_component.c:147 returning priority 51
+[n020:1128627] common_ucx.c:332 self/memory: did not match transport list
+[n020:1128627] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n020:1128627] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n020:1128627] common_ucx.c:337 support level is transports and devices
+[n020:1128627] pml_ucx.c:289 mca_pml_ucx_init
+[n020:1128627] pml_ucx.c:114 Pack remote worker address, size 303
+[n020:1128627] pml_ucx.c:114 Pack local worker address, size 332
+[n020:1128627] pml_ucx.c:351 created ucp context 0x5555559ae380, worker 0x555555c20d30
+[n020:1128627] pml_ucx_component.c:147 returning priority 51
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n020:1128627] common_ucx.c:332 self/memory: did not match transport list
+[n020:1128627] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n020:1128627] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n020:1128627] common_ucx.c:337 support level is transports and devices
+[n018:826946] common_ucx.c:332 self/memory: did not match transport list
+[n018:826946] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n018:826946] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n018:826946] common_ucx.c:337 support level is transports and devices
+[n018:826946] osc_ucx_component.c:222 returning priority 60
+[n020:1128627] osc_ucx_component.c:222 returning priority 60
+[n018:826946] pml_ucx.c:182 Got proc 1 address, size 332
+[n018:826946] pml_ucx.c:416 connecting to proc. 1
+[n020:1128627] pml_ucx.c:182 Got proc 2 address, size 332
+[n020:1128627] pml_ucx.c:416 connecting to proc. 2
+[n017:2311203] common_ucx.c:332 self/memory: did not match transport list
+[n017:2311203] common_ucx.c:227 driver '../../../../bus/pci/drivers/mlx5_core' matched by 'mlx*'
+[n017:2311203] common_ucx.c:323 rc_verbs/mlx5_0:1: matched both transport and device list
+[n017:2311203] common_ucx.c:337 support level is transports and devices
+[n017:2311203] osc_ucx_component.c:222 returning priority 60
+[n017:2311203] pml_ucx.c:182 Got proc 0 address, size 332
+[n017:2311203] pml_ucx.c:416 connecting to proc. 0
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n020:1128627] pml_ucx.c:182 Got proc 0 address, size 332
+[n020:1128627] pml_ucx.c:416 connecting to proc. 0
+[n018:826946] pml_ucx.c:182 Got proc 0 address, size 332
+[n018:826946] pml_ucx.c:416 connecting to proc. 0
+[n020:1128627] pml_ucx.c:928 ucx send nbr failed: 1, Operation in progress
+[n020:1128627] *** An error occurred in MPI_Barrier
+[n020:1128627] *** reported by process [3482648576,2]
+[n020:1128627] *** on communicator MPI_COMM_WORLD
+[n020:1128627] *** MPI_ERR_OTHER: known error not in list
+[n020:1128627] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n020:1128627] ***    and potentially your MPI job)
+In: PMI_Abort(16, N/A)
+1a: prov/util/src/util_mem_monitor.c:741: ofi_import_monitor_cleanup: Assertion `!impmon.impfid' failed.
+[n020:1128627] *** Process received signal ***
+[n020:1128627] Signal: Aborted (6)
+[n020:1128627] Signal code:  (-6)
+[n020:1128627] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7ffff78cb520]
+srun: Complete StepId=774037.0+0 received
+[n020:1128627] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x7ffff791f9fc]
+[n020:1128627] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x7ffff78cb476]
+[n020:1128627] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x7ffff78b17f3]
+[n020:1128627] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x2871b)[0x7ffff78b171b]
+[n020:1128627] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0x39e96)[0x7ffff78c2e96]
+[n020:1128627] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/libfabric-1.17.0/lib/libfabric.so.1(+0x6cf15)[0x7ffff67e4f15]
+[n020:1128627] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/libfabric-1.17.0/lib/libfabric.so.1(+0x6bc5e)[0x7ffff67e3c5e]
+[n020:1128627] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/libfabric-1.17.0/lib/libfabric.so.1(+0x17f14)[0x7ffff678ff14]
+[n020:1128627] [ 9] /lib64/ld-linux-x86-64.so.2(+0x624e)[0x7ffff7fc924e]
+[n020:1128627] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x45495)[0x7ffff78ce495]
+[n020:1128627] [11] /lib/x86_64-linux-gnu/libc.so.6(on_exit+0x0)[0x7ffff78ce610]
+[n020:1128627] [12] /cm/shared/apps/slurm/current/lib64/libpmi.so.0(PMI_Abort+0x89)[0x7ffff6b06696]
+[n020:1128627] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so(+0x2c8d)[0x7ffff6b0dc8d]
+[n020:1128627] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_ess_pmi.so(+0x272a)[0x7ffff764072a]
+[n020:1128627] [15] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-rte.so.40(orte_errmgr_base_abort+0x12a)[0x7ffff782604a]
+[n020:1128627] [16] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_errmgr_default_app.so(+0x15a3)[0x7ffff6c345a3]
+[n020:1128627] [17] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_abort+0x30e)[0x7ffff7ed056e]
+[n020:1128627] [18] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_errors_are_fatal_comm_handler+0xe3)[0x7ffff7ebf0c3]
+[n020:1128627] [19] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_errhandler_invoke+0xd3)[0x7ffff7ebe3d3]
+[n020:1128627] [20] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0x1a5)[0x7ffff7ee6a45]
+[n020:1128627] [21] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x234c)[0x55555555634c]
+[n020:1128627] [22] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7ffff78b2d90]
+[n020:1128627] [23] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7ffff78b2e40]
+[n020:1128627] [24] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2875)[0x555555556875]
+[n020:1128627] *** End of error message ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 774037.0 ON n017 CANCELLED AT 2025-04-01T13:05:34 ***
+srun: Complete StepId=774037.0+0 received
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=774037.0 (status=0x0009).
+srun: error: n018: task 1: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=774037.0 (status=0x0009).
+srun: error: n017: task 0: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=774037.0 (status=0x0086).
+srun: error: n020: task 2: Aborted (core dumped)
