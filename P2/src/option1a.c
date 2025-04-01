@@ -22,17 +22,12 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        printf("Partitioning graph\n");
         partition_graph(g, size, p);
-        printf("Done partitioning graph\n");
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
-    if (rank == 0) {
-        printf("Graph distributed\n");
-    }
 
     double *x = (double *)malloc(sizeof(double) * g.num_rows);
     double *y = (double *)malloc(sizeof(double) * g.num_rows);
@@ -59,7 +54,6 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
 
     t0 = MPI_Wtime();
-    printf("Starting Spmv\n");
     for (int i = 0; i < 100; i++) {
         tc1 = MPI_Wtime();
         spmv_part(g, rank, p[rank], p[rank + 1], x, y);
@@ -72,7 +66,6 @@ int main(int argc, char **argv) {
         tcomm += tc3 - tc2;
         tcomp += tc2 - tc1;
     }
-    printf("Done Spmv\n");
 
     t1 = MPI_Wtime();
     double l2 = 0.0;
