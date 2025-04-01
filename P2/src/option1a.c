@@ -22,9 +22,11 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
+        printf("partitioning graph\n");
         partition_graph(g, size, p);
     }
 
+    printf("broadcasting graph\n");
     MPI_Barrier(MPI_COMM_WORLD);
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
