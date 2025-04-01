@@ -26,7 +26,11 @@ int main(int argc, char **argv) {
         partition_graph(g, size, p);
     }
 
-    printf("broadcasting graph\n");
+    if (rank == 0) {
+        printf("distributing graph\n");
+        fflush(stdout);
+    }
+
     MPI_Barrier(MPI_COMM_WORLD);
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
