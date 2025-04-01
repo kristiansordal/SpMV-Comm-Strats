@@ -31,7 +31,11 @@ int main(int argc, char **argv) {
         fflush(stdout);
     }
 
+    printf("Rank %d at barrier 1\n", rank);
+    fflush(stdout);
     MPI_Barrier(MPI_COMM_WORLD);
+    printf("Rank %d past barrier 1\n", rank);
+    fflush(stdout);
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
