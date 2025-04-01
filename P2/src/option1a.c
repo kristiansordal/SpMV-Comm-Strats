@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
     t0 = MPI_Wtime();
     if (rank == 0) {
         printf("starting spmv\n");
+        fflush(stdout);
     }
     for (int i = 0; i < 100; i++) {
         tc1 = MPI_Wtime();
@@ -71,6 +72,7 @@ int main(int argc, char **argv) {
     }
     if (rank == 0) {
         printf("done spmv\n");
+        fflush(stdout);
     }
 
     t1 = MPI_Wtime();
