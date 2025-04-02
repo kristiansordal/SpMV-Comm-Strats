@@ -116,14 +116,21 @@ int main(int argc, char **argv) {
 
     // Print results
     if (rank == 0) {
-        printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
-               (ops / (time * 1e9)),                                           // GFLOPS
-               (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
-               ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
-               l2);
 
+        printf("Total time = %lfs\n", time);
+        printf("Communication time = %lfs\n", tcomm);
+        printf("Copmutation time = %lfs\n", tcomp);
+        printf("GFLOPS = %lf\n", ops / (time * 1e9));
         printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
                avg_comm_size);
+        // printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
+        //        (ops / (time * 1e9)),                                           // GFLOPS
+        //        (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
+        //        ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
+        //        l2);
+
+        // printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
+        //        avg_comm_size);
     }
 
     free(y);
