@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from collections import defaultdict
 from pathlib import Path
 from sys import argv
 import re
@@ -18,6 +19,7 @@ class Result:
         self.comm_min: float = 0
         self.comm_max: float = 0
         self.comm_avg: float = 0
+        self.comm_strat = 0
 
     def __str__(self):
         return f"Name: {self.name}\n Nodes: {self.nodes}\n Tasks: {self.tasks}\n Threads: {self.threads}\n MPI: {self.mpi}"
@@ -66,21 +68,83 @@ def parse_file_contents(file_name: Path, result: Result) -> Result:
     return result
 
 
-def parse_file(file: Path) -> Result:
-    return parse_file_contents(file, parse_file_name(file.stem))
+def parse_file(comm_strat: int, file: Path) -> Result:
+    res = parse_file_contents(file, parse_file_name(file.stem))
+    res.comm_strat = comm_strat
+    return res
 
 
-def get_files(path: Path):
+def get_matrix(path: Path):
+    comm_strat = 0
+    if "1a" in path.stem:
+        comm_strat = 0
+    elif "1b" in path.stem:
+        comm_strat = 1
+    elif "1c" in path.stem:
+        comm_strat = 2
+    elif "1d" in path.stem:
+        comm_strat = 3
+
     stdout_files = list(path.glob("*stdout*"))
-    results = [parse_file(file) for file in stdout_files]
-    single_proc_res = [r for r in results if r.mpi == 0]
-    dual_proc_res = [r for r in results if r.mpi == 1]
+    results = [parse_file(comm_strat, file) for file in stdout_files]
+
+    matrices_single = defaultdict(list)
+    matrices_dual = defaultdict(list)
+
+    for r in results:
+        if r.mpi == 0:
+            matrices_single[r.name].append(r)
+        else:
+            matrices_dual[r.name].append(r)
+
+    single_proc_res = list(matrices_single.values())
+    dual_proc_res = list(matrices_dual.values())
+
     return single_proc_res, dual_proc_res
 
 
 # compares the performance of communication strategy 1a-d
-def plot_compare_comm_strats():
-    pass
+def plot_compare_comm_strats(single_proc_res, dual_proc_res):
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Process single and dual MPI results separately
+    for matrix_res in single_proc_res:
+        matrix_name = matrix_res[
+            0
+        ].name  # Assume all results in the list share the same matrix name
+        matrix_res.sort(key=lambda r: r.comm_strat)  # Sort by communication strategy
+
+        comm_strats = [r.comm_strat for r in matrix_res]
+        times = [r.t for r in matrix_res]
+        gflops = [r.gflops for r in matrix_res]
+
+        axes[0].plot(comm_strats, times, marker="o", label=f"{matrix_name} Non-MPI")
+        axes[1].plot(comm_strats, gflops, marker="o", label=f"{matrix_name} Non-MPI")
+
+    for matrix_res in dual_proc_res:
+        matrix_name = matrix_res[0].name
+        matrix_res.sort(key=lambda r: r.comm_strat)
+
+        comm_strats = [r.comm_strat for r in matrix_res]
+        times = [r.t for r in matrix_res]
+        gflops = [r.gflops for r in matrix_res]
+
+        axes[0].plot(comm_strats, times, marker="s", label=f"{matrix_name} MPI")
+        axes[1].plot(comm_strats, gflops, marker="s", label=f"{matrix_name} MPI")
+
+    # Formatting
+    axes[0].set_xlabel("Communication Strategy (1a=0, 1b=1, 1c=2, 1d=3)")
+    axes[0].set_ylabel("Time (s)")
+    axes[0].set_title("Execution Time Across Communication Strategies")
+    axes[0].legend()
+
+    axes[1].set_xlabel("Communication Strategy (1a=0, 1b=1, 1c=2, 1d=3)")
+    axes[1].set_ylabel("GFLOPS")
+    axes[1].set_title("Performance Across Communication Strategies")
+    axes[1].legend()
+
+    plt.tight_layout()
+    plt.show()
 
 
 # compares the performance of using 1 MPI process per socket, vs using 1 MPI process per node
@@ -123,10 +187,10 @@ def plot_compare_matrices():
 
 def main():
     path: Path = Path(argv[1])
-    single_proc_res, dual_proc_res = get_files(path)
+    single_proc_res, dual_proc_res = get_matrix(path)
     plot_compare_num_sockets(single_proc_res, dual_proc_res)
-    print_res(single_proc_res)
-    print_res(dual_proc_res)
+    # print_res(single_proc_res)
+    # print_res(dual_proc_res)
 
 
 if __name__ == "__main__":
