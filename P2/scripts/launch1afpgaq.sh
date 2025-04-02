@@ -34,8 +34,8 @@ module load ucx
 # export OMP_NUM_THREADS=$omp_num_threads
 # export OMPI_MCA_opal_cuda_support=0                     # new option for above
 
-## Use 'ibv_devinfo' output to determine active HCA (mlx5_1:1 or mlx5_4:1)
-export IBV_DEVICE="mlx5_1"   # Change to mlx5_4 if needed
+# Use 'ibv_devinfo' output to determine active HCA (mlx5_1:1 or mlx5_4:1)
+export IBV_DEVICE="mlx5_4"   # Change to mlx5_4 if needed
 export IBV_PORT=1
 
 export OMPI_MCA_pml=ucx

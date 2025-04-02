@@ -18,20 +18,36 @@ ulimit -s 10240
 module load slurm/21.08.8
 module load numactl/gcc/2.0.18
 module load hwloc/gcc/2.10.0
+module load metis
+module load ucx
 
-export OMPI_MCA_opal_common_ucx_opal_mem_hooks=1
-export OMPI_MCA_pml_ucx_verbose=100
-export OMPI_MCA_btl_openib_allow_ib=1
-export OMPI_MCA_btl_openib_warn_no_device_params_found=1
-export OMPI_MCA_btl_openib_if_include="mlx5_1:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'fpgaq16q'
-export OMPI_MCA_pml="^ucx"
-# export OMPI_MCA_pml=ucx
-# export OMPI_MCA_btl=self,vader
-export OMPI_MCA_btl_tcp_if_exclude=lo,dis0,eno1,eno2,enp113s0f0,ib0,ib1,enp33s0f0,enp33s0f1,docker0,docker_gwbridge
+# export OMPI_MCA_opal_common_ucx_opal_mem_hooks=1
+# export OMPI_MCA_pml_ucx_verbose=100
+# export OMPI_MCA_btl_openib_allow_ib=1
+# export OMPI_MCA_btl_openib_warn_no_device_params_found=1
+# export OMPI_MCA_btl_openib_if_include="mlx5_1:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'fpgaq16q'
+# export OMPI_MCA_pml="^ucx"
+# # export OMPI_MCA_pml=ucx
+# # export OMPI_MCA_btl=self,vader
+# export OMPI_MCA_btl_tcp_if_exclude=lo,dis0,eno1,eno2,enp113s0f0,ib0,ib1,enp33s0f0,enp33s0f1,docker0,docker_gwbridge
+
+# export OMP_NUM_THREADS=$omp_num_threads
+# export OMPI_MCA_opal_cuda_support=0                     # new option for above
+
+
+## Use 'ibv_devinfo' output to determine active HCA (mlx5_1:1 or mlx5_4:1)
+export IBV_DEVICE="mlx5_4"   # Change to mlx5_4 if needed
+export IBV_PORT=1
+
+export OMPI_MCA_pml=ucx
+export OMPI_MCA_btl=self,vader,tcp
+export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge  # Exclude unnecessary interfaces
+
+export UCX_TLS=rc,ud,self
+export UCX_NET_DEVICES=mlx5_1:1    # Change to mlx5_4:1 if needed
 
 export OMP_NUM_THREADS=$omp_num_threads
-export OMPI_MCA_opal_cuda_support=0                     # new option for above
-
+export OMPI_MCA_opal_cuda_support=0
 
 sbatch_script=$(cat <<EOF
 #!/bin/bash
