@@ -1,0 +1,80 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[055-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 774603
+srun: job-name            : audikw_1_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 774603: nodes(6):`n[055-060]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=774603.0 on host n055, 1 tasks: 0
+srun: launching StepId=774603.0 on host n056, 1 tasks: 1
+srun: launching StepId=774603.0 on host n057, 1 tasks: 2
+srun: launching StepId=774603.0 on host n058, 1 tasks: 3
+srun: launching StepId=774603.0 on host n059, 1 tasks: 4
+srun: launching StepId=774603.0 on host n060, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+double free or corruption (out)
+[n057:2717044] *** Process received signal ***
+[n057:2717044] Signal: Aborted (6)
+[n057:2717044] Signal code:  (-6)
+double free or corruption (out)
+[n060:2559506] *** Process received signal ***
+[n060:2559506] Signal: Aborted (6)
+[n060:2559506] Signal code:  (-6)
+double free or corruption (out)
+[n059:2788778] *** Process received signal ***
+[n059:2788778] Signal: Aborted (6)
+[n059:2788778] Signal code:  (-6)
+free(): invalid next size (fast)
+[n056:2645240] *** Process received signal ***
+[n056:2645240] Signal: Aborted (6)
+[n056:2645240] Signal code:  (-6)
+corrupted size vs. prev_size
+[n058:2824697] *** Process received signal ***
+[n058:2824697] Signal: Aborted (6)
+[n058:2824697] Signal code:  (-6)
+[n056:2645240] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7ffff78d3520]
+[n056:2645240] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x7ffff79279fc]
+[n056:2645240] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x7ffff78d3476]
+[n056:2645240] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x7ffff78b97f3]
+[n056:2645240] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x7ffff791a677]
+[n056:2645240] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x7ffff7931cfc]
+[n056:2645240] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2a9d)[0x7ffff7933a9d]
+[n056:2645240] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x7ffff7936453]
+[n056:2645240] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x4ae2e)[0x7ffff7707e2e]
+[n056:2645240] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0xcfce9)[0x7ffff778cce9]
+[n056:2645240] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_pmix_base_hash_finalize+0x19a)[0x7ffff778cf1a]
+[n056:2645240] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so(+0x2cce)[0x7ffff6b10cce]
+[n056:2645240] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_ess_pmi.so(+0x2795)[0x7ffff7643795]
+[n056:2645240] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-rte.so.40(orte_finalize+0x65)[0x7ffff77ee265]
+[n056:2645240] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x8bc)[0x7ffff7ed106c]
+[n056:2645240] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2823)[0x555555556823]
+[n056:2645240] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7ffff78bad90]
+[n056:2645240] [17] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7ffff78bae40]
+[n056:2645240] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2945)[0x555555556945]
+[n056:2645240] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=774603.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n055: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=774603.0 (status=0x0086).
+srun: error: n056: task 1: Aborted (core dumped)
+srun: Complete StepId=774603.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 774603 ON n055 CANCELLED AT 2025-04-01T16:18:07 DUE TO TIME LIMIT ***
