@@ -11,7 +11,7 @@ if [ "$tasks_per_node" == "2" ]; then
     job_name="${job_name}_mpi"
 fi
 
-ulimit -s 10240
+ulimit -s unlimited
 
 # module purge
 # # Modules on all architectures
