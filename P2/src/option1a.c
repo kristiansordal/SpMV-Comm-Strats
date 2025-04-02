@@ -100,6 +100,7 @@ int main(int argc, char **argv) {
     // Compute FLOPs and memory bandwidth
     double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
     double time = t1 - t0;
+    MPI_Barrier(MPI_COMM_WORLD);
 
     // Print results
     if (rank == 0) {
@@ -118,6 +119,7 @@ int main(int argc, char **argv) {
         // printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
         //        avg_comm_size);
     }
+    MPI_Barrier(MPI_COMM_WORLD);
 
     free(y);
     free(x);
