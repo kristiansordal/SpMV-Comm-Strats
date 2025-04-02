@@ -1,9 +1,0 @@
-parsing matrix
-Done parsing mtx
-done reading matrix
-|V|=2164760 |E|=127206144
-Normalizing graph
-Mean of graph: 2865558760433219.500000
-Std of graph: 36977394423.486938
-[1742480613.017757] [n020:2065068:a]       ib_device.c:1333 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=::ffff:10.128.14.18 sgid_index=3 traffic_class=106) for RC DevX QP connect on mlx5_2 failed: Connection timed out
-[1742480613.017827] [n020:2065069:a]       ib_device.c:1333 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=::ffff:10.128.14.18 sgid_index=3 traffic_class=106) for RC DevX QP connect on mlx5_2 failed: Connection timed out

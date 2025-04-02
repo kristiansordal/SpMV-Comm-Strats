@@ -1,5 +1,0 @@
-Done parsing mtx
-|V|=943695 |E|=77651847
-normalizing graph
-Mean of graph: 399627464048.042175
-Std of graph: 4135221.916407

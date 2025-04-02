@@ -1,4 +1,0 @@
-Done parsing mtx
-|V|=2911419 |E|=127729899
-Mean of graph: 25852354953359840.000000
-Std of graph: 59215481934039.296875

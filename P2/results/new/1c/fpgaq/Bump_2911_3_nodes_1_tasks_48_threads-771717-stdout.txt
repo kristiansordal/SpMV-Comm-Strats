@@ -1,8 +1,0 @@
-Done parsing mtx
-|V|=2911419 |E|=127729899
-Mean of graph: 25852354953359840.000000
-Std of graph: 59215481934039.304688
-0.718325s (0.336599s, 0.381698s), 35.563262 GFLOPS, 55.356992 GBs mem, 36.612218 GBs comm, L2 = -nan
-Comm min = 0.481969 GB
-Comm max = 0.695246 GB
-Comm avg = 0.556789 GB
