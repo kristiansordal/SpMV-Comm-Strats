@@ -1,0 +1,106 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[050-055]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 776019
+srun: job-name            : nlpkkt160_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 776019: nodes(6):`n[050-055]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=776019.0 on host n050, 1 tasks: 0
+srun: launching StepId=776019.0 on host n051, 1 tasks: 1
+srun: launching StepId=776019.0 on host n052, 1 tasks: 2
+srun: launching StepId=776019.0 on host n053, 1 tasks: 3
+srun: launching StepId=776019.0 on host n054, 1 tasks: 4
+srun: launching StepId=776019.0 on host n055, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+[n051:2791761:0:2791761] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x555554000000)
+munmap_chunk(): invalid pointer
+[n050:2966607] *** Process received signal ***
+[n050:2966607] Signal: Aborted (6)
+[n050:2966607] Associated errno: Unknown error 21845 (21845)
+[n050:2966607] Signal code:  (-43249)
+[n050:2966607] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7ffff78d3520]
+[n050:2966607] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x7ffff79279fc]
+[n050:2966607] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x7ffff78d3476]
+[n050:2966607] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x7ffff78b97f3]
+[n050:2966607] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x7ffff791a677]
+[n050:2966607] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x7ffff7931cfc]
+[n050:2966607] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa0fdc)[0x7ffff7931fdc]
+[n050:2966607] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0xba)[0x7ffff793649a]
+[n050:2966607] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_class_finalize+0x55)[0x7ffff76eeb35]
+[n050:2966607] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_finalize_util+0x8b)[0x7ffff76f824b]
+[n050:2966607] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x95c)[0x7ffff7ed110c]
+[n050:2966607] [11] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2823)[0x555555556823]
+[n050:2966607] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7ffff78bad90]
+[n050:2966607] [13] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7ffff78bae40]
+[n050:2966607] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2945)[0x555555556945]
+[n050:2966607] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=776019.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n053: task 3: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=776019.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n055: task 5: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=776019.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n054: task 4: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=776019.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n052: task 2: Completed
+==== backtrace (tid:2791761) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:162
+ 2 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:160
+ 3 0x00000000000a5449 __GI___libc_free()  ./malloc/malloc.c:3390
+ 4 0x000000000002f275 uct_rc_iface_t_cleanup()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/rc/base/rc_iface.c:747
+ 5 0x0000000000048f76 ucs_class_call_cleanup_chain()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/type/class.c:56
+ 6 0x00000000000359cc uct_rc_verbs_iface_t_delete()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/rc/verbs/rc_verbs_iface.c:456
+ 7 0x0000000000045f67 ucp_worker_uct_iface_close()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:788
+ 8 0x0000000000045f67 ucp_worker_iface_cleanup()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:1304
+ 9 0x0000000000046d01 ucp_worker_close_ifaces()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:1050
+10 0x0000000000049bbd ucp_worker_destroy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2533
+11 0x000000000000738b mca_pml_ucx_cleanup()  ???:0
+12 0x0000000000055d5b ompi_mpi_finalize()  ???:0
+13 0x0000000000002823 main()  ???:0
+14 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+15 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+16 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+17 0x0000000000002945 _start()  ???:0
+=================================
+[n051:2791761] *** Process received signal ***
+[n051:2791761] Signal: Segmentation fault (11)
+[n051:2791761] Signal code:  (-6)
+[n051:2791761] Failing at address: 0x1bfc002a9951
+[n051:2791761] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7ffff78d3520]
+[n051:2791761] [ 1] /lib/x86_64-linux-gnu/libc.so.6(free+0x69)[0x7ffff7936449]
+[n051:2791761] [ 2] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x2f275)[0x7ffff6390275]
+[n051:2791761] [ 3] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_class_call_cleanup_chain+0x76)[0x7ffff6647f76]
+[n051:2791761] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x359cc)[0x7ffff63969cc]
+[n051:2791761] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_iface_cleanup+0xa7)[0x7ffff66b1f67]
+[n051:2791761] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(+0x46d01)[0x7ffff66b2d01]
+[n051:2791761] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0x3ed)[0x7ffff66b5bbd]
+[n051:2791761] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x7ffff6b6638b]
+[n051:2791761] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x7ffff7ed0d5b]
+[n051:2791761] [10] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2823)[0x555555556823]
+[n051:2791761] [11] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7ffff78bad90]
+[n051:2791761] [12] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7ffff78bae40]
+[n051:2791761] [13] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2945)[0x555555556945]
+[n051:2791761] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=776019.0 (status=0x008b).
+srun: error: n051: task 1: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=776019.0 (status=0x0086).
+srun: error: n050: task 0: Aborted (core dumped)
