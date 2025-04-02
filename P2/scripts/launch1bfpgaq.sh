@@ -43,7 +43,7 @@ export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge  # Exclude unnecessary interfaces
 
 export UCX_TLS=rc,ud,self
-export UCX_NET_DEVICES=mlx5_1:1    # Change to mlx5_4:1 if needed
+export UCX_NET_DEVICES=mlx5_4:1    # Change to mlx5_4:1 if needed
 
 export OMP_NUM_THREADS=$omp_num_threads
 export OMPI_MCA_opal_cuda_support=0
