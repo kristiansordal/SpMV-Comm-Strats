@@ -1,0 +1,13 @@
+Done parsing mtx
+|V|=8345600 |E|=229518112
+Normalizing graph
+Mean of graph: 24308172.138978
+Std of graph: 38.869424
+Sorting edges
+Total time = 0.808392s
+Communication time = 0.107039s
+Copmutation time = 0.701321s
+GFLOPS = 56.783874
+Comm min = 1.636714 GB
+Comm max = 2.261537 GB
+Comm avg = 1.977634 GB
