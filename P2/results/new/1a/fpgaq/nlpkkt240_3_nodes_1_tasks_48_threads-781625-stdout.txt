@@ -1,0 +1,23 @@
+Rank 1 at barrier 1
+Rank 2 at barrier 1
+Done parsing mtx
+|V|=27993600 |E|=774472352
+Normalizing graph
+Mean of graph: 81842188.050160
+Std of graph: 38.873217
+Sorting edges
+partitioning graph
+distributing graph
+Rank 0 at barrier 1
+Rank 1 past barrier 1
+Rank 0 past barrier 1
+Rank 2 past barrier 1
+starting spmv
+done spmv
+Total time = 5.029965s
+Communication time = 1.895329s
+Copmutation time = 3.134606s
+GFLOPS = 30.794342
+Comm min = 166.854858 GB
+Comm max = 166.854858 GB
+Comm avg = 166.854858 GB
