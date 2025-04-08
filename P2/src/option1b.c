@@ -6,6 +6,7 @@
 #include <mpi.h> // MPI header file
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define alpha 0.7
 #define beta 0.1
@@ -65,8 +66,12 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
-        MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
-                       MPI_COMM_WORLD);
+        if (size == 0) {
+            memcpy(x, y, sizeof(double) * g.num_rows);
+        } else {
+            MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
+                           MPI_COMM_WORLD);
+        }
         double *tmp = y;
         y = x;
         x = tmp;
