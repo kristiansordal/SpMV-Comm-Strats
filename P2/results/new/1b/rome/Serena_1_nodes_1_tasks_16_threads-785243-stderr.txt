@@ -1,0 +1,50 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n060
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 785243
+srun: job-name            : Serena_1_nodes_1_tasks_16_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 785243: nodes(1):`n060', cpu counts: 32(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=785243.0 on host n060, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+[n060:3544313:0:3544313] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x555556f6b860)
+==== backtrace (tid:3544313) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000001a0741 __memmove_avx_unaligned()  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:220
+ 2 0x0000000000052726 overlap_copy_content_same_ddt()  opal_datatype_copy.c:0
+ 3 0x0000000000067a4a ompi_datatype_sndrcv()  ???:0
+ 4 0x0000000000068ca5 PMPI_Allgatherv()  ???:0
+ 5 0x00000000000025c3 main()  ???:0
+ 6 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 7 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 8 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 9 0x00000000000029d5 _start()  ???:0
+=================================
+[n060:3544313] *** Process received signal ***
+[n060:3544313] Signal: Segmentation fault (11)
+[n060:3544313] Signal code:  (-6)
+[n060:3544313] Failing at address: 0x1bfc003614f9
+[n060:3544313] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n060:3544313] [ 1] /lib/x86_64-linux-gnu/libc.so.6(+0x1a0741)[0x155554f77741]
+[n060:3544313] [ 2] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x52726)[0x155554c55726]
+[n060:3544313] [ 3] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_datatype_sndrcv+0x50a)[0x155555439a4a]
+[n060:3544313] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(PMPI_Allgatherv+0x115)[0x15555543aca5]
+[n060:3544313] [ 5] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x25c3)[0x5555555565c3]
+[n060:3544313] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n060:3544313] [ 7] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n060:3544313] [ 8] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x29d5)[0x5555555569d5]
+[n060:3544313] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=785243.0 (status=0x008b).
+srun: error: n060: task 0: Segmentation fault (core dumped)

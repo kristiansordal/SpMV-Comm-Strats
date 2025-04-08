@@ -62,7 +62,7 @@ sbatch_script=$(cat <<EOF
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
-srun --verbose numactl -C0-16 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b /global/D1/projects/mtx/datasets/suitesparse/$matrix
+srun --verbose numactl -C0-15 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b /global/D1/projects/mtx/datasets/suitesparse/$matrix
 EOF
 )
 
