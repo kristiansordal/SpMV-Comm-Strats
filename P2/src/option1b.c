@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
-        if (size == 0) {
+        if (size == 1) {
             memcpy(x, y, sizeof(double) * g.num_rows);
         } else {
             MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
