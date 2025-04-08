@@ -1,37 +1,48 @@
 import matplotlib.pyplot as plt
 from collections import defaultdict
 from pathlib import Path
+from typing import Dict, DefaultDict, List
+from matplotlib.ticker import LogLocator as LL
 from sys import argv
-import re
+import numpy as np
 
 
-class Result:
-    def __init__(self, name, nodes, tasks, threads, mpi):
-        self.name = name
+# the result of running SPMV on a single comm strat with a given configuration
+class SingleResult:
+    def __init__(
+        self, nodes, tasks, threads, t, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
+    ):
         self.nodes = nodes
         self.tasks = tasks
         self.threads = threads
-        self.mpi = mpi
-        self.t: float = 0
-        self.tcomm: float = 0
-        self.tcomp: float = 0
-        self.gflops: float = 0
-        self.comm_min: float = 0
-        self.comm_max: float = 0
-        self.comm_avg: float = 0
-        self.comm_strat = 0
+        self.t: float = t
+        self.tcomm: float = tcomm
+        self.tcomp: float = tcomp
+        self.gflops: float = gflops
+        self.comm_min: float = comm_min
+        self.comm_max: float = comm_max
+        self.comm_avg: float = comm_avg
 
     def __str__(self):
-        return f"Name: {self.name}\n Nodes: {self.nodes}\n Tasks: {self.tasks}\n Threads: {self.threads}\n MPI: {self.mpi}"
+        return (
+            f"nodes: {self.nodes}, tasks: {self.tasks}, threads: {self.threads}, "
+            f"t: {self.t}, tcomm: {self.tcomm}, tcomp: {self.tcomp}, "
+            f"gflops: {self.gflops}, comm_min: {self.comm_min}, comm_max: {self.comm_max}, comm_avg: {self.comm_avg}"
+        )
 
 
-def print_res(result: list[Result]):
-    for r in result:
-        print(r.mpi)
+# the result of running SPMV on a single matrix with multiple configurations
+# class MatrixResult:
+#     def __init__(self, nodes, tasks, threads):
+#         self.nodes = nodes
+#         self.tasks = tasks
+#         self.threads = threads
+#         self.single_proc_result: list[SingleResult] = []
+#         self.dual_proc_result: list[SingleResult] = []
 
 
-def parse_file_name(file_name: str) -> Result:
-    tokens = file_name.split("_")
+def parse_file_name(file_name: str):
+    tokens = file_name.split("/")[-1].split("_")
     name, nodes, tasks, threads, mpi = "", 0, 0, 0, 0
     if "mpi" in file_name:
         mpi = 1
@@ -43,154 +54,250 @@ def parse_file_name(file_name: str) -> Result:
             tasks = int(tokens[i - 1])
         elif token == "threads":
             threads = int(tokens[i - 1])
-    return Result(name, nodes, tasks, threads, mpi)
+    return name, nodes, tasks, threads, mpi
 
 
-def parse_file_contents(file_name: Path, result: Result) -> Result:
+def parse_file_contents(file_name: str):
+    ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = 0, 0, 0, 0, 0, 0, 0
     with open(file_name, "r") as f:
-        lines = f.readlines()
-        for line in lines:
+        for line in f:
+            print(line)
             tokens = line.split()
             if "Total time" in line:
-                result.t = float(tokens[3][:-1])
+                ttot = float(tokens[3][:-1])
             elif "Communication time" in line:
-                result.tcomm = float(tokens[3][:-1])
-            elif "Computation time" in line:
-                result.tcomp = float(tokens[3][:-1])
+                tcomm = float(tokens[3][:-1])
+            elif "Copmutation time" in line:
+                tcomp = float(tokens[3][:-1])
             elif "GFLOPS" in line:
-                result.gflops = float(tokens[2])
+                gflops = float(tokens[2])
             elif "Comm min" in line:
-                result.comm_min = float(tokens[3])
+                comm_min = float(tokens[3])
             elif "Comm max" in line:
-                result.comm_max = float(tokens[3])
+                comm_max = float(tokens[3])
             elif "Comm avg" in line:
-                result.comm_avg = float(tokens[3])
-    return result
+                comm_avg = float(tokens[3])
+        return ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
 
 
-def parse_file(comm_strat: int, file: Path) -> Result:
-    res = parse_file_contents(file, parse_file_name(file.stem))
-    res.comm_strat = comm_strat
-    return res
+# comm_strat -> matrix -> result
+def gather_results_from_directory(results, comm_strat: str, file_path: Path):
+    for file in file_path.iterdir():
+        if file.name == "nlpkkt200_3_nodes_1_tasks_48_threads-782147-stdout.txt":
+            print("hello")
+
+        if file.is_file() and "stdout" in file.stem:
+            name, nodes, tasks, threads, mpi = parse_file_name(str(file))
+            ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(
+                str(file)
+            )
+            print(comm_strat, name, mpi)
+            results[comm_strat][name][mpi].append(
+                SingleResult(
+                    nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
+                )
+            )
+            if file.name == "nlpkkt200_3_nodes_1_tasks_48_threads-782147-stdout.txt":
+                for r in results[comm_strat][name][mpi]:
+
+                    print(r)
 
 
-def get_matrix(path: Path):
-    comm_strat = 0
-    if "1a" in path.stem:
-        comm_strat = 0
-    elif "1b" in path.stem:
-        comm_strat = 1
-    elif "1c" in path.stem:
-        comm_strat = 2
-    elif "1d" in path.stem:
-        comm_strat = 3
+def plot_compare_comm_strat(results):
+    for matrix in results[next(iter(results))]:  # Iterate over matrix names
+        fig, axes = plt.subplots(1, 2, figsize=(12, 6), sharey=True)
+        fig.suptitle(f"GFLOPS Comparison for {matrix}")
 
-    stdout_files = list(path.glob("*stdout*"))
-    results = [parse_file(comm_strat, file) for file in stdout_files]
+        mpi_labels = ["Single Process (mpi=0)", "Multi Process (mpi=1)"]
+        colors = ["b", "g", "r", "c"]  # Colors for different comm_strats
 
-    matrices_single = defaultdict(list)
-    matrices_dual = defaultdict(list)
+        for mpi, ax in enumerate(axes):
+            ax.set_title(mpi_labels[mpi])
+            ax.set_xlabel("Number of Nodes")
+            ax.set_ylabel("GFLOPS")
 
-    for r in results:
-        if r.mpi == 0:
-            matrices_single[r.name].append(r)
-        else:
-            matrices_dual[r.name].append(r)
+            for i, (comm_strat, matrices) in enumerate(results.items()):
+                if matrix in matrices and mpi in matrices[matrix]:
+                    # Sort the results by number of nodes in ascending order
+                    sorted_results = sorted(matrices[matrix][mpi], key=lambda res: res.nodes)
+                    nodes = [res.nodes for res in sorted_results]
+                    gflops = [res.gflops for res in sorted_results]
 
-    single_proc_res = list(matrices_single.values())
-    dual_proc_res = list(matrices_dual.values())
+                    if comm_strat == "1a":
+                        for res in sorted_results:
+                            print(res)
 
-    return single_proc_res, dual_proc_res
+                    ax.plot(
+                        nodes,
+                        gflops,
+                        marker="o",
+                        linestyle="-",
+                        color=colors[i % len(colors)],
+                        label=comm_strat,
+                    )
+
+            ax.legend()
+            ax.grid(True, linestyle="--", alpha=0.6)
+
+        # plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+        plt.show()
 
 
-# compares the performance of communication strategy 1a-d
-def plot_compare_comm_strats(single_proc_res, dual_proc_res):
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+def plot_comm_load(results):
+    # Get all communication strategies
+    comm_strats = list(results.keys())
 
-    # Process single and dual MPI results separately
-    for matrix_res in single_proc_res:
-        matrix_name = matrix_res[
-            0
-        ].name  # Assume all results in the list share the same matrix name
-        matrix_res.sort(key=lambda r: r.comm_strat)  # Sort by communication strategy
+    # Get all unique node counts
+    node_counts = set()
+    for comm_strat in results.values():
+        for matrix in comm_strat.values():
+            for mpi in matrix.values():
+                for res in mpi:
+                    node_counts.add(res.nodes)
+    node_counts = sorted(node_counts)
 
-        comm_strats = [r.comm_strat for r in matrix_res]
-        times = [r.t for r in matrix_res]
-        gflops = [r.gflops for r in matrix_res]
+    # Prepare data structure: comm_strat -> mpi -> nodes -> [comm_avg values]
+    data = {strat: {0: defaultdict(list), 1: defaultdict(list)} for strat in comm_strats}
 
-        axes[0].plot(comm_strats, times, marker="o", label=f"{matrix_name} Non-MPI")
-        axes[1].plot(comm_strats, gflops, marker="o", label=f"{matrix_name} Non-MPI")
+    # Collect data
+    for comm_strat, matrices in results.items():
+        for matrix in matrices.values():
+            for mpi, results_list in matrix.items():
+                for res in results_list:
+                    data[comm_strat][mpi][res.nodes].append(res.comm_avg)
 
-    for matrix_res in dual_proc_res:
-        matrix_name = matrix_res[0].name
-        matrix_res.sort(key=lambda r: r.comm_strat)
+    # Create plot
+    fig, ax = plt.subplots(figsize=(14, 8))
 
-        comm_strats = [r.comm_strat for r in matrix_res]
-        times = [r.t for r in matrix_res]
-        gflops = [r.gflops for r in matrix_res]
+    # Plot configuration
+    bar_width = 0.15
+    opacity = 0.8
+    colors = ["b", "g", "r", "c", "m", "y", "k"]
+    mpi_labels = ["Single-socket", "Dual-socket"]
 
-        axes[0].plot(comm_strats, times, marker="s", label=f"{matrix_name} MPI")
-        axes[1].plot(comm_strats, gflops, marker="s", label=f"{matrix_name} MPI")
+    # X-axis positions for groups
+    index = np.arange(len(node_counts))
 
+    # Plot bars for each communication strategy and MPI configuration
+    for i, comm_strat in enumerate(comm_strats):
+        for mpi in [0, 1]:
+            # Calculate average communication for each node count
+            avg_comms = [
+                np.mean(data[comm_strat][mpi][nodes]) if data[comm_strat][mpi][nodes] else 0
+                for nodes in node_counts
+            ]
+
+            # Position adjustment based on MPI and strategy
+            pos = index + (i * 2 + mpi) * bar_width
+
+            ax.bar(
+                pos,
+                avg_comms,
+                bar_width,
+                alpha=opacity,
+                color=colors[i],
+                label=f"{comm_strat} {mpi_labels[mpi]}",
+            )
+
+    ax.set_yscale("log")  # Set y-axis to logarithmic scale
+    ax.yaxis.set_major_locator(LL(base=10, numticks=15))
+    ax.yaxis.set_minor_locator(
+        LL(base=10, subs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], numticks=12)
+    )
     # Formatting
-    axes[0].set_xlabel("Communication Strategy (1a=0, 1b=1, 1c=2, 1d=3)")
-    axes[0].set_ylabel("Time (s)")
-    axes[0].set_title("Execution Time Across Communication Strategies")
-    axes[0].legend()
-
-    axes[1].set_xlabel("Communication Strategy (1a=0, 1b=1, 1c=2, 1d=3)")
-    axes[1].set_ylabel("GFLOPS")
-    axes[1].set_title("Performance Across Communication Strategies")
-    axes[1].legend()
+    ax.set_xlabel("Number of Nodes", fontsize=12)
+    ax.set_ylabel("Communication Load (GB)", fontsize=12)
+    ax.set_title("Communication Load Comparison Across Strategies", fontsize=14)
+    ax.set_xticks(index + (len(comm_strats) * bar_width))
+    ax.set_xticklabels([f"{n} nodes" for n in node_counts])
+    ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
+    ax.grid(True, linestyle="--", alpha=0.6)
 
     plt.tight_layout()
     plt.show()
 
 
-# compares the performance of using 1 MPI process per socket, vs using 1 MPI process per node
-def plot_compare_num_sockets(single_proc_res, dual_proc_res):
-    single_proc_res.sort(key=lambda r: r.nodes)
-    dual_proc_res.sort(key=lambda r: r.nodes)
+def plot_comm_load2(results):
+    comm_strats = list(results.keys())
+    node_counts = sorted(
+        set(
+            res.nodes
+            for comm_strat in results.values()
+            for matrix in comm_strat.values()
+            for mpi in matrix.values()
+            for res in mpi
+        )
+    )
 
-    nodes_single = [r.nodes for r in single_proc_res]
-    time_single = [r.t for r in single_proc_res]
-    gflops_single = [r.gflops for r in single_proc_res]
+    # Prepare data
+    data = {
+        strat: {mpi: {nodes: [] for nodes in node_counts} for mpi in [0, 1]}
+        for strat in comm_strats
+    }
 
-    nodes_dual = [r.nodes for r in dual_proc_res]
-    time_dual = [r.t for r in dual_proc_res]
-    gflops_dual = [r.gflops for r in dual_proc_res]
+    for comm_strat, matrices in results.items():
+        for matrix in matrices.values():
+            for mpi, results_list in matrix.items():
+                for res in results_list:
+                    data[comm_strat][mpi][res.nodes].append(res.comm_avg)
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    # Plot setup
+    fig, ax = plt.subplots(figsize=(14, 8))
+    bar_width = 0.15
+    opacity = 0.8
+    colors = ["b", "g", "r", "c"]
 
-    axes[0].plot(nodes_single, time_single, label="Non-MPI", marker="o")
-    axes[0].plot(nodes_dual, time_dual, label="MPI", marker="s")
-    axes[0].set_xlabel("Number of Nodes")
-    axes[0].set_ylabel("Time (s)")
-    axes[0].set_title("Execution Time Comparison")
-    axes[0].legend()
+    # X-axis positions
+    index = np.arange(len(comm_strats))
 
-    axes[1].plot(nodes_single, gflops_single, label="Non-MPI", marker="o")
-    axes[1].plot(nodes_dual, gflops_dual, label="MPI", marker="s")
-    axes[1].set_xlabel("Number of Nodes")
-    axes[1].set_ylabel("GFLOPS")
-    axes[1].set_title("Performance Comparison")
-    axes[1].legend()
+    # Plot bars
+    for i, nodes in enumerate(node_counts):
+        for mpi in [0, 1]:
+            avg_comms = [
+                np.mean(data[strat][mpi][nodes]) if data[strat][mpi][nodes] else 0
+                for strat in comm_strats
+            ]
+            pos = index + (i * 2 + mpi) * bar_width
+            ax.bar(
+                pos,
+                avg_comms,
+                bar_width,
+                alpha=opacity,
+                color=colors[i],
+                label=f'{nodes} nodes {"(dual)" if mpi else "(single)"}',
+            )
+
+    ax.set_yscale("log")  # Set y-axis to logarithmic scale
+    ax.yaxis.set_major_locator(LL(base=10, numticks=15))
+    ax.yaxis.set_minor_locator(
+        LL(base=10, subs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], numticks=12)
+    )
+    # Formatting
+    ax.set_xlabel("Communication Strategy", fontsize=12)
+    ax.set_ylabel("Communication Load (GB)", fontsize=12)
+    ax.set_title("Communication Load by Strategy and Node Count", fontsize=14)
+    ax.set_xticks(index + (len(node_counts) * bar_width))
+    ax.set_xticklabels(comm_strats)
+    ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
+    ax.grid(True, linestyle="--", alpha=0.6)
 
     plt.tight_layout()
     plt.show()
-
-
-# compares the performance of the different matrices
-def plot_compare_matrices():
-    pass
 
 
 def main():
-    path: Path = Path(argv[1])
-    single_proc_res, dual_proc_res = get_matrix(path)
-    plot_compare_num_sockets(single_proc_res, dual_proc_res)
-    # print_res(single_proc_res)
-    # print_res(dual_proc_res)
+    base_path = argv[1]
+    partition = argv[2]
+    comm_strats = [argv[3]] if argv[3] != "all" else ["1a", "1b", "1c", "1d"]
+    # Define nested defaultdicts
+    results = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    for comm_strat in comm_strats:
+        path = Path(base_path + comm_strat + "/" + partition)
+        print(path)
+        gather_results_from_directory(results, comm_strat, path)
+    plot_compare_comm_strat(results)
+    plot_comm_load(results)
+    plot_comm_load2(results)
 
 
 if __name__ == "__main__":

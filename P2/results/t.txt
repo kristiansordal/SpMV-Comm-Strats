@@ -1,0 +1,2 @@
+/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P2/results/new/ fpgaq all
+/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P2/results/new/ rome all
