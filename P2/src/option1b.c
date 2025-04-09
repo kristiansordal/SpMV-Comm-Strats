@@ -84,7 +84,12 @@ int main(int argc, char **argv) {
 
     t1 = MPI_Wtime();
 
-    MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+    if (size == 1) {
+        memcpy(x, y, sizeof(double) * g.num_rows);
+    } else {
+        MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE,
+                       MPI_COMM_WORLD);
+    }
 
     double *tmp = x;
     x = y;
