@@ -1,5 +1,5 @@
 #!/bin/bash
-GROUP_FILE="/home/krisor99/SpMV-Comm-Strats/P2/scripts/output.txt"
+GROUP_FILE="/home/krisor99/SpMV-Comm-Strats/P2/scripts/DIMACS.txt"
 
 if [[ -f "$GROUP_FILE" && -r "$GROUP_FILE" ]]; then
     while IFS= read -r line; do
