@@ -6,6 +6,7 @@ from matplotlib.ticker import LogLocator as LL
 from matplotlib.patches import Patch
 from sys import argv
 import numpy as np
+import re
 
 
 # the result of running SPMV on a single comm strat with a given configuration
@@ -62,7 +63,6 @@ def parse_file_contents(file_name: str):
     ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = 0, 0, 0, 0, 0, 0, 0
     with open(file_name, "r") as f:
         for line in f:
-            print(line)
             tokens = line.split()
             if "Total time" in line:
                 ttot = float(tokens[3][:-1])
@@ -83,25 +83,30 @@ def parse_file_contents(file_name: str):
 
 # comm_strat -> matrix -> result
 def gather_results_from_directory(results, comm_strat: str, file_path: Path):
+    # Map from config string to (job_id, file path)
+    config_to_best_file = {}
+
+    pattern = re.compile(r"(.+)-(\d+)-stdout\.txt$")
+
     for file in file_path.iterdir():
-        if file.name == "nlpkkt200_3_nodes_1_tasks_48_threads-782147-stdout.txt":
-            print("hello")
+        if file.is_file() and "stdout" in file.name:
+            match = pattern.match(file.name)
+            if not match:
+                continue
+            config_str, job_id_str = match.groups()
+            job_id = int(job_id_str)
 
-        if file.is_file() and "stdout" in file.stem:
-            name, nodes, tasks, threads, mpi = parse_file_name(str(file))
-            ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(
-                str(file)
-            )
-            print(comm_strat, name, mpi)
-            results[comm_strat][name][mpi].append(
-                SingleResult(
-                    nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
-                )
-            )
-            if file.name == "nlpkkt200_3_nodes_1_tasks_48_threads-782147-stdout.txt":
-                for r in results[comm_strat][name][mpi]:
+            if config_str not in config_to_best_file or job_id > config_to_best_file[config_str][0]:
+                config_to_best_file[config_str] = (job_id, file)
 
-                    print(r)
+    for _, file in config_to_best_file.values():
+        name, nodes, tasks, threads, mpi = parse_file_name(str(file))
+        ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
+        results[comm_strat][name][mpi].append(
+            SingleResult(
+                nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
+            )
+        )
 
 
 def plot_compare_comm_strat(results):
@@ -123,10 +128,6 @@ def plot_compare_comm_strat(results):
                     sorted_results = sorted(matrices[matrix][mpi], key=lambda res: res.nodes)
                     nodes = [res.nodes for res in sorted_results]
                     gflops = [res.gflops for res in sorted_results]
-
-                    if comm_strat == "1a":
-                        for res in sorted_results:
-                            print(res)
 
                     ax.plot(
                         nodes,
@@ -371,7 +372,6 @@ def main():
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     for comm_strat in comm_strats:
         path = Path(base_path + comm_strat + "/" + partition)
-        print(path)
         gather_results_from_directory(results, comm_strat, path)
     plot_comm_and_comp_time(results)
     plot_compare_comm_strat(results)
