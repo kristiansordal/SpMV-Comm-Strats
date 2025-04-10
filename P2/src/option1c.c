@@ -91,6 +91,7 @@ int main(int argc, char **argv) {
         tcomp += tc3 - tc2;
     }
 
+    MPI_Barrier(MPI_COMM_WORLD);
     t1 = MPI_Wtime();
 
     MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
@@ -129,7 +130,6 @@ int main(int argc, char **argv) {
 
     // Print results
     if (rank == 0) {
-
         printf("Total time = %lfs\n", time);
         printf("Communication time = %lfs\n", tcomm);
         printf("Copmutation time = %lfs\n", tcomp);

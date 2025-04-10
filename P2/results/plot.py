@@ -3,6 +3,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, DefaultDict, List
 from matplotlib.ticker import LogLocator as LL
+from matplotlib.patches import Patch
 from sys import argv
 import numpy as np
 
@@ -141,87 +142,6 @@ def plot_compare_comm_strat(results):
 
         # plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         plt.show()
-
-
-def plot_comm_and_comp_time(results):
-    node_counts = sorted(
-        set(
-            res.nodes
-            for comm_strat in results.values()
-            for matrix in comm_strat.values()
-            for mpi in matrix.values()
-            for res in mpi
-        )
-    )
-
-    # Colors and labels for each communication strategy and type (communication or computation)
-    colors = ["b", "g", "r", "c"]
-    comm_strats = list(results.keys())
-
-    # Prepare the plot
-    fig, axes = plt.subplots(1, 2, figsize=(16, 8), sharey=True)
-    fig.suptitle("Communication and Computation Time Comparison Across Strategies")
-
-    mpi_labels = ["Single Process (mpi=0)", "Multi Process (mpi=1)"]
-
-    # Loop through each MPI configuration (single and multi-process)
-    for mpi, ax in enumerate(axes):
-        ax.set_title(mpi_labels[mpi])
-        ax.set_xlabel("Number of Nodes")
-        ax.set_ylabel("Time (seconds)")
-
-        # X-axis positions for groups (for each node count)
-        index = np.arange(len(node_counts))
-        bar_width = 0.2  # Adjust bar width
-        opacity = 0.8
-
-        # Loop through each node count
-        for i, node in enumerate(node_counts):
-            pos = index[i]  # Position for the node count
-
-            # Prepare the data for bars (communication and computation time)
-            comm_times = []
-            comp_times = []
-
-            for comm_strat in comm_strats:
-                comm_time = 0
-                comp_time = 0
-                # Collect communication and computation time for this node count and MPI config
-                for matrix in results[comm_strat].values():
-                    for res in matrix.get(mpi, []):
-                        if res.nodes == node:
-                            comm_time = res.tcomm
-                            comp_time = res.tcomp
-
-                comm_times.append(comm_time)
-                comp_times.append(comp_time)
-
-            # Plot the bars: communication time and computation time for each strategy
-            ax.bar(
-                pos - 1.5 * bar_width,
-                comm_times[0],
-                bar_width,
-                alpha=opacity,
-                color=colors[0],
-                label=f"{comm_strat} - Comm",
-            )
-            ax.bar(
-                pos - 0.5 * bar_width,
-                comp_times[0],
-                bar_width,
-                alpha=opacity,
-                color=colors[0],
-                label=f"{comm_strat} - Comp",
-            )
-
-        # Formatting
-        ax.set_xticks(index)
-        ax.set_xticklabels([f"{n} nodes" for n in node_counts])
-        ax.legend()
-        ax.grid(True, linestyle="--", alpha=0.6)
-
-    plt.tight_layout()
-    plt.show()
 
 
 def plot_comm_load(results):
@@ -366,6 +286,83 @@ def plot_comm_load2(results):
     plt.show()
 
 
+def plot_comm_and_comp_time(results):
+    comm_strats = list(results.keys())
+
+    for matrix in results[next(iter(results))]:  # Iterate over matrix names
+        fig, axes = plt.subplots(1, 2, figsize=(14, 8), sharey=True)
+        fig.suptitle(f"Communication and Computation Time for {matrix}", fontsize=16)
+
+        node_counts = sorted(
+            {
+                res.nodes
+                for comm_strat in results.values()
+                for mat_name, mpi_data in comm_strat.items()
+                if mat_name == matrix
+                for res_list in mpi_data.values()
+                for res in res_list
+            }
+        )
+
+        bar_width = 0.15
+        index = np.arange(len(node_counts))
+        colors = {"comm": "skyblue", "comp": "sandybrown"}
+        mpi_labels = ["Single MPI Process", "Dual MPI Processes"]
+
+        for mpi in [0, 1]:
+            ax = axes[mpi]
+            ax.set_title(mpi_labels[mpi])
+            ax.set_xlabel("Number of Nodes")
+            if mpi == 0:
+                ax.set_ylabel("Time (s)")
+            ax.set_xticks(index + ((len(comm_strats) - 1) / 2) * bar_width)
+            ax.set_xticklabels([f"{n}" for n in node_counts])
+            ax.grid(True, linestyle="--", alpha=0.6)
+
+            for i, comm_strat in enumerate(comm_strats):
+                if matrix not in results[comm_strat] or mpi not in results[comm_strat][matrix]:
+                    continue
+                strat_results = results[comm_strat][matrix][mpi]
+
+                # Map node count -> list of times
+                time_by_node = defaultdict(list)
+                for res in strat_results:
+                    time_by_node[res.nodes].append(res)
+
+                comm_times = []
+                comp_times = []
+                for node in node_counts:
+                    entries = time_by_node[node]
+                    if entries:
+                        avg_comm = np.mean([r.tcomm for r in entries])
+                        avg_comp = np.mean([r.tcomp for r in entries])
+                    else:
+                        avg_comm = 0
+                        avg_comp = 0
+                    comm_times.append(avg_comm)
+                    comp_times.append(avg_comp)
+
+                pos = index + i * bar_width
+                ax.bar(pos, comm_times, bar_width, label=f"{comm_strat} comm", color=colors["comm"])
+                ax.bar(
+                    pos,
+                    comp_times,
+                    bar_width,
+                    bottom=comm_times,
+                    label=f"{comm_strat} comp",
+                    color=colors["comp"],
+                )
+
+        handles = [
+            Patch(facecolor=colors["comm"], label="Communication"),
+            Patch(facecolor=colors["comp"], label="Computation"),
+        ]
+        labels = ["Communication", "Computation"]
+        fig.legend(handles, labels, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 0.94))
+        plt.tight_layout()
+        plt.show()
+
+
 def main():
     base_path = argv[1]
     partition = argv[2]
@@ -377,10 +374,9 @@ def main():
         print(path)
         gather_results_from_directory(results, comm_strat, path)
     plot_comm_and_comp_time(results)
-    # plot_compare_comm_strat(results)
     plot_compare_comm_strat(results)
-    plot_comm_load(results)
-    plot_comm_load2(results)
+    # plot_comm_load(results)
+    # plot_comm_load2(results)
 
 
 if __name__ == "__main__":
