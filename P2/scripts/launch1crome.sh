@@ -62,7 +62,7 @@ sbatch_script=$(cat <<EOF
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
-srun --verbose numactl -C0-15 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1c /global/D1/projects/mtx/datasets/suitesparse/$matrix
+srun --verbose numactl -C0-15 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1c /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
 EOF
 )
 
@@ -70,7 +70,7 @@ EOF
 job_id=$(echo "$sbatch_script" | sbatch | awk '{print $4}')
 
 # Print job start message
-if [ -e "/global/D1/projects/mtx/datasets/suitesparse/$matrix" ]; then
+if [ -e "/global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix" ]; then
     echo "Started job '${job_name}' with ID ${job_id}."
 else
     echo "File doesn't exist."
