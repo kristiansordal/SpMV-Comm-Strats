@@ -1,0 +1,51 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n020
+srun: cpus-per-task       : 48
+srun: distribution        : block:block
+srun: jobid               : 796623
+srun: job-name            : delaunay_n24_1_nodes_1_tasks_48_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 796623: nodes(1):`n020', cpu counts: 96(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=796623.0 on host n020, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n020, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+[n020:1735295:0:1735295] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+==== backtrace (tid:1735295) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x38277) [0x155554310277]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x38556) [0x155554310556]
+ 3  /lib/x86_64-linux-gnu/libc.so.6(getdelim+0x2d) [0x155554e570dd]
+ 4  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4411) [0x555555558411]
+ 5  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4b51) [0x555555558b51]
+ 6  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4fb4) [0x555555558fb4]
+ 7  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2869) [0x555555556869]
+ 8  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+ 9  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+10  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:1735295] *** Process received signal ***
+[n020:1735295] Signal: Segmentation fault (11)
+[n020:1735295] Signal code:  (-6)
+[n020:1735295] Failing at address: 0x1bfc001a7a7f
+[n020:1735295] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:1735295] [ 1] /lib/x86_64-linux-gnu/libc.so.6(getdelim+0x2d)[0x155554e570dd]
+[n020:1735295] [ 2] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4411)[0x555555558411]
+[n020:1735295] [ 3] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4b51)[0x555555558b51]
+[n020:1735295] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4fb4)[0x555555558fb4]
+[n020:1735295] [ 5] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2869)[0x555555556869]
+[n020:1735295] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:1735295] [ 7] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:1735295] [ 8] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:1735295] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796623.0 (status=0x008b).
+srun: error: n020: task 0: Segmentation fault (core dumped)

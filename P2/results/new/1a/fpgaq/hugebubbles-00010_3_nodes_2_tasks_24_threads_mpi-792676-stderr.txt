@@ -47,3 +47,7 @@ corrupted size vs. prev_size
 [n017:318642] *** End of error message ***
 srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=792676.0 (status=0x0086).
 srun: error: n017: task 0: Aborted (core dumped)
+srun: Complete StepId=792676.0+0 received
+slurmstepd: error: *** JOB 792676 ON n017 CANCELLED AT 2025-04-10T15:27:10 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 792676.0 ON n017 CANCELLED AT 2025-04-10T15:27:10 DUE TO TIME LIMIT ***

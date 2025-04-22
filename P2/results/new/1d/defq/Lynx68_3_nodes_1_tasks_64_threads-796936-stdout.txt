@@ -1,0 +1,4 @@
+Done parsing mtx
+|V|=6811350 |E|=111560826
+Normalizing graph
+Mean of graph: 6811350.000000

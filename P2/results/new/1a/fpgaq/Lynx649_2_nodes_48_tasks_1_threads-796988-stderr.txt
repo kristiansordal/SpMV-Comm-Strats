@@ -1,0 +1,47 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-018]
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 796988
+srun: job-name            : Lynx649_2_nodes_48_tasks_1_threads
+srun: nodes               : 2
+srun: ntasks              : 96
+srun: ntasks-per-node     : 48
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 796988: nodes(2):`n[017-018]', cpu counts: 96(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=796988.0 on host n017, 48 tasks: [0-47]
+srun: launching StepId=796988.0 on host n018, 48 tasks: [48-95]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 48 tasks started
+srun: launch/slurm: _task_start: Node n018, 48 tasks started
+srun: Sent KVS info to 4 nodes, up to 33 tasks per node
+srun: Sent KVS info to 4 nodes, up to 33 tasks per node
+srun: error: Munge decode failed: Expired credential
+srun: auth/munge: _print_cred: ENCODED: Tue Apr 22 19:23:53 2025
+srun: auth/munge: _print_cred: DECODED: Tue Apr 22 19:29:48 2025
+srun: error: slurm_unpack_received_msg: auth_g_verify: SRUN_TIMEOUT has authentication error: Unspecified error
+srun: error: slurm_unpack_received_msg: Protocol authentication error
+srun: error: eio_message_socket_accept: slurm_receive_msg[10.128.0.1:52678]: Unspecified error
+srun: error: Munge decode failed: Expired credential
+srun: auth/munge: _print_cred: ENCODED: Tue Apr 22 19:24:23 2025
+srun: auth/munge: _print_cred: DECODED: Tue Apr 22 19:30:35 2025
+srun: error: slurm_unpack_received_msg: auth_g_verify: SRUN_TIMEOUT has authentication error: Unspecified error
+srun: error: slurm_unpack_received_msg: Protocol authentication error
+srun: error: eio_message_socket_accept: slurm_receive_msg[10.128.0.1:47348]: Unspecified error
+srun: error: Munge decode failed: Expired credential
+srun: auth/munge: _print_cred: ENCODED: Tue Apr 22 19:24:54 2025
+srun: auth/munge: _print_cred: DECODED: Tue Apr 22 19:30:35 2025
+srun: error: slurm_unpack_received_msg: auth_g_verify: SRUN_TIMEOUT has authentication error: Unspecified error
+srun: error: slurm_unpack_received_msg: Protocol authentication error
+srun: error: eio_message_socket_accept: slurm_receive_msg[10.128.0.1:53566]: Unspecified error
+srun: error: Munge decode failed: Expired credential
+srun: auth/munge: _print_cred: ENCODED: Tue Apr 22 19:24:55 2025
+srun: auth/munge: _print_cred: DECODED: Tue Apr 22 19:30:35 2025
+srun: error: slurm_unpack_received_msg: auth_g_verify: SRUN_JOB_COMPLETE has authentication error: Unspecified error
+srun: error: slurm_unpack_received_msg: Protocol authentication error
+srun: error: eio_message_socket_accept: slurm_receive_msg[10.128.0.1:53580]: Unspecified error

@@ -1,0 +1,31 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n020
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 796975
+srun: job-name            : Lynx68_1_nodes_48_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 48
+srun: ntasks-per-node     : 48
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 796975: nodes(1):`n020', cpu counts: 96(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=796975.0 on host n020, 48 tasks: [0-47]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n020, 48 tasks started
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 16 tasks of StepId=796975.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n020: tasks 0,9,12,14,19-20,22-23,25,28-30,36-37,43,47: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 13 tasks of StepId=796975.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n020: tasks 4,8,13,16,18,21,26-27,31-32,34,42,46: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 10 tasks of StepId=796975.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n020: tasks 1-2,5,7,11,15,17,33,41,45: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 9 tasks of StepId=796975.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n020: tasks 3,6,10,24,35,38-40,44: Completed

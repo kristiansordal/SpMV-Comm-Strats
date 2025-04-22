@@ -1,0 +1,92 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-018,020]
+srun: cpus-per-task       : 24
+srun: distribution        : block:block
+srun: jobid               : 796651
+srun: job-name            : Lynx144_3_nodes_2_tasks_24_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 796651: nodes(3):`n[017-018,020]', cpu counts: 96(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=796651.0 on host n017, 2 tasks: [0-1]
+srun: launching StepId=796651.0 on host n018, 2 tasks: [2-3]
+srun: launching StepId=796651.0 on host n020, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 2 tasks started
+srun: launch/slurm: _task_start: Node n020, 2 tasks started
+srun: launch/slurm: _task_start: Node n018, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+malloc(): invalid size (unsorted)
+[n020:1743439] *** Process received signal ***
+[n020:1743439] Signal: Aborted (6)
+[n020:1743439] Signal code:  (-6)
+free(): invalid next size (fast)
+[n017:2745772] *** Process received signal ***
+[n017:2745772] Signal: Aborted (6)
+[n017:2745772] Signal code:  (-6)
+[n017:2745772] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n017:2745772] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n017:2745772] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n017:2745772] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n017:2745772] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n017:2745772] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n017:2745772] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2a9d)[0x155554e79a9d]
+[n017:2745772] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n017:2745772] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x4adf6)[0x155554c4ddf6]
+[n017:2745772] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0xcfce9)[0x155554cd2ce9]
+[n017:2745772] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_pmix_base_hash_finalize+0x19a)[0x155554cd2f1a]
+[n017:2745772] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so(+0x2cce)[0x155554866cce]
+[n017:2745772] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_ess_pmi.so(+0x2795)[0x155554b99795]
+[n017:2745772] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-rte.so.40(orte_finalize+0x65)[0x155554d34265]
+[n017:2745772] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x8bc)[0x15555542806c]
+[n017:2745772] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2726)[0x555555556726]
+[n017:2745772] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n017:2745772] [17] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n017:2745772] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n017:2745772] *** End of error message ***
+free(): invalid next size (fast)
+[n018:293480] *** Process received signal ***
+[n018:293480] Signal: Aborted (6)
+[n018:293480] Signal code:  (-6)
+[n018:293480] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:293480] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:293480] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:293480] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:293480] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n018:293480] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n018:293480] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa2a9d)[0x155554e79a9d]
+[n018:293480] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x155554e7c453]
+[n018:293480] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0x4ae2e)[0x155554c4de2e]
+[n018:293480] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(+0xcfce9)[0x155554cd2ce9]
+[n018:293480] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_pmix_base_hash_finalize+0x19a)[0x155554cd2f1a]
+[n018:293480] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pmix_s1.so(+0x2cce)[0x155554866cce]
+[n018:293480] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_ess_pmi.so(+0x2795)[0x155554b99795]
+[n018:293480] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-rte.so.40(orte_finalize+0x65)[0x155554d34265]
+[n018:293480] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x8bc)[0x15555542806c]
+[n018:293480] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2726)[0x555555556726]
+[n018:293480] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:293480] [17] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:293480] [18] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:293480] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796651.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n020: task 5: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796651.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n018: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796651.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n017: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796651.0 (status=0x0086).
+srun: error: n018: task 3: Aborted (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796651.0 (status=0x0086).
+srun: error: n017: task 1: Aborted (core dumped)
+srun: Complete StepId=796651.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 796651 ON n017 CANCELLED AT 2025-04-22T13:35:53 DUE TO TIME LIMIT ***

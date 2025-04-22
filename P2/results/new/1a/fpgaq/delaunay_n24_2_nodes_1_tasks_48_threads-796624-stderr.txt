@@ -1,0 +1,91 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-018]
+srun: cpus-per-task       : 48
+srun: distribution        : block:block
+srun: jobid               : 796624
+srun: job-name            : delaunay_n24_2_nodes_1_tasks_48_threads
+srun: nodes               : 2
+srun: ntasks              : 2
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 796624: nodes(2):`n[017-018]', cpu counts: 96(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=796624.0 on host n017, 1 tasks: 0
+srun: launching StepId=796624.0 on host n018, 1 tasks: 1
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 1 tasks started
+srun: launch/slurm: _task_start: Node n018, 1 tasks started
+srun: Sent KVS info to 2 nodes, up to 1 tasks per node
+srun: Sent KVS info to 2 nodes, up to 1 tasks per node
+[n017:2737023:0:2737023] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+==== backtrace (tid:2737023) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x38277) [0x155554310277]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x38556) [0x155554310556]
+ 3  /lib/x86_64-linux-gnu/libc.so.6(getdelim+0x2d) [0x155554e570dd]
+ 4  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4411) [0x555555558411]
+ 5  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4b51) [0x555555558b51]
+ 6  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4fb4) [0x555555558fb4]
+ 7  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2869) [0x555555556869]
+ 8  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+ 9  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+10  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n017:2737023] *** Process received signal ***
+[n017:2737023] Signal: Segmentation fault (11)
+[n017:2737023] Signal code:  (-6)
+[n017:2737023] Failing at address: 0x1bfc0029c37f
+[n017:2737023] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n017:2737023] [ 1] /lib/x86_64-linux-gnu/libc.so.6(getdelim+0x2d)[0x155554e570dd]
+[n017:2737023] [ 2] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4411)[0x555555558411]
+[n017:2737023] [ 3] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4b51)[0x555555558b51]
+[n017:2737023] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4fb4)[0x555555558fb4]
+[n017:2737023] [ 5] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2869)[0x555555556869]
+[n017:2737023] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n017:2737023] [ 7] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n017:2737023] [ 8] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n017:2737023] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796624.0 (status=0x008b).
+srun: error: n017: task 0: Segmentation fault (core dumped)
+[n018:285341:0:285341]       ud_ep.c:278  Fatal: UD endpoint 0x5555559a4300 to <no debug data>: unhandled timeout error
+==== backtrace (tid: 285341) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf) [0x1555548bb4df]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb) [0x15555548e55b]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0) [0x15555543d950]
+ 9  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x235a) [0x55555555635a]
+10  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+11  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+12  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:285341] *** Process received signal ***
+[n018:285341] Signal: Aborted (6)
+[n018:285341] Signal code:  (-6)
+[n018:285341] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:285341] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:285341] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:285341] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:285341] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:285341] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:285341] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:285341] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:285341] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:285341] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_send+0x1bf)[0x1555548bb4df]
+[n018:285341] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x15555548e55b]
+[n018:285341] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x15555543d950]
+[n018:285341] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x235a)[0x55555555635a]
+[n018:285341] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:285341] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:285341] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:285341] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=796624.0 (status=0x0086).
+srun: error: n018: task 1: Aborted (core dumped)
