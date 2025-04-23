@@ -1,0 +1,15 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n017
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 796995
+srun: job-name            : Lynx68_1_nodes_48_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 48
+srun: ntasks-per-node     : 48
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: error: Unable to confirm allocation for job 796995: Unable to contact slurm controller (connect failure)
+srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 796995

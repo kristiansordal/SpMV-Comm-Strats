@@ -1,0 +1,27 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-002]
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 797068
+srun: job-name            : Lynx649_2_nodes_64_tasks_1_threads
+srun: nodes               : 2
+srun: ntasks              : 128
+srun: ntasks-per-node     : 64
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 797068: nodes(2):`n[001-002]', cpu counts: 128(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=797068.0 on host n001, 64 tasks: [0-63]
+srun: launching StepId=797068.0 on host n002, 64 tasks: [64-127]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 64 tasks started
+srun: launch/slurm: _task_start: Node n001, 64 tasks started
+srun: Sent KVS info to 4 nodes, up to 33 tasks per node
+srun: Sent KVS info to 4 nodes, up to 33 tasks per node
+srun: Complete StepId=797068.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 797068 ON n001 CANCELLED AT 2025-04-23T12:57:27 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 797068.0 ON n001 CANCELLED AT 2025-04-23T12:57:27 DUE TO TIME LIMIT ***
