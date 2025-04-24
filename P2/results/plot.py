@@ -82,7 +82,7 @@ def parse_file_contents(file_name: str):
 
 
 # comm_strat -> matrix -> result
-def gather_results_from_directory(results, comm_strat: str, file_path: Path):
+def gather_results_from_directory(results, comm_strat: str, file_path: Path, pure_mpi):
     # Map from config string to (job_id, file path)
     config_to_best_file = {}
 
@@ -90,19 +90,42 @@ def gather_results_from_directory(results, comm_strat: str, file_path: Path):
 
     for file in file_path.iterdir():
         if file.is_file() and "stdout" in file.name:
+            if "nodes_64" in file.name:
+                continue
+
             match = pattern.match(file.name)
             if not match:
                 continue
+
+            # if file.name == "Lynx649_3_nodes_1_tasks_64_threads-796828-stdout.txt":
+            #     print("hello")
+
             config_str, job_id_str = match.groups()
             job_id = int(job_id_str)
 
-            if config_str not in config_to_best_file or job_id > config_to_best_file[config_str][0]:
-                config_to_best_file[config_str] = (job_id, file)
+            valid_result = False
+            for line in file.open():
+                print(line)
+                if "GFLOPS" in line:
+                    valid_result = True
+
+            if valid_result:
+                if (
+                    config_str not in config_to_best_file
+                    or job_id > config_to_best_file[config_str][0]
+                ):
+                    config_to_best_file[config_str] = (job_id, file)
 
     for _, file in config_to_best_file.values():
+        print(file.name)
         name, nodes, tasks, threads, mpi = parse_file_name(str(file))
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
         results[comm_strat][name][mpi].append(
+            SingleResult(
+                nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
+            )
+        )
+        print(
             SingleResult(
                 nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
             )
@@ -372,7 +395,7 @@ def main():
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     for comm_strat in comm_strats:
         path = Path(base_path + comm_strat + "/" + partition)
-        gather_results_from_directory(results, comm_strat, path)
+        gather_results_from_directory(results, comm_strat, path, 0)
     plot_comm_and_comp_time(results)
     plot_compare_comm_strat(results)
     # plot_comm_load(results)
