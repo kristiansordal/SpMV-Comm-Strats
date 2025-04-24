@@ -1,0 +1,624 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[018-020]
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 796989
+srun: job-name            : Lynx649_3_nodes_48_tasks_1_threads
+srun: nodes               : 3
+srun: ntasks              : 144
+srun: ntasks-per-node     : 48
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 796989: nodes(3):`n[018-020]', cpu counts: 96(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=796989.0 on host n018, 48 tasks: [0-47]
+srun: launching StepId=796989.0 on host n019, 48 tasks: [48-95]
+srun: launching StepId=796989.0 on host n020, 48 tasks: [96-143]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n019, 48 tasks started
+srun: launch/slurm: _task_start: Node n020, 48 tasks started
+srun: launch/slurm: _task_start: Node n018, 48 tasks started
+srun: Sent KVS info to 6 nodes, up to 33 tasks per node
+srun: Sent KVS info to 6 nodes, up to 33 tasks per node
+[n018:9085 :0:9085]       ud_ep.c:278  Fatal: UD endpoint 0x15554802f990 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9085) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:09085] *** Process received signal ***
+[n018:09085] Signal: Aborted (6)
+[n018:09085] Signal code:  (-6)
+[n018:09085] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:09085] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:09085] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:09085] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:09085] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:09085] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:09085] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:09085] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:09085] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:09085] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n018:09085] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n018:09085] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n018:09085] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n018:09085] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n018:09085] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n018:09085] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:09085] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:09085] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:09085] *** End of error message ***
+[n018:9093 :0:9093]       ud_ep.c:278  Fatal: UD endpoint 0x5555559a2bf0 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9093) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:9073 :0:9073]       ud_ep.c:278  Fatal: UD endpoint 0x55555599da30 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9073) ====
+[n018:9069 :0:9069]       ud_ep.c:278  Fatal: UD endpoint 0x55555599db60 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9069) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:09069] *** Process received signal ***
+[n018:09069] Signal: Aborted (6)
+[n018:09069] Signal code:  (-6)
+[n018:09069] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:09069] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:09069] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:09069] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:09069] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:09069] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:09069] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:09069] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:09069] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:09069] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n018:09069] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n018:09069] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n018:09069] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n018:09069] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n018:09069] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n018:09069] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:09069] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:09069] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:09069] *** End of error message ***
+[n018:09093] *** Process received signal ***
+[n018:09093] Signal: Aborted (6)
+[n018:09093] Signal code:  (-6)
+[n018:09093] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:09093] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:09093] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:09093] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:09093] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:09093] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:09093] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:09093] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:09093] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:09093] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n018:09093] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n018:09093] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n018:09093] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n018:09093] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n018:09093] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n018:09093] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:09093] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:09093] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:09093] *** End of error message ***
+[n018:9089 :0:9089]       ud_ep.c:278  Fatal: UD endpoint 0x15554810bb10 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9089) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:09089] *** Process received signal ***
+[n018:09089] Signal: Aborted (6)
+[n018:09089] Signal code:  (-6)
+[n018:09089] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:09089] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:09089] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:09089] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:09089] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:09089] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:09089] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:09089] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:09089] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:09089] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n018:09089] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n018:09089] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n018:09089] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n018:09089] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n018:09089] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n018:09089] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:09089] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:09089] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:09089] *** End of error message ***
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:09073] *** Process received signal ***
+[n018:09073] Signal: Aborted (6)
+[n018:09073] Signal code:  (-6)
+[n018:09073] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:09073] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:09073] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:09073] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:09073] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:09073] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:09073] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:09073] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:09073] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:09073] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n018:09073] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n018:09073] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n018:09073] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n018:09073] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n018:09073] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n018:09073] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:09073] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:09073] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:09073] *** End of error message ***
+[n019:9283 :0:9283]       ud_ep.c:278  Fatal: UD endpoint 0x55555593d120 to <no debug data>: unhandled timeout error
+[n018:9077 :0:9077]       ud_ep.c:278  Fatal: UD endpoint 0x55555599db60 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9077) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n018:09077] *** Process received signal ***
+[n018:09077] Signal: Aborted (6)
+[n018:09077] Signal code:  (-6)
+[n018:09077] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:09077] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n018:09077] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n018:09077] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n018:09077] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n018:09077] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n018:09077] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n018:09077] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n018:09077] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n018:09077] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n018:09077] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n018:09077] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n018:09077] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n018:09077] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n018:09077] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n018:09077] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:09077] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:09077] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n018:09077] *** End of error message ***
+[n020:9311 :0:9311]       ud_ep.c:278  Fatal: UD endpoint 0x5555558c52f0 to <no debug data>: unhandled timeout error
+[n020:9319 :0:9319]       ud_ep.c:278  Fatal: UD endpoint 0x5555558c52f0 to <no debug data>: unhandled timeout error
+[n020:9331 :0:9331]       ud_ep.c:278  Fatal: UD endpoint 0x5555558c52f0 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9319) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:09319] *** Process received signal ***
+==== backtrace (tid:   9331) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:09319] Signal: Aborted (6)
+[n020:09319] Signal code:  (-6)
+[n020:09319] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:09319] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n020:09319] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n020:09319] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n020:09319] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n020:09319] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n020:09319] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n020:09319] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n020:09319] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n020:09319] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n020:09319] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n020:09319] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n020:09319] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n020:09319] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n020:09319] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n020:09319] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:09319] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:09319] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:09319] *** End of error message ***
+==== backtrace (tid:   9311) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:09311] *** Process received signal ***
+[n020:09311] Signal: Aborted (6)
+[n020:09311] Signal code:  (-6)
+[n020:09311] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:09311] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n020:09311] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n020:09311] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n020:09311] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n020:09311] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n020:09311] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n020:09311] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n020:09311] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n020:09311] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n020:09311] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n020:09311] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n020:09311] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n020:09311] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n020:09311] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n020:09311] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:09311] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:09311] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:09311] *** End of error message ***
+[n020:09331] *** Process received signal ***
+[n020:09331] Signal: Aborted (6)
+[n020:09331] Signal code:  (-6)
+[n020:09331] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:09331] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n020:09331] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n020:09331] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n020:09331] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n020:09331] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n020:09331] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n020:09331] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n020:09331] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n020:09331] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n020:09331] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n020:09331] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n020:09331] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n020:09331] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n020:09331] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n020:09331] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:09331] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:09331] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:09331] *** End of error message ***
+[n020:9335 :0:9335]       ud_ep.c:278  Fatal: UD endpoint 0x5555558f6e50 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9335) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:09335] *** Process received signal ***
+[n020:09335] Signal: Aborted (6)
+[n020:09335] Signal code:  (-6)
+[n020:09335] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:09335] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n020:09335] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n020:09335] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n020:09335] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n020:09335] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n020:09335] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n020:09335] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n020:09335] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n020:09335] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n020:09335] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n020:09335] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n020:09335] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n020:09335] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n020:09335] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n020:09335] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:09335] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:09335] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:09335] *** End of error message ***
+[n020:9327 :0:9327]       ud_ep.c:278  Fatal: UD endpoint 0x5555558c52f0 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9327) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:09327] *** Process received signal ***
+[n020:09327] Signal: Aborted (6)
+[n020:09327] Signal code:  (-6)
+[n020:09327] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:09327] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n020:09327] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n020:09327] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n020:09327] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n020:09327] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n020:09327] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n020:09327] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n020:09327] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n020:09327] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n020:09327] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n020:09327] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n020:09327] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n020:09327] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n020:09327] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n020:09327] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:09327] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:09327] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:09327] *** End of error message ***
+[n020:9315 :0:9315]       ud_ep.c:278  Fatal: UD endpoint 0x5555558c52f0 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9315) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n020:09315] *** Process received signal ***
+[n020:09315] Signal: Aborted (6)
+[n020:09315] Signal code:  (-6)
+[n020:09315] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n020:09315] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n020:09315] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n020:09315] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n020:09315] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n020:09315] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n020:09315] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n020:09315] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n020:09315] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n020:09315] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n020:09315] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n020:09315] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n020:09315] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n020:09315] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n020:09315] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n020:09315] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n020:09315] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n020:09315] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n020:09315] *** End of error message ***
+[n019:9287 :0:9287]       ud_ep.c:278  Fatal: UD endpoint 0x55555593d120 to <no debug data>: unhandled timeout error
+[n019:9275 :0:9275]       ud_ep.c:278  Fatal: UD endpoint 0x55555593d120 to <no debug data>: unhandled timeout error
+==== backtrace (tid:   9275) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n019:09275] *** Process received signal ***
+[n019:09275] Signal: Aborted (6)
+[n019:09275] Signal code:  (-6)
+[n019:09275] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n019:09275] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n019:09275] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n019:09275] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n019:09275] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n019:09275] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n019:09275] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n019:09275] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n019:09275] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n019:09275] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+srun: Complete StepId=796989.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 796989 ON n018 CANCELLED AT 2025-04-23T15:25:59 DUE TO TIME LIMIT ***
+srun: error: Timed out waiting for job step to complete
+[n019:09275] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n019:09275] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n019:09275] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n019:09275] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n019:09275] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n019:09275] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n019:09275] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n019:09275] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n019:09275] *** End of error message ***
+==== backtrace (tid:   9283) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n019:09283] *** Process received signal ***
+[n019:09283] Signal: Aborted (6)
+[n019:09283] Signal code:  (-6)
+[n019:09283] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n019:09283] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n019:09283] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n019:09283] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n019:09283] [ 4] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x34ec7)[0x15555430cec7]
+[n019:09283] [ 5] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122)[0x15555430cff2]
+[n019:09283] [ 6] /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8)[0x15555421c2d8]
+[n019:09283] [ 7] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a)[0x15555430166a]
+[n019:09283] [ 8] /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a)[0x1555543c2b5a]
+[n019:09283] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34)[0x155554c3d994]
+[n019:09283] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105)[0x155555426a75]
+[n019:09283] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713)[0x15555547b9e3]
+[n019:09283] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x15554e6fd840]
+[n019:09283] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120)[0x15555543dd30]
+[n019:09283] [14] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384)[0x555555556384]
+[n019:09283] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n019:09283] [16] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n019:09283] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n019:09283] *** End of error message ***
+==== backtrace (tid:   9287) ====
+ 0  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_handle_error+0x2e4) [0x155554310074]
+ 1  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_message+0xc2) [0x15555430cec2]
+ 2  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(ucs_fatal_error_format+0x122) [0x15555430cff2]
+ 3  /cm/shared/apps/ucx/gcc/1.15.0/lib/ucx/libuct_ib.so.0(+0x952d8) [0x15555421c2d8]
+ 4  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucs.so.0(+0x2966a) [0x15555430166a]
+ 5  /cm/shared/apps/ucx/gcc/1.15.0/lib/libucp.so.0(ucp_worker_progress+0x3a) [0x1555543c2b5a]
+ 6  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libopen-pal.so.40(opal_progress+0x34) [0x155554c3d994]
+ 7  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_request_default_wait_all+0x105) [0x155555426a75]
+ 8  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x713) [0x15555547b9e3]
+ 9  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40) [0x15554e6fd840]
+10  /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(MPI_Bcast+0x120) [0x15555543dd30]
+11  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2384) [0x555555556384]
+12  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x155554e00d90]
+13  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x155554e00e40]
+14  /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925) [0x555555556925]
+=================================
+[n019:09287] *** Process received signal ***
+[n019:09287] Signal: Aborted (6)
+[n019:09287] Signal code:  (-6)
+[n019:09287] [ 0] slurmstepd: error: Failed to send MESSAGE_TASK_EXIT: Socket timed out on send/recv operation
+srun: error: slurm_msg_sendto: address:port=10.128.0.1:6817 msg_type=5005: No error
+srun: error: Munge decode failed: Expired credential
+srun: auth/munge: _print_cred: ENCODED: Wed Apr 23 15:20:13 2025
+srun: auth/munge: _print_cred: DECODED: Wed Apr 23 15:28:16 2025
+srun: error: slurm_unpack_received_msg: auth_g_verify: MESSAGE_TASK_EXIT has authentication error: Unspecified error
+srun: error: slurm_unpack_received_msg: Protocol authentication error
+srun: error: eio_message_socket_accept: slurm_receive_msg[10.128.1.19:53152]: Unspecified error
+srun: error: Munge decode failed: Expired credential
+srun: auth/munge: _print_cred: ENCODED: Wed Apr 23 15:20:23 2025
+srun: auth/munge: _print_cred: DECODED: Wed Apr 23 15:28:16 2025
+srun: error: slurm_unpack_received_msg: auth_g_verify: MESSAGE_TASK_EXIT has authentication error: Unspecified error
+srun: error: slurm_unpack_received_msg: Protocol authentication error
+srun: error: eio_message_socket_accept: slurm_receive_msg[10.128.1.19:51626]: Unspecified error
