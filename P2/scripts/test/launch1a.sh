@@ -5,7 +5,7 @@ matrix_name=${last_entry%.mtx}
 nodes=$3
 tasks_per_node=$4
 omp_num_threads=$5
-total_threads=$6
+total_threads=$((tasks_per_node * omp_num_threads - 1))
 
 job_name="1a_${matrix_name}_${nodes}_nodes_${tasks_per_node}_tasks_${omp_num_threads}_threads"
 if [ "$tasks_per_node" == "2" ]; then
@@ -62,7 +62,7 @@ sbatch_script=$(cat <<EOF
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
-srun --verbose numactl -C0-63 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
+srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
 EOF
 )
 
