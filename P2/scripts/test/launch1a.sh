@@ -67,6 +67,7 @@ EOF
 )
 
 # Submit the job
+echo "$sbatch_script" > /tmp/sbatch_script.sh
 job_id=$(echo "$sbatch_script" | sbatch | awk '{print $4}')
 
 # Print job start message

@@ -1,5 +1,3 @@
-Lynx68.mtx
 Lynx144.mtx
 Lynx297.mtx
 Lynx649.mtx
-Lynx1151.mtx
