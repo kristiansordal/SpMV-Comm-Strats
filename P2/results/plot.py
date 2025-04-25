@@ -33,16 +33,6 @@ class SingleResult:
         )
 
 
-# the result of running SPMV on a single matrix with multiple configurations
-# class MatrixResult:
-#     def __init__(self, nodes, tasks, threads):
-#         self.nodes = nodes
-#         self.tasks = tasks
-#         self.threads = threads
-#         self.single_proc_result: list[SingleResult] = []
-#         self.dual_proc_result: list[SingleResult] = []
-
-
 def parse_file_name(file_name: str):
     tokens = file_name.split("/")[-1].split("_")
     name, nodes, tasks, threads, mpi = "", 0, 0, 0, 0
@@ -54,7 +44,7 @@ def parse_file_name(file_name: str):
             nodes = int(tokens[i - 1])
         elif token == "tasks":
             tasks = int(tokens[i - 1])
-        elif token == "threads":
+        elif "threads" in token:
             threads = int(tokens[i - 1])
     return name, nodes, tasks, threads, mpi
 
@@ -97,15 +87,11 @@ def gather_results_from_directory(results, comm_strat: str, file_path: Path, pur
             if not match:
                 continue
 
-            # if file.name == "Lynx649_3_nodes_1_tasks_64_threads-796828-stdout.txt":
-            #     print("hello")
-
             config_str, job_id_str = match.groups()
             job_id = int(job_id_str)
 
             valid_result = False
             for line in file.open():
-                print(line)
                 if "GFLOPS" in line:
                     valid_result = True
 
@@ -117,15 +103,20 @@ def gather_results_from_directory(results, comm_strat: str, file_path: Path, pur
                     config_to_best_file[config_str] = (job_id, file)
 
     for _, file in config_to_best_file.values():
-        print(file.name)
         name, nodes, tasks, threads, mpi = parse_file_name(str(file))
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
+        print(nodes, tasks, threads)
+
+        # comm_min = 0
+        # comm_max = 0
+        # comm_avg = 0
+        if nodes == 1 and tasks == 1:
+            comm_min = 0
+            comm_max = 0
+            comm_avg = 0
+            tcomm = 0
+
         results[comm_strat][name][mpi].append(
-            SingleResult(
-                nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
-            )
-        )
-        print(
             SingleResult(
                 nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
             )
@@ -242,72 +233,72 @@ def plot_comm_load(results):
     plt.show()
 
 
-def plot_comm_load2(results):
-    comm_strats = list(results.keys())
-    node_counts = sorted(
-        set(
-            res.nodes
-            for comm_strat in results.values()
-            for matrix in comm_strat.values()
-            for mpi in matrix.values()
-            for res in mpi
-        )
-    )
+# def plot_comm_load2(results):
+#     comm_strats = list(results.keys())
+#     node_counts = sorted(
+#         set(
+#             res.nodes
+#             for comm_strat in results.values()
+#             for matrix in comm_strat.values()
+#             for mpi in matrix.values()
+#             for res in mpi
+#         )
+#     )
 
-    # Prepare data
-    data = {
-        strat: {mpi: {nodes: [] for nodes in node_counts} for mpi in [0, 1]}
-        for strat in comm_strats
-    }
+#     # Prepare data
+#     data = {
+#         strat: {mpi: {nodes: [] for nodes in node_counts} for mpi in [0, 1]}
+#         for strat in comm_strats
+#     }
 
-    for comm_strat, matrices in results.items():
-        for matrix in matrices.values():
-            for mpi, results_list in matrix.items():
-                for res in results_list:
-                    data[comm_strat][mpi][res.nodes].append(res.comm_avg)
+#     for comm_strat, matrices in results.items():
+#         for matrix in matrices.values():
+#             for mpi, results_list in matrix.items():
+#                 for res in results_list:
+#                     data[comm_strat][mpi][res.nodes].append(res.comm_avg)
 
-    # Plot setup
-    fig, ax = plt.subplots(figsize=(14, 8))
-    bar_width = 0.15
-    opacity = 0.8
-    colors = ["b", "g", "r", "c"]
+#     # Plot setup
+#     fig, ax = plt.subplots(figsize=(14, 8))
+#     bar_width = 0.15
+#     opacity = 0.8
+#     colors = ["b", "g", "r", "c"]
 
-    # X-axis positions
-    index = np.arange(len(comm_strats))
+#     # X-axis positions
+#     index = np.arange(len(comm_strats))
 
-    # Plot bars
-    for i, nodes in enumerate(node_counts):
-        for mpi in [0, 1]:
-            avg_comms = [
-                np.mean(data[strat][mpi][nodes]) if data[strat][mpi][nodes] else 0
-                for strat in comm_strats
-            ]
-            pos = index + (i * 2 + mpi) * bar_width
-            ax.bar(
-                pos,
-                avg_comms,
-                bar_width,
-                alpha=opacity,
-                color=colors[i],
-                label=f'{nodes} nodes {"(dual)" if mpi else "(single)"}',
-            )
+#     # Plot bars
+#     for i, nodes in enumerate(node_counts):
+#         for mpi in [0, 1]:
+#             avg_comms = [
+#                 np.mean(data[strat][mpi][nodes]) if data[strat][mpi][nodes] else 0
+#                 for strat in comm_strats
+#             ]
+#             pos = index + (i * 2 + mpi) * bar_width
+#             ax.bar(
+#                 pos,
+#                 avg_comms,
+#                 bar_width,
+#                 alpha=opacity,
+#                 color=colors[i],
+#                 label=f'{nodes} nodes {"(dual)" if mpi else "(single)"}',
+#             )
 
-    ax.set_yscale("log")  # Set y-axis to logarithmic scale
-    ax.yaxis.set_major_locator(LL(base=10, numticks=15))
-    ax.yaxis.set_minor_locator(
-        LL(base=10, subs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], numticks=12)
-    )
-    # Formatting
-    ax.set_xlabel("Communication Strategy", fontsize=12)
-    ax.set_ylabel("Communication Load (GB)", fontsize=12)
-    ax.set_title("Communication Load by Strategy and Node Count", fontsize=14)
-    ax.set_xticks(index + (len(node_counts) * bar_width))
-    ax.set_xticklabels(comm_strats)
-    ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
-    ax.grid(True, linestyle="--", alpha=0.6)
+#     ax.set_yscale("log")  # Set y-axis to logarithmic scale
+#     ax.yaxis.set_major_locator(LL(base=10, numticks=15))
+#     ax.yaxis.set_minor_locator(
+#         LL(base=10, subs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], numticks=12)
+#     )
+#     # Formatting
+#     ax.set_xlabel("Communication Strategy", fontsize=12)
+#     ax.set_ylabel("Communication Load (GB)", fontsize=12)
+#     ax.set_title("Communication Load by Strategy and Node Count", fontsize=14)
+#     ax.set_xticks(index + (len(node_counts) * bar_width))
+#     ax.set_xticklabels(comm_strats)
+#     ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
+#     ax.grid(True, linestyle="--", alpha=0.6)
 
-    plt.tight_layout()
-    plt.show()
+#     plt.tight_layout()
+#     plt.show()
 
 
 def plot_comm_and_comp_time(results):
@@ -387,6 +378,72 @@ def plot_comm_and_comp_time(results):
         plt.show()
 
 
+def plot_comm_min_avg_max(results):
+    comm_strats = list(results.keys())
+    colors = {"min": "blue", "avg": "green", "max": "red"}
+    markers = {"min": "o", "avg": "s", "max": "^"}
+    labels = ["min", "avg", "max"]
+
+    for matrix in results[next(iter(results))]:  # Loop over matrix names
+        fig, axs = plt.subplots(1, 2, figsize=(16, 6), sharey=True)
+        fig.suptitle(f"Communication Load for {matrix}", fontsize=16)
+
+        for ax_index, mpi in enumerate([0, 1]):
+            ax = axs[ax_index]
+            mode = "MPI" if mpi == 1 else "Non-MPI"
+            ax.set_title(mode)
+
+            node_counts = sorted(
+                {
+                    res.nodes
+                    for comm_strat in results.values()
+                    for mat_name, mpi_data in comm_strat.items()
+                    if mat_name == matrix
+                    for res in mpi_data.get(mpi, [])
+                }
+            )
+
+            xticks = []
+            xticklabels = []
+
+            for node_index, n in enumerate(node_counts):
+                for entry_index, comm_strat in enumerate(comm_strats):
+                    x_base = node_index * 4 + entry_index
+                    matching_results = [
+                        res for res in results[comm_strat][matrix].get(mpi, []) if res.nodes == n
+                    ]
+                    if matching_results:
+                        comm_mins = [r.comm_min for r in matching_results]
+                        comm_avgs = [r.comm_avg for r in matching_results]
+                        comm_maxs = [r.comm_max for r in matching_results]
+
+                        for val, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
+                            ax.plot(
+                                [x_base] * len(val),
+                                val,
+                                marker=markers[label],
+                                linestyle="None",
+                                color=colors[label],
+                                alpha=0.7,
+                                label=label if x_base == 0 and ax_index == 0 else None,
+                            )
+
+                    xticks.append(x_base)
+                    xticklabels.append(f"{n}\n{comm_strat}")
+
+            ax.set_xticks(xticks)
+            ax.set_xticklabels(xticklabels, rotation=45, ha="right", fontsize=9)
+            ax.set_xlabel("Node Configurations")
+            ax.set_yscale("log")
+            ax.grid(True, linestyle="--", alpha=0.5)
+            if ax_index == 0:
+                ax.set_ylabel("Communication Time (s)")
+            ax.legend()
+
+        plt.tight_layout()
+        plt.show()
+
+
 def main():
     base_path = argv[1]
     partition = argv[2]
@@ -396,6 +453,7 @@ def main():
     for comm_strat in comm_strats:
         path = Path(base_path + comm_strat + "/" + partition)
         gather_results_from_directory(results, comm_strat, path, 0)
+    plot_comm_min_avg_max(results)
     plot_comm_and_comp_time(results)
     plot_compare_comm_strat(results)
     # plot_comm_load(results)
