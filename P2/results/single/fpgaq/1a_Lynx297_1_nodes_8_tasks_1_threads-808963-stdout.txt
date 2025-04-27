@@ -1,0 +1,35 @@
+Rank 1 at barrier 1
+Rank 2 at barrier 1
+Rank 3 at barrier 1
+Rank 4 at barrier 1
+Rank 5 at barrier 1
+Rank 6 at barrier 1
+Rank 7 at barrier 1
+Done parsing mtx
+|V|=29731110 |E|=495532182
+Normalizing graph
+Mean of graph: 29731110.000015
+Std of graph: 0.237395
+Sorting edges
+Invalid column index order: 4523794 4523794
+Error in graph
+partitioning graph
+distributing graph
+Rank 0 at barrier 1
+Rank 0 past barrier 1
+Rank 1 past barrier 1
+Rank 2 past barrier 1
+Rank 4 past barrier 1
+Rank 6 past barrier 1
+Rank 3 past barrier 1
+Rank 5 past barrier 1
+Rank 7 past barrier 1
+starting spmv
+done spmv
+Total time = 86.853358s
+Communication time = 57.048315s
+Copmutation time = 29.804954s
+GFLOPS = 1.141078
+Comm min = 177.211225 GB
+Comm max = 177.211225 GB
+Comm avg = 177.211225 GB

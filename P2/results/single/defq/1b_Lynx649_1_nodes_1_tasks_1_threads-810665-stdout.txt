@@ -1,0 +1,8 @@
+Done parsing mtx
+|V|=64950632 |E|=1087205422
+Normalizing graph
+Mean of graph: 64950632.000023
+Std of graph: 0.236721
+Sorting edges
+Invalid column index order: 36067016 36067016
+Error in graph

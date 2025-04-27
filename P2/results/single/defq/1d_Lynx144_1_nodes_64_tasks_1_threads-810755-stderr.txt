@@ -1,0 +1,33 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n001
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 810755
+srun: job-name            : 1d_Lynx144_1_nodes_64_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 64
+srun: ntasks-per-node     : 64
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 810755: nodes(1):`n001', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=810755.0 on host n001, 64 tasks: [0-63]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 64 tasks started
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 15 tasks of StepId=810755.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: tasks 1,9,13,15-16,23,35,43,47-48,50-51,56,60,63: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 28 tasks of StepId=810755.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: tasks 0,2,6-8,10,14,17,19,21-22,24-25,27,29,31,33-34,36,38-40,42,46,52-53,55,61: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 9 tasks of StepId=810755.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: tasks 4,11,20,26,32,41,45,49,57: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 7 tasks of StepId=810755.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: tasks 5,12,28,30,37,44,58: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 5 tasks of StepId=810755.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: tasks 3,18,54,59,62: Completed
