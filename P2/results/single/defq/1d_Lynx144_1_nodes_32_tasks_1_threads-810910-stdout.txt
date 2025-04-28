@@ -6,10 +6,10 @@ Std of graph: 0.237815
 Sorting edges
 Invalid column index order: 1688483 1688483
 Error in graph
-Total time = 137.620941s
-Communication time = 0.001246s
-Copmutation time = 137.619652s
-GFLOPS = 0.347158
-Comm min = 0.000000 GB
-Comm max = 0.000000 GB
-Comm avg = 0.000000 GB
+Total time = 7.993308s
+Communication time = 0.652753s
+Copmutation time = 7.340507s
+GFLOPS = 5.977027
+Comm min = 0.059617 GB
+Comm max = 0.187671 GB
+Comm avg = 0.131896 GB
