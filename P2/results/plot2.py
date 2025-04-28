@@ -7,6 +7,7 @@ from matplotlib.patches import Patch
 from sys import argv
 import numpy as np
 import re
+import collections
 
 
 def parse_file_name(file_name: str):
@@ -77,56 +78,89 @@ def parse_file(file_name):
     )
 
 
-def plot_gflops_by_name_and_mpi(parsed_entries: List[tuple]):
-    from matplotlib.ticker import LogLocator as LL
+def plot_gflops(directory_path):
+    results = []
 
-    from collections import defaultdict
-    import matplotlib.pyplot as plt
+    # Parse all files
+    for file in Path(directory_path).iterdir():
+        if file.is_file() and "stdout" in file.name:
+            data = parse_file(str(file))
+            results.append(data)
 
-    # Group entries by 'name'
-    grouped: DefaultDict[str, List[tuple]] = defaultdict(list)
-    for entry in parsed_entries:
-        name = entry[0]
-        grouped[name].append(entry)
+    # Organize results
+    # Key = (matrix_name, mpi_flag)
+    matrix_mpi_to_results = collections.defaultdict(list)
 
-    # Define colors for different communication strategies
-    color_map = {
-        0: "blue",
-        1: "green",
-        2: "orange",
-        3: "red",
-    }
+    for (
+        name,
+        comm,
+        nodes,
+        tasks,
+        threads,
+        mpi,
+        ttot,
+        tcomm,
+        tcomp,
+        gflops,
+        comm_min,
+        comm_max,
+        comm_avg,
+    ) in results:
+        x_value = (nodes, tasks, threads)
+        matrix_mpi_to_results[(name, mpi)].append((comm, x_value, gflops))
 
-    for name, entries in grouped.items():
-        fig, axs = plt.subplots(1, 2, figsize=(12, 6), sharey=True)
-        fig.suptitle(name)
+    labels = {0: "1a", 1: "1b", 2: "1c", 3: "1d"}
+    markers = ["o", "s", "D", "^"]
 
-        for mpi_value, ax in zip([0, 1], axs):
-            ax.set_title(f"MPI = {mpi_value}")
-            ax.set_xlabel("Nodes")
-            ax.set_ylabel("GFLOPS")
-            ax.set_xscale("log", base=2)
-            ax.xaxis.set_major_locator(LL(base=2, numticks=10))
+    # Now: one plot per (matrix, mpi_flag)
+    for (matrix_name, mpi_flag), entries in matrix_mpi_to_results.items():
+        # Organize entries by strategy
+        strat_to_data = collections.defaultdict(list)
+        for comm, x_value, gflops in entries:
+            strat_to_data[comm].append((x_value, gflops))
 
-            for comm in range(4):
-                filtered = [e for e in entries if e[1] == comm and e[5] == mpi_value]
-                if filtered:
-                    nodes = [e[2] for e in filtered]
-                    gflops = [e[9] for e in filtered]
-                    ax.plot(nodes, gflops, marker="o", label=f"Comm {comm}", color=color_map[comm])
+        # Sort each strategy's data
+        for comm in strat_to_data:
+            strat_to_data[comm].sort()
 
-            ax.legend()
+        # Plot
+        plt.figure(figsize=(10, 6))
 
+        for comm, marker in zip(sorted(strat_to_data.keys()), markers):
+            x_labels = [
+                f"{nodes}n-{tasks}t-{threads}th"
+                for (nodes, tasks, threads), _ in strat_to_data[comm]
+            ]
+            gflops = [g for _, g in strat_to_data[comm]]
+
+            # Use scatter plot
+            plt.scatter(
+                x_labels, gflops, label=f"Strategy {labels.get(comm, comm)}", marker=marker, s=70
+            )
+
+        plt.xlabel("Configuration (nodes-tasks-threads)")
+        plt.ylabel("GFLOPS")
+        plt.title(f"Matrix: {matrix_name} (MPI={mpi_flag})")
+        plt.xticks(rotation=45, ha="right")
+        plt.legend()
+        plt.grid(True)
         plt.tight_layout()
         plt.show()
-        # plt.subplots_adjust(top=0.88)
-        # plt.savefig(f"{name}_gflops_plot.png")
-        plt.close()
 
 
 def main():
-    base_path = argv[1]
-    partition = argv[2]
+    base_path = Path(
+        "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P2/results/single/milanq"
+    )
+
+    results = []
+
+    # for file in base_path.iterdir():
+    #     if file.is_file() and file.suffix == ".txt" and "stderr" not in file.name:
+    #         parsed_entry = parse_file(str(file))
+    #         results.append(parsed_entry)
+
+    plot_gflops(base_path)
 
 
 if __name__ == "__main__":

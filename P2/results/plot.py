@@ -49,6 +49,26 @@ def parse_file_name(file_name: str):
     return name, nodes, tasks, threads, mpi
 
 
+def parse_file_name_single(file_name: str):
+    tokens = file_name.split("/")[-1].split("_")
+    comm_strat = tokens[0]
+    name, nodes, tasks, threads, mpi = "", 0, 0, 0, 0
+    # if "mpi" in file_name:
+    #     mpi = 1
+    for i, token in enumerate(tokens):
+        if token == "nodes":
+            name = "_".join(tokens[: i - 1])
+            nodes = int(tokens[i - 1])
+        elif token == "tasks":
+            tasks = int(tokens[i - 1])
+        elif "threads" in token:
+            threads = int(tokens[i - 1])
+
+    if tasks > 1:
+        mpi = 1
+    return comm_strat, name, nodes, tasks, threads, mpi
+
+
 def parse_file_contents(file_name: str):
     ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = 0, 0, 0, 0, 0, 0, 0
     with open(file_name, "r") as f:
@@ -72,22 +92,23 @@ def parse_file_contents(file_name: str):
 
 
 # comm_strat -> matrix -> result
-def gather_results_from_directory(results, comm_strat: str, file_path: Path, pure_mpi):
+def gather_results_from_directory(results, file_path: Path, pure_mpi):
     # Map from config string to (job_id, file path)
+
     config_to_best_file = {}
 
-    pattern = re.compile(r"(.+)-(\d+)-stdout\.txt$")
+    # Adjusted regex to match your file format
+    pattern = re.compile(r"^([a-zA-Z0-9]+)_([a-zA-Z0-9_]+)-(\d+)-stdout\.txt$")
 
     for file in file_path.iterdir():
         if file.is_file() and "stdout" in file.name:
-            if "nodes_64" in file.name:
-                continue
 
             match = pattern.match(file.name)
             if not match:
                 continue
 
-            config_str, job_id_str = match.groups()
+            comm_strat, config_str, job_id_str = match.groups()
+            print(comm_strat, config_str, job_id_str)
             job_id = int(job_id_str)
 
             valid_result = False
@@ -96,31 +117,104 @@ def gather_results_from_directory(results, comm_strat: str, file_path: Path, pur
                     valid_result = True
 
             if valid_result:
-                if (
-                    config_str not in config_to_best_file
-                    or job_id > config_to_best_file[config_str][0]
+                if config_str not in config_to_best_file or (
+                    job_id > config_to_best_file[config_str][0]
+                    and comm_strat == config_to_best_file[config_str][2]
                 ):
-                    config_to_best_file[config_str] = (job_id, file)
+                    config_to_best_file[config_str] = (job_id, file, comm_strat)
 
-    for _, file in config_to_best_file.values():
+    for _, file, comm_strat in config_to_best_file.values():
+        # Extract the communication strategy and config from the filename
+        # comm_strat = file.name.split("_")[0]  # This is now part of the file name
+        # Parsing the rest of the information (name, nodes, tasks, threads, mpi)
         name, nodes, tasks, threads, mpi = parse_file_name(str(file))
-        ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
-        print(nodes, tasks, threads)
+        name = "_".join(name.split("_")[1:])  # Remove the communication strategy from name
 
-        # comm_min = 0
-        # comm_max = 0
-        # comm_avg = 0
+        # Parse file contents (ttot, tcomm, tcomp, etc.)
+        ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
+
+        # Handle case when nodes == 1 and tasks == 1
         if nodes == 1 and tasks == 1:
             comm_min = 0
             comm_max = 0
             comm_avg = 0
             tcomm = 0
 
+        # Add the result to the dictionary
         results[comm_strat][name][mpi].append(
             SingleResult(
                 nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
             )
         )
+
+
+def gather_results_single(directory, results):
+    latest_files = defaultdict(lambda: ("", "", 0))
+
+    for file in directory.iterdir():
+        if not file.is_file() or "stderr" in file.name:
+            continue
+
+        config, job_id, _ = file.name.split("-")
+        job_id = int(job_id)
+
+        # print(config)
+        print(job_id, latest_files[config])
+
+        if job_id > latest_files[config][2]:
+            latest_files[config] = (str(file), config, job_id)  # type: ignore
+
+    for file, config, job_id in latest_files.values():
+        print(config, job_id)
+        comm_strat, name, nodes, tasks, threads, mpi = parse_file_name_single(str(file))
+        ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
+        results[comm_strat][name][mpi].append(
+            SingleResult(
+                nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
+            )
+        )
+
+
+def plot_gflops_single(results):
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
+    titles = ["Shared Memory", "Distributed Memory"]
+
+    for idx, use_mpi in enumerate([False, True]):
+        ax = axes[idx]
+        for comm_strat in ["1a", "1b", "1c", "1d"]:
+            all_threads = []
+            all_gflops = []
+
+            for matrix in results[comm_strat]:
+                for mpi_flag in results[comm_strat][matrix]:
+                    if (mpi_flag > 0) == use_mpi:
+                        for res in results[comm_strat][matrix][mpi_flag]:
+                            all_threads.append(res.threads if not mpi_flag else res.tasks)
+                            all_gflops.append(res.gflops)
+
+            if all_threads:
+                # Sort by number of threads
+                sorted_pairs = sorted(zip(all_threads, all_gflops))
+                threads_sorted, gflops_sorted = zip(*sorted_pairs)
+                ax.plot(threads_sorted, gflops_sorted, label=f"Comm {comm_strat}", marker="o")
+
+        # Set x-axis to log base 2
+        ax.set_xscale("log", base=2)
+
+        # Set nice xticks (1, 2, 4, 8, 16, 32, 64)
+        ticks = [1, 2, 4, 8, 16, 32, 64]
+        ax.set_xticks(ticks)
+        ax.set_xticklabels([str(t) for t in ticks])
+
+        # Set titles and labels
+        ax.set_title(titles[idx])
+        ax.set_ylabel("GFLOPS")
+        ax.set_xlabel("Threads" if not use_mpi else "Processes")
+        ax.legend()
+        ax.grid(True, which="both", ls="--")
+
+    plt.tight_layout()
+    plt.show()
 
 
 def plot_compare_comm_strat(results):
@@ -233,74 +327,6 @@ def plot_comm_load(results):
     plt.show()
 
 
-# def plot_comm_load2(results):
-#     comm_strats = list(results.keys())
-#     node_counts = sorted(
-#         set(
-#             res.nodes
-#             for comm_strat in results.values()
-#             for matrix in comm_strat.values()
-#             for mpi in matrix.values()
-#             for res in mpi
-#         )
-#     )
-
-#     # Prepare data
-#     data = {
-#         strat: {mpi: {nodes: [] for nodes in node_counts} for mpi in [0, 1]}
-#         for strat in comm_strats
-#     }
-
-#     for comm_strat, matrices in results.items():
-#         for matrix in matrices.values():
-#             for mpi, results_list in matrix.items():
-#                 for res in results_list:
-#                     data[comm_strat][mpi][res.nodes].append(res.comm_avg)
-
-#     # Plot setup
-#     fig, ax = plt.subplots(figsize=(14, 8))
-#     bar_width = 0.15
-#     opacity = 0.8
-#     colors = ["b", "g", "r", "c"]
-
-#     # X-axis positions
-#     index = np.arange(len(comm_strats))
-
-#     # Plot bars
-#     for i, nodes in enumerate(node_counts):
-#         for mpi in [0, 1]:
-#             avg_comms = [
-#                 np.mean(data[strat][mpi][nodes]) if data[strat][mpi][nodes] else 0
-#                 for strat in comm_strats
-#             ]
-#             pos = index + (i * 2 + mpi) * bar_width
-#             ax.bar(
-#                 pos,
-#                 avg_comms,
-#                 bar_width,
-#                 alpha=opacity,
-#                 color=colors[i],
-#                 label=f'{nodes} nodes {"(dual)" if mpi else "(single)"}',
-#             )
-
-#     ax.set_yscale("log")  # Set y-axis to logarithmic scale
-#     ax.yaxis.set_major_locator(LL(base=10, numticks=15))
-#     ax.yaxis.set_minor_locator(
-#         LL(base=10, subs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], numticks=12)
-#     )
-#     # Formatting
-#     ax.set_xlabel("Communication Strategy", fontsize=12)
-#     ax.set_ylabel("Communication Load (GB)", fontsize=12)
-#     ax.set_title("Communication Load by Strategy and Node Count", fontsize=14)
-#     ax.set_xticks(index + (len(node_counts) * bar_width))
-#     ax.set_xticklabels(comm_strats)
-#     ax.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
-#     ax.grid(True, linestyle="--", alpha=0.6)
-
-#     plt.tight_layout()
-#     plt.show()
-
-
 def plot_comm_and_comp_time(results):
     comm_strats = list(results.keys())
 
@@ -380,6 +406,7 @@ def plot_comm_and_comp_time(results):
 
 def plot_comm_min_avg_max(results):
     comm_strats = list(results.keys())
+    comm_strats = [c for c in comm_strats if c != "1a"]
     colors = {"min": "blue", "avg": "green", "max": "red"}
     markers = {"min": "o", "avg": "s", "max": "^"}
     labels = ["min", "avg", "max"]
@@ -450,12 +477,14 @@ def main():
     comm_strats = [argv[3]] if argv[3] != "all" else ["1a", "1b", "1c", "1d"]
     # Define nested defaultdicts
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    for comm_strat in comm_strats:
-        path = Path(base_path + comm_strat + "/" + partition)
-        gather_results_from_directory(results, comm_strat, path, 0)
-    plot_comm_min_avg_max(results)
-    plot_comm_and_comp_time(results)
-    plot_compare_comm_strat(results)
+    # for comm_strat in comm_strats:
+    path = Path(base_path + partition)
+    gather_results_single(path, results)
+    plot_gflops_single(results)
+    # gather_results_from_directory(results, path, 0)
+    # plot_comm_min_avg_max(results)
+    # plot_comm_and_comp_time(results)
+    # plot_compare_comm_strat(results)
     # plot_comm_load(results)
     # plot_comm_load2(results)
 

@@ -1,0 +1,2 @@
+DEFQ : export IBV_DEVICE="mlx5_2" 
+FPGAQ : export IBV_DEVICE="mlx5_1" 
