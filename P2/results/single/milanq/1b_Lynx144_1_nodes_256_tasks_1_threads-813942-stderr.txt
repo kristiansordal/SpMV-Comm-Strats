@@ -1,0 +1,29 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n016
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 813942
+srun: job-name            : 1b_Lynx144_1_nodes_256_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 256
+srun: ntasks-per-node     : 256
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 813942: nodes(1):`n016', cpu counts: 256(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=813942.0 on host n016, 256 tasks: [0-255]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n016, 256 tasks started
+srun: Sent KVS info to 8 nodes, up to 33 tasks per node
+srun: Sent KVS info to 8 nodes, up to 33 tasks per node
+srun: Sent KVS info to 8 nodes, up to 33 tasks per node
+srun: Sent KVS info to 8 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 128 tasks of StepId=813942.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 2,4,6,8,11,13,15-16,18-21,23-25,27,29-32,35-36,39,41,43-45,47,59-60,62,64-65,69-71,74-78,80,82-84,88,90-92,94-97,100,107-109,112,115,118-120,125,127,130-136,138-140,144,146-148,150,153,155,158-160,166,168-169,172,174,178-181,186,188,193,196,200,204,207,209,212-216,218,224-225,227-234,237,240,242,244-245,247-248,250-251,254-255: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 12 tasks of StepId=813942.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 73,79,81,85-86,93,111,114,126,187,211,222: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 116 tasks of StepId=813942.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 0-1,3,5,7,9-10,12,14,17,22,26,28,33-34,37-38,40,42,46,48-58,61,63,66-68,72,87,89,98-99,101-106,110,113,116-117,121-124,128-129,137,141-143,145,149,151-152,154,156-157,161-165,167,170-171,173,175-177,182-185,189-192,194-195,197-199,201-203,205-206,208,210,217,219-221,223,226,235-236,238-239,241,243,246,249,252-253: Completed

@@ -1,0 +1,35 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n016
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 813888
+srun: job-name            : 1c_Lynx144_1_nodes_32_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 32
+srun: ntasks-per-node     : 32
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 813888: nodes(1):`n016', cpu counts: 256(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=813888.0 on host n016, 32 tasks: [0-31]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n016, 32 tasks started
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=813888.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 31: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=813888.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 23,30: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=813888.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 22: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=813888.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 21: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=813888.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 9,20: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 25 tasks of StepId=813888.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 0-8,10-19,24-29: Completed

@@ -1,0 +1,43 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n016
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 814127
+srun: job-name            : 1a_Lynx144_1_nodes_64_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 64
+srun: ntasks-per-node     : 64
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 814127: nodes(1):`n016', cpu counts: 256(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=814127.0 on host n016, 64 tasks: [0-63]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n016, 64 tasks started
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 36: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 41: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 3 tasks of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 4,47,53: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 0,6: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 29 tasks of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 1,10,14,17-18,20-22,25-33,43,48-52,54,57-58,61-63: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 3 tasks of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 15,23,59: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 60: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 14 tasks of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 2,9,12-13,16,19,24,34,37,39,42,46,55-56: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 9 tasks of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 3,5,8,11,35,38,40,44-45: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=814127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 7: Completed
