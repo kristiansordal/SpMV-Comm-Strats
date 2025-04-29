@@ -1,0 +1,26 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n014
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 814384
+srun: job-name            : 2d_Lynx144_1_nodes_4_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 4
+srun: ntasks-per-node     : 4
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 814384: nodes(1):`n014', cpu counts: 256(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=814384.0 on host n014, 4 tasks: [0-3]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n014, 4 tasks started
+srun: Sent KVS info to 1 nodes, up to 4 tasks per node
+srun: Sent KVS info to 1 nodes, up to 4 tasks per node
+acg-baseline: /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/Lynx144.mtx: expected symmetric; symmetry is general
+srun: Complete StepId=814384.0+0 received
+slurmstepd: error: *** JOB 814384 ON n014 CANCELLED AT 2025-04-28T21:05:21 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 814384.0 ON n014 CANCELLED AT 2025-04-28T21:05:21 DUE TO TIME LIMIT ***

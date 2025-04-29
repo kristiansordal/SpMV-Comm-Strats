@@ -1,0 +1,27 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n014
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 814244
+srun: job-name            : 1d_Lynx144_1_nodes_16_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 16
+srun: ntasks-per-node     : 16
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 814244: nodes(1):`n014', cpu counts: 256(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=814244.0 on host n014, 16 tasks: [0-15]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n014, 16 tasks started
+srun: Sent KVS info to 1 nodes, up to 16 tasks per node
+srun: Sent KVS info to 1 nodes, up to 16 tasks per node
+srun: Sent KVS info to 1 nodes, up to 16 tasks per node
+srun: Sent KVS info to 1 nodes, up to 16 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=814244.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n014: tasks 1,7: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 14 tasks of StepId=814244.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n014: tasks 0,2-6,8-15: Completed

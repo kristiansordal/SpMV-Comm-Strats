@@ -1,0 +1,35 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n016
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 814178
+srun: job-name            : 1d_Lynx144_1_nodes_64_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 64
+srun: ntasks-per-node     : 64
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 814178: nodes(1):`n016', cpu counts: 256(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=814178.0 on host n016, 64 tasks: [0-63]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n016, 64 tasks started
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=814178.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 59: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=814178.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: task 23: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=814178.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 19,61: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 3 tasks of StepId=814178.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 18,53,63: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 3 tasks of StepId=814178.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 21-22,49: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 54 tasks of StepId=814178.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n016: tasks 0-17,20,24-48,50-52,54-58,60,62: Completed
