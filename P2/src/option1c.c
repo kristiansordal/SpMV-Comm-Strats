@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    // comm_size = (comm_size * 64.0 * 100.0) / (1024.0 * 1024.0 * 1024.0);
+    comm_size = (comm_size * 64.0 * 100.0) / (1024.0 * 1024.0 * 1024.0);
 
     printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
 
