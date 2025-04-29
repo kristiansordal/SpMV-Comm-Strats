@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
         l2 = sqrt(l2);
     }
 
-    tcomm = 0;
+    // tcomm = 0;
     // Print results
     if (rank == 0) {
 
