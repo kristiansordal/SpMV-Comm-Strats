@@ -102,12 +102,15 @@ int main(int argc, char **argv) {
 
     long double comm_size = 0.0;
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size - 1; i++) {
         if (c.send_items[rank][i] > 0) {
             comm_size += c.send_count[i];
         }
     }
+
     comm_size = (comm_size * 64.0 * 100.0) / (1024.0 * 1024.0 * 1024.0);
+
+    printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
 
     long double max_comm_size = 0.0;
     long double min_comm_size = 0.0;

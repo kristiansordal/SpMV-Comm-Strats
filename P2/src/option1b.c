@@ -97,6 +97,8 @@ int main(int argc, char **argv) {
     // compute max min and average communication load
     long double comm_size = ((double)c.send_count[rank] * (size - 1) * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
 
+    printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
+
     long double max_comm_size = 0.0;
     long double min_comm_size = 0.0;
     long double avg_comm_size = 0.0;
