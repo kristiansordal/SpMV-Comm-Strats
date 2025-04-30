@@ -62,10 +62,10 @@ sbatch_script=$(cat <<EOF
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
-srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
+srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/mtx/datasets/suitesparse/$matrix
 EOF
 )
-#srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/mtx/datasets/suitesparse/$matrix
+#srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
 
 
 # Submit the job
