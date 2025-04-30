@@ -1,5 +1,5 @@
 #!/bin/bash
-GROUP_FILE="../Lynx.txt"
+GROUP_FILE="../cube.txt"
 
 if [[ -f "$GROUP_FILE" && -r "$GROUP_FILE" ]]; then
     while IFS= read -r line; do

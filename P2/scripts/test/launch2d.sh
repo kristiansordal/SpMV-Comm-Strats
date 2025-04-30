@@ -58,13 +58,13 @@ sbatch_script=$(cat <<EOF
 #SBATCH --time=0-0:10:00
 #SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/single/${partition}/%x-%j-stdout.txt
 #SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/single/${partition}/%x-%j-stderr.txt
-
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
 srun --verbose numactl -C0-${total_threads} /home/krisor99/aCG/bin/acg-baseline /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
 EOF
 )
+
 
 # Submit the job
 job_id=$(echo "$sbatch_script" | sbatch | awk '{print $4}')
