@@ -1,0 +1,57 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-003]
+srun: cpus-per-task       : 64
+srun: distribution        : block:block
+srun: jobid               : 815536
+srun: job-name            : 1a_Cube_Coup_dt6_3_nodes_1_tasks_64_threads
+srun: nodes               : 3
+srun: ntasks              : 3
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 815536: nodes(3):`n[001-003]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=815536.0 on host n001, 1 tasks: 0
+srun: launching StepId=815536.0 on host n002, 1 tasks: 1
+srun: launching StepId=815536.0 on host n003, 1 tasks: 2
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 1 tasks started
+srun: launch/slurm: _task_start: Node n003, 1 tasks started
+srun: launch/slurm: _task_start: Node n002, 1 tasks started
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n001:3454632:0:3454632] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+==== backtrace (tid:3454632) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000800dd __GI___getdelim()  ./libio/iogetdelim.c:46
+ 2 0x0000000000004411 internal_parse_mtx_seq()  ???:0
+ 3 0x0000000000004b51 parse_mtx()  ???:0
+ 4 0x0000000000004fb4 parse_and_validate_mtx()  ???:0
+ 5 0x0000000000002869 main()  ???:0
+ 6 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 7 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 8 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 9 0x0000000000002925 _start()  ???:0
+=================================
+[n001:3454632] *** Process received signal ***
+[n001:3454632] Signal: Segmentation fault (11)
+[n001:3454632] Signal code:  (-6)
+[n001:3454632] Failing at address: 0x1bfc0034b6a8
+[n001:3454632] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:3454632] [ 1] /lib/x86_64-linux-gnu/libc.so.6(getdelim+0x2d)[0x155554e570dd]
+[n001:3454632] [ 2] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4411)[0x555555558411]
+[n001:3454632] [ 3] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4b51)[0x555555558b51]
+[n001:3454632] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x4fb4)[0x555555558fb4]
+[n001:3454632] [ 5] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2869)[0x555555556869]
+[n001:3454632] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n001:3454632] [ 7] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n001:3454632] [ 8] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x2925)[0x555555556925]
+[n001:3454632] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=815536.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=815536.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 815536 ON n001 CANCELLED AT 2025-05-01T13:11:36 DUE TO TIME LIMIT ***
