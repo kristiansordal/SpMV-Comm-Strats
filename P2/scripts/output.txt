@@ -1,4 +1,8 @@
+Schenk/nlpkkt200/nlpkkt200.mtx
+Janna/Bump_2911/Bump_2911.mtx
+Janna/Cube_Coup_dt0/Cube_Coup_dt0.mtx
 Dziekonski/dielFilterV3real/dielFilterV3real.mtx
+Janna/Long_Coup_dt0/Long_Coup_dt0.mtx
 Janna/Serena/Serena.mtx
-Dziekonski/dielFilterV2real/dielFilterV2real.mtx
+Schenk_AFE/af_shell10/af_shell10.mtx
 Oberwolfach/bone010/bone010.mtx
