@@ -1,0 +1,8 @@
+Starting init real doubleN: 2911419nnzs: 65320659idxbase: 0rowidx: colidx: 643444752a: 120877072OpenMP is enabled
+Total time = 5.369562s
+Communication time = 1.515249s
+Copmutation time = 3.833807
+GFLOPS = 7.233733
+OpenMP is enabled
+OpenMP is enabled
+OpenMP is enabled

@@ -1,5 +1,4 @@
 Schenk/nlpkkt200/nlpkkt200.mtx
-Schenk/nlpkkt240/nlpkkt240.mtx
 Schenk/nlpkkt160/nlpkkt160.mtx
 Janna/Bump_2911/Bump_2911.mtx
 Janna/Cube_Coup_dt6/Cube_Coup_dt6.mtx
