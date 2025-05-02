@@ -15,16 +15,18 @@ int main(int argc, char **argv) {
         x[i] = 2.0;
         y[i] = 2.0;
     }
+    long long int flops = 0;
 
     start = clock();
-    for (int i = 0; i < 2; i++) {
-        spmv(g, x, y);
+    for (int i = 0; i < 10; i++) {
+        spmv(g, x, y, &flops);
         double *tmp = x;
         x = y;
         y = tmp;
     }
     end = clock();
     double ops = (long long)g.num_cols * 2ll * 100ll;
+    printf("%lf, %lld\n", ops, flops);
 
     printf("g.num_rows: %d\n", g.num_rows);
     printf("g.num_cols: %d\n", g.num_cols);

@@ -253,6 +253,7 @@ void internal_free_mtx(mtx *m) {
 
 CSR parse_mtx(FILE *f) {
     mtx m = internal_parse_mtx_seq(f);
+    printf("%d, %d, %d\n", m.M, m.N, m.L);
 
     CSR g;
     g.num_rows = m.N > m.M ? m.N : m.M;
@@ -311,9 +312,7 @@ CSR parse_mtx(FILE *f) {
 
 CSR parse_and_validate_mtx(const char *path) {
     FILE *f = fopen(path, "r");
-    fflush(stdout);
     CSR g = parse_mtx(f);
-    fflush(stdout);
     fclose(f);
 
     printf("|V|=%d |E|=%d\n", g.num_rows, g.num_cols);

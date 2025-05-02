@@ -8,7 +8,7 @@ typedef struct {
     double **send_lists, **receive_lists;
 } comm_lists;
 
-void spmv(CSR g, double *x, double *y);
+void spmv(CSR g, double *x, double *y, long long int *flops);
 
 void spmv_part(CSR g, int rank, int s, int t, double *x, double *y);
 
