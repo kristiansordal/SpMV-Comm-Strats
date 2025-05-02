@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void spmv(CSR g, double *x, double *y) {
+void spmv(CSR g, double *x, double *y, long long int *flops) {
     for (int u = 0; u < g.num_rows; u++) {
         double z = 0.0;
         for (int i = g.row_ptr[u]; i < g.row_ptr[u + 1]; i++) {
