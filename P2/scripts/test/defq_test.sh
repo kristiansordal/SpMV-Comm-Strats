@@ -1,5 +1,5 @@
 #!/bin/bash
-GROUP_FILE="../output2.txt"
+GROUP_FILE="../output.txt"
 
 if [[ -f "$GROUP_FILE" && -r "$GROUP_FILE" ]]; then
     while IFS= read -r line; do
