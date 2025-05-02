@@ -137,6 +137,7 @@ int main(int argc, char **argv) {
         printf("Communication time = %lfs\n", tcomm);
         printf("Copmutation time = %lfs\n", tcomp);
         printf("GFLOPS = %lf\n", ops / (time * 1e9));
+        printf("NFLOPS = %lf\n", ops);
         printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
                avg_comm_size);
         // printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
