@@ -1,0 +1,8 @@
+Starting init real doubleN: 2911419nnzs: 65320659idxbase: 0rowidx: colidx: 662319120a: 139751440NUMBER OF NONZEROS = 65320659
+OpenMP is enabled
+Total time = 10.006259s
+Communication time = 0.001038s
+Copmutation time = 10.005130
+GFLOPS = 3.829500
+NFLOPS: 38318969700
+num_cols: 2911419

@@ -56,8 +56,8 @@ sbatch_script=$(cat <<EOF
 #SBATCH --distribution=block:block
 #SBATCH --exclusive
 #SBATCH --time=0-0:10:00
-#SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/${partition}/%x-%j-stdout.txt
-#SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/${partition}/%x-%j-stderr.txt
+#SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/${partition}/test/%x-%j-stdout.txt
+#SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/${partition}/test/%x-%j-stderr.txt
 
 module load openmpi-4.1.6
 module load cmake-3.22.3

@@ -1,14 +1,14 @@
 #!/bin/bash
 #SBATCH --partition=defq
-#SBATCH --nodes=4
+#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=32
-#SBATCH --job-name=1a_bone010_4_nodes_2_tasks_32_threads_mpi
+#SBATCH --job-name=1a_bone010_1_nodes_2_tasks_32_threads_mpi
 #SBATCH --distribution=block:block
 #SBATCH --exclusive
 #SBATCH --time=0-0:10:00
-#SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/defq/%x-%j-stdout.txt
-#SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/defq/%x-%j-stderr.txt
+#SBATCH --output=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/defq/test/%x-%j-stdout.txt
+#SBATCH --error=/home/krisor99/SpMV-Comm-Strats/P2/results/multi/defq/test/%x-%j-stderr.txt
 
 module load openmpi-4.1.6
 module load cmake-3.22.3
