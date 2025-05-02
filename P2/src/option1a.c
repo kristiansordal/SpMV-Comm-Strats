@@ -99,6 +99,9 @@ int main(int argc, char **argv) {
 
     // Compute FLOPs and memory bandwidth
     double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
+    double nnz = (long long)g.row_ptr[g.num_rows] - (long long)g.row_ptr[0];
+    double ops2 = (double)nnz * 2ll * 100ll;
+
     double time = t1 - t0;
     MPI_Barrier(MPI_COMM_WORLD);
 
@@ -108,6 +111,7 @@ int main(int argc, char **argv) {
         printf("Communication time = %lfs\n", tcomm);
         printf("Copmutation time = %lfs\n", tcomp);
         printf("GFLOPS = %lf\n", ops / (time * 1e9));
+        printf("GFLOPS = %lf\n", ops2 / (time * 1e9));
         printf("NFLOPS = %lf\n", ops);
         printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
                avg_comm_size);

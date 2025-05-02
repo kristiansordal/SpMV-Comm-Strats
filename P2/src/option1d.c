@@ -114,6 +114,10 @@ int main(int argc, char **argv) {
         l2 = sqrt(l2);
     }
 
+    // unknowns: 2164760
+    // NFLOPS = 25441228800.000000
+    // | V |= 2164760 | E |= 127206144
+
     // Print results
     if (rank == 0) {
 
