@@ -94,68 +94,68 @@ int main(int argc, char **argv) {
             tcomm += tc2 - tc1;
             tcomp += tc3 - tc2;
         }
-
-        t1 = MPI_Wtime();
-
-        // if (size == 1) {
-        // memcpy(x, y, sizeof(double) * g.num_rows);
-        // } else {
-        MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE,
-                       MPI_COMM_WORLD);
-        // }
-
-        double *tmp = x;
-        x = y;
-        y = tmp;
-
-        // compute max min and average communication load
-        long double comm_size = ((double)c.send_count[rank] * (size - 1) * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
-
-        printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
-
-        long double max_comm_size = 0.0;
-        long double min_comm_size = 0.0;
-        long double avg_comm_size = 0.0;
-
-        MPI_Reduce(&comm_size, &max_comm_size, 1, MPI_LONG_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
-        MPI_Reduce(&comm_size, &min_comm_size, 1, MPI_LONG_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
-        MPI_Reduce(&comm_size, &avg_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        avg_comm_size /= size;
-
-        double ops = (long long)g.num_cols * 2ll * 100ll;
-        double time = t1 - t0;
-        double l2 = 0.0;
-
-        if (rank == 0) {
-            for (int j = 0; j < g.num_rows; j++)
-                l2 += x[j] * x[j];
-            l2 = sqrt(l2);
-        }
-
-        // tcomm = 0;
-        // Print results
-        if (rank == 0) {
-
-            printf("Total time = %lfs\n", time);
-            printf("Communication time = %lfs\n", tcomm);
-            printf("Copmutation time = %lfs\n", tcomp);
-            printf("GFLOPS = %lf\n", ops / (time * 1e9));
-            printf("NFLOPS = %lf\n", ops);
-            printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
-                   avg_comm_size);
-            // printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
-            //        (ops / (time * 1e9)),                                           // GFLOPS
-            //        (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
-            //        ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
-            //        l2);
-            // printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
-            //        avg_comm_size);
-        }
-
-        free(y);
-        free(x);
-        free_graph(&g);
-
-        MPI_Finalize(); // End MPI, called by every processor
-        return 0;
     }
+
+    t1 = MPI_Wtime();
+
+    // if (size == 1) {
+    // memcpy(x, y, sizeof(double) * g.num_rows);
+    // } else {
+    MPI_Allgatherv(y + displs[rank], recvcounts[rank], MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+    // }
+
+    double *tmp = x;
+    x = y;
+    y = tmp;
+
+    // compute max min and average communication load
+    long double comm_size = ((double)c.send_count[rank] * (size - 1) * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
+
+    printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
+
+    long double max_comm_size = 0.0;
+    long double min_comm_size = 0.0;
+    long double avg_comm_size = 0.0;
+
+    MPI_Reduce(&comm_size, &max_comm_size, 1, MPI_LONG_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&comm_size, &min_comm_size, 1, MPI_LONG_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&comm_size, &avg_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    avg_comm_size /= size;
+
+    double ops = (long long)g.num_cols * 2ll * 100ll;
+    double time = t1 - t0;
+    double l2 = 0.0;
+
+    if (rank == 0) {
+        for (int j = 0; j < g.num_rows; j++)
+            l2 += x[j] * x[j];
+        l2 = sqrt(l2);
+    }
+
+    // tcomm = 0;
+    // Print results
+    if (rank == 0) {
+
+        printf("Total time = %lfs\n", time);
+        printf("Communication time = %lfs\n", tcomm);
+        printf("Copmutation time = %lfs\n", tcomp);
+        printf("GFLOPS = %lf\n", ops / (time * 1e9));
+        printf("NFLOPS = %lf\n", ops);
+        printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
+               avg_comm_size);
+        // printf("%lfs (%lfs, %lfs), %lf GFLOPS, %lf GBs mem, %lf GBs comm, L2 = %lf\n", time, tcomp, tcomm,
+        //        (ops / (time * 1e9)),                                           // GFLOPS
+        //        (g.num_rows * 64.0 * 100.0 / tcomp) / 1e9,                      // GBs mem
+        //        ((g.num_rows * (size - 1)) * 8.0 * size * 100.0 / tcomm) / 1e9, // GBs comm
+        //        l2);
+        // printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
+        //        avg_comm_size);
+    }
+
+    free(y);
+    free(x);
+    free_graph(&g);
+
+    MPI_Finalize(); // End MPI, called by every processor
+    return 0;
+}
