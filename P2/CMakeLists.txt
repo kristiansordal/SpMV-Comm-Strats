@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.17)
 
 project(SpMV
     VERSION 0.0.1
