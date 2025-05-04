@@ -1,0 +1,63 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[057-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 819240
+srun: job-name            : 1a_Bump_2911_4_nodes_1_tasks_16_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 819240: nodes(4):`n[057-060]', cpu counts: 32(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=819240.0 on host n057, 1 tasks: 0
+srun: launching StepId=819240.0 on host n058, 1 tasks: 1
+srun: launching StepId=819240.0 on host n059, 1 tasks: 2
+srun: launching StepId=819240.0 on host n060, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n057
+  Framework: pml
+--------------------------------------------------------------------------
+[n057:1138781] PML ucx cannot be selected
+srun: Complete StepId=819240.0+0 received
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n058
+  Framework: pml
+--------------------------------------------------------------------------
+[n058:1140256] PML ucx cannot be selected
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819240.0 (status=0x0100).
+srun: error: n057: task 0: Exited with exit code 1
+srun: Complete StepId=819240.0+0 received
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819240.0 (status=0x0009).
+srun: error: n060: task 3: Killed
+In: PMI_Abort(1, N/A)
+slurmstepd: error: *** STEP 819240.0 ON n057 CANCELLED AT 2025-05-03T16:20:07 ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819240.0 (status=0x0009).
+srun: error: n058: task 1: Killed
+In: PMI_Abort(1, N/A)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819240.0 (status=0x0009).
+srun: error: n059: task 2: Killed

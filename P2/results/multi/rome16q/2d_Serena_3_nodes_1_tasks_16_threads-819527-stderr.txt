@@ -1,0 +1,70 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[054-056]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 819527
+srun: job-name            : 2d_Serena_3_nodes_1_tasks_16_threads
+srun: nodes               : 3
+srun: ntasks              : 3
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 819527: nodes(3):`n[054-056]', cpu counts: 32(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=819527.0 on host n054, 1 tasks: 0
+srun: launching StepId=819527.0 on host n055, 1 tasks: 1
+srun: launching StepId=819527.0 on host n056, 1 tasks: 2
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n055
+  Framework: pml
+--------------------------------------------------------------------------
+[n055:1155676] PML ucx cannot be selected
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n054
+  Framework: pml
+--------------------------------------------------------------------------
+[n054:1293252] PML ucx cannot be selected
+srun: Complete StepId=819527.0+0 received
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n056
+  Framework: pml
+--------------------------------------------------------------------------
+[n056:1178168] PML ucx cannot be selected
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: Complete StepId=819527.0+0 received
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819527.0 (status=0x0100).
+srun: error: n055: task 1: Exited with exit code 1
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819527.0 (status=0x0009).
+srun: error: n054: task 0: Killed
+In: PMI_Abort(1, N/A)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819527.0 (status=0x0009).
+srun: error: n056: task 2: Killed
+srun: Complete StepId=819527.0+0 received

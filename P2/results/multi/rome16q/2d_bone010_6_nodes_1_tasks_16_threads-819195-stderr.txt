@@ -1,0 +1,120 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-052,059-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 819195
+srun: job-name            : 2d_bone010_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 819195: nodes(6):`n[049-052,059-060]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=819195.0 on host n049, 1 tasks: 0
+srun: launching StepId=819195.0 on host n050, 1 tasks: 1
+srun: launching StepId=819195.0 on host n051, 1 tasks: 2
+srun: launching StepId=819195.0 on host n052, 1 tasks: 3
+srun: launching StepId=819195.0 on host n059, 1 tasks: 4
+srun: launching StepId=819195.0 on host n060, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+ Runtime parameters:
+   Objective type: METIS_OBJTYPE_CUT
+   Coarsening type: METIS_CTYPE_SHEM
+   Initial partitioning type: METIS_IPTYPE_GROW
+   Refinement type: METIS_RTYPE_FM
+   Perform a 2-hop matching: No
+   Number of balancing constraints: 1
+   Number of refinement iterations: 10
+   Random number seed: 1
+   Number of partitions: 6
+   Number of cuts: 1
+   User-supplied ufactor: 1
+   Target partition weights: 
+        0=[1.67e-01]   1=[1.67e-01]   2=[1.67e-01]   3=[1.67e-01]   4=[1.67e-01]
+        5=[1.67e-01]
+   Allowed maximum load imbalance: 1.001 
+
+
+Timing Information -------------------------------------------------
+ Multilevel: 		   4.821
+     Coarsening: 		   3.672
+            Matching: 			   0.802
+            Contract: 			   2.780
+     Initial Partition: 	   0.000
+     Uncoarsening: 		   0.379
+          Refinement: 			   0.100
+          Projection: 			   0.279
+     Splitting: 		   0.633
+********************************************************************
+
+ gk_mcore statistics
+           coresize:     11840728         nmops:         2048  cmop:      0
+        num_callocs:          819   num_hallocs:            0
+       size_callocs:    135559280  size_hallocs:            0
+        cur_callocs:            0   cur_hallocs:            0
+        max_callocs:     11840456   max_hallocs:            0
+ nbrpool statistics
+        nbrpoolsize:            0   nbrpoolcpos:            0
+    nbrpoolreallocs:            0
+
+ unknowns: 986703
+ solves: 1
+ total iterations: 100
+ total flops: 14.489 Gflop
+ total flop rate: 31.147 Gflop/s
+ total solver time: 0.465190 seconds
+ performance breakdown:
+ omp enabled: 1
+  SpMV: 0.381365 seconds/proc 100 times/proc 14955677200 B/proc 39.216 GB/s/proc
+   dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
+   MPI_HaloExchange: 0.081926 seconds/proc 100 times/proc 6000800 B/proc 0.073 GB/s/proc 300.0 msg/proc 7.586 µs/msg/proc
+     pack: 0.002259 seconds/proc 100 times/proc 15002000 B/proc 6.642 GB/s/proc
+     unpack: 0.004067 seconds/proc 100 times/proc 15002000 B/proc 3.688 GB/s/proc
+     MPI_Recv: 0.075513 seconds/proc 300.0 times/proc 6000800 B/proc 0.079 GB/s/proc
+     MPI_Send: 0.004594 seconds/proc 300.0 times/proc 6000800 B/proc 1.306 GB/s/proc
+     MPI_Waitall: 0.000036 seconds/proc 100 times/proc
+   other: 0.000019 seconds
+ last solve:
+   stopping criterion:
+     maximum iterations: 100
+     tolerance for residual: 0
+     tolerance for relative residual: 0
+     tolerance for difference in solution iterates: 0
+     tolerance for relative difference in solution iterates: 0
+   iterations: 100
+   right-hand side 2-norm: inf
+   initial guess 2-norm: inf
+   initial residual 2-norm: inf
+   residual 2-norm: inf
+   difference in solution iterates 2-norm: inf
+   floating-point exceptions: inexact
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819195.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n052: task 3: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819195.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n060: task 5: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819195.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n051: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819195.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n059: task 4: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819195.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n050: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819195.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n049: task 0: Completed

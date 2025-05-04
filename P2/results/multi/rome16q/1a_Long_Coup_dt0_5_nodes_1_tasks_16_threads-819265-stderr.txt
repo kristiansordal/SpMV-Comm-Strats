@@ -1,0 +1,54 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-052,057]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 819265
+srun: job-name            : 1a_Long_Coup_dt0_5_nodes_1_tasks_16_threads
+srun: nodes               : 5
+srun: ntasks              : 5
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 819265: nodes(5):`n[049-052,057]', cpu counts: 32(x5)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=819265.0 on host n049, 1 tasks: 0
+srun: launching StepId=819265.0 on host n050, 1 tasks: 1
+srun: launching StepId=819265.0 on host n051, 1 tasks: 2
+srun: launching StepId=819265.0 on host n052, 1 tasks: 3
+srun: launching StepId=819265.0 on host n057, 1 tasks: 4
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n057
+  Framework: pml
+--------------------------------------------------------------------------
+[n057:1139293] PML ucx cannot be selected
+srun: Complete StepId=819265.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 819265.0 ON n049 CANCELLED AT 2025-05-03T16:20:12 ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819265.0 (status=0x0100).
+srun: error: n057: task 4: Exited with exit code 1
+srun: Complete StepId=819265.0+0 received
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819265.0 (status=0x0009).
+srun: error: n051: task 2: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819265.0 (status=0x0009).
+srun: error: n052: task 3: Killed
+In: PMI_Abort(1, N/A)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819265.0 (status=0x0009).
+srun: error: n050: task 1: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=819265.0 (status=0x0009).
+srun: error: n049: task 0: Killed

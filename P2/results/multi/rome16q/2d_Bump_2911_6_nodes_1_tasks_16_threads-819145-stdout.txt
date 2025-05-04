@@ -1,0 +1,12 @@
+OpenMP is enabled
+Total time = 0.878411s
+Communication time = 0.123542s
+Copmutation time = 0.749763
+GFLOPS = 29.585708
+NFLOPS: 25988406200
+num_cols: 2911419
+OpenMP is enabled
+OpenMP is enabled
+OpenMP is enabled
+OpenMP is enabled
+OpenMP is enabled

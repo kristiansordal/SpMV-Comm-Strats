@@ -32,7 +32,7 @@ module load hwloc/gcc/2.10.0
 # export OMPI_MCA_opal_cuda_support=0                     # new option for above
 
 ## Use 'ibv_devinfo' output to determine active HCA (mlx5_1:1 or mlx5_4:1)
-export IBV_DEVICE="mlx5_2"   # Change to mlx5_4 if needed
+export IBV_DEVICE="mlx5_1"   # Change to mlx5_4 if needed
 export IBV_PORT=1
 
 export OMPI_MCA_pml=ucx
@@ -40,7 +40,7 @@ export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge  # Exclude unnecessary interfaces
 
 export UCX_TLS=rc,ud,self
-export UCX_NET_DEVICES=mlx5_2:1    # Change to mlx5_4:1 if needed
+export UCX_NET_DEVICES=mlx5_1:1    # Change to mlx5_4:1 if needed
 
 export OMP_NUM_THREADS=$omp_num_threads
 export OMPI_MCA_opal_cuda_support=0
@@ -62,6 +62,13 @@ sbatch_script=$(cat <<EOF
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
+export OMPI_MCA_pml=ucx
+export OMPI_MCA_btl=self,vader,tcp
+export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge
+export UCX_TLS=rc,ud,self
+export UCX_NET_DEVICES=mlx5_4:1
+export OMP_NUM_THREADS=$omp_num_threads
+
 srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1d /global/D1/projects/mtx/datasets/suitesparse/$matrix
 EOF
 )
@@ -71,7 +78,7 @@ EOF
 job_id=$(echo "$sbatch_script" | sbatch | awk '{print $4}')
 
 # Print job start message
-if [ -e "/global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix" ]; then
+if [ -e "/global/D1/projects/mtx/datasets/suitesparse/$matrix" ]; then
     echo "Started job '${job_name}' with ID ${job_id}."
 else
     echo "File doesn't exist."
