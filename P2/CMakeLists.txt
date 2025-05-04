@@ -8,20 +8,18 @@ project(SpMV
 
 set(CMAKE_C_STANDARD 11)
 
-# Use Release mode with optimizations
-set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
-set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native")
-
-# Find packages
+# Find MPI
 find_package(MPI REQUIRED)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# Find METIS and OpenMP
 find_package(METIS REQUIRED)
 find_package(OpenMP REQUIRED)
 
-# Add include directories
-include_directories(${CMAKE_SOURCE_DIR}/include)
-
-# Common source files
-set(COMMON_SOURCES
+# Executables
+add_executable(0a 
+    src/option0.c
     src/p2.c
     src/p2.h
     src/mtx.c
@@ -30,20 +28,52 @@ set(COMMON_SOURCES
     src/spmv.h
 )
 
-# Helper macro to avoid repeating the linking setup
-function(add_spmv_executable name file)
-    add_executable(${name} src/${file} ${COMMON_SOURCES})
-    target_include_directories(${name} PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-    target_link_libraries(${name} PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-    target_compile_options(${name} PRIVATE -O3 -march=native)
-endfunction()
+add_executable(1a 
+    src/option1a.c
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
 
-# Create executables
-add_spmv_executable(0a option0.c)
-add_spmv_executable(1a option1a.c)
-add_spmv_executable(1b option1b.c)
-add_spmv_executable(1c option1c.c)
-add_spmv_executable(1d option1d.c)
+add_executable(1b 
+    src/option1b.c
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
 
-# Optional test target
-# add_spmv_executable(test test_bcast.c)
+add_executable(1c 
+    src/option1c.c
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
+
+add_executable(1d 
+    src/option1d.c
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
+
+# include headers
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Target settings (linking and compile flags)
+foreach(target 0a 1a 1b 1c 1d)
+    target_include_directories(${target} PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+    target_link_libraries(${target} PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
+    target_compile_options(${target} PRIVATE -O3 -march=native)
+endforeach()
