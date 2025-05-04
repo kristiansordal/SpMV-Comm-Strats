@@ -85,7 +85,6 @@ def parse_file_contents(file_name: str):
             if "time:" in line or "GFLOPS:" in line:
                 continue
             tokens = line.split()
-            print(line)
             if "Total time" in line:
                 ttot = float(tokens[3][:-1])
             elif "Communication time" in line:
@@ -126,21 +125,8 @@ def gather_results(directory, results):
     for config, (file, job_id) in latest_files.items():
         comm_strat, name, nodes, tasks, threads, mpi = parse_file_name_single(str(file))
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
-        print(
-            comm_strat,
-            name,
-            nodes,
-            tasks,
-            threads,
-            mpi,
-            ttot,
-            tcomm,
-            tcomp,
-            gflops,
-            comm_min,
-            comm_max,
-            comm_avg,
-        )
+        if gflops > 50000:
+            print(comm_strat, name, nodes, tasks, threads)
         if tasks > 2:
             continue
         if nodes == 1 and tasks == 1:
@@ -261,16 +247,12 @@ def plot_compare_comm_strat(results):
             ax.set_ylabel("GFLOPS" if mpi == 0 else "")  # Only label y-axis on the left
 
             for i, (comm_strat, matrices) in enumerate(results.items()):
-                if comm_strat == "2d":
-                    print("2d")
 
                 if matrix in matrices and mpi in matrices[matrix]:
                     # Sort the results by number of nodes in ascending order
                     sorted_results = sorted(matrices[matrix][mpi], key=lambda res: res.nodes)
                     nodes = [res.nodes for res in sorted_results]
                     gflops = [res.gflops for res in sorted_results]
-                    for g in gflops:
-                        print(g)
 
                     ax.plot(
                         nodes,

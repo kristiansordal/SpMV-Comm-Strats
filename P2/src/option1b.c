@@ -68,32 +68,30 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
         if (size == 1) {
-            if (size == 1) {
-                // in-place allgather: leaves y[] untouched
-                MPI_Allgatherv(MPI_IN_PLACE,      // sendbuf
-                               0,                 // sendcount
-                               MPI_DATATYPE_NULL, // sendtype
-                               y,                 // recvbuf
-                               recvcounts,        // recvcounts[0] = g.num_rows
-                               displs,            // displs[0]     = 0
-                               MPI_DOUBLE, MPI_COMM_WORLD);
-            } else {
-                // your normal multi-rank call
-                MPI_Allgatherv(y + displs[rank], // sendbuf
-                               recvcounts[rank], // sendcount
-                               MPI_DOUBLE,
-                               y, // recvbuf
-                               recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
-            }
-            double *tmp = y;
-            y = x;
-            x = tmp;
-            double tc2 = MPI_Wtime();
-            spmv_part(g, rank, p[rank], p[rank + 1], x, y);
-            double tc3 = MPI_Wtime();
-            tcomm += tc2 - tc1;
-            tcomp += tc3 - tc2;
+            // in-place allgather: leaves y[] untouched
+            MPI_Allgatherv(MPI_IN_PLACE,      // sendbuf
+                           0,                 // sendcount
+                           MPI_DATATYPE_NULL, // sendtype
+                           y,                 // recvbuf
+                           recvcounts,        // recvcounts[0] = g.num_rows
+                           displs,            // displs[0]     = 0
+                           MPI_DOUBLE, MPI_COMM_WORLD);
+        } else {
+            // your normal multi-rank call
+            MPI_Allgatherv(y + displs[rank], // sendbuf
+                           recvcounts[rank], // sendcount
+                           MPI_DOUBLE,
+                           y, // recvbuf
+                           recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         }
+        double *tmp = y;
+        y = x;
+        x = tmp;
+        double tc2 = MPI_Wtime();
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
+        double tc3 = MPI_Wtime();
+        tcomm += tc2 - tc1;
+        tcomp += tc3 - tc2;
     }
 
     t1 = MPI_Wtime();
