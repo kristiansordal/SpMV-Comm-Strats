@@ -11,6 +11,7 @@ typedef struct {
 void spmv(CSR g, double *x, double *y, long long int *flops);
 
 void spmv_part(CSR g, int rank, int s, int t, double *x, double *y);
+void spmv_part_flops(CSR g, int rank, int s, int t, double *x, double *y, long double *flops);
 
 void partition_graph_1b(CSR g, int k, int *p, comm_lists *c);
 

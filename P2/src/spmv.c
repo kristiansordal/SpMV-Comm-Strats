@@ -28,6 +28,28 @@ void spmv_part(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, doub
     }
 }
 
+void spmv_part_flops(CSR g, int rank, int row_ptr_start_idx, int row_ptr_end_idx, double *x, double *y,
+                     long double *flops) {
+    long double local_flops = 0.0;
+
+#pragma omp parallel for reduction(+ : local_flops) schedule(static)
+    for (int u = row_ptr_start_idx; u < row_ptr_end_idx; u++) {
+        double z = 0.0;
+        int row_start = g.row_ptr[u];
+        int row_end = g.row_ptr[u + 1];
+        for (int i = row_start; i < row_end; i++) {
+            int v = g.col_idx[i];
+            z += x[v] * g.values[i];
+        }
+        y[u] = z;
+        local_flops += 2.0 * (row_end - row_start);
+    }
+
+    if (flops) {
+        *flops += local_flops;
+    }
+}
+
 void partition_graph(CSR g, int num_partitions, int *partition_idx) {
     if (num_partitions == 1) {
         partition_idx[0] = 0;

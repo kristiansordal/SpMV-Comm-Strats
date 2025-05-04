@@ -7,101 +7,43 @@ project(SpMV
 )
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 
-# Find MPI
+# Use Release mode with optimizations
+set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native")
+
+# Find packages
 find_package(MPI REQUIRED)
-
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-# Find METIS
 find_package(METIS REQUIRED)
 find_package(OpenMP REQUIRED)
 
-add_executable(0a 
-    src/option0.c
-    src/p2.c
-    src/p2.h
-    src/mtx.c
-    src/mtx.h
-    src/spmv.c
-    src/spmv.h
-)
-
-add_executable(1a 
-    src/option1a.c
-    src/p2.c
-    src/p2.h
-    src/mtx.c
-    src/mtx.h
-    src/spmv.c
-    src/spmv.h
-)
-
-add_executable(1b 
-    src/option1b.c
-    src/p2.c
-    src/p2.h
-    src/mtx.c
-    src/mtx.h
-    src/spmv.c
-    src/spmv.h
-)
-
-add_executable(1c 
-    src/option1c.c
-    src/p2.c
-    src/p2.h
-    src/mtx.c
-    src/mtx.h
-    src/spmv.c
-    src/spmv.h
-)
-
-add_executable(1d 
-    src/option1d.c
-    src/p2.c
-    src/p2.h
-    src/mtx.c
-    src/mtx.h
-    src/spmv.c
-    src/spmv.h
-)
-
-# add_executable(test 
-#     src/test_bcast.c
-# )
-
-# Correct the typo for including the project's header files
+# Add include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
-target_include_directories(1a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(1a PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(1a PRIVATE)
-target_link_options(1a PRIVATE)
 
-target_include_directories(1b PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(1b PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(1b PRIVATE)
-target_link_options(1b PRIVATE)
+# Common source files
+set(COMMON_SOURCES
+    src/p2.c
+    src/p2.h
+    src/mtx.c
+    src/mtx.h
+    src/spmv.c
+    src/spmv.h
+)
 
+# Helper macro to avoid repeating the linking setup
+function(add_spmv_executable name file)
+    add_executable(${name} src/${file} ${COMMON_SOURCES})
+    target_include_directories(${name} PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
+    target_link_libraries(${name} PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
+    target_compile_options(${name} PRIVATE -O3 -march=native)
+endfunction()
 
-target_include_directories(1c PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(1c PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(1c PRIVATE)
-target_link_options(1c PRIVATE)
+# Create executables
+add_spmv_executable(0a option0.c)
+add_spmv_executable(1a option1a.c)
+add_spmv_executable(1b option1b.c)
+add_spmv_executable(1c option1c.c)
+add_spmv_executable(1d option1d.c)
 
-target_include_directories(1d PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(1d PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(1d PRIVATE)
-target_link_options(1d PRIVATE)
-
-target_include_directories(0a PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-target_link_libraries(0a PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-target_compile_options(0a PRIVATE)
-target_link_options(0a PRIVATE)
-
-
-# target_include_directories(test PRIVATE ${MPI_C_INCLUDE_PATH} ${METIS_INCLUDE_DIRS})
-# target_link_libraries(test PRIVATE ${MPI_C_LIBRARIES} ${METIS_LIBRARIES} OpenMP::OpenMP_C m)
-# target_compile_options(test PRIVATE)
-# target_link_options(test PRIVATE)
+# Optional test target
+# add_spmv_executable(test test_bcast.c)

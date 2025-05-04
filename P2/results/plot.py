@@ -106,6 +106,8 @@ def gather_results(directory, results):
     latest_files = defaultdict(lambda: ("", 0))
 
     for file in directory.iterdir():
+        if "2d" in file.name:
+            continue
         if not file.is_file() or "stderr" in file.name:
             continue
         valid_result = False
@@ -125,8 +127,9 @@ def gather_results(directory, results):
     for config, (file, job_id) in latest_files.items():
         comm_strat, name, nodes, tasks, threads, mpi = parse_file_name_single(str(file))
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
-        if gflops > 50000:
-            print(comm_strat, name, nodes, tasks, threads)
+
+        if gflops > 1000:
+            continue
         if tasks > 2:
             continue
         if nodes == 1 and tasks == 1:
@@ -232,7 +235,7 @@ def plot_compare_comm_strat(results):
         fig.suptitle(f"GFLOPS Comparison for {matrix}")
 
         mpi_labels = ["1 process per node", "1 process per socket"]
-        colors = ["b", "g", "r", "c"]  # Colors for different comm_strats
+        colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
         comm_strats_dict = {
             "1a": "Exchange entire vector",
             "1b": "Exchange separators",
@@ -265,7 +268,7 @@ def plot_compare_comm_strat(results):
 
             ax.grid(True, linestyle="--", alpha=0.6)
 
-        axes[1].legend()  # Only add legend to the right plot
+        axes[0].legend()  # Only add legend to the right plot
         plt.tight_layout()
         # plt.savefig(f"{matrix}.png", dpi=600, bbox_inches="tight")
         plt.show()
@@ -424,25 +427,27 @@ def plot_comm_and_comp_time(results):
 
 
 def plot_comm_min_avg_max(results):
-    comm_strats = sorted(results.keys())  # Sort for 1a,1b,1c,1d order
+    # Exclude strategy '1a' from plotting
+    comm_strats = sorted(k for k in results.keys() if k != "1a")
     markers = {"min": "o", "avg": "s", "max": "^"}
     labels = ["min", "avg", "max"]
 
-    # Assign a distinct color for each comm strat
-    color_list = ["blue", "red", "green", "magenta"]
-    comm_colors = {comm_strat: color_list[i] for i, comm_strat in enumerate(comm_strats)}
-    added_labels = set()
+    # Assign distinct colors to the remaining strategies
+    color_list = ["red", "green", "magenta", "orange", "cyan"]
+    comm_colors = {
+        comm_strat: color_list[i % len(color_list)] for i, comm_strat in enumerate(comm_strats)
+    }
 
     for matrix in results[next(iter(results))]:  # Loop over matrix names
-        fig, axs = plt.subplots(1, 2, figsize=(16, 6), sharey=True)
+        fig, axs = plt.subplots(1, 2, figsize=(18, 6), sharey=True)
         fig.suptitle(f"Communication Load for {matrix}", fontsize=16)
 
         for ax_index, mpi in enumerate([0, 1]):
             ax = axs[ax_index]
-            mode = "1 proceess per node" if mpi == 1 else "1 process per socket"
+            mode = "1 process per socket" if mpi == 0 else "1 process per node"
             ax.set_title(mode)
 
-            # Collect all unique node counts
+            # Get unique node counts
             node_counts = sorted(
                 {
                     res.nodes
@@ -455,43 +460,52 @@ def plot_comm_min_avg_max(results):
 
             xticks = []
             xticklabels = []
+            x_pos = 0
+            added_labels = set()
 
-            for node_index, n in enumerate(node_counts):
-                for entry_index, comm_strat in enumerate(comm_strats):
-                    x_base = node_index * (len(comm_strats) + 1) + entry_index
-                    matching_results = [
-                        res for res in results[comm_strat][matrix].get(mpi, []) if res.nodes == n
-                    ]
-                    if matching_results:
-                        comm_mins = [r.comm_min for r in matching_results]
-                        comm_avgs = [r.comm_avg for r in matching_results]
-                        comm_maxs = [r.comm_max for r in matching_results]
+            for n in node_counts:
+                for comm_strat in comm_strats:
+                    matching_results = results[comm_strat][matrix].get(mpi, [])
+                    data = [res for res in matching_results if res.nodes == n]
+                    if not data:
+                        x_pos += 1
+                        continue
 
-                        for val, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
-                            legend_label = f"{comm_strat} ({label})"
-                            ax.plot(
-                                [x_base] * len(val),
-                                val,
-                                marker=markers[label],
-                                linestyle="None",
-                                color=comm_colors[comm_strat],
-                                alpha=0.7,
-                                label=legend_label if legend_label not in added_labels else None,
-                            )
-                            added_labels.add(legend_label)
+                    comm_mins = [r.comm_min for r in data]
+                    comm_avgs = [r.comm_avg for r in data]
+                    comm_maxs = [r.comm_max for r in data]
+
+                    for val, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
+                        legend_label = f"{comm_strat} ({label})"
+                        ax.plot(
+                            [x_pos] * len(val),
+                            val,
+                            marker=markers[label],
+                            linestyle="None",
+                            color=comm_colors[comm_strat],
+                            alpha=0.7,
+                            label=legend_label if legend_label not in added_labels else None,
+                        )
+                        added_labels.add(legend_label)
+
+                    xticks.append(x_pos)
+                    xticklabels.append(f"{n}\n{comm_strat}")
+                    x_pos += 1
+
+                x_pos += 1  # Extra space between node count groups
 
             ax.set_xticks(xticks)
             ax.set_xticklabels(xticklabels, rotation=45, ha="right", fontsize=9)
-            ax.set_xlabel("Number of nodes")
+            ax.set_xlabel("Number of nodes and communication strategy")
             ax.set_yscale("log")
             ax.grid(True, linestyle="--", alpha=0.5)
+
             if ax_index == 0:
                 ax.set_ylabel("Communication Load [GB]")
 
-            # Only show unique labels
             handles, labels_ = ax.get_legend_handles_labels()
             by_label = dict(zip(labels_, handles))
-            ax.legend(by_label.values(), by_label.keys())
+            ax.legend(by_label.values(), by_label.keys(), fontsize=9)
 
         plt.tight_layout()
         plt.show()
@@ -508,9 +522,9 @@ def main():
     gather_results(path, results)
     # plot_gflops_single(results)
     # gather_results_from_directory(results, path, 0)
-    # plot_comm_min_avg_max(results)
+    plot_comm_min_avg_max(results)
     # plot_comm_and_comp_time(results)
-    plot_compare_comm_strat(results)
+    # plot_compare_comm_strat(results)
     # plot_compare_comm_strat_split(results)
     # plot_comm_load(results)
     # plot_comm_load2(results)

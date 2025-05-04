@@ -75,8 +75,9 @@ int main(int argc, char **argv) {
         displs[i] = p[i];
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    long double flops = 0.0;
 
+    MPI_Barrier(MPI_COMM_WORLD);
     t0 = MPI_Wtime();
     for (int i = 0; i < 100; i++) {
         double tc1 = MPI_Wtime();
@@ -85,12 +86,11 @@ int main(int argc, char **argv) {
         y = x;
         x = tmp;
         double tc2 = MPI_Wtime();
-        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
+        spmv_part_flops(g, rank, p[rank], p[rank + 1], x, y, &flops);
         double tc3 = MPI_Wtime();
         tcomm += tc2 - tc1;
         tcomp += tc3 - tc2;
     }
-
     MPI_Barrier(MPI_COMM_WORLD);
     t1 = MPI_Wtime();
 
@@ -115,10 +115,12 @@ int main(int argc, char **argv) {
     long double max_comm_size = 0.0;
     long double min_comm_size = 0.0;
     long double avg_comm_size = 0.0;
+    long double total_flops = 0.0;
 
     MPI_Reduce(&comm_size, &max_comm_size, 1, MPI_LONG_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     MPI_Reduce(&comm_size, &min_comm_size, 1, MPI_LONG_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
     MPI_Reduce(&comm_size, &avg_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&total_flops, &flops, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     avg_comm_size /= size;
 
     double ops = (long long)g.num_cols * 2ll * 100ll;
@@ -137,6 +139,7 @@ int main(int argc, char **argv) {
         printf("Communication time = %lfs\n", tcomm);
         printf("Copmutation time = %lfs\n", tcomp);
         printf("GFLOPS = %lf\n", ops / (time * 1e9));
+        printf("compGFLOPS = %Lf\n", total_flops / (time * 1e9));
         printf("NFLOPS = %lf\n", ops);
         printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
                avg_comm_size);
