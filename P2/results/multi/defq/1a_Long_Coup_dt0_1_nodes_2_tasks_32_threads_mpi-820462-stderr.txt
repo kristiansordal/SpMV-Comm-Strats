@@ -1,0 +1,59 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n001
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 820462
+srun: job-name            : 1a_Long_Coup_dt0_1_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 1
+srun: ntasks              : 2
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820462: nodes(1):`n001', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820462.0 on host n001, 2 tasks: [0-1]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+[n001:2142686:0:2142724] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:1:2142706] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:2:2142720] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:3:2142731] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:4:2142708] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:5:2142718] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:6:2142717] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:7:2142712] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:8:2142710] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:9:2142719] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:10:2142715] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:11:2142714] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:12:2142713] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:13:2142709] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:14:2142722] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:15:2142704] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:16:2142686] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:17:2142727] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:18:2142711] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:19:2142721] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:20:2142716] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:21:2142707] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:22:2142728] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:23:2142732] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:24:2142703] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:25:2142723] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:26:2142729] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:27:2142733] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:28:2142725] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:29:2142726] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:30:2142730] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2142686:31:2142705] Caught signal 4 (Illegal instruction: illegal operand)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820462.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820462.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820462 ON n001 CANCELLED AT 2025-05-04T13:58:20 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 820462.0 ON n001 CANCELLED AT 2025-05-04T13:58:20 DUE TO TIME LIMIT ***

@@ -1,0 +1,54 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[002-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 820475
+srun: job-name            : 1a_bone010_2_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 2
+srun: ntasks              : 4
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820475: nodes(2):`n[002-003]', cpu counts: 128(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820475.0 on host n002, 2 tasks: [0-1]
+srun: launching StepId=820475.0 on host n003, 2 tasks: [2-3]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+[n002:2303477:0:2303519] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:1:2303512] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:2:2303504] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:3:2303525] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:4:2303518] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:5:2303523] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:6:2303503] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:7:2303497] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:8:2303507] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:9:2303514] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:10:2303515] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:11:2303499] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:12:2303505] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:13:2303501] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:14:2303517] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:15:2303511] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:16:2303516] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:17:2303500] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:18:2303477] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:19:2303520] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:20:2303506] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:21:2303502] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:22:2303513] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:23:2303521] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2303477:24:2303522] Caught signal 4 (Illegal instruction: illegal operand)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820475.0 (status=0x008b).
+srun: error: n002: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820475.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820475 ON n002 CANCELLED AT 2025-05-04T15:01:53 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 820475.0 ON n002 CANCELLED AT 2025-05-04T15:01:53 DUE TO TIME LIMIT ***

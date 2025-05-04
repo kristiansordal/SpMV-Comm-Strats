@@ -1,0 +1,60 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[058-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820744
+srun: job-name            : 1a_Cube_Coup_dt6_3_nodes_1_tasks_16_threads
+srun: nodes               : 3
+srun: ntasks              : 3
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820744: nodes(3):`n[058-060]', cpu counts: 32(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820744.0 on host n058, 1 tasks: 0
+srun: launching StepId=820744.0 on host n059, 1 tasks: 1
+srun: launching StepId=820744.0 on host n060, 1 tasks: 2
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n060
+  Framework: pml
+--------------------------------------------------------------------------
+[n060:1286949] PML ucx cannot be selected
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n058
+  Framework: pml
+--------------------------------------------------------------------------
+[n058:1290450] PML ucx cannot be selected
+srun: Complete StepId=820744.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: Complete StepId=820744.0+0 received
+srun: Complete StepId=820744.0+0 received
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820744.0 (status=0x0100).
+srun: error: n060: task 2: Exited with exit code 1
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820744.0 (status=0x0100).
+srun: error: n058: task 0: Exited with exit code 1
+In: PMI_Abort(1, N/A)
+In: PMI_Abort(1, N/A)
+slurmstepd: error: *** STEP 820744.0 ON n058 CANCELLED AT 2025-05-04T13:30:31 ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820744.0 (status=0x0009).
+srun: error: n059: task 1: Killed

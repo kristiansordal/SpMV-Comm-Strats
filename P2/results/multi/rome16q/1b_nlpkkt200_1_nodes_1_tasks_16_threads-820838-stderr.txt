@@ -1,0 +1,65 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n053
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820838
+srun: job-name            : 1b_nlpkkt200_1_nodes_1_tasks_16_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820838: nodes(1):`n053', cpu counts: 32(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820838.0 on host n053, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+[n053:1541048:0:1541067] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:1:1541063] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:2:1541048] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:3:1541062] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:4:1541060] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:5:1541070] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:6:1541059] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:7:1541065] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:8:1541061] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:9:1541069] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:10:1541058] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:11:1541072] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:12:1541068] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:13:1541064] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:14:1541071] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048:15:1541066] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541048] *** Process received signal ***
+[n053:1541048] Signal: Segmentation fault (11)
+[n053:1541048] Signal code: Address not mapped (1)
+[n053:1541048] Failing at address: 0x38
+[n053:1541048] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n053:1541048] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4e398)[0x1555541e4398]
+[n053:1541048] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_close_all_done+0x2d)[0x1555541efe5d]
+[n053:1541048] [ 3] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x126c94)[0x1555542bcc94]
+[n053:1541048] [ 4] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(_bfd_elf_close_and_cleanup+0x6f)[0x15555421a68f]
+[n053:1541048] [ 5] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_close_all_done+0x2d)[0x1555541efe5d]
+[n053:1541048] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x31270)[0x15555438b270]
+[n053:1541048] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555438b7d3]
+[n053:1541048] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_print_backtrace+0x42)[0x15555438bce2]
+[n053:1541048] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x317)[0x15555438e617]
+[n053:1541048] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x15555438e8f7]
+[n053:1541048] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x15555438ed5a]
+[n053:1541048] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n053:1541048] [13] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x36dc)[0x5555555576dc]
+[n053:1541048] [14] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(GOMP_parallel+0x46)[0x1555552a2156]
+[n053:1541048] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x5433)[0x555555559433]
+[n053:1541048] [16] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x5615)[0x555555559615]
+[n053:1541048] [17] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x2bf7)[0x555555556bf7]
+[n053:1541048] [18] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n053:1541048] [19] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n053:1541048] [20] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x2cb5)[0x555555556cb5]
+[n053:1541048] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820838.0 (status=0x008b).
+srun: error: n053: task 0: Segmentation fault (core dumped)

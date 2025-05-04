@@ -1,0 +1,58 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n053
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820886
+srun: job-name            : 1b_af_shell10_1_nodes_1_tasks_16_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820886: nodes(1):`n053', cpu counts: 32(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820886.0 on host n053, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+[n053:1541931:0:1541948] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:1:1541944] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:2:1541951] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:3:1541953] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:4:1541956] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:5:1541942] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:6:1541950] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:7:1541931] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:8:1541947] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:9:1541952] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:10:1541943] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:11:1541946] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:12:1541949] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:13:1541945] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:14:1541955] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931:15:1541954] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1541931] *** Process received signal ***
+[n053:1541931] Signal: Segmentation fault (11)
+[n053:1541931] Signal code: Address not mapped (1)
+[n053:1541931] Failing at address: 0x28
+[n053:1541931] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n053:1541931] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_cache_init+0x89)[0x1555541df0a9]
+[n053:1541931] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_fopen+0xe2)[0x1555541f0312]
+[n053:1541931] [ 3] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30c3f)[0x15555438ac3f]
+[n053:1541931] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x311a0)[0x15555438b1a0]
+[n053:1541931] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555438b7d3]
+[n053:1541931] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x305)[0x15555438e605]
+[n053:1541931] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x15555438e8f7]
+[n053:1541931] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x15555438ed5a]
+[n053:1541931] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n053:1541931] [10] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x36dc)[0x5555555576dc]
+[n053:1541931] [11] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(+0x21a1e)[0x1555552aba1e]
+[n053:1541931] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x94ac3)[0x155554e6bac3]
+[n053:1541931] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x126850)[0x155554efd850]
+[n053:1541931] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820886.0 (status=0x008b).
+srun: error: n053: task 0: Segmentation fault (core dumped)
