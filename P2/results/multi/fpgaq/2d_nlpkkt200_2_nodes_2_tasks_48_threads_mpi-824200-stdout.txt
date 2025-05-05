@@ -1,0 +1,8 @@
+Total time1 = 3.191398s
+Total time = 3.191392s
+Communication time = 0.996843s
+Copmutation time = 2.179860
+GFLOPS = 28.296686
+compGFLOPS = 28.296743
+NFLOPS: 90305990000
+num_cols: 16240000
