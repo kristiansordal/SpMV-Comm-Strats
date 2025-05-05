@@ -36,3 +36,7 @@ srun: Sent KVS info to 1 nodes, up to 2 tasks per node
 =================================
 srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=821118.0 (status=0x0084).
 srun: error: n003: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=821118.0+0 received
+slurmstepd: error: *** JOB 821118 ON n003 CANCELLED AT 2025-05-05T08:52:56 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 821118.0 ON n003 CANCELLED AT 2025-05-05T08:52:56 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

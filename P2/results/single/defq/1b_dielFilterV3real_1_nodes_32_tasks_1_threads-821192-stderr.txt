@@ -1,0 +1,18 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n003
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 821192
+srun: job-name            : 1b_dielFilterV3real_1_nodes_32_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 32
+srun: ntasks-per-node     : 32
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 821192: nodes(1):`n003', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=821192.0 on host n003, 32 tasks: [0-31]
+srun: route/default: init: route default plugin loaded
