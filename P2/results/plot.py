@@ -45,7 +45,7 @@ class SingleResult:
 #     tokens = file_name.split("/")[-1].split("_")
 #     name, nodes, tasks, threads, mpi = "", 0, 0, 0, 0
 #     if "mpi" in file_name:
-#         mpi = 1
+#         mpi = -2
 #     for i, token in enumerate(tokens):
 #         if token == "nodes":
 #             name = "_".join(tokens[: i - 1])
@@ -91,7 +91,7 @@ def parse_file_contents(file_name: str):
                 tcomm = float(tokens[3][:-1])
             elif "Copmutation time" in line:
                 tcomp = float(tokens[3][:-1])
-            elif "GFLOPS" in line:
+            elif "GFLOPS" in line and "comp" not in line:
                 gflops = float(tokens[2])
             elif "Comm min" in line:
                 comm_min = float(tokens[3])
@@ -106,15 +106,17 @@ def gather_results(directory, results):
     latest_files = defaultdict(lambda: ("", 0))
 
     for file in directory.iterdir():
-        if "2d" in file.name:
-            continue
+
         if not file.is_file() or "stderr" in file.name:
             continue
         valid_result = False
+        flops = 0
         for line in file.open():
             if "GFLOPS" in line:
-                valid_result = True
-                break
+                flops = float(line.split()[2])
+                if flops > 0.5 and flops < 1000:
+                    valid_result = True
+                    break
         if not valid_result:
             continue
 
@@ -122,9 +124,11 @@ def gather_results(directory, results):
         job_id = int(job_id)
 
         if job_id > latest_files[config][1]:
+            print(config, flops)
             latest_files[config] = (str(file), job_id)  # type: ignore
 
     for config, (file, job_id) in latest_files.items():
+
         comm_strat, name, nodes, tasks, threads, mpi = parse_file_name_single(str(file))
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
 
@@ -132,6 +136,7 @@ def gather_results(directory, results):
             continue
         if tasks > 2:
             continue
+
         if nodes == 1 and tasks == 1:
             comm_min = 0
             comm_max = 0
@@ -141,6 +146,7 @@ def gather_results(directory, results):
                 nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
             )
         )
+        print(gflops)
 
 
 def plot_gflops_single(results):
@@ -149,7 +155,7 @@ def plot_gflops_single(results):
 
     for idx, use_mpi in enumerate([False, True]):
         ax = axes[idx]
-        for comm_strat in ["1a", "1b", "1c", "1d"]:
+        for comm_strat in ["1a", "1b", "1c", "1d", "2d"]:
             all_threads = []
             all_gflops = []
 
@@ -193,12 +199,15 @@ def plot_compare_comm_strat_split(results):
         "1b": "Exchange separators",
         "1c": "Exchange required separators",
         "1d": "Exchange required elements",
+        "2d": "Fully Scalable",
     }
-    colors = ["b", "g", "r", "c"]  # Colors for different comm_strats
+    colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
     mpi_labels = ["1 process per node", "1 process per socket"]
 
     for matrix in results[next(iter(results))]:  # Loop over matrix names
         for mpi in [0, 1]:  # Loop over MPI modes
+            if mpi:
+                continue
             fig, ax = plt.subplots(figsize=(5, 5))
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
@@ -220,13 +229,14 @@ def plot_compare_comm_strat_split(results):
                         label=comm_strats_dict.get(comm_strat, comm_strat),
                     )
 
-            ax.legend()
-            ax.set_xticks([1, 2, 3, 4])
-            ax.grid(True, linestyle="--", alpha=0.6)
-            plt.tight_layout()
-            # plt.savefig(f"{matrix}_mpi{mpi}.png", dpi=600, bbox_inches="tight")
-            plt.show()
-            plt.close()
+            if not mpi:
+                ax.legend()
+                ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 8])
+                ax.grid(True, linestyle="--", alpha=0.6)
+                plt.tight_layout()
+                plt.savefig(f"{matrix}_rome16q.png", dpi=600, bbox_inches="tight")
+                # plt.show()
+                plt.close()
 
 
 def plot_compare_comm_strat(results):
@@ -270,8 +280,8 @@ def plot_compare_comm_strat(results):
 
         axes[0].legend()  # Only add legend to the right plot
         plt.tight_layout()
-        # plt.savefig(f"{matrix}.png", dpi=600, bbox_inches="tight")
-        plt.show()
+        plt.savefig(f"{matrix}_fpgaq.png", dpi=600, bbox_inches="tight")
+        # plt.show()
         plt.close()
 
 
@@ -428,7 +438,7 @@ def plot_comm_and_comp_time(results):
 
 def plot_comm_min_avg_max(results):
     # Exclude strategy '1a' from plotting
-    comm_strats = sorted(k for k in results.keys() if k != "1a")
+    comm_strats = sorted(k for k in results.keys() if k != "1a" and k != "2d")
     markers = {"min": "o", "avg": "s", "max": "^"}
     labels = ["min", "avg", "max"]
 
