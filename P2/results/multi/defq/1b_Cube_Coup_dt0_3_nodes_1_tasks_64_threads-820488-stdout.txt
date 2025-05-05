@@ -1,0 +1,7 @@
+Done parsing mtx
+2164760, 2164760, 64685452
+|V|=2164760 |E|=127206144
+Normalizing graph
+Mean of graph: 2865558760432741.000000
+[1746367514.707613] [n001:2169214:0]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746367514.707640] [n001:2169214:1]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 7 was not set in ucs

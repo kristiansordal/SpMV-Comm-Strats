@@ -1,0 +1,2 @@
+[1746366007.984817] [n017:3557372:0]     ucp_context.c:969  UCX  WARN  network device 'mlx5_1:1' is not available, please use one or more of: 'enp193s0f0np0'(tcp), 'enp33s0f0np0'(tcp), 'ibp161s0f0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_2:1'(ib), 'mlx5_4:1'(ib), 'tmfifo_net0'(tcp)
+[1746366007.987137] [n018:954807:0]     ucp_context.c:969  UCX  WARN  network device 'mlx5_1:1' is not available, please use one or more of: 'enp193s0f0np0'(tcp), 'ens10f0np0'(tcp), 'ibp161s0f0'(tcp), 'lo'(tcp), 'mlx5_0:1'(ib), 'mlx5_2:1'(ib), 'mlx5_4:1'(ib), 'tmfifo_net0'(tcp)

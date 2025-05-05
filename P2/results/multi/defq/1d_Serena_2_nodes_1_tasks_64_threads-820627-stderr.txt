@@ -1,0 +1,31 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[002-003]
+srun: cpus-per-task       : 64
+srun: distribution        : block:block
+srun: jobid               : 820627
+srun: job-name            : 1d_Serena_2_nodes_1_tasks_64_threads
+srun: nodes               : 2
+srun: ntasks              : 2
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820627: nodes(2):`n[002-003]', cpu counts: 128(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820627.0 on host n002, 1 tasks: 0
+srun: launching StepId=820627.0 on host n003, 1 tasks: 1
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 1 tasks started
+srun: launch/slurm: _task_start: Node n003, 1 tasks started
+srun: Sent KVS info to 2 nodes, up to 1 tasks per node
+srun: Sent KVS info to 2 nodes, up to 1 tasks per node
+[n002:2391086:0:2391135] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2391086:1:2391144] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2391086:2:2391152] Caught signal 4 (Illegal instruction: illegal operand)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820627.0 (status=0x0084).
+srun: error: n002: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=820627.0+0 received
+slurmstepd: error: *** JOB 820627 ON n002 CANCELLED AT 2025-05-04T23:00:54 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

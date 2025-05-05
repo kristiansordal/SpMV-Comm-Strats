@@ -1,0 +1,70 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[056-059]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820801
+srun: job-name            : 1a_dielFilterV3real_4_nodes_1_tasks_16_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820801: nodes(4):`n[056-059]', cpu counts: 32(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820801.0 on host n056, 1 tasks: 0
+srun: launching StepId=820801.0 on host n057, 1 tasks: 1
+srun: launching StepId=820801.0 on host n058, 1 tasks: 2
+srun: launching StepId=820801.0 on host n059, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+[n056:1344621:0:1344665] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:1:1344673] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:2:1344664] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:3:1344671] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:4:1344676] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:5:1344669] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:6:1344621] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:7:1344672] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:8:1344670] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:9:1344674] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:10:1344675] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:11:1344668] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:12:1344663] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:13:1344667] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:14:1344666] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621:15:1344677] Caught signal 4 (Illegal instruction: illegal operand)
+[n056:1344621] *** Process received signal ***
+[n056:1344621] Signal: Segmentation fault (11)
+[n056:1344621] Signal code: Address not mapped (1)
+[n056:1344621] Failing at address: 0x28
+[n056:1344621] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n056:1344621] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4eb39)[0x1555541e4b39]
+[n056:1344621] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4ecec)[0x1555541e4cec]
+[n056:1344621] [ 3] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_bread+0xa4)[0x1555541de3b4]
+[n056:1344621] [ 4] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x522f1)[0x1555541e82f1]
+[n056:1344621] [ 5] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_check_format_matches+0x266)[0x1555541e76d6]
+[n056:1344621] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30c57)[0x15555438ac57]
+[n056:1344621] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x311a0)[0x15555438b1a0]
+[n056:1344621] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555438b7d3]
+[n056:1344621] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x305)[0x15555438e605]
+[n056:1344621] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x15555438e8f7]
+[n056:1344621] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x15555438ed5a]
+[n056:1344621] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n056:1344621] [13] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x35cc)[0x5555555575cc]
+[n056:1344621] [14] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(+0x21a1e)[0x1555552aba1e]
+[n056:1344621] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x94ac3)[0x155554e6bac3]
+[n056:1344621] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x126850)[0x155554efd850]
+[n056:1344621] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820801.0 (status=0x008b).
+srun: error: n056: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820801.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820801 ON n056 CANCELLED AT 2025-05-04T16:00:53 DUE TO TIME LIMIT ***

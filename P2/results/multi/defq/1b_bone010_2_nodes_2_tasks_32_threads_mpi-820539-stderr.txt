@@ -1,0 +1,65 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[002-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 820539
+srun: job-name            : 1b_bone010_2_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 2
+srun: ntasks              : 4
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820539: nodes(2):`n[002-003]', cpu counts: 128(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820539.0 on host n002, 2 tasks: [0-1]
+srun: launching StepId=820539.0 on host n003, 2 tasks: [2-3]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+srun: Sent KVS info to 2 nodes, up to 2 tasks per node
+[n002:2365109:0:2365130] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:1:2365109] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:2:2365140] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:3:2365156] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:4:2365131] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:5:2365150] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:6:2365158] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:7:2365154] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:8:2365137] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:9:2365133] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:10:2365147] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:11:2365143] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:12:2365145] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:13:2365155] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:14:2365149] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:15:2365135] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:16:2365132] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:17:2365136] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:18:2365139] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:19:2365141] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:20:2365157] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:21:2365144] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:22:2365152] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:23:2365148] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:24:2365129] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:25:2365128] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:26:2365138] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:27:2365134] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:28:2365151] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:29:2365146] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:30:2365153] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109:31:2365142] Caught signal 4 (Illegal instruction: illegal operand)
+[n002:2365109] *** Process received signal ***
+[n002:2365109] Signal: Segmentation fault (11)
+[n002:2365109] Signal code: Address not mapped (1)
+[n002:2365109] Failing at address: 0x28
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820539.0 (status=0x008b).
+srun: error: n002: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820539.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820539 ON n002 CANCELLED AT 2025-05-04T20:38:53 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 820539.0 ON n002 CANCELLED AT 2025-05-04T20:38:53 DUE TO TIME LIMIT ***

@@ -1,0 +1,83 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-055]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820844
+srun: job-name            : 1b_nlpkkt200_7_nodes_1_tasks_16_threads
+srun: nodes               : 7
+srun: ntasks              : 7
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820844: nodes(7):`n[049-055]', cpu counts: 32(x7)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820844.0 on host n049, 1 tasks: 0
+srun: launching StepId=820844.0 on host n050, 1 tasks: 1
+srun: launching StepId=820844.0 on host n051, 1 tasks: 2
+srun: launching StepId=820844.0 on host n052, 1 tasks: 3
+srun: launching StepId=820844.0 on host n053, 1 tasks: 4
+srun: launching StepId=820844.0 on host n054, 1 tasks: 5
+srun: launching StepId=820844.0 on host n055, 1 tasks: 6
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: Sent KVS info to 7 nodes, up to 1 tasks per node
+srun: Sent KVS info to 7 nodes, up to 1 tasks per node
+[n049:1908796:0:1908834] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:1:1908830] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:2:1908824] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:3:1908831] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:4:1908835] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:5:1908836] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:6:1908829] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:7:1908826] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:8:1908838] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:9:1908825] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:10:1908837] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:11:1908827] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:12:1908828] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:13:1908833] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:14:1908796] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1908796:15:1908832] Caught signal 4 (Illegal instruction: illegal operand)
+corrupted double-linked list
+[n049:1908796] *** Process received signal ***
+[n049:1908796] Signal: Aborted (6)
+[n049:1908796] Signal code:  (-6)
+[n049:1908796] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n049:1908796] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n049:1908796] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n049:1908796] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n049:1908796] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n049:1908796] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n049:1908796] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa17cc)[0x155554e787cc]
+[n049:1908796] [ 7] /lib/x86_64-linux-gnu/libc.so.6(+0xa462b)[0x155554e7b62b]
+[n049:1908796] [ 8] /lib/x86_64-linux-gnu/libc.so.6(malloc+0x99)[0x155554e7c139]
+[n049:1908796] [ 9] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0xc6e48)[0x15555425ce48]
+[n049:1908796] [10] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0xc77b9)[0x15555425d7b9]
+[n049:1908796] [11] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(_bfd_elf_find_nearest_line+0x94)[0x155554225794]
+[n049:1908796] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30dd1)[0x15555438add1]
+[n049:1908796] [13] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_map_over_sections+0x37)[0x1555541ebdf7]
+[n049:1908796] [14] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x3124f)[0x15555438b24f]
+[n049:1908796] [15] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555438b7d3]
+[n049:1908796] [16] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x305)[0x15555438e605]
+[n049:1908796] [17] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x15555438e8f7]
+[n049:1908796] [18] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x15555438ed5a]
+[n049:1908796] [19] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n049:1908796] [20] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x36dc)[0x5555555576dc]
+[n049:1908796] [21] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(+0x21a1e)[0x1555552aba1e]
+[n049:1908796] [22] /lib/x86_64-linux-gnu/libc.so.6(+0x94ac3)[0x155554e6bac3]
+[n049:1908796] [23] /lib/x86_64-linux-gnu/libc.so.6(+0x126850)[0x155554efd850]
+[n049:1908796] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820844.0 (status=0x0086).
+srun: error: n049: task 0: Aborted (core dumped)
+srun: Complete StepId=820844.0+0 received
+slurmstepd: error: *** JOB 820844 ON n049 CANCELLED AT 2025-05-04T21:25:53 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

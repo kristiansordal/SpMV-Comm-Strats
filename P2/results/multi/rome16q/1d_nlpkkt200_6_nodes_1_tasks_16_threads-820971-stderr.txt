@@ -1,0 +1,57 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-054]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820971
+srun: job-name            : 1d_nlpkkt200_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820971: nodes(6):`n[049-054]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820971.0 on host n049, 1 tasks: 0
+srun: launching StepId=820971.0 on host n050, 1 tasks: 1
+srun: launching StepId=820971.0 on host n051, 1 tasks: 2
+srun: launching StepId=820971.0 on host n052, 1 tasks: 3
+srun: launching StepId=820971.0 on host n053, 1 tasks: 4
+srun: launching StepId=820971.0 on host n054, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+[n049:1954446:0:1954638] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:1:1954637] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:2:1954636] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:3:1954645] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:4:1954646] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:5:1954642] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:6:1954639] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:7:1954650] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:8:1954641] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:9:1954648] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:10:1954446] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:11:1954651] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:12:1954640] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:13:1954644] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:14:1954649] Caught signal 4 (Illegal instruction: illegal operand)
+[n049:1954446:15:1954647] Caught signal 4 (Illegal instruction: illegal operand)
+corrupted double-linked list
+corrupted double-linked list
+[n049:1954446] *** Process received signal ***
+[n049:1954446] Signal: Aborted (6)
+[n049:1954446] Signal code:  (-6)
+[n049:1954446] [ 0] srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820971.0 (status=0x0086).
+srun: error: n049: task 0: Aborted (core dumped)
+srun: Complete StepId=820971.0+0 received
+slurmstepd: error: *** JOB 820971 ON n049 CANCELLED AT 2025-05-05T02:29:54 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

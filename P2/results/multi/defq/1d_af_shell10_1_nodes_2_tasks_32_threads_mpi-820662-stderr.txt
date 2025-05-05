@@ -1,0 +1,59 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n001
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 820662
+srun: job-name            : 1d_af_shell10_1_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 1
+srun: ntasks              : 2
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820662: nodes(1):`n001', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820662.0 on host n001, 2 tasks: [0-1]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+[n001:2284080:0:2284107] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:1:2284104] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:2:2284102] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:3:2284111] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:4:2284096] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:5:2284097] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:6:2284103] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:7:2284125] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:8:2284099] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:9:2284126] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:10:2284119] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:11:2284123] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:12:2284115] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:13:2284110] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:14:2284109] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:15:2284117] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:16:2284101] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:17:2284113] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:18:2284098] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:19:2284122] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:20:2284121] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:21:2284120] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:22:2284118] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:23:2284114] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:24:2284106] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:25:2284105] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:26:2284100] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:27:2284112] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:28:2284108] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:29:2284080] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:30:2284116] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2284080:31:2284124] Caught signal 4 (Illegal instruction: illegal operand)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820662.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820662.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820662 ON n001 CANCELLED AT 2025-05-05T02:10:54 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 820662.0 ON n001 CANCELLED AT 2025-05-05T02:10:54 DUE TO TIME LIMIT ***

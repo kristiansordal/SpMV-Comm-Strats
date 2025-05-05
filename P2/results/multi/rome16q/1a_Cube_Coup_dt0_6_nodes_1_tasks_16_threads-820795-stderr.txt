@@ -76,3 +76,6 @@ corrupted double-linked list
 [n053:1553508] *** End of error message ***
 srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820795.0 (status=0x0086).
 srun: error: n053: task 0: Aborted (core dumped)
+srun: Complete StepId=820795.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820795 ON n053 CANCELLED AT 2025-05-04T15:39:53 DUE TO TIME LIMIT ***

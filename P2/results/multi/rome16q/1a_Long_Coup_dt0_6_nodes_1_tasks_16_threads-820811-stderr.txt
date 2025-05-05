@@ -1,0 +1,66 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[053,056-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820811
+srun: job-name            : 1a_Long_Coup_dt0_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820811: nodes(6):`n[053,056-060]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820811.0 on host n053, 1 tasks: 0
+srun: launching StepId=820811.0 on host n056, 1 tasks: 1
+srun: launching StepId=820811.0 on host n057, 1 tasks: 2
+srun: launching StepId=820811.0 on host n058, 1 tasks: 3
+srun: launching StepId=820811.0 on host n059, 1 tasks: 4
+srun: launching StepId=820811.0 on host n060, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+[n053:1563694:0:1563728] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:1:1563719] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:2:1563694] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:3:1563725] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:4:1563714] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:5:1563724] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:6:1563727] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:7:1563718] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:8:1563720] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:9:1563723] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:10:1563715] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:11:1563721] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:12:1563717] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:13:1563726] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:14:1563716] Caught signal 4 (Illegal instruction: illegal operand)
+[n053:1563694:15:1563722] Caught signal 4 (Illegal instruction: illegal operand)
+==== backtrace (tid:1563694) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000035cc normalize_graph._omp_fn.2()  mtx.c:0
+ 2 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:178
+ 3 0x0000000000018156 GOMP_parallel_end()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:140
+ 4 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:179
+ 5 0x0000000000005323 normalize_graph()  ???:0
+ 6 0x0000000000005505 parse_and_validate_mtx()  ???:0
+ 7 0x0000000000002877 main()  ???:0
+ 8 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 9 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+11 0x0000000000002ba5 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820811.0 (status=0x0084).
+srun: error: n053: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=820811.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820811 ON n053 CANCELLED AT 2025-05-04T17:03:53 DUE TO TIME LIMIT ***

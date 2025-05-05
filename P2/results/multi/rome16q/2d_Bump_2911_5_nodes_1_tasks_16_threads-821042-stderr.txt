@@ -1,0 +1,46 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-053]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 821042
+srun: job-name            : 2d_Bump_2911_5_nodes_1_tasks_16_threads
+srun: nodes               : 5
+srun: ntasks              : 5
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 821042: nodes(5):`n[049-053]', cpu counts: 32(x5)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=821042.0 on host n049, 1 tasks: 0
+srun: launching StepId=821042.0 on host n050, 1 tasks: 1
+srun: launching StepId=821042.0 on host n051, 1 tasks: 2
+srun: launching StepId=821042.0 on host n052, 1 tasks: 3
+srun: launching StepId=821042.0 on host n053, 1 tasks: 4
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: Sent KVS info to 5 nodes, up to 1 tasks per node
+srun: Sent KVS info to 5 nodes, up to 1 tasks per node
+[n049:2001678:0:2001678] Caught signal 4 (Illegal instruction: illegal operand)
+==== backtrace (tid:2001678) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000120f3 acggraph_init()  ???:0
+ 2 0x000000000002d2cf acgsymcsrmatrix_init_rowwise_real_double()  ???:0
+ 3 0x000000000002d573 acgsymcsrmatrix_init_real_double()  ???:0
+ 4 0x000000000000e0c3 main()  ???:0
+ 5 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 6 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 7 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 8 0x000000000000e625 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=821042.0 (status=0x0084).
+srun: error: n049: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=821042.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 821042 ON n049 CANCELLED AT 2025-05-05T07:46:25 DUE TO TIME LIMIT ***

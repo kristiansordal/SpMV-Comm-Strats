@@ -1,0 +1,62 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[057-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 820825
+srun: job-name            : 1a_af_shell10_4_nodes_1_tasks_16_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820825: nodes(4):`n[057-060]', cpu counts: 32(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820825.0 on host n057, 1 tasks: 0
+srun: launching StepId=820825.0 on host n058, 1 tasks: 1
+srun: launching StepId=820825.0 on host n059, 1 tasks: 2
+srun: launching StepId=820825.0 on host n060, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+[n057:1329260:1:1329305] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:0:1329260] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:2:1329307] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:3:1329297] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:4:1329298] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:5:1329306] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:6:1329301] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:7:1329294] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:8:1329296] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:9:1329304] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:10:1329293] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:11:1329300] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:12:1329299] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:13:1329303] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:14:1329302] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1329260:15:1329295] Caught signal 4 (Illegal instruction: illegal operand)
+==== backtrace (tid:1329260) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000035cc normalize_graph._omp_fn.2()  mtx.c:0
+ 2 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:178
+ 3 0x0000000000018156 GOMP_parallel_end()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:140
+ 4 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:179
+ 5 0x0000000000005323 normalize_graph()  ???:0
+ 6 0x0000000000005505 parse_and_validate_mtx()  ???:0
+ 7 0x0000000000002877 main()  ???:0
+ 8 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 9 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+11 0x0000000000002ba5 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820825.0 (status=0x0084).
+srun: error: n057: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=820825.0+0 received
+slurmstepd: error: *** JOB 820825 ON n057 CANCELLED AT 2025-05-04T18:57:23 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
