@@ -71,7 +71,7 @@ export UCX_NET_DEVICES=mlx5_1:1
 export OMP_NUM_THREADS=$omp_num_threads
 
 
-srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b /global/D1/projects/mtx/datasets/suitesparse/$matrix
+srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/${partition}/1b /global/D1/projects/mtx/datasets/suitesparse/$matrix
 EOF
 )
 # srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b /global/D1/projects/HPC-data/Simula_collection/Lynx_traditional/$matrix
