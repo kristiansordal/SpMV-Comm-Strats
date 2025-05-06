@@ -1,0 +1,84 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[050-055]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 824358
+srun: job-name            : 1b_Long_Coup_dt0_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 824358: nodes(6):`n[050-055]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=824358.0 on host n050, 1 tasks: 0
+srun: launching StepId=824358.0 on host n051, 1 tasks: 1
+srun: launching StepId=824358.0 on host n052, 1 tasks: 2
+srun: launching StepId=824358.0 on host n053, 1 tasks: 3
+srun: launching StepId=824358.0 on host n054, 1 tasks: 4
+srun: launching StepId=824358.0 on host n055, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+[n050:1573910:0:1573930] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:1:1573937] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:2:1573941] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:3:1573933] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:4:1573936] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:5:1573938] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:6:1573931] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:7:1573942] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:8:1573944] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:9:1573932] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:10:1573910] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:11:1573939] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:12:1573934] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:13:1573943] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:14:1573935] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910:15:1573940] Caught signal 4 (Illegal instruction: illegal operand)
+[n050:1573910] *** Process received signal ***
+[n050:1573910] Signal: Segmentation fault (11)
+[n050:1573910] Signal code: Address not mapped (1)
+[n050:1573910] Failing at address: 0x28
+[n050:1573910] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n050:1573910] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4eb39)[0x1555541e4b39]
+[n050:1573910] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4ec8a)[0x1555541e4c8a]
+[n050:1573910] [ 3] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_seek+0xa7)[0x1555541de6b7]
+[n050:1573910] [ 4] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4881f)[0x1555541de81f]
+[n050:1573910] [ 5] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_get_full_section_contents+0xb4)[0x1555541e5124]
+[n050:1573910] [ 6] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(_bfd_elf_make_section_from_shdr+0x9fe)[0x1555542165ee]
+[n050:1573910] [ 7] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_section_from_shdr+0x119)[0x1555542146b9]
+[n050:1573910] [ 8] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_elf64_object_p+0x318)[0x15555420e368]
+[n050:1573910] [ 9] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_check_format_matches+0x266)[0x1555541e76d6]
+[n050:1573910] [10] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x5da88)[0x1555541f3a88]
+[n050:1573910] [11] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x5affd)[0x1555541f0ffd]
+[n050:1573910] [12] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_follow_build_id_debuglink+0x30)[0x1555541f12d0]
+[n050:1573910] [13] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0xc761d)[0x15555425d61d]
+[n050:1573910] [14] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(_bfd_elf_find_nearest_line+0x94)[0x155554225794]
+[n050:1573910] [15] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30dd1)[0x15555438add1]
+[n050:1573910] [16] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_map_over_sections+0x37)[0x1555541ebdf7]
+[n050:1573910] [17] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x3124f)[0x15555438b24f]
+[n050:1573910] [18] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555438b7d3]
+[n050:1573910] [19] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x305)[0x15555438e605]
+[n050:1573910] [20] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x15555438e8f7]
+[n050:1573910] [21] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x15555438ed5a]
+[n050:1573910] [22] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n050:1573910] [23] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1b(+0x36dc)[0x5555555576dc]
+[n050:1573910] [24] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(+0x21a1e)[0x1555552aba1e]
+[n050:1573910] [25] /lib/x86_64-linux-gnu/libc.so.6(+0x94ac3)[0x155554e6bac3]
+[n050:1573910] [26] /lib/x86_64-linux-gnu/libc.so.6(+0x126850)[0x155554efd850]
+[n050:1573910] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=824358.0 (status=0x008b).
+srun: error: n050: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=824358.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 824358 ON n050 CANCELLED AT 2025-05-06T00:01:37 DUE TO TIME LIMIT ***

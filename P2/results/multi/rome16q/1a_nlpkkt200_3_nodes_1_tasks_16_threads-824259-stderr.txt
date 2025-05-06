@@ -1,0 +1,50 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[054-056]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 824259
+srun: job-name            : 1a_nlpkkt200_3_nodes_1_tasks_16_threads
+srun: nodes               : 3
+srun: ntasks              : 3
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 824259: nodes(3):`n[054-056]', cpu counts: 32(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=824259.0 on host n054, 1 tasks: 0
+srun: launching StepId=824259.0 on host n055, 1 tasks: 1
+srun: launching StepId=824259.0 on host n056, 1 tasks: 2
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+[n054:1662719:0:1662875] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:1:1662877] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:2:1662885] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:3:1662884] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:4:1662886] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:5:1662888] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:6:1662887] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:7:1662883] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:8:1662881] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:9:1662880] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:10:1662889] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:11:1662876] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:12:1662878] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:13:1662882] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:14:1662719] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719:15:1662879] Caught signal 4 (Illegal instruction: illegal operand)
+[n054:1662719] *** Process received signal ***
+[n054:1662719] Signal: Segmentation fault (11)
+[n054:1662719] Signal code: Address not mapped (1)
+[n054:1662719] Failing at address: 0x28
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=824259.0 (status=0x008b).
+srun: error: n054: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=824259.0+0 received
+slurmstepd: error: *** JOB 824259 ON n054 CANCELLED AT 2025-05-05T15:45:58 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

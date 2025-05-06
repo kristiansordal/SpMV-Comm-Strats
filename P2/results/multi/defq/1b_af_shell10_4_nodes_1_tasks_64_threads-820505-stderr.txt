@@ -1,0 +1,96 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-004]
+srun: cpus-per-task       : 64
+srun: distribution        : block:block
+srun: jobid               : 820505
+srun: job-name            : 1b_af_shell10_4_nodes_1_tasks_64_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820505: nodes(4):`n[001-004]', cpu counts: 128(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820505.0 on host n001, 1 tasks: 0
+srun: launching StepId=820505.0 on host n002, 1 tasks: 1
+srun: launching StepId=820505.0 on host n003, 1 tasks: 2
+srun: launching StepId=820505.0 on host n004, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 1 tasks started
+srun: launch/slurm: _task_start: Node n002, 1 tasks started
+srun: launch/slurm: _task_start: Node n003, 1 tasks started
+srun: launch/slurm: _task_start: Node n004, 1 tasks started
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+[n001:2909164:0:2909234] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:1:2909164] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:2:2909205] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:3:2909197] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:4:2909199] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:5:2909248] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:6:2909211] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:7:2909226] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:8:2909247] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:9:2909230] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:10:2909228] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:11:2909242] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:12:2909220] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:13:2909224] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:14:2909245] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:15:2909196] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:16:2909206] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:17:2909213] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:18:2909203] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:19:2909241] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:20:2909216] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:21:2909240] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:22:2909193] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:23:2909251] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:24:2909237] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:25:2909212] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:26:2909227] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:27:2909250] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:28:2909233] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:29:2909219] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:30:2909202] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:31:2909215] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:32:2909235] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:33:2909244] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:34:2909239] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:35:2909198] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:36:2909225] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:37:2909229] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:38:2909236] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:39:2909194] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:40:2909231] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:41:2909253] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:42:2909209] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:43:2909201] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:44:2909204] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:45:2909223] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:46:2909210] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:47:2909246] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:48:2909249] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:49:2909243] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:50:2909217] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:51:2909238] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:52:2909200] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:53:2909208] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:54:2909191] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:55:2909195] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:56:2909221] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:57:2909222] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:58:2909252] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:59:2909232] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:60:2909214] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:61:2909218] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:62:2909207] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2909164:63:2909192] Caught signal 4 (Illegal instruction: illegal operand)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820505.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820505.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820505 ON n001 CANCELLED AT 2025-05-05T20:07:35 DUE TO TIME LIMIT ***

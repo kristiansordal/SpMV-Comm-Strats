@@ -1,0 +1,57 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n057
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 824265
+srun: job-name            : 1a_Bump_2911_1_nodes_1_tasks_16_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 824265: nodes(1):`n057', cpu counts: 32(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=824265.0 on host n057, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+[n057:1489449:0:1489464] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:1:1489471] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:2:1489473] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:3:1489465] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:4:1489470] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:5:1489462] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:6:1489469] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:7:1489463] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:8:1489468] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:9:1489461] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:10:1489467] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:11:1489460] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:12:1489466] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:13:1489459] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:14:1489472] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1489449:15:1489449] Caught signal 4 (Illegal instruction: illegal operand)
+corrupted double-linked list
+[n057:1489449] *** Process received signal ***
+[n057:1489449] Signal: Aborted (6)
+[n057:1489449] Signal code:  (-6)
+[n057:1489449] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n057:1489449] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n057:1489449] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n057:1489449] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n057:1489449] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n057:1489449] [ 5] corrupted double-linked list
+/lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n057:1489449] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa17cc)[0x155554e787cc]
+[n057:1489449] [ 7] /lib/x86_64-linux-gnu/libc.so.6(+0xa462b)[0x155554e7b62b]
+[n057:1489449] [ 8] /lib/x86_64-linux-gnu/libc.so.6(malloc+0x99)[0x155554e7c139]
+[n057:1489449] [ 9] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0xc6e48)[0x15555425ce48]
+[n057:1489449] [10] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0xc77b9)[0x15555425d7b9]
+[n057:1489449] [11] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(_bfd_elf_find_nearest_line+0x94)[0x155554225794]
+[n057:1489449] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30dd1)[0x15555438add1]
+[n057:1489449] [13] srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=824265.0 (status=0x0086).
+srun: error: n057: task 0: Aborted (core dumped)

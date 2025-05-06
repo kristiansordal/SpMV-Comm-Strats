@@ -1,0 +1,64 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[051-055]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 824333
+srun: job-name            : 1b_Bump_2911_5_nodes_1_tasks_16_threads
+srun: nodes               : 5
+srun: ntasks              : 5
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 824333: nodes(5):`n[051-055]', cpu counts: 32(x5)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=824333.0 on host n051, 1 tasks: 0
+srun: launching StepId=824333.0 on host n052, 1 tasks: 1
+srun: launching StepId=824333.0 on host n053, 1 tasks: 2
+srun: launching StepId=824333.0 on host n054, 1 tasks: 3
+srun: launching StepId=824333.0 on host n055, 1 tasks: 4
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: Sent KVS info to 5 nodes, up to 1 tasks per node
+srun: Sent KVS info to 5 nodes, up to 1 tasks per node
+[n051:1597306:0:1597306] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:1:1597330] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:2:1597329] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:3:1597335] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:4:1597328] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:5:1597331] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:6:1597338] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:7:1597336] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:8:1597333] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:9:1597326] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:10:1597334] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:11:1597327] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:12:1597339] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:13:1597337] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:14:1597332] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1597306:15:1597325] Caught signal 4 (Illegal instruction: illegal operand)
+==== backtrace (tid:1597306) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000036dc normalize_graph._omp_fn.2()  mtx.c:0
+ 2 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:178
+ 3 0x0000000000018156 GOMP_parallel_end()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:140
+ 4 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:179
+ 5 0x0000000000005433 normalize_graph()  ???:0
+ 6 0x0000000000005615 parse_and_validate_mtx()  ???:0
+ 7 0x0000000000002bf7 main()  ???:0
+ 8 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 9 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+11 0x0000000000002cb5 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=824333.0 (status=0x0084).
+srun: error: n051: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=824333.0+0 received
+slurmstepd: error: *** JOB 824333 ON n051 CANCELLED AT 2025-05-05T22:15:36 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

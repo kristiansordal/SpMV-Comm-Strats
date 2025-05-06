@@ -1,0 +1,62 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[057-060]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 824372
+srun: job-name            : 1b_af_shell10_4_nodes_1_tasks_16_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 824372: nodes(4):`n[057-060]', cpu counts: 32(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=824372.0 on host n057, 1 tasks: 0
+srun: launching StepId=824372.0 on host n058, 1 tasks: 1
+srun: launching StepId=824372.0 on host n059, 1 tasks: 2
+srun: launching StepId=824372.0 on host n060, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+[n057:1557426:0:1557457] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:1:1557459] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:2:1557451] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:3:1557426] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:4:1557463] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:5:1557449] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:6:1557460] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:7:1557452] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:8:1557456] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:9:1557455] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:10:1557454] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:11:1557461] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:12:1557453] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:13:1557462] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:14:1557458] Caught signal 4 (Illegal instruction: illegal operand)
+[n057:1557426:15:1557450] Caught signal 4 (Illegal instruction: illegal operand)
+==== backtrace (tid:1557426) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000036dc normalize_graph._omp_fn.2()  mtx.c:0
+ 2 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:178
+ 3 0x0000000000018156 GOMP_parallel_end()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:140
+ 4 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:179
+ 5 0x0000000000005433 normalize_graph()  ???:0
+ 6 0x0000000000005615 parse_and_validate_mtx()  ???:0
+ 7 0x0000000000002bf7 main()  ???:0
+ 8 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 9 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+11 0x0000000000002cb5 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=824372.0 (status=0x0084).
+srun: error: n057: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=824372.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 824372 ON n057 CANCELLED AT 2025-05-06T01:04:37 DUE TO TIME LIMIT ***

@@ -1,0 +1,63 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[051-054]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 824268
+srun: job-name            : 1a_Bump_2911_4_nodes_1_tasks_16_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 824268: nodes(4):`n[051-054]', cpu counts: 32(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=824268.0 on host n051, 1 tasks: 0
+srun: launching StepId=824268.0 on host n052, 1 tasks: 1
+srun: launching StepId=824268.0 on host n053, 1 tasks: 2
+srun: launching StepId=824268.0 on host n054, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+[n051:1552590:0:1552627] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:1:1552618] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:2:1552619] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:3:1552620] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:4:1552626] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:5:1552590] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:6:1552616] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:7:1552624] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:8:1552617] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:9:1552625] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:10:1552623] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:11:1552615] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:12:1552613] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:13:1552621] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:14:1552614] Caught signal 4 (Illegal instruction: illegal operand)
+[n051:1552590:15:1552622] Caught signal 4 (Illegal instruction: illegal operand)
+BFD: DWARF error: invalid or unhandled FORM value: 0x1555
+==== backtrace (tid:1552590) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000035cc normalize_graph._omp_fn.2()  mtx.c:0
+ 2 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:178
+ 3 0x0000000000018156 GOMP_parallel_end()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:140
+ 4 0x0000000000018156 GOMP_parallel()  /home/torel/workspace/GCC/gcc-releases-gcc-13.2.0/Build-x86_64/x86_64-linux-gnu/libgomp/../../../libgomp/parallel.c:179
+ 5 0x0000000000005323 normalize_graph()  ???:0
+ 6 0x0000000000005505 parse_and_validate_mtx()  ???:0
+ 7 0x0000000000002877 main()  ???:0
+ 8 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 9 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+10 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+11 0x0000000000002ba5 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=824268.0 (status=0x0084).
+srun: error: n051: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=824268.0+0 received
+slurmstepd: error: *** JOB 824268 ON n051 CANCELLED AT 2025-05-05T16:38:32 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
