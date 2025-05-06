@@ -1,22 +1,22 @@
 srun: defined options
 srun: -------------------- --------------------
-srun: (null)              : n003
+srun: (null)              : n004
 srun: cpus-per-task       : 1
 srun: distribution        : block:block
-srun: jobid               : 826541
-srun: job-name            : 2d_Long_Coup_dt0_1_nodes_32_tasks_1_threads
+srun: jobid               : 826555
+srun: job-name            : 2d_af_shell10_1_nodes_32_tasks_1_threads
 srun: nodes               : 1
 srun: ntasks              : 32
 srun: ntasks-per-node     : 32
 srun: verbose             : 1
 srun: -------------------- --------------------
 srun: end of defined options
-srun: jobid 826541: nodes(1):`n003', cpu counts: 128(x1)
+srun: jobid 826555: nodes(1):`n004', cpu counts: 128(x1)
 srun: Implicitly setting --exact, because -c/--cpus-per-task given.
 srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
-srun: launching StepId=826541.0 on host n003, 32 tasks: [0-31]
+srun: launching StepId=826555.0 on host n004, 32 tasks: [0-31]
 srun: route/default: init: route default plugin loaded
-srun: launch/slurm: _task_start: Node n003, 32 tasks started
+srun: launch/slurm: _task_start: Node n004, 32 tasks started
 srun: Sent KVS info to 1 nodes, up to 32 tasks per node
 srun: Sent KVS info to 1 nodes, up to 32 tasks per node
  Runtime parameters:
@@ -43,48 +43,48 @@ srun: Sent KVS info to 1 nodes, up to 32 tasks per node
 
 
 Timing Information -------------------------------------------------
- Multilevel: 		  15.279
-     Coarsening: 		  11.199
-            Matching: 			   2.361
-            Contract: 			   8.575
-     Initial Partition: 	   0.003
-     Uncoarsening: 		   1.612
-          Refinement: 			   0.790
-          Projection: 			   0.820
-     Splitting: 		   2.048
+ Multilevel: 		   8.137
+     Coarsening: 		   6.296
+            Matching: 			   1.727
+            Contract: 			   4.417
+     Initial Partition: 	   0.002
+     Uncoarsening: 		   0.539
+          Refinement: 			   0.142
+          Projection: 			   0.396
+     Splitting: 		   1.066
 ********************************************************************
 
  gk_mcore statistics
-           coresize:     17643156         nmops:         2048  cmop:      0
-        num_callocs:         4471   num_hallocs:            0
-       size_callocs:    393911496  size_hallocs:            0
+           coresize:     18098112         nmops:         2048  cmop:      0
+        num_callocs:         4914   num_hallocs:            0
+       size_callocs:    395735512  size_hallocs:            0
         cur_callocs:            0   cur_hallocs:            0
-        max_callocs:     17641832   max_hallocs:            0
+        max_callocs:     18096800   max_hallocs:            0
  nbrpool statistics
         nbrpoolsize:            0   nbrpoolcpos:            0
     nbrpoolreallocs:            0
 
- unknowns: 1470152
+ unknowns: 1508065
  solves: 1
  total iterations: 100
- total flops: 18.377 Gflop
- total flop rate: 12.119 Gflop/s
- total solver time: 1.516449 seconds
+ total flops: 10.649 Gflop
+ total flop rate: 11.768 Gflop/s
+ total solver time: 0.904893 seconds
  performance breakdown:
  omp enabled: 0
-  SpMV: 1.323376 seconds/proc 100 times/proc 3582853675 B/proc 2.707 GB/s/proc
+  SpMV: 0.811014 seconds/proc 100 times/proc 2130020425 B/proc 2.626 GB/s/proc
    dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
-   MPI_HaloExchange: 0.179182 seconds/proc 100 times/proc 8446200 B/proc 0.047 GB/s/proc 1062.5 msg/proc 0.165 µs/msg/proc
-     pack: 0.004608 seconds/proc 100 times/proc 21115500 B/proc 4.583 GB/s/proc
-     unpack: 0.005170 seconds/proc 100 times/proc 21115500 B/proc 4.085 GB/s/proc
-     MPI_Recv: 0.169242 seconds/proc 1062.5 times/proc 8446200 B/proc 0.050 GB/s/proc
-     MPI_Send: 0.118396 seconds/proc 1062.5 times/proc 8446200 B/proc 0.071 GB/s/proc
-     MPI_Waitall: 0.000067 seconds/proc 100 times/proc
-   other: 0.000046 seconds
+   MPI_HaloExchange: 0.083132 seconds/proc 100 times/proc 1439000 B/proc 0.017 GB/s/proc 456.2 msg/proc 0.178 µs/msg/proc
+     pack: 0.000735 seconds/proc 100 times/proc 3597500 B/proc 4.893 GB/s/proc
+     unpack: 0.000697 seconds/proc 100 times/proc 3597500 B/proc 5.164 GB/s/proc
+     MPI_Recv: 0.081540 seconds/proc 456.2 times/proc 1439000 B/proc 0.018 GB/s/proc
+     MPI_Send: 0.045569 seconds/proc 456.2 times/proc 1439000 B/proc 0.032 GB/s/proc
+     MPI_Waitall: 0.000071 seconds/proc 100 times/proc
+   other: 0.000050 seconds
  last solve:
    stopping criterion:
      maximum iterations: 100
@@ -101,9 +101,7 @@ Timing Information -------------------------------------------------
    floating-point exceptions: inexact
 srun: Sent KVS info to 1 nodes, up to 32 tasks per node
 srun: Sent KVS info to 1 nodes, up to 32 tasks per node
-srun: launch/slurm: _task_finish: Received task exit notification for 26 tasks of StepId=826541.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n003: tasks 2-6,8-9,11-16,18-21,23-31: Completed
-srun: launch/slurm: _task_finish: Received task exit notification for 5 tasks of StepId=826541.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n003: tasks 1,7,10,17,22: Completed
-srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=826541.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n003: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 31 tasks of StepId=826555.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n004: tasks 1-31: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=826555.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n004: task 0: Completed
