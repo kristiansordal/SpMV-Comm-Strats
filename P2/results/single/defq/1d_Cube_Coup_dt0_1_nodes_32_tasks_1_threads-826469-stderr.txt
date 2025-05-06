@@ -1,0 +1,29 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n002
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 826469
+srun: job-name            : 1d_Cube_Coup_dt0_1_nodes_32_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 32
+srun: ntasks-per-node     : 32
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 826469: nodes(1):`n002', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=826469.0 on host n002, 32 tasks: [0-31]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 32 tasks started
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: Sent KVS info to 1 nodes, up to 32 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 11 tasks of StepId=826469.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: tasks 0,2-4,8-9,12,14,17,23-24: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 19 tasks of StepId=826469.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: tasks 1,5-7,10-11,15-16,18-22,26-31: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=826469.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: tasks 13,25: Completed

@@ -1,0 +1,27 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n003
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 826365
+srun: job-name            : 1b_dielFilterV3real_1_nodes_64_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 64
+srun: ntasks-per-node     : 64
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 826365: nodes(1):`n003', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=826365.0 on host n003, 64 tasks: [0-63]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n003, 64 tasks started
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 61 tasks of StepId=826365.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 0-10,12-20,22-62: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 3 tasks of StepId=826365.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 11,21,63: Completed
