@@ -1,6 +1,0 @@
-Done parsing mtx
-|V|=2164760 |E|=127206144
-Normalizing graph
-Mean of graph: 2865558760331319.000000
-Std of graph: 36977394423.277306
-Sorting edges

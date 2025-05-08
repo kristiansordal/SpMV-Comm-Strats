@@ -1,1 +1,0 @@
-/cm/local/apps/slurm/var/spool/job820564/slurm_script: line 23: srun--verbose: command not found

@@ -1,9 +1,0 @@
-Done parsing mtx
-2164760, 2164760, 64685452
-|V|=2164760 |E|=127206144
-Normalizing graph
-Mean of graph: 2865558760432739.500000
-[1746388702.920784] [n001:2237305:1]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
-[1746388702.920809] [n001:2237305:1]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
-[1746388702.920782] [n001:2237305:0]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
-[1746388702.920810] [n001:2237305:2]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
