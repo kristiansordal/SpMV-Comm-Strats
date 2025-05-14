@@ -85,10 +85,10 @@ int main(int argc, char **argv) {
                            y, // recvbuf
                            recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         }
+        double tc2 = MPI_Wtime();
         double *tmp = y;
         y = x;
         x = tmp;
-        double tc2 = MPI_Wtime();
         spmv_part_flops(g, rank, p[rank], p[rank + 1], x, y, &flops);
         double tc3 = MPI_Wtime();
         tcomm += tc2 - tc1;
