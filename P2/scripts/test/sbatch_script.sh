@@ -20,4 +20,4 @@ export UCX_TLS=rc,ud,self
 export UCX_NET_DEVICES=mlx5_1:1
 export OMP_NUM_THREADS=16
 
-srun --verbose numactl -C0-15 /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a /global/D1/projects/mtx/datasets/suitesparse/Oberwolfach/bone010/bone010.mtx
+srun --verbose numactl -C0-15 /home/krisor99/SpMV-Comm-Strats/P2/build/rome16q/1a /global/D1/projects/mtx/datasets/suitesparse/Oberwolfach/bone010/bone010.mtx
