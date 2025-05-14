@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
 
     CSR g;
-    double tcomm, tcomp, t0, t1, tc1, tc2, tc3;
+    double tcomm, tcomp, t0, t1; // tc1, tc2, tc3;
     int *p = malloc(sizeof(int) * size + 1);
 
     if (rank == 0) {
@@ -57,12 +57,8 @@ int main(int argc, char **argv) {
     int sendcount = p[rank + 1] - p[rank];
     int *displs = malloc(size * sizeof(int));
 
-    for (int i = 0; i < size + 1; i++) {
+    for (int i = 0; i < size + 1; i++)
         recvcounts[i] = p[i + 1] - p[i];
-        if (rank == 0) {
-            printf("%d\n", recvcounts[i]);
-        }
-    }
 
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
@@ -74,12 +70,12 @@ int main(int argc, char **argv) {
     t0 = MPI_Wtime();
     long double flops = 0;
     for (int i = 0; i < 100; i++) {
-        tc1 = MPI_Wtime();
+        double tc1 = MPI_Wtime();
         spmv_part_flops(g, rank, p[rank], p[rank + 1], x, y, &flops);
         MPI_Barrier(MPI_COMM_WORLD);
-        tc2 = MPI_Wtime();
+        double tc2 = MPI_Wtime();
         MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
-        tc3 = MPI_Wtime();
+        double tc3 = MPI_Wtime();
         double *tmp = x;
         x = y;
         y = tmp;

@@ -71,23 +71,8 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         MPI_Barrier(MPI_COMM_WORLD);
         double tc1 = MPI_Wtime();
-        // if (size == 1) {
-        // in-place allgather: leaves y[] untouched
-        // MPI_Allgatherv(MPI_IN_PLACE,      // sendbuf
-        //                0,                 // sendcount
-        //                MPI_DATATYPE_NULL, // sendtype
-        //                y,                 // recvbuf
-        //                recvcounts,        // recvcounts[0] = g.num_rows
-        //                displs,            // displs[0]     = 0
-        //                MPI_DOUBLE, MPI_COMM_WORLD);
-        /* } else { */
-        // your normal multi-rank call
-        MPI_Allgatherv(y + displs[rank],   // sendbuf
-                       c.send_count[rank], // sendcount
-                       MPI_DOUBLE,
-                       y, // recvbuf
-                       c.send_count, displs, MPI_DOUBLE, MPI_COMM_WORLD);
-        // }
+        MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
+                       MPI_COMM_WORLD);
         double tc2 = MPI_Wtime();
         double *tmp = y;
         y = x;
@@ -144,6 +129,7 @@ int main(int argc, char **argv) {
         printf("GFLOPS = %lf\n", ops / (time * 1e9));
         printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
                avg_comm_size);
+        fflush(stdout);
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
