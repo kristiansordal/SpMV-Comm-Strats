@@ -72,6 +72,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         tc1 = MPI_Wtime();
         spmv_part_flops(g, rank, p[rank], p[rank + 1], x, y, &flops);
+        MPI_Barrier(MPI_COMM_WORLD);
         tc2 = MPI_Wtime();
         MPI_Allgatherv(y + displs[rank], sendcount, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         double *tmp = x;
@@ -106,7 +107,6 @@ int main(int argc, char **argv) {
 
     double time = t1 - t0;
     MPI_Barrier(MPI_COMM_WORLD);
-
     // Print results
     if (rank == 0) {
         printf("Total time = %lfs\n", time);

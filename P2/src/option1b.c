@@ -66,8 +66,8 @@ int main(int argc, char **argv) {
 
     t0 = MPI_Wtime();
     for (int i = 0; i < 100; i++) {
-        double tc1 = MPI_Wtime();
         MPI_Barrier(MPI_COMM_WORLD);
+        double tc1 = MPI_Wtime();
         if (size == 1) {
             // in-place allgather: leaves y[] untouched
             MPI_Allgatherv(MPI_IN_PLACE,      // sendbuf

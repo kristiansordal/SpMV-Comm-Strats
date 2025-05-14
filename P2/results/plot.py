@@ -3,17 +3,30 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, DefaultDict, List
 from matplotlib.ticker import LogLocator as LL
+from matplotlib.ticker import LogLocator, LogFormatter
 from matplotlib.patches import Patch
+import matplotlib.ticker as mticker
 from sys import argv
 import numpy as np
 import re
 import matplotlib as mpl
+from matplotlib import cm
 
-mpl.rcParams.update(
+mpl.rcParams.update({"text.usetex": True, "font.family": "Times New Roman", "font.size": 16})
+
+colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
+num_rows_per_matrix = defaultdict(
+    lambda: 1,
     {
-        "text.usetex": True,
-        "font.family": "Times New Roman",
-    }
+        "Serena": 1391349,
+        "nlpkkt200": 16240000,
+        "Bump_2911": 2911419,
+        "Cube_Coup_dt0": 2164760,
+        "dielFilterV3real": 1102824,
+        "Long_Coup_dt0": 1470152,
+        "bone010": 986703,
+        "af_shell10": 1508065,
+    },
 )
 
 
@@ -72,8 +85,8 @@ def parse_file_name_single(file_name: str):
         elif "threads" in token:
             threads = int(tokens[i - 1])
 
-    if tasks > 1 or "mpi" in file_name:
-        mpi = 1
+    # if tasks > 1 or "mpi" in file_name:
+    #     mpi = 1
     name = "_".join(name.split("_")[1:])
     return comm_strat, name, nodes, tasks, threads, mpi
 
@@ -107,14 +120,19 @@ def gather_results(directory, results):
 
     for file in directory.iterdir():
 
-        if not file.is_file() or "stderr" in file.name:
+        if (
+            not file.is_file()
+            or "stderr" in file.name
+            or "mpi" in file.name
+            # or "Bump" not in file.name
+        ):
             continue
         valid_result = False
         flops = 0
         for line in file.open():
             if "GFLOPS" in line:
                 flops = float(line.split()[2])
-                if flops > 0.5 and flops < 1000:
+                if flops > 0.005 and flops < 1000:
                     valid_result = True
                     break
         if not valid_result:
@@ -124,18 +142,26 @@ def gather_results(directory, results):
         job_id = int(job_id)
 
         if job_id > latest_files[config][1]:
-            print(config, flops)
             latest_files[config] = (str(file), job_id)  # type: ignore
 
     for config, (file, job_id) in latest_files.items():
-
         comm_strat, name, nodes, tasks, threads, mpi = parse_file_name_single(str(file))
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
+        tcomm /= 100
+        comm_min = (comm_min * (1024 * 1024 * 1024)) / (100 * 64)
+        comm_max = (comm_max * (1024 * 1024 * 1024)) / (100 * 64)
+        comm_avg = (comm_avg * (1024 * 1024 * 1024)) / (100 * 64)
+        comm_min /= num_rows_per_matrix[name]
+        comm_avg /= num_rows_per_matrix[name]
+        comm_max /= num_rows_per_matrix[name]
+        # comm_min /=
 
-        if gflops > 1000:
-            continue
-        if tasks > 2:
-            continue
+        # if comm_strat == "2d":
+        # gflops *= 1.5
+        # if gflops > 1000:
+        #     continue
+        # if tasks > 2:
+        #     continue
 
         if nodes == 1 and tasks == 1:
             comm_min = 0
@@ -146,51 +172,118 @@ def gather_results(directory, results):
                 nodes, tasks, threads, ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg
             )
         )
-        print(gflops)
 
 
 def plot_gflops_single(results):
-    fig, axes = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
-    titles = ["Shared Memory", "Distributed Memory"]
+    comm_strats = ["1a", "1b", "1c", "1d", "2d"]
+    comm_labels = {
+        "1a": "Exchange entire vector",
+        "1b": "Exchange separators",
+        "1c": "Exchange required separators",
+        "1d": "Exchange required elements",
+        "2d": "Exchange required elements, memory scalable",
+    }
 
-    for idx, use_mpi in enumerate([False, True]):
-        ax = axes[idx]
-        for comm_strat in ["1a", "1b", "1c", "1d", "2d"]:
-            all_threads = []
-            all_gflops = []
+    matrix_list = list(next(iter(results.values())).keys())
 
-            for matrix in results[comm_strat]:
-                for mpi_flag in results[comm_strat][matrix]:
-                    if (mpi_flag > 0) == use_mpi:
-                        for res in results[comm_strat][matrix][mpi_flag]:
-                            all_threads.append(res.threads if not mpi_flag else res.tasks)
-                            all_gflops.append(res.gflops)
-
-            if all_threads:
-                # Sort by number of threads
-                sorted_pairs = sorted(zip(all_threads, all_gflops))
-                threads_sorted, gflops_sorted = zip(*sorted_pairs)
-                ax.plot(threads_sorted, gflops_sorted, label=f"Comm {comm_strat}", marker="o")
-
-        # Set x-axis to log base 2
-        ax.set_xscale("log", base=2)
-
-        # Set nice xticks (1, 2, 4, 8, 16, 32, 64)
-        ticks = [1, 2, 4, 8, 16, 32, 64]
-        ax.set_xticks(ticks)
-        ax.set_xticklabels([str(t) for t in ticks])
-
-        # Set titles and labels
-        ax.set_title(titles[idx])
+    for matrix in matrix_list:
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.set_title(f"GFLOPS vs Tasks for {matrix}")
+        ax.set_xlabel("Tasks")
         ax.set_ylabel("GFLOPS")
-        ax.set_xlabel("Threads" if not use_mpi else "Processes")
-        ax.legend()
-        ax.grid(True, which="both", ls="--")
 
-    plt.tight_layout()
+        for i, strat in enumerate(comm_strats):
+            # gather all single-node runs for this matrix & strat
+            runs_all = []
+            for mpi_flag, runs in results.get(strat, {}).get(matrix, {}).items():
+                for res in runs:
+                    if getattr(res, "nodes", 1) != 1:
+                        continue
+                    # <— always use res.tasks here
+                    runs_all.append((res.tasks, res.gflops))
 
-    # plt.savefig(f"{matrix}_mpi{mpi}.png", dpi=600, bbox_inches="tight")
-    plt.show()
+            if not runs_all:
+                continue
+
+            # sort by task count
+            runs_all.sort(key=lambda t: t[0])
+            tasks, gflops = zip(*runs_all)
+
+            ax.plot(
+                tasks,
+                gflops,
+                marker="o",
+                linestyle="-",
+                color=colors[i],
+                label=comm_labels[strat],
+            )
+
+        ax.grid(True, linestyle="--", alpha=0.6)
+        ax.legend(title="Comm Strategy", loc="best")
+        ax.set_xlim(left=1)
+        ax.set_xscale("log")
+        ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+        ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        plt.tight_layout()
+        plt.show()
+        plt.close()
+
+
+def plot_tcomm_single(results):
+    comm_strats = ["1a", "1b", "1c", "1d", "2d"]
+    comm_labels = {
+        "1a": "Exchange entire vector",
+        "1b": "Exchange separators",
+        "1c": "Exchange required separators",
+        "1d": "Exchange required elements",
+        "2d": "Exchange required elements, memory scalable",
+    }
+
+    matrix_list = list(next(iter(results.values())).keys())
+
+    for matrix in matrix_list:
+        fig, ax = plt.subplots(figsize=(8, 5))
+        # ax.set_title(f"GFLOPS vs Tasks for {matrix}")
+        ax.set_xlabel("Ranks")
+        ax.set_ylabel("Communication time per iteration SpMV [s]")
+
+        for i, strat in enumerate(comm_strats):
+            # gather all single-node runs for this matrix & strat
+            runs_all = []
+            for mpi_flag, runs in results.get(strat, {}).get(matrix, {}).items():
+                for res in runs:
+                    if getattr(res, "nodes", 1) != 1:
+                        continue
+                    # <— always use res.tasks here
+                    runs_all.append((res.tasks, res.tcomm))
+
+            if not runs_all:
+                continue
+
+            # sort by task count
+            runs_all.sort(key=lambda t: t[0])
+            tasks, tcomm = zip(*runs_all)
+
+            ax.plot(
+                tasks,
+                tcomm,
+                marker="o",
+                linestyle="-",
+                color=colors[i],
+                label=comm_labels[strat],
+            )
+
+        ax.grid(True, linestyle="--", alpha=0.6)
+        ax.legend(loc="best")
+        # ax.set_xlim(left=1)
+        ax.set_xscale("log")
+        ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+        ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        ax.xaxis.set_minor_locator(mticker.NullLocator())
+        plt.tight_layout()
+        # plt.show()
+        # plt.savefig(f"{matrix}_tcomm_single_defq.png", dpi=600, bbox_inches="tight")
+        plt.close()
 
 
 def plot_compare_comm_strat_split(results):
@@ -199,9 +292,9 @@ def plot_compare_comm_strat_split(results):
         "1b": "Exchange separators",
         "1c": "Exchange required separators",
         "1d": "Exchange required elements",
-        "2d": "Fully Scalable",
+        "2d": "Exchange required elements, memory scalable",
     }
-    colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
+    # colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
     mpi_labels = ["1 process per node", "1 process per socket"]
 
     for matrix in results[next(iter(results))]:  # Loop over matrix names
@@ -211,7 +304,7 @@ def plot_compare_comm_strat_split(results):
             fig, ax = plt.subplots(figsize=(5, 5))
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
-            ax.set_xlabel("Nodes")
+            ax.set_xlabel("Ranks")
             ax.set_ylabel("GFLOPS")
 
             for i, (comm_strat, matrices) in enumerate(sorted(results.items())):
@@ -234,8 +327,58 @@ def plot_compare_comm_strat_split(results):
                 ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 8])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                plt.savefig(f"{matrix}_rome16q.png", dpi=600, bbox_inches="tight")
-                # plt.show()
+                # plt.savefig(f"{matrix}_rome16q.png", dpi=600, bbox_inches="tight")
+                plt.show()
+                plt.close()
+
+
+def plot_tcomm_multi(results):
+    comm_strats_dict = {
+        "1a": "Exchange entire vector",
+        "1b": "Exchange separators",
+        "1c": "Exchange required separators",
+        "1d": "Exchange required elements",
+        "2d": "Exchange required elements, memory scalable",
+    }
+    # colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
+    mpi_labels = ["1 process per node", "1 process per socket"]
+
+    for matrix in results[next(iter(results))]:  # Loop over matrix names
+        for mpi in [0, 1]:  # Loop over MPI modes
+            if mpi:
+                continue
+            fig, ax = plt.subplots(figsize=(12, 6))
+            # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
+
+            fig.suptitle(f"{matrix}")
+            ax.set_xlabel("Ranks")
+            ax.set_ylabel("Communication time per iteration SpMV")
+
+            for i, (comm_strat, matrices) in enumerate(sorted(results.items())):
+                if matrix in matrices and mpi in matrices[matrix]:
+                    sorted_results = sorted(matrices[matrix][mpi], key=lambda res: res.nodes)
+                    nodes = [res.nodes for res in sorted_results]
+                    tcomm = [res.tcomm / res.t for res in sorted_results]
+
+                    ax.plot(
+                        nodes,
+                        tcomm,
+                        marker="o",
+                        linestyle="-",
+                        color=colors[i % len(colors)],
+                        label=comm_strats_dict.get(comm_strat, comm_strat),
+                    )
+
+            if not mpi:
+                ax.legend(loc="upper left")
+                # ax.set_xscale("log")
+                ax.xaxis.set_minor_locator(mticker.NullLocator())
+                ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 8])
+                ax.set_xticklabels([1, 2, 3, 4, 5, 6, 7, 8])
+                ax.grid(True, linestyle="--", alpha=0.6)
+                plt.tight_layout()
+                # plt.savefig(f"{matrix}_tcomm_{partition}.png", dpi=600, bbox_inches="tight")
+                plt.show()
                 plt.close()
 
 
@@ -245,18 +388,18 @@ def plot_compare_comm_strat(results):
         fig.suptitle(f"GFLOPS Comparison for {matrix}")
 
         mpi_labels = ["1 process per node", "1 process per socket"]
-        colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
+        # colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
         comm_strats_dict = {
             "1a": "Exchange entire vector",
             "1b": "Exchange separators",
             "1c": "Exchange required separators",
             "1d": "Exchange required elements",
-            "2d": "Fully scalable",
+            "2d": "Exchange required elements, memory scalable",
         }
 
         for mpi, ax in enumerate(axes):
             ax.set_title(mpi_labels[mpi])
-            ax.set_xlabel("Nodes")
+            ax.set_xlabel("Ranks")
             ax.set_ylabel("GFLOPS" if mpi == 0 else "")  # Only label y-axis on the left
 
             for i, (comm_strat, matrices) in enumerate(results.items()):
@@ -280,9 +423,55 @@ def plot_compare_comm_strat(results):
 
         axes[0].legend()  # Only add legend to the right plot
         plt.tight_layout()
-        plt.savefig(f"{matrix}_fpgaq.png", dpi=600, bbox_inches="tight")
+        plt.savefig(f"{matrix}_{partition}.png", dpi=600, bbox_inches="tight")
         # plt.show()
         plt.close()
+
+
+# def plot_compare_comm_strat(results):
+#     for matrix in results[next(iter(results))]:  # Iterate over matrix names
+#         fig, axes = plt.subplots(1, 2, figsize=(12, 6), sharey=True)
+#         fig.suptitle(f"GFLOPS Comparison for {matrix}")
+
+#         mpi_labels = ["1 process per node", "1 process per socket"]
+#         # colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
+#         comm_strats_dict = {
+#             "1a": "Exchange entire vector",
+#             "1b": "Exchange separators",
+#             "1c": "Exchange required separators",
+#             "1d": "Exchange required elements",
+#             "2d": "Exchange required elements, memory scalable",
+#         }
+
+#         for mpi, ax in enumerate(axes):
+#             ax.set_title(mpi_labels[mpi])
+#             ax.set_xlabel("Ranks")
+#             ax.set_ylabel("GFLOPS" if mpi == 0 else "")  # Only label y-axis on the left
+
+#             for i, (comm_strat, matrices) in enumerate(results.items()):
+
+#                 if matrix in matrices and mpi in matrices[matrix]:
+#                     # Sort the results by number of nodes in ascending order
+#                     sorted_results = sorted(matrices[matrix][mpi], key=lambda res: res.nodes)
+#                     nodes = [res.nodes for res in sorted_results]
+#                     gflops = [res.gflops for res in sorted_results]
+
+#                     ax.plot(
+#                         nodes,
+#                         gflops,
+#                         marker="o",
+#                         linestyle="-",
+#                         color=colors[i % len(colors)],
+#                         label=comm_strats_dict[comm_strat],
+#                     )
+
+#             ax.grid(True, linestyle="--", alpha=0.6)
+
+#         axes[0].legend()  # Only add legend to the right plot
+#         plt.tight_layout()
+#         # plt.savefig(f"{matrix}_{partition}.png", dpi=600, bbox_inches="tight")
+#         plt.show()
+#         plt.close()
 
 
 def plot_comm_load(results):
@@ -314,7 +503,7 @@ def plot_comm_load(results):
     # Plot configuration
     bar_width = 0.15
     opacity = 0.8
-    colors = ["b", "g", "r", "c", "m", "y", "k"]
+    # colors = ["b", "g", "r", "c", "m", "y", "k"]
     mpi_labels = ["Single-socket", "Dual-socket"]
 
     # X-axis positions for groups
@@ -343,6 +532,7 @@ def plot_comm_load(results):
 
     ax.set_yscale("log")  # Set y-axis to logarithmic scale
     ax.yaxis.set_major_locator(LL(base=10, numticks=15))
+
     ax.yaxis.set_minor_locator(
         LL(base=10, subs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], numticks=12)
     )
@@ -359,183 +549,403 @@ def plot_comm_load(results):
     plt.show()
 
 
-def plot_comm_and_comp_time(results):
-    comm_strats = list(results.keys())
+# def plot_comm_and_comp_time(results):
+#     comm_strats = list(results.keys())
 
-    for matrix in results[next(iter(results))]:  # Iterate over matrix names
-        fig, axes = plt.subplots(1, 2, figsize=(14, 8), sharey=True)
-        fig.suptitle(f"Communication and Computation Time for {matrix}", fontsize=16)
+#     for matrix in results[next(iter(results))]:  # Iterate over matrix names
+#         fig, axes = plt.subplots(1, 2, figsize=(14, 8), sharey=True)
+#         fig.suptitle(f"Communication and Computation Time for {matrix}", fontsize=16)
 
-        node_counts = sorted(
-            {
-                res.nodes
-                for comm_strat in results.values()
-                for mat_name, mpi_data in comm_strat.items()
-                if mat_name == matrix
-                for res_list in mpi_data.values()
-                for res in res_list
-            }
-        )
+#         node_counts = sorted(
+#             {
+#                 res.nodes
+#                 for comm_strat in results.values()
+#                 for mat_name, mpi_data in comm_strat.items()
+#                 if mat_name == matrix
+#                 for res_list in mpi_data.values()
+#                 for res in res_list
+#             }
+#         )
 
-        bar_width = 0.15
-        index = np.arange(len(node_counts))
-        colors = {"comm": "skyblue", "comp": "sandybrown"}
-        mpi_labels = ["Single MPI Process", "Dual MPI Processes"]
+#         bar_width = 0.15
+#         index = np.arange(len(node_counts))
+#         # colors = {"comm": "skyblue", "comp": "sandybrown"}
+#         mpi_labels = ["Single MPI Process", "Dual MPI Processes"]
 
-        for mpi in [0, 1]:
-            ax = axes[mpi]
-            ax.set_title(mpi_labels[mpi])
-            ax.set_xlabel("Number of Nodes")
-            if mpi == 0:
-                ax.set_ylabel("Time (s)")
-            ax.set_xticks(index + ((len(comm_strats) - 1) / 2) * bar_width)
-            ax.set_xticklabels([f"{n}" for n in node_counts])
-            ax.grid(True, linestyle="--", alpha=0.6)
+#         for mpi in [0, 1]:
+#             ax = axes[mpi]
+#             ax.set_title(mpi_labels[mpi])
+#             ax.set_xlabel("Number of Nodes")
+#             if mpi == 0:
+#                 ax.set_ylabel("Time (s)")
+#             ax.set_xticks(index + ((len(comm_strats) - 1) / 2) * bar_width)
+#             ax.set_xticklabels([f"{n}" for n in node_counts])
+#             ax.grid(True, linestyle="--", alpha=0.6)
 
-            for i, comm_strat in enumerate(comm_strats):
-                if matrix not in results[comm_strat] or mpi not in results[comm_strat][matrix]:
+#             for i, comm_strat in enumerate(comm_strats):
+#                 if matrix not in results[comm_strat] or mpi not in results[comm_strat][matrix]:
+#                     continue
+#                 strat_results = results[comm_strat][matrix][mpi]
+
+#                 # Map node count -> list of times
+#                 time_by_node = defaultdict(list)
+#                 for res in strat_results:
+#                     time_by_node[res.nodes].append(res)
+
+#                 comm_times = []
+#                 comp_times = []
+#                 for node in node_counts:
+#                     entries = time_by_node[node]
+#                     if entries:
+#                         avg_comm = np.mean([r.tcomm for r in entries])
+#                         avg_comp = np.mean([r.tcomp for r in entries])
+#                     else:
+#                         avg_comm = 0
+#                         avg_comp = 0
+#                     comm_times.append(avg_comm)
+#                     comp_times.append(avg_comp)
+
+#                 pos = index + i * bar_width
+#                 ax.bar(pos, comm_times, bar_width, label=f"{comm_strat} comm", color=colors["comm"])
+#                 ax.bar(
+#                     pos,
+#                     comp_times,
+#                     bar_width,
+#                     bottom=comm_times,
+#                     label=f"{comm_strat} comp",
+#                     color=colors["comp"],
+#                 )
+
+#         handles = [
+#             Patch(facecolor=colors["comm"], label="Communication"),
+#             Patch(facecolor=colors["comp"], label="Computation"),
+#         ]
+#         labels = ["Communication", "Computation"]
+#         fig.legend(handles, labels, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 0.94))
+#         plt.tight_layout()
+#         plt.show()
+
+
+def plot_comm_min_avg_max_nonmpi_single(results):
+    # Exclude strategies '1a' and '2d'
+    comm_strats = sorted(k for k in results.keys() if k not in ("1a", "2d"))
+    markers = {"min": "o", "avg": "s", "max": "^"}
+    labels = ["min", "avg", "max"]
+    comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
+
+    for matrix in results[next(iter(results))]:  # Loop over matrix names
+        # Collect all runs for mpi=0 & single-node
+        runs_by_strat = {
+            strat: [r for r in results[strat][matrix].get(0, []) if getattr(r, "nodes", 1) == 1]
+            for strat in comm_strats
+        }
+
+        # Determine all unique task counts across strategies
+        all_tasks = sorted({r.tasks for runs in runs_by_strat.values() for r in runs})
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        # ax.set_title(f"Communication Load for {matrix} (single node)")
+        ax.set_xlabel("Ranks")
+        ax.set_ylabel("\% of $x$ communicated per iteration SpMV")
+
+        added_labels = set()
+
+        # For each strategy, scatter min/avg/max at each task count
+        for strat in comm_strats:
+            runs = runs_by_strat[strat]
+            if not runs:
+                continue
+
+            for t in all_tasks:
+                data = [r for r in runs if r.tasks == t]
+                if not data:
                     continue
-                strat_results = results[comm_strat][matrix][mpi]
 
-                # Map node count -> list of times
-                time_by_node = defaultdict(list)
-                for res in strat_results:
-                    time_by_node[res.nodes].append(res)
+                comm_mins = [r.comm_min for r in data]
+                comm_avgs = [r.comm_avg for r in data]
+                comm_maxs = [r.comm_max for r in data]
 
-                comm_times = []
-                comp_times = []
-                for node in node_counts:
-                    entries = time_by_node[node]
-                    if entries:
-                        avg_comm = np.mean([r.tcomm for r in entries])
-                        avg_comp = np.mean([r.tcomp for r in entries])
-                    else:
-                        avg_comm = 0
-                        avg_comp = 0
-                    comm_times.append(avg_comm)
-                    comp_times.append(avg_comp)
+                for vals, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
+                    leg = f"{strat} ({label})"
+                    ax.plot(
+                        [t] * len(vals),
+                        vals,
+                        marker=markers[label],
+                        linestyle="None",
+                        color=comm_colors[strat],
+                        label=leg if leg not in added_labels else None,
+                    )
+                    added_labels.add(leg)
 
-                pos = index + i * bar_width
-                ax.bar(pos, comm_times, bar_width, label=f"{comm_strat} comm", color=colors["comm"])
-                ax.bar(
-                    pos,
-                    comp_times,
-                    bar_width,
-                    bottom=comm_times,
-                    label=f"{comm_strat} comp",
-                    color=colors["comp"],
-                )
+        ax.set_xticks(all_tasks)
+        ax.set_xscale("log")
+        # ax.set_xscale("log")
+        ax.xaxis.set_minor_locator(mticker.NullLocator())
+        ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+        ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        ax.grid(True, linestyle="--", alpha=0.5)
 
-        handles = [
-            Patch(facecolor=colors["comm"], label="Communication"),
-            Patch(facecolor=colors["comp"], label="Computation"),
-        ]
-        labels = ["Communication", "Computation"]
-        fig.legend(handles, labels, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 0.94))
+        # Deduplicate legend entries
+        handles, labls = ax.get_legend_handles_labels()
+        by_label = dict(zip(labls, handles))
+        ax.legend(by_label.values(), by_label.keys(), fontsize=9, loc="best")
+
         plt.tight_layout()
         plt.show()
+        # plt.savefig(f"{matrix}_defq_commload_single.png", dpi=600, bbox_inches="tight")
+        plt.close()
 
 
 def plot_comm_min_avg_max(results):
-    # Exclude strategy '1a' from plotting
-    comm_strats = sorted(k for k in results.keys() if k != "1a" and k != "2d")
+    # Exclude strategies '1a' and '2d'
+    comm_strats = sorted(k for k in results.keys() if k not in ("1a", "2d"))
     markers = {"min": "o", "avg": "s", "max": "^"}
     labels = ["min", "avg", "max"]
+    colors = ["b", "g", "c"]
+    comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
 
-    # Assign distinct colors to the remaining strategies
-    color_list = ["red", "green", "magenta", "orange", "cyan"]
-    comm_colors = {
-        comm_strat: color_list[i % len(color_list)] for i, comm_strat in enumerate(comm_strats)
+    comm_strats_dict = {
+        "1a": "Exchange entire vector",
+        "1b": "Exchange separators",
+        "1c": "Exchange required separators",
+        "1d": "Exchange required elements",
+        "2d": "Exchange required elements, memory scalable",
     }
 
     for matrix in results[next(iter(results))]:  # Loop over matrix names
-        fig, axs = plt.subplots(1, 2, figsize=(18, 6), sharey=True)
-        fig.suptitle(f"Communication Load for {matrix}", fontsize=16)
+        # Collect all runs for mpi=0 & single-node
+        runs_by_strat = {
+            strat: [r for r in results[strat][matrix].get(0, [])] for strat in comm_strats
+        }
 
-        for ax_index, mpi in enumerate([0, 1]):
-            ax = axs[ax_index]
-            mode = "1 process per socket" if mpi == 0 else "1 process per node"
-            ax.set_title(mode)
+        # Determine all unique task counts across strategies
+        all_tasks = sorted({r.nodes for runs in runs_by_strat.values() for r in runs})
 
-            # Get unique node counts
-            node_counts = sorted(
-                {
-                    res.nodes
-                    for comm_strat in results.values()
-                    for mat_name, mpi_data in comm_strat.items()
-                    if mat_name == matrix
-                    for res in mpi_data.get(mpi, [])
-                }
-            )
+        fig, ax = plt.subplots(figsize=(12, 6))
+        # ax.set_title(f"Communication Load for {matrix} (single node)")
+        ax.set_xlabel("Ranks")
+        ax.set_ylabel("\% of $x$ communicated per iteration SpMV")
 
-            xticks = []
-            xticklabels = []
-            x_pos = 0
-            added_labels = set()
+        added_labels = set()
 
-            for n in node_counts:
-                for comm_strat in comm_strats:
-                    matching_results = results[comm_strat][matrix].get(mpi, [])
-                    data = [res for res in matching_results if res.nodes == n]
-                    if not data:
-                        x_pos += 1
-                        continue
+        # For each strategy, scatter min/avg/max at each task count
+        for strat in comm_strats:
+            runs = runs_by_strat[strat]
+            if not runs:
+                continue
 
-                    comm_mins = [r.comm_min for r in data]
-                    comm_avgs = [r.comm_avg for r in data]
-                    comm_maxs = [r.comm_max for r in data]
+            for t in all_tasks:
+                data = [r for r in runs if r.nodes == t]
+                if not data:
+                    continue
 
-                    for val, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
-                        legend_label = f"{comm_strat} ({label})"
-                        ax.plot(
-                            [x_pos] * len(val),
-                            val,
-                            marker=markers[label],
-                            linestyle="None",
-                            color=comm_colors[comm_strat],
-                            alpha=0.7,
-                            label=legend_label if legend_label not in added_labels else None,
-                        )
-                        added_labels.add(legend_label)
+                comm_mins = [r.comm_min for r in data]
+                comm_avgs = [r.comm_avg for r in data]
+                comm_maxs = [r.comm_max for r in data]
 
-                    xticks.append(x_pos)
-                    xticklabels.append(f"{n}\n{comm_strat}")
-                    x_pos += 1
+                for vals, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
+                    leg = f"{strat} ({label})"
+                    ax.plot(
+                        [t] * len(vals),
+                        vals,
+                        marker=markers[label],
+                        linestyle="None",
+                        color=comm_colors[strat],
+                        label=(
+                            f"{comm_strats_dict[leg.split()[0]]} {leg.split()[1]}"
+                            if leg not in added_labels
+                            else None
+                        ),
+                    )
+                    added_labels.add(leg)
 
-                x_pos += 1  # Extra space between node count groups
+        ax.set_xticks(all_tasks)
+        # ax.set_xscale("log")
+        # ax.set_xscale("log")
+        ax.xaxis.set_minor_locator(mticker.NullLocator())
+        ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 8])
+        ax.set_xticklabels([1, 2, 3, 4, 5, 6, 7, 8])
+        ax.grid(True, linestyle="--", alpha=0.5)
 
-            ax.set_xticks(xticks)
-            ax.set_xticklabels(xticklabels, rotation=45, ha="right", fontsize=9)
-            ax.set_xlabel("Number of nodes and communication strategy")
-            ax.set_yscale("log")
-            ax.grid(True, linestyle="--", alpha=0.5)
-
-            if ax_index == 0:
-                ax.set_ylabel("Communication Load [GB]")
-
-            handles, labels_ = ax.get_legend_handles_labels()
-            by_label = dict(zip(labels_, handles))
-            ax.legend(by_label.values(), by_label.keys(), fontsize=9)
+        # Deduplicate legend entries
+        handles, labls = ax.get_legend_handles_labels()
+        by_label = dict(zip(labls, handles))
+        ax.legend(by_label.values(), by_label.keys(), fontsize=9, loc="best")
 
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+        plt.savefig(f"{matrix}_commload_{partition}.png", dpi=600, bbox_inches="tight")
+        plt.close()
+
+
+def plot_comm_min_avg_max_nonmpi(results):
+    # Exclude strategies '1a' and '2d'
+    comm_strats = sorted(k for k in results.keys() if k not in ("1a", "2d"))
+    markers = {"min": "o", "avg": "s", "max": "^"}
+    labels = ["min", "avg", "max"]
+    comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
+
+    for matrix in results[next(iter(results))]:
+        # collect all non‐MPI runs (mpi_flag=0), across all nodes
+        runs_by_strat = {strat: results[strat][matrix].get(0, []) for strat in comm_strats}
+
+        # all unique node counts
+        all_nodes = sorted({r.nodes for runs in runs_by_strat.values() for r in runs})
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        # ax.set_title(f"Communication Load for {matrix} (non-MPI)")
+        ax.set_xlabel("Ranks")
+        ax.set_ylabel("Communication Load [GB]")
+
+        added_labels = set()
+
+        for strat in comm_strats:
+            runs = runs_by_strat[strat]
+            if not runs:
+                continue
+
+            for n in all_nodes:
+                data = [r for r in runs if r.nodes == n]
+                if not data:
+                    continue
+
+                comm_mins = [r.comm_min for r in data]
+                comm_avgs = [r.comm_avg for r in data]
+                comm_maxs = [r.comm_max for r in data]
+
+                for vals, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
+                    leg = f"{strat} ({label})"
+                    ax.plot(
+                        [n] * len(vals),
+                        vals,
+                        marker=markers[label],
+                        linestyle="None",
+                        color=comm_colors[strat],
+                        label=leg if leg not in added_labels else None,
+                    )
+                    added_labels.add(leg)
+
+        ax.set_xticks(all_nodes)
+        ax.grid(True, linestyle="--", alpha=0.5)
+        ax.set_xlabel("Ranks")
+        ax.set_ylabel("\% of $x$ communicated per iteration SpMV")
+
+        # dedupe legend
+        handles, labls = ax.get_legend_handles_labels()
+        by_label = dict(zip(labls, handles))
+        ax.legend(by_label.values(), by_label.keys(), fontsize=9, loc="best")
+
+        plt.tight_layout()
+        # plt.show()
+        # plt.savefig(f"{matrix}_rome16q_commload.png", dpi=600, bbox_inches="tight")
+        plt.close()
+
+
+# def plot_comm_min_avg_max(results):
+#     # Exclude strategy '1a' from plotting
+#     comm_strats = sorted(k for k in results.keys() if k != "1a" and k != "2d")
+#     markers = {"min": "o", "avg": "s", "max": "^"}
+#     labels = ["min", "avg", "max"]
+
+#     # Assign distinct colors to the remaining strategies
+#     # color_list = ["red", "green", "magenta", "orange", "cyan"]
+#     comm_colors = {comm_strat: colors[i % len(colors)] for i, comm_strat in enumerate(comm_strats)}
+
+#     for matrix in results[next(iter(results))]:  # Loop over matrix names
+#         fig, axs = plt.subplots(1, 2, figsize=(18, 6), sharey=True)
+#         fig.suptitle(f"Communication Load for {matrix}", fontsize=16)
+
+#         for ax_index, mpi in enumerate([0, 1]):
+#             ax = axs[ax_index]
+#             mode = "1 process per socket" if mpi == 0 else "1 process per node"
+#             ax.set_title(mode)
+
+#             # Get unique node counts
+#             node_counts = sorted(
+#                 {
+#                     res.nodes
+#                     for comm_strat in results.values()
+#                     for mat_name, mpi_data in comm_strat.items()
+#                     if mat_name == matrix
+#                     for res in mpi_data.get(mpi, [])
+#                 }
+#             )
+
+#             xticks = []
+#             xticklabels = []
+#             x_pos = 0
+#             added_labels = set()
+
+#             for n in node_counts:
+#                 for comm_strat in comm_strats:
+#                     matching_results = results[comm_strat][matrix].get(mpi, [])
+#                     data = [res for res in matching_results if res.nodes == n]
+#                     if not data:
+#                         x_pos += 1
+#                         continue
+
+#                     comm_mins = [r.comm_min for r in data]
+#                     comm_avgs = [r.comm_avg for r in data]
+#                     comm_maxs = [r.comm_max for r in data]
+
+#                     for val, label in zip([comm_mins, comm_avgs, comm_maxs], labels):
+#                         legend_label = f"{comm_strat} ({label})"
+#                         ax.plot(
+#                             [x_pos] * len(val),
+#                             val,
+#                             marker=markers[label],
+#                             linestyle="None",
+#                             color=comm_colors[comm_strat],
+#                             # alpha=0.7,
+#                             label=legend_label if legend_label not in added_labels else None,
+#                         )
+#                         added_labels.add(legend_label)
+
+#                     xticks.append(x_pos)
+#                     xticklabels.append(f"{n}\n{comm_strat}")
+#                     x_pos += 1
+
+#                 x_pos += 1  # Extra space between node count groups
+
+#             ax.set_xticks(xticks)
+#             ax.set_xticklabels(xticklabels, rotation=45, ha="right", fontsize=9)
+#             ax.set_xlabel("Number of nodes and communication strategy")
+#             ax.set_yscale("log")
+#             # ax.set_xscale("log")
+#             ax.grid(True, linestyle="--", alpha=0.5)
+
+#             if ax_index == 0:
+#                 ax.set_ylabel("Communication Load [GB]")
+
+#             handles, labels_ = ax.get_legend_handles_labels()
+#             by_label = dict(zip(labels_, handles))
+#             ax.legend(by_label.values(), by_label.keys(), fontsize=9)
+
+#         plt.tight_layout()
+#         plt.show()
+
+
+partition = "rome16q"
 
 
 def main():
     base_path = argv[1]
     partition = argv[2]
-    comm_strats = [argv[3]] if argv[3] != "all" else ["1a", "1b", "1c", "1d"]
     # Define nested defaultdicts
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     # for comm_strat in comm_strats:
     path = Path(base_path + partition)
     gather_results(path, results)
     # plot_gflops_single(results)
+    # plot_tcomm_single(results)
     # gather_results_from_directory(results, path, 0)
-    plot_comm_min_avg_max(results)
+    # plot_comm_min_avg_max(results)
+    # plot_comm_min_avg_max_nonmpi(results)
+    # plot_comm_min_avg_max_nonmpi_single(results)
     # plot_comm_and_comp_time(results)
     # plot_compare_comm_strat(results)
-    # plot_compare_comm_strat_split(results)
+    plot_tcomm_multi(results)
+    # plot_tcomm_single(results)
     # plot_comm_load(results)
     # plot_comm_load2(results)
 

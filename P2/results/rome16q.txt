@@ -1,3 +1,39 @@
+CA 'mlx5_4'
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.1014
+        Hardware version: 0
+        Node GUID: 0x58a2e10300c1587c
+        System image GUID: 0x58a2e10300c1587c
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 36
+                LMC: 0
+                SM lid: 36
+                Capability mask: 0xa751e84a
+                Port GUID: 0x58a2e10300c1587c
+                Link layer: InfiniBand
+
+CA 'mlx5_1'
+        CA type: MT4123
+        Number of ports: 1
+        Firmware version: 20.43.1014
+        Hardware version: 0
+        Node GUID: 0x0c42a103000a7d51
+        System image GUID: 0x0c42a103000a7d50
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 200
+                Base lid: 11
+                LMC: 0
+                SM lid: 11
+                Capability mask: 0xa651e84a
+                Port GUID: 0x0c42a103000a7d51
+                Link layer: InfiniBand
+
 Architecture:                         x86_64
 CPU op-mode(s):                       32-bit, 64-bit
 Byte Order:                           Little Endian

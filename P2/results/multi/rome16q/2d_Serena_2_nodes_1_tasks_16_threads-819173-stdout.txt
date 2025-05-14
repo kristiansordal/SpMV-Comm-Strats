@@ -3,6 +3,6 @@ Total time = 1.173943s
 Communication time = 0.048418s
 Copmutation time = 1.117926
 GFLOPS = 11.061903
-NFLOPS: 12986037800
+NFLOPS: 12 986 037 800
 num_cols: 1391349
 OpenMP is enabled
