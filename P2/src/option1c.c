@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
     long double comm_size = 0.0;
 
     for (int i = 0; i < size; i++) {
-        printf("%d,%d,%d\n", rank, i, c.send_items[rank][i]);
+        // printf("%d,%d,%d\n", rank, i, c.send_items[rank][i]);
         if (i != rank && c.send_items[rank][i] > 0) {
             comm_size += c.send_count[i];
         }
