@@ -57,8 +57,12 @@ int main(int argc, char **argv) {
     int sendcount = p[rank + 1] - p[rank];
     int *displs = malloc(size * sizeof(int));
 
-    for (int i = 0; i < size + 1; i++)
+    for (int i = 0; i < size + 1; i++) {
         recvcounts[i] = p[i + 1] - p[i];
+        if (rank == 0) {
+            printf("%d\n", recvcounts[i]);
+        }
+    }
 
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
