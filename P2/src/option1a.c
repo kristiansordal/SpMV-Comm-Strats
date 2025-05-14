@@ -88,7 +88,6 @@ int main(int argc, char **argv) {
         fflush(stdout);
     }
 
-    long double total_flops = 0;
     double l2 = 0.0;
     if (rank == 0) {
         for (int j = 0; j < g.num_rows; j++)
@@ -99,23 +98,18 @@ int main(int argc, char **argv) {
     long double max_comm_size = ((double)g.num_rows * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
     long double min_comm_size = ((double)g.num_rows * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
     long double avg_comm_size = ((double)g.num_rows * 100.0 * 64.0) / (1024.0 * 1024.0 * 1024.0);
-    MPI_Barrier(MPI_COMM_WORLD);
-    MPI_Reduce(&flops, &total_flops, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // Compute FLOPs and memory bandwidth
     double ops = (long long)g.num_cols * 2ll * 100ll; // 2 FLOPs per nonzero entry, 100 iterations
 
     double time = t1 - t0;
     MPI_Barrier(MPI_COMM_WORLD);
-    // Print results
     if (rank == 0) {
         printf("Total time = %lfs\n", time);
         printf("Communication time = %lfs\n", tcomm);
         printf("Copmutation time = %lfs\n", tcomp);
+        printf("NFLOPS = %f\n", ops);
         printf("GFLOPS = %lf\n", ops / (time * 1e9));
-        printf("compGFLOPS = %Lf\n", total_flops / (time * 1e9));
-        printf("NFLOPS1 = %f\n", ops);
-        printf("NFLOPS2 = %Lf\n", total_flops);
         printf("Comm min = %Lf GB\nComm max = %Lf GB\nComm avg = %Lf GB\n", min_comm_size, max_comm_size,
                avg_comm_size);
     }

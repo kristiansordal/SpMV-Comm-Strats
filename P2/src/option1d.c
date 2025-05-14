@@ -71,12 +71,13 @@ int main(int argc, char **argv) {
 
     t0 = MPI_Wtime();
     for (int i = 0; i < 100; i++) {
+        MPI_Barrier(MPI_COMM_WORLD);
         double tc1 = MPI_Wtime();
         exchange_required_separators(c, y, rank, size);
+        double tc2 = MPI_Wtime();
         double *tmp = y;
         y = x;
         x = tmp;
-        double tc2 = MPI_Wtime();
         spmv_part_flops(g, rank, p[rank], p[rank + 1], x, y, &flops);
         double tc3 = MPI_Wtime();
         tcomm += tc2 - tc1;
