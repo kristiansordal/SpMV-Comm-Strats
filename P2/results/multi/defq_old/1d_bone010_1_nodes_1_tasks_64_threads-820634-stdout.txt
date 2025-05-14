@@ -1,0 +1,132 @@
+Done parsing mtx
+986703, 986703, 36326514
+|V|=986703 |E|=71666325
+Normalizing graph
+Mean of graph: 1938020.284798
+[1746394414.976583] [n001:2255105:0]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.976584] [n001:2255105:1]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.976686] [n001:2255105:1]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.976729] [n001:2255105:1]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.976740] [n001:2255105:2]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.976881] [n001:2255105:2]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.976872] [n001:2255105:3]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.976922] [n001:2255105:3]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.976918] [n001:2255105:4]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.976962] [n001:2255105:4]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.976954] [n001:2255105:5]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.977300] [n001:2255105:5]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977292] [n001:2255105:6]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977333] [n001:2255105:6]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977334] [n001:2255105:7]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977384] [n001:2255105:7]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977400] [n001:2255105:8]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.977490] [n001:2255105:8]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977476] [n001:2255105:9]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977514] [n001:2255105:9]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977525] [n001:2255105:10]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977564] [n001:2255105:10]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977563] [n001:2255105:11]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.977606] [n001:2255105:11]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977612] [n001:2255105:12]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977691] [n001:2255105:12]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977673] [n001:2255105:13]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.977708] [n001:2255105:13]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977735] [n001:2255105:14]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977777] [n001:2255105:14]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977775] [n001:2255105:15]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.977805] [n001:2255105:15]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977814] [n001:2255105:16]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.977848] [n001:2255105:16]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977869] [n001:2255105:17]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.978006] [n001:2255105:17]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.977999] [n001:2255105:18]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.978095] [n001:2255105:18]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.978110] [n001:2255105:19]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.978154] [n001:2255105:19]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.978153] [n001:2255105:20]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.978187] [n001:2255105:20]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.978211] [n001:2255105:21]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.978405] [n001:2255105:21]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.978375] [n001:2255105:22]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.978670] [n001:2255105:22]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.978667] [n001:2255105:23]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.978970] [n001:2255105:23]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.979022] [n001:2255105:24]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.979375] [n001:2255105:24]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.979399] [n001:2255105:25]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.980148] [n001:2255105:25]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.980137] [n001:2255105:26]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.980427] [n001:2255105:26]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.980656] [n001:2255105:27]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.981623] [n001:2255105:27]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.981749] [n001:2255105:28]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.982480] [n001:2255105:28]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.982610] [n001:2255105:29]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.982750] [n001:2255105:29]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.982915] [n001:2255105:30]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.983038] [n001:2255105:30]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.983124] [n001:2255105:31]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.983780] [n001:2255105:31]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.984009] [n001:2255105:32]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.984390] [n001:2255105:32]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.984428] [n001:2255105:33]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.985316] [n001:2255105:33]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.985436] [n001:2255105:34]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.985493] [n001:2255105:34]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.985490] [n001:2255105:35]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.985545] [n001:2255105:35]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.985747] [n001:2255105:36]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.985992] [n001:2255105:36]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.986126] [n001:2255105:37]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.986656] [n001:2255105:37]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.986754] [n001:2255105:38]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.986831] [n001:2255105:38]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.986961] [n001:2255105:39]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.988693] [n001:2255105:39]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.988707] [n001:2255105:40]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.989085] [n001:2255105:40]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.989233] [n001:2255105:41]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.989722] [n001:2255105:41]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.989714] [n001:2255105:42]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.989855] [n001:2255105:42]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.989959] [n001:2255105:43]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.990030] [n001:2255105:43]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.990027] [n001:2255105:44]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.990070] [n001:2255105:44]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.990232] [n001:2255105:45]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.991298] [n001:2255105:45]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.991412] [n001:2255105:46]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.991641] [n001:2255105:46]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.991651] [n001:2255105:47]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.992100] [n001:2255105:47]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.992136] [n001:2255105:48]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.992811] [n001:2255105:48]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.992785] [n001:2255105:49]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.993369] [n001:2255105:49]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.993376] [n001:2255105:50]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.993789] [n001:2255105:50]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.993907] [n001:2255105:51]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.994105] [n001:2255105:51]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.994146] [n001:2255105:52]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.994707] [n001:2255105:52]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.994685] [n001:2255105:53]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.994953] [n001:2255105:53]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.994954] [n001:2255105:54]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.995007] [n001:2255105:54]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.995187] [n001:2255105:55]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.995471] [n001:2255105:55]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.995622] [n001:2255105:56]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.996505] [n001:2255105:56]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.996575] [n001:2255105:57]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.996671] [n001:2255105:57]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.996672] [n001:2255105:58]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.996715] [n001:2255105:58]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.996712] [n001:2255105:59]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 8 was not set in ucs
+[1746394414.996767] [n001:2255105:59]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.996930] [n001:2255105:60]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.997047] [n001:2255105:60]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.997264] [n001:2255105:61]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.997347] [n001:2255105:61]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.997350] [n001:2255105:62]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs
+[1746394414.997939] [n001:2255105:62]        spinlock.c:29   UCX  WARN  ucs_recursive_spinlock_destroy() failed: busy
+[1746394414.998035] [n001:2255105:63]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 1 was not set in ucs

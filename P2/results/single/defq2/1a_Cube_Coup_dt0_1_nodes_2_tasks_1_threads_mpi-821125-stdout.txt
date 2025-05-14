@@ -1,0 +1,6 @@
+Rank 1 at barrier 1
+Done parsing mtx
+2164760, 2164760, 64685452
+|V|=2164760 |E|=127206144
+Normalizing graph
+Mean of graph: 2865558760430079.000000

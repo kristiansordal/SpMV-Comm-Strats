@@ -1,0 +1,73 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-004]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 820537
+srun: job-name            : 1b_af_shell10_4_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 4
+srun: ntasks              : 8
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820537: nodes(4):`n[001-004]', cpu counts: 128(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820537.0 on host n001, 2 tasks: [0-1]
+srun: launching StepId=820537.0 on host n002, 2 tasks: [2-3]
+srun: launching StepId=820537.0 on host n003, 2 tasks: [4-5]
+srun: launching StepId=820537.0 on host n004, 2 tasks: [6-7]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n004, 2 tasks started
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: Sent KVS info to 4 nodes, up to 2 tasks per node
+srun: Sent KVS info to 4 nodes, up to 2 tasks per node
+[n001:2925160:0:2925214] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:1:2925216] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:2:2925205] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:3:2925190] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:4:2925207] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:5:2925202] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:6:2925213] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:7:2925160] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:8:2925192] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:9:2925188] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:10:2925196] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:11:2925206] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:12:2925210] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:13:2925193] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:14:2925189] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:15:2925209] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:16:2925194] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:17:2925203] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:18:2925212] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:19:2925195] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:20:2925199] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:21:2925197] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:22:2925215] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:23:2925187] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:24:2925201] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:25:2925204] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:26:2925208] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:27:2925191] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:28:2925200] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:29:2925211] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:30:2925217] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160:31:2925198] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2925160] *** Process received signal ***
+[n001:2925160] Signal: Segmentation fault (11)
+[n001:2925160] Signal code: Address not mapped (1)
+[n001:2925160] Failing at address: 0x28
+[n001:2925160] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:2925160] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4eb39)[0x1555541c5b39]
+[n001:2925160] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4ecec)[0x1555541c5cec]
+[n001:2925160] [ 3] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_bread+0xa4)[0x1555541bf3b4]
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820537.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820537.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820537 ON n001 CANCELLED AT 2025-05-05T21:31:35 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 820537.0 ON n001 CANCELLED AT 2025-05-05T21:31:35 DUE TO TIME LIMIT ***

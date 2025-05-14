@@ -1,0 +1,60 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n001
+srun: cpus-per-task       : 64
+srun: distribution        : block:block
+srun: jobid               : 816468
+srun: job-name            : 2d_Serena_1_nodes_1_tasks_64_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 816468: nodes(1):`n001', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=816468.0 on host n001, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+ unknowns: 1391349
+ solves: 1
+ total iterations: 5
+ total flops: 0.968 Gflop
+ total flop rate: 3.263 Gflop/s
+ total solver time: 0.296652 seconds
+ performance breakdown:
+ omp enabled: 1
+  SpMV: 0.296585 seconds/proc 5 times/proc 4066690920 B/proc 13.712 GB/s/proc
+   dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
+   MPI_HaloExchange: 0.000065 seconds/proc 5 times/proc 0 B/proc 0.000 GB/s/proc 0.0 msg/proc 0.000 µs/msg/proc
+     pack: 0.000002 seconds/proc 5 times/proc 0 B/proc 0.000 GB/s/proc
+     unpack: 0.000000 seconds/proc 5 times/proc 0 B/proc 0.000 GB/s/proc
+     MPI_Recv: 0.000045 seconds/proc 0.0 times/proc 0 B/proc 0.000 GB/s/proc
+     MPI_Send: 0.000001 seconds/proc 0.0 times/proc 0 B/proc 0.000 GB/s/proc
+     MPI_Waitall: 0.000003 seconds/proc 5 times/proc
+   other: 0.000002 seconds
+ last solve:
+   stopping criterion:
+     maximum iterations: 5
+     tolerance for residual: 0
+     tolerance for relative residual: 0
+     tolerance for difference in solution iterates: 0
+     tolerance for relative difference in solution iterates: 0
+   iterations: 5
+   right-hand side 2-norm: inf
+   initial guess 2-norm: inf
+   initial residual 2-norm: inf
+   residual 2-norm: inf
+   difference in solution iterates 2-norm: inf
+   floating-point exceptions: inexact
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=816468.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: task 0: Completed

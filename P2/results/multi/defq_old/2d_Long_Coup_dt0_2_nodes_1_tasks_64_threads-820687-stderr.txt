@@ -1,0 +1,40 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[002-003]
+srun: cpus-per-task       : 64
+srun: distribution        : block:block
+srun: jobid               : 820687
+srun: job-name            : 2d_Long_Coup_dt0_2_nodes_1_tasks_64_threads
+srun: nodes               : 2
+srun: ntasks              : 2
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820687: nodes(2):`n[002-003]', cpu counts: 128(x2)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820687.0 on host n002, 1 tasks: 0
+srun: launching StepId=820687.0 on host n003, 1 tasks: 1
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 1 tasks started
+srun: launch/slurm: _task_start: Node n003, 1 tasks started
+srun: Sent KVS info to 2 nodes, up to 1 tasks per node
+srun: Sent KVS info to 2 nodes, up to 1 tasks per node
+[n002:2448708:0:2448708] Caught signal 4 (Illegal instruction: illegal operand)
+==== backtrace (tid:2448708) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000120f3 acggraph_init()  ???:0
+ 2 0x000000000002d2cf acgsymcsrmatrix_init_rowwise_real_double()  ???:0
+ 3 0x000000000002d573 acgsymcsrmatrix_init_real_double()  ???:0
+ 4 0x000000000000e0c3 main()  ???:0
+ 5 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 6 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 7 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 8 0x000000000000e625 _start()  ???:0
+=================================
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820687.0 (status=0x0084).
+srun: error: n002: task 0: Illegal instruction (core dumped)
+srun: Complete StepId=820687.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820687 ON n002 CANCELLED AT 2025-05-05T04:17:54 DUE TO TIME LIMIT ***

@@ -1,0 +1,101 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n001
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 816524
+srun: job-name            : 2d_audikw_1_1_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 1
+srun: ntasks              : 2
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 816524: nodes(1):`n001', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=816524.0 on host n001, 2 tasks: [0-1]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+ Runtime parameters:
+   Objective type: METIS_OBJTYPE_CUT
+   Coarsening type: METIS_CTYPE_SHEM
+   Initial partitioning type: METIS_IPTYPE_GROW
+   Refinement type: METIS_RTYPE_FM
+   Perform a 2-hop matching: No
+   Number of balancing constraints: 1
+   Number of refinement iterations: 10
+   Random number seed: 1
+   Number of partitions: 2
+   Number of cuts: 1
+   User-supplied ufactor: 1
+   Target partition weights: 
+        0=[5.00e-01]   1=[5.00e-01]
+   Allowed maximum load imbalance: 1.001 
+
+
+Timing Information -------------------------------------------------
+ Multilevel: 		   2.145
+     Coarsening: 		   1.931
+            Matching: 			   0.407
+            Contract: 			   1.488
+     Initial Partition: 	   0.000
+     Uncoarsening: 		   0.177
+          Refinement: 			   0.043
+          Projection: 			   0.134
+     Splitting: 		   0.000
+********************************************************************
+
+ gk_mcore statistics
+           coresize:     11324472         nmops:         2048  cmop:      0
+        num_callocs:          163   num_hallocs:            0
+       size_callocs:     48558376  size_hallocs:            0
+        cur_callocs:            0   cur_hallocs:            0
+        max_callocs:     11324360   max_hallocs:            0
+ nbrpool statistics
+        nbrpoolsize:            0   nbrpoolcpos:            0
+    nbrpoolreallocs:            0
+
+ unknowns: 943695
+ solves: 1
+ total iterations: 5
+ total flops: 1.168 Gflop
+ total flop rate: 6.374 Gflop/s
+ total solver time: 0.183263 seconds
+ performance breakdown:
+ omp enabled: 1
+  SpMV: 0.166472 seconds/proc 5 times/proc 2402362260 B/proc 14.431 GB/s/proc
+   dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
+   MPI_HaloExchange: 0.014830 seconds/proc 5 times/proc 228120 B/proc 0.015 GB/s/proc 5.0 msg/proc 741.498 µs/msg/proc
+     pack: 0.000107 seconds/proc 5 times/proc 570300 B/proc 5.345 GB/s/proc
+     unpack: 0.000215 seconds/proc 5 times/proc 570300 B/proc 2.650 GB/s/proc
+     MPI_Recv: 0.014485 seconds/proc 5.0 times/proc 228120 B/proc 0.016 GB/s/proc
+     MPI_Send: 0.000212 seconds/proc 5.0 times/proc 228120 B/proc 1.076 GB/s/proc
+     MPI_Waitall: 0.000006 seconds/proc 5 times/proc
+   other: 0.000002 seconds
+ last solve:
+   stopping criterion:
+     maximum iterations: 5
+     tolerance for residual: 0
+     tolerance for relative residual: 0
+     tolerance for difference in solution iterates: 0
+     tolerance for relative difference in solution iterates: 0
+   iterations: 5
+   right-hand side 2-norm: inf
+   initial guess 2-norm: inf
+   initial residual 2-norm: inf
+   residual 2-norm: inf
+   difference in solution iterates 2-norm: inf
+   floating-point exceptions: inexact
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: Sent KVS info to 1 nodes, up to 2 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=816524.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=816524.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: task 1: Completed

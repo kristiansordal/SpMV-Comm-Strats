@@ -1,0 +1,9 @@
+Rank 1 at barrier 1
+Rank 2 at barrier 1
+Rank 3 at barrier 1
+Done parsing mtx
+986703, 986703, 36326514
+|V|=986703 |E|=71666325
+Normalizing graph
+Mean of graph: 1938020.284798
+[1746458379.127116] [n001:2879430:1]           debug.c:1349 UCX  WARN  ucs_debug_disable_signal: signal 4 was not set in ucs

@@ -1,0 +1,5 @@
+Rank 1 at barrier 1
+Rank 3 at barrier 1
+Rank 5 at barrier 1
+Rank 2 at barrier 1
+Rank 4 at barrier 1

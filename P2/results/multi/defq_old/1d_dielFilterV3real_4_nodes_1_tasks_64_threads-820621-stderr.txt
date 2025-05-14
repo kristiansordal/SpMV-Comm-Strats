@@ -1,0 +1,120 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-004]
+srun: cpus-per-task       : 64
+srun: distribution        : block:block
+srun: jobid               : 820621
+srun: job-name            : 1d_dielFilterV3real_4_nodes_1_tasks_64_threads
+srun: nodes               : 4
+srun: ntasks              : 4
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820621: nodes(4):`n[001-004]', cpu counts: 128(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820621.0 on host n001, 1 tasks: 0
+srun: launching StepId=820621.0 on host n002, 1 tasks: 1
+srun: launching StepId=820621.0 on host n003, 1 tasks: 2
+srun: launching StepId=820621.0 on host n004, 1 tasks: 3
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 1 tasks started
+srun: launch/slurm: _task_start: Node n004, 1 tasks started
+srun: launch/slurm: _task_start: Node n001, 1 tasks started
+srun: launch/slurm: _task_start: Node n003, 1 tasks started
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+srun: Sent KVS info to 4 nodes, up to 1 tasks per node
+[n001:2935320:0:2935403] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:1:2935377] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:2:2935363] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:3:2935366] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:4:2935371] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:5:2935375] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:6:2935405] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:7:2935374] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:8:2935383] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:9:2935320] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:10:2935379] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:11:2935415] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:12:2935367] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:13:2935373] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:14:2935386] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:15:2935395] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:16:2935380] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:17:2935381] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:18:2935362] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:19:2935388] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:20:2935418] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:21:2935424] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:22:2935407] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:23:2935397] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:24:2935394] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:25:2935421] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:26:2935420] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:27:2935389] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:28:2935419] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:29:2935412] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:30:2935398] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:31:2935387] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:32:2935423] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:33:2935393] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:34:2935417] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:35:2935410] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:36:2935399] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:37:2935391] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:38:2935400] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:39:2935368] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:40:2935372] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:41:2935396] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:42:2935406] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:43:2935408] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:44:2935414] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:45:2935416] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:46:2935392] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:47:2935404] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:48:2935384] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:49:2935385] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:50:2935402] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:51:2935364] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:52:2935382] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:53:2935369] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:54:2935411] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:55:2935390] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:56:2935370] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:57:2935409] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:58:2935365] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:59:2935378] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:60:2935401] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:61:2935422] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:62:2935376] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320:63:2935413] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2935320] *** Process received signal ***
+[n001:2935320] Signal: Segmentation fault (11)
+[n001:2935320] Signal code: Address not mapped (1)
+[n001:2935320] Failing at address: 0x28
+[n001:2935320] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:2935320] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4eb39)[0x1555541d8b39]
+[n001:2935320] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4ec8a)[0x1555541d8c8a]
+[n001:2935320] [ 3] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_seek+0xa7)[0x1555541d26b7]
+[n001:2935320] [ 4] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_elf_get_elf_syms+0xdd)[0x155554204dfd]
+[n001:2935320] [ 5] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_elf64_slurp_symbol_table+0x309)[0x155554206ad9]
+[n001:2935320] [ 6] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(_bfd_elf_canonicalize_symtab+0x1f)[0x15555420daef]
+[n001:2935320] [ 7] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x56e84)[0x1555541e0e84]
+[n001:2935320] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30cc4)[0x15555437ecc4]
+[n001:2935320] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x311a0)[0x15555437f1a0]
+[n001:2935320] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555437f7d3]
+[n001:2935320] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x305)[0x155554382605]
+[n001:2935320] [12] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x1555543828f7]
+[n001:2935320] [13] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x155554382d5a]
+[n001:2935320] [14] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:2935320] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1d(+0x36dc)[0x5555555576dc]
+[n001:2935320] [16] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(+0x21a1e)[0x1555552a4a1e]
+[n001:2935320] [17] /lib/x86_64-linux-gnu/libc.so.6(+0x94ac3)[0x155554e6bac3]
+[n001:2935320] [18] /lib/x86_64-linux-gnu/libc.so.6(+0x126850)[0x155554efd850]
+[n001:2935320] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820621.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820621.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820621 ON n001 CANCELLED AT 2025-05-05T22:24:06 DUE TO TIME LIMIT ***

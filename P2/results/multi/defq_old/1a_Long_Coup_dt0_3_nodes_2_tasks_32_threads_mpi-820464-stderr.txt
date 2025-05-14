@@ -1,0 +1,85 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 820464
+srun: job-name            : 1a_Long_Coup_dt0_3_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 820464: nodes(3):`n[001-003]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=820464.0 on host n001, 2 tasks: [0-1]
+srun: launching StepId=820464.0 on host n002, 2 tasks: [2-3]
+srun: launching StepId=820464.0 on host n003, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+[n001:2144755:0:2144793] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:1:2144805] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:2:2144789] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:3:2144777] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:4:2144782] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:5:2144779] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:6:2144799] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:7:2144781] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:8:2144778] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:9:2144794] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:10:2144806] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:11:2144786] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:12:2144801] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:13:2144798] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:14:2144783] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:15:2144792] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:16:2144755] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:17:2144791] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:18:2144780] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:19:2144785] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:20:2144787] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:21:2144797] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:22:2144776] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:23:2144796] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:24:2144803] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:25:2144802] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:26:2144790] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:27:2144784] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:28:2144804] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:29:2144788] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:30:2144800] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755:31:2144795] Caught signal 4 (Illegal instruction: illegal operand)
+[n001:2144755] *** Process received signal ***
+[n001:2144755] Signal: Segmentation fault (11)
+[n001:2144755] Signal code: Address not mapped (1)
+[n001:2144755] Failing at address: 0x28
+[n001:2144755] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:2144755] [ 1] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4eb39)[0x1555541c5b39]
+[n001:2144755] [ 2] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(+0x4ecec)[0x1555541c5cec]
+[n001:2144755] [ 3] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_bread+0xa4)[0x1555541bf3b4]
+[n001:2144755] [ 4] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_elf64_object_p+0xabc)[0x1555541efb0c]
+[n001:2144755] [ 5] /lib/x86_64-linux-gnu/libbfd-2.38-system.so(bfd_check_format_matches+0x266)[0x1555541c86d6]
+[n001:2144755] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x30c9b)[0x15555437ec9b]
+[n001:2144755] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x311a0)[0x15555437f1a0]
+[n001:2144755] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_debug_backtrace_create+0x53)[0x15555437f7d3]
+[n001:2144755] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_handle_error+0x305)[0x155554382605]
+[n001:2144755] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x348f7)[0x1555543828f7]
+[n001:2144755] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x34d5a)[0x155554382d5a]
+[n001:2144755] [12] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:2144755] [13] /home/krisor99/SpMV-Comm-Strats/P2/build/Debug/1a(+0x35cc)[0x5555555575cc]
+[n001:2144755] [14] /cm/shared/apps/gcc/13.2.0/usr/lib64/libgomp.so.1(+0x21a1e)[0x1555552a4a1e]
+[n001:2144755] [15] /lib/x86_64-linux-gnu/libc.so.6(+0x94ac3)[0x155554e6bac3]
+[n001:2144755] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x126850)[0x155554efd850]
+[n001:2144755] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=820464.0 (status=0x008b).
+srun: error: n001: task 0: Segmentation fault (core dumped)
+srun: Complete StepId=820464.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 820464 ON n001 CANCELLED AT 2025-05-04T14:08:50 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 820464.0 ON n001 CANCELLED AT 2025-05-04T14:08:50 DUE TO TIME LIMIT ***

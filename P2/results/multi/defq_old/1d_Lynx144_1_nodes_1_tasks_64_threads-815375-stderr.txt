@@ -1,0 +1,3 @@
+/cm/local/apps/slurm/var/spool/job815375/slurm_script: line 16: Done: command not found
+/cm/local/apps/slurm/var/spool/job815375/slurm_script: line 17: syntax error near unexpected token `|'
+/cm/local/apps/slurm/var/spool/job815375/slurm_script: line 17: `|V|=14430318 |E|=238881092'
