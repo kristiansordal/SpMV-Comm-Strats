@@ -1,0 +1,124 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[049-055]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 833909
+srun: job-name            : 2d_Cube_Coup_dt0_7_nodes_1_tasks_16_threads
+srun: nodes               : 7
+srun: ntasks              : 7
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 833909: nodes(7):`n[049-055]', cpu counts: 32(x7)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=833909.0 on host n049, 1 tasks: 0
+srun: launching StepId=833909.0 on host n050, 1 tasks: 1
+srun: launching StepId=833909.0 on host n051, 1 tasks: 2
+srun: launching StepId=833909.0 on host n052, 1 tasks: 3
+srun: launching StepId=833909.0 on host n053, 1 tasks: 4
+srun: launching StepId=833909.0 on host n054, 1 tasks: 5
+srun: launching StepId=833909.0 on host n055, 1 tasks: 6
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n049, 1 tasks started
+srun: launch/slurm: _task_start: Node n052, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n051, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: Sent KVS info to 7 nodes, up to 1 tasks per node
+srun: Sent KVS info to 7 nodes, up to 1 tasks per node
+ Runtime parameters:
+   Objective type: METIS_OBJTYPE_CUT
+   Coarsening type: METIS_CTYPE_SHEM
+   Initial partitioning type: METIS_IPTYPE_GROW
+   Refinement type: METIS_RTYPE_FM
+   Perform a 2-hop matching: No
+   Number of balancing constraints: 1
+   Number of refinement iterations: 10
+   Random number seed: 1
+   Number of partitions: 7
+   Number of cuts: 1
+   User-supplied ufactor: 1
+   Target partition weights: 
+        0=[1.43e-01]   1=[1.43e-01]   2=[1.43e-01]   3=[1.43e-01]   4=[1.43e-01]
+        5=[1.43e-01]   6=[1.43e-01]
+   Allowed maximum load imbalance: 1.001 
+
+
+Timing Information -------------------------------------------------
+ Multilevel: 		   8.900
+     Coarsening: 		   6.641
+            Matching: 			   1.797
+            Contract: 			   4.676
+     Initial Partition: 	   0.000
+     Uncoarsening: 		   0.831
+          Refinement: 			   0.279
+          Projection: 			   0.552
+     Splitting: 		   1.154
+********************************************************************
+
+ gk_mcore statistics
+           coresize:     25977452         nmops:         2048  cmop:      0
+        num_callocs:         1031   num_hallocs:            0
+       size_callocs:    317263688  size_hallocs:            0
+        cur_callocs:            0   cur_hallocs:            0
+        max_callocs:     25977128   max_hallocs:            0
+ nbrpool statistics
+        nbrpoolsize:            0   nbrpoolcpos:            0
+    nbrpoolreallocs:            0
+
+ unknowns: 2164760
+ solves: 1
+ total iterations: 100
+ total flops: 25.910 Gflop
+ total flop rate: 38.502 Gflop/s
+ total solver time: 0.672946 seconds
+ performance breakdown:
+ omp enabled: 0
+  SpMV: 0.570425 seconds/proc 100 times/proc 23092427200 B/proc 40.483 GB/s/proc
+   dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
+   MPI_HaloExchange: 0.096081 seconds/proc 100 times/proc 17890742 B/proc 0.186 GB/s/proc 314.3 msg/proc 6.239 µs/msg/proc
+     pack: 0.007215 seconds/proc 100 times/proc 44726857 B/proc 6.199 GB/s/proc
+     unpack: 0.013286 seconds/proc 100 times/proc 44726857 B/proc 3.366 GB/s/proc
+     MPI_Recv: 0.075430 seconds/proc 314.3 times/proc 17890742 B/proc 0.237 GB/s/proc
+     MPI_Send: 0.010909 seconds/proc 314.3 times/proc 17890742 B/proc 1.640 GB/s/proc
+     MPI_Waitall: 0.000058 seconds/proc 100 times/proc
+   other: 0.000040 seconds
+ last solve:
+   stopping criterion:
+     maximum iterations: 100
+     tolerance for residual: 0
+     tolerance for relative residual: 0
+     tolerance for difference in solution iterates: 0
+     tolerance for relative difference in solution iterates: 0
+   iterations: 100
+   right-hand side 2-norm: inf
+   initial guess 2-norm: inf
+   initial residual 2-norm: inf
+   residual 2-norm: inf
+   difference in solution iterates 2-norm: inf
+   floating-point exceptions: inexact
+srun: Sent KVS info to 7 nodes, up to 1 tasks per node
+srun: Sent KVS info to 7 nodes, up to 1 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n049: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n054: task 5: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n050: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n053: task 4: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n052: task 3: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n051: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=833909.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n055: task 6: Completed
