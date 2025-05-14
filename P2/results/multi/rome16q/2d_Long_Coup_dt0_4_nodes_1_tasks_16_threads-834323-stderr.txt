@@ -1,28 +1,28 @@
 srun: defined options
 srun: -------------------- --------------------
-srun: (null)              : n[049-052]
+srun: (null)              : n[057-060]
 srun: cpus-per-task       : 16
 srun: distribution        : block:block
-srun: jobid               : 834291
-srun: job-name            : 2d_nlpkkt200_4_nodes_1_tasks_16_threads
+srun: jobid               : 834323
+srun: job-name            : 2d_Long_Coup_dt0_4_nodes_1_tasks_16_threads
 srun: nodes               : 4
 srun: ntasks              : 4
 srun: ntasks-per-node     : 1
 srun: verbose             : 1
 srun: -------------------- --------------------
 srun: end of defined options
-srun: jobid 834291: nodes(4):`n[049-052]', cpu counts: 32(x4)
+srun: jobid 834323: nodes(4):`n[057-060]', cpu counts: 32(x4)
 srun: Implicitly setting --exact, because -c/--cpus-per-task given.
 srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
-srun: launching StepId=834291.0 on host n049, 1 tasks: 0
-srun: launching StepId=834291.0 on host n050, 1 tasks: 1
-srun: launching StepId=834291.0 on host n051, 1 tasks: 2
-srun: launching StepId=834291.0 on host n052, 1 tasks: 3
+srun: launching StepId=834323.0 on host n057, 1 tasks: 0
+srun: launching StepId=834323.0 on host n058, 1 tasks: 1
+srun: launching StepId=834323.0 on host n059, 1 tasks: 2
+srun: launching StepId=834323.0 on host n060, 1 tasks: 3
 srun: route/default: init: route default plugin loaded
-srun: launch/slurm: _task_start: Node n049, 1 tasks started
-srun: launch/slurm: _task_start: Node n052, 1 tasks started
-srun: launch/slurm: _task_start: Node n051, 1 tasks started
-srun: launch/slurm: _task_start: Node n050, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n059, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
 srun: Sent KVS info to 4 nodes, up to 1 tasks per node
 srun: Sent KVS info to 4 nodes, up to 1 tasks per node
  Runtime parameters:
@@ -43,47 +43,47 @@ srun: Sent KVS info to 4 nodes, up to 1 tasks per node
 
 
 Timing Information -------------------------------------------------
- Multilevel: 		  43.607
-     Coarsening: 		  36.024
-            Matching: 			  13.236
-            Contract: 			  22.323
+ Multilevel: 		   4.311
+     Coarsening: 		   3.267
+            Matching: 			   0.856
+            Contract: 			   2.326
      Initial Partition: 	   0.000
-     Uncoarsening: 		   4.616
-          Refinement: 			   1.697
-          Projection: 			   2.918
-     Splitting: 		   2.269
+     Uncoarsening: 		   0.485
+          Refinement: 			   0.172
+          Projection: 			   0.313
+     Splitting: 		   0.420
 ********************************************************************
 
  gk_mcore statistics
-           coresize:    194880212         nmops:         2048  cmop:      0
-        num_callocs:          622   num_hallocs:            0
-       size_callocs:   1673781344  size_hallocs:            0
+           coresize:     17642036         nmops:         2048  cmop:      0
+        num_callocs:          501   num_hallocs:            0
+       size_callocs:    156411744  size_hallocs:            0
         cur_callocs:            0   cur_hallocs:            0
-        max_callocs:    194880008   max_hallocs:            0
+        max_callocs:     17641832   max_hallocs:            0
  nbrpool statistics
         nbrpoolsize:            0   nbrpoolcpos:            0
     nbrpoolreallocs:            0
 
- unknowns: 16240000
+ unknowns: 1470152
  solves: 1
  total iterations: 100
- total flops: 90.306 Gflop
- total flop rate: 18.444 Gflop/s
- total solver time: 4.896141 seconds
+ total flops: 17.698 Gflop
+ total flop rate: 20.799 Gflop/s
+ total solver time: 0.850899 seconds
  performance breakdown:
  omp enabled: 0
-  SpMV: 4.487253 seconds/proc 100 times/proc 146925798200 B/proc 32.743 GB/s/proc
+  SpMV: 0.726730 seconds/proc 100 times/proc 27594392200 B/proc 37.971 GB/s/proc
    dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
    MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
-   MPI_HaloExchange: 0.366709 seconds/proc 100 times/proc 98813200 B/proc 0.269 GB/s/proc 300.0 msg/proc 76.398 µs/msg/proc
-     pack: 0.038598 seconds/proc 100 times/proc 247033000 B/proc 6.400 GB/s/proc
-     unpack: 0.060904 seconds/proc 100 times/proc 247033000 B/proc 4.056 GB/s/proc
-     MPI_Recv: 0.267045 seconds/proc 300.0 times/proc 98813200 B/proc 0.370 GB/s/proc
-     MPI_Send: 0.059583 seconds/proc 300.0 times/proc 98813200 B/proc 1.658 GB/s/proc
-     MPI_Waitall: 0.000097 seconds/proc 100 times/proc
+   MPI_HaloExchange: 0.119483 seconds/proc 100 times/proc 18701600 B/proc 0.157 GB/s/proc 300.0 msg/proc 24.892 µs/msg/proc
+     pack: 0.007391 seconds/proc 100 times/proc 46754000 B/proc 6.326 GB/s/proc
+     unpack: 0.011756 seconds/proc 100 times/proc 46754000 B/proc 3.977 GB/s/proc
+     MPI_Recv: 0.100185 seconds/proc 300.0 times/proc 18701600 B/proc 0.187 GB/s/proc
+     MPI_Send: 0.008426 seconds/proc 300.0 times/proc 18701600 B/proc 2.220 GB/s/proc
+     MPI_Waitall: 0.000050 seconds/proc 100 times/proc
    other: 0.000041 seconds
  last solve:
    stopping criterion:
@@ -101,11 +101,11 @@ Timing Information -------------------------------------------------
    floating-point exceptions: inexact
 srun: Sent KVS info to 4 nodes, up to 1 tasks per node
 srun: Sent KVS info to 4 nodes, up to 1 tasks per node
-srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834291.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n049: task 0: Completed
-srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834291.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n052: task 3: Completed
-srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834291.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n051: task 2: Completed
-srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834291.0 (status=0x0000).
-srun: launch/slurm: _task_finish: n050: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834323.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n057: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834323.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n058: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834323.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n059: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834323.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n060: task 3: Completed

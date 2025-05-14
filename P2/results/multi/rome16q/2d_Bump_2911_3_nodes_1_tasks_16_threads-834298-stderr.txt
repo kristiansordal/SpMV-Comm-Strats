@@ -62,3 +62,46 @@ Timing Information -------------------------------------------------
         nbrpoolsize:            0   nbrpoolcpos:            0
     nbrpoolreallocs:            0
 
+ unknowns: 2911419
+ solves: 1
+ total iterations: 100
+ total flops: 25.834 Gflop
+ total flop rate: 16.762 Gflop/s
+ total solver time: 1.541169 seconds
+ performance breakdown:
+ omp enabled: 0
+  SpMV: 1.439613 seconds/proc 100 times/proc 54418128000 B/proc 37.801 GB/s/proc
+   dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
+   MPI_HaloExchange: 0.087988 seconds/proc 100 times/proc 33643200 B/proc 0.382 GB/s/proc 200.0 msg/proc 48.882 µs/msg/proc
+     pack: 0.012772 seconds/proc 100 times/proc 84108000 B/proc 6.585 GB/s/proc
+     unpack: 0.018537 seconds/proc 100 times/proc 84108000 B/proc 4.537 GB/s/proc
+     MPI_Recv: 0.056521 seconds/proc 200.0 times/proc 33643200 B/proc 0.595 GB/s/proc
+     MPI_Send: 0.010573 seconds/proc 200.0 times/proc 33643200 B/proc 3.182 GB/s/proc
+     MPI_Waitall: 0.000055 seconds/proc 100 times/proc
+   other: 0.000042 seconds
+ last solve:
+   stopping criterion:
+     maximum iterations: 100
+     tolerance for residual: 0
+     tolerance for relative residual: 0
+     tolerance for difference in solution iterates: 0
+     tolerance for relative difference in solution iterates: 0
+   iterations: 100
+   right-hand side 2-norm: inf
+   initial guess 2-norm: inf
+   initial residual 2-norm: inf
+   residual 2-norm: inf
+   difference in solution iterates 2-norm: inf
+   floating-point exceptions: inexact
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834298.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n054: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834298.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n060: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834298.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n055: task 1: Completed
