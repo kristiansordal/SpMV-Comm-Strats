@@ -1,0 +1,29 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n003
+srun: cpus-per-task       : 1
+srun: distribution        : block:block
+srun: jobid               : 833415
+srun: job-name            : 1b_Serena_1_nodes_64_tasks_1_threads
+srun: nodes               : 1
+srun: ntasks              : 64
+srun: ntasks-per-node     : 64
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 833415: nodes(1):`n003', cpu counts: 128(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=833415.0 on host n003, 64 tasks: [0-63]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n003, 64 tasks started
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: Sent KVS info to 2 nodes, up to 33 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 44 tasks of StepId=833415.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 0-1,5-6,9,11,14-19,22-33,36,39-40,42-44,47,50-60,62-63: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 16 tasks of StepId=833415.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 2-4,7-8,10,13,20-21,34-35,37,46,48-49,61: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 4 tasks of StepId=833415.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 12,38,41,45: Completed
