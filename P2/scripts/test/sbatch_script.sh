@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --partition=rome16q
-#SBATCH --nodes=8
+#SBATCH --nodes=6
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
-#SBATCH --job-name=1a_bone010_8_nodes_1_tasks_16_threads
+#SBATCH --job-name=1a_bone010_6_nodes_1_tasks_16_threads
 #SBATCH --distribution=block:block
 #SBATCH --exclusive
 #SBATCH --time=0-0:10:00
