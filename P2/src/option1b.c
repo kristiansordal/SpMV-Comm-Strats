@@ -71,8 +71,23 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 100; i++) {
         MPI_Barrier(MPI_COMM_WORLD);
         double tc1 = MPI_Wtime();
-        MPI_Allgatherv(y + displs[rank], c.send_count[rank], MPI_DOUBLE, y, c.send_count, displs, MPI_DOUBLE,
-                       MPI_COMM_WORLD);
+        if (size == 1) {
+            // in-place allgather: leaves y[] untouched
+            MPI_Allgatherv(MPI_IN_PLACE,      // sendbuf
+                           0,                 // sendcount
+                           MPI_DATATYPE_NULL, // sendtype
+                           y,                 // recvbuf
+                           recvcounts,        // recvcounts[0] = g.num_rows
+                           displs,            // displs[0]     = 0
+                           MPI_DOUBLE, MPI_COMM_WORLD);
+        } else {
+            // your normal multi-rank call
+            MPI_Allgatherv(y + displs[rank], // sendbuf
+                           recvcounts[rank], // sendcount
+                           MPI_DOUBLE,
+                           y, // recvbuf
+                           recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+        }
         double tc2 = MPI_Wtime();
         double *tmp = y;
         y = x;
