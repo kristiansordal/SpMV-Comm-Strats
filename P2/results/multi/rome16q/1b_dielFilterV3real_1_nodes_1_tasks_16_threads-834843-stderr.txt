@@ -1,0 +1,39 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n056
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 834843
+srun: job-name            : 1b_dielFilterV3real_1_nodes_1_tasks_16_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 834843: nodes(1):`n056', cpu counts: 32(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=834843.0 on host n056, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+--------------------------------------------------------------------------
+No components were able to be opened in the pml framework.
+
+This typically means that either no components of this type were
+installed, or none of the installed components can be loaded.
+Sometimes this means that shared libraries required by these
+components are unable to be found/loaded.
+
+  Host:      n056
+  Framework: pml
+--------------------------------------------------------------------------
+[n056:3185811] PML ucx cannot be selected
+In: PMI_Abort(1, N/A)
+srun: Complete StepId=834843.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 834843.0 ON n056 CANCELLED AT 2025-05-15T09:09:52 ***
+srun: Complete StepId=834843.0+0 received
+slurmstepd: error: common_file_write_content: unable to open '/sys/fs/cgroup/freezer/slurm/uid_7164/job_834843/step_0/freezer.state' for writing: No such file or directory
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834843.0 (status=0x0100).
+srun: error: n056: task 0: Exited with exit code 1

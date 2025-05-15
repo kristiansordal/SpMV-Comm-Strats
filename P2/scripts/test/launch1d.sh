@@ -32,7 +32,7 @@ module load hwloc/gcc/2.10.0
 # export OMPI_MCA_opal_cuda_support=0                     # new option for above
 
 ## Use 'ibv_devinfo' output to determine active HCA (mlx5_1:1 or mlx5_4:1)
-export IBV_DEVICE="mlx5_1"   # Change to mlx5_4 if needed
+export IBV_DEVICE="mlx5_2"   # Change to mlx5_4 if needed
 export IBV_PORT=1
 
 export OMPI_MCA_pml=ucx
@@ -40,7 +40,7 @@ export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge  # Exclude unnecessary interfaces
 
 export UCX_TLS=rc,ud,self
-export UCX_NET_DEVICES=mlx5_1:1    # Change to mlx5_4:1 if needed
+export UCX_NET_DEVICES=mlx5_2:1    # Change to mlx5_4:1 if needed
 
 export OMP_NUM_THREADS=$omp_num_threads
 export OMPI_MCA_opal_cuda_support=0
@@ -66,7 +66,7 @@ export OMPI_MCA_pml=ucx
 export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge
 export UCX_TLS=rc,ud,self
-export UCX_NET_DEVICES=mlx5_1:1
+export UCX_NET_DEVICES=mlx5_2:1
 export OMP_NUM_THREADS=$omp_num_threads
 
 srun --verbose numactl -C0-${total_threads} /home/krisor99/SpMV-Comm-Strats/P2/build/${partition}/1d /global/D1/projects/mtx/datasets/suitesparse/$matrix

@@ -1,0 +1,110 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[002-004]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 834817
+srun: job-name            : 2d_Cube_Coup_dt0_3_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 834817: nodes(3):`n[002-004]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=834817.0 on host n002, 2 tasks: [0-1]
+srun: launching StepId=834817.0 on host n003, 2 tasks: [2-3]
+srun: launching StepId=834817.0 on host n004, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: launch/slurm: _task_start: Node n004, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+ Runtime parameters:
+   Objective type: METIS_OBJTYPE_CUT
+   Coarsening type: METIS_CTYPE_SHEM
+   Initial partitioning type: METIS_IPTYPE_GROW
+   Refinement type: METIS_RTYPE_FM
+   Perform a 2-hop matching: No
+   Number of balancing constraints: 1
+   Number of refinement iterations: 10
+   Random number seed: 1
+   Number of partitions: 6
+   Number of cuts: 1
+   User-supplied ufactor: 1
+   Target partition weights: 
+        0=[1.67e-01]   1=[1.67e-01]   2=[1.67e-01]   3=[1.67e-01]   4=[1.67e-01]
+        5=[1.67e-01]
+   Allowed maximum load imbalance: 1.001 
+
+
+Timing Information -------------------------------------------------
+ Multilevel: 		  10.636
+     Coarsening: 		   8.190
+            Matching: 			   1.884
+            Contract: 			   6.070
+     Initial Partition: 	   0.001
+     Uncoarsening: 		   0.854
+          Refinement: 			   0.294
+          Projection: 			   0.559
+     Splitting: 		   1.307
+********************************************************************
+
+ gk_mcore statistics
+           coresize:     25977412         nmops:         2048  cmop:      0
+        num_callocs:          866   num_hallocs:            0
+       size_callocs:    297234440  size_hallocs:            0
+        cur_callocs:            0   cur_hallocs:            0
+        max_callocs:     25977128   max_hallocs:            0
+ nbrpool statistics
+        nbrpoolsize:            0   nbrpoolcpos:            0
+    nbrpoolreallocs:            0
+
+ unknowns: 2164760
+ solves: 1
+ total iterations: 100
+ total flops: 25.848 Gflop
+ total flop rate: 7.047 Gflop/s
+ total solver time: 3.667943 seconds
+ performance breakdown:
+ omp enabled: 0
+  SpMV: 3.087619 seconds/proc 100 times/proc 26876243733 B/proc 8.705 GB/s/proc
+   dot: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   nrm2: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   axpy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   copy: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc
+   MPI_Allreduce: 0.000000 seconds/proc 0 times/proc 0 B/proc 0.000 GB/s/proc 0.000 µs/op/proc
+   MPI_HaloExchange: 0.574321 seconds/proc 100 times/proc 18216000 B/proc 0.032 GB/s/proc 366.7 msg/proc 43.509 µs/msg/proc
+     pack: 0.011764 seconds/proc 100 times/proc 45540000 B/proc 3.871 GB/s/proc
+     unpack: 0.017837 seconds/proc 100 times/proc 45540000 B/proc 2.553 GB/s/proc
+     MPI_Recv: 0.544312 seconds/proc 366.7 times/proc 18216000 B/proc 0.033 GB/s/proc
+     MPI_Send: 0.033686 seconds/proc 366.7 times/proc 18216000 B/proc 0.541 GB/s/proc
+     MPI_Waitall: 0.000250 seconds/proc 100 times/proc
+   other: 0.000176 seconds
+ last solve:
+   stopping criterion:
+     maximum iterations: 100
+     tolerance for residual: 0
+     tolerance for relative residual: 0
+     tolerance for difference in solution iterates: 0
+     tolerance for relative difference in solution iterates: 0
+   iterations: 100
+   right-hand side 2-norm: inf
+   initial guess 2-norm: inf
+   initial residual 2-norm: inf
+   residual 2-norm: inf
+   difference in solution iterates 2-norm: inf
+   floating-point exceptions: inexact
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834817.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: task 0: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=834817.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=834817.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n004: tasks 4-5: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=834817.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: tasks 2-3: Completed
