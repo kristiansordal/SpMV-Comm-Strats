@@ -10,18 +10,18 @@ Sorting edges
 4054690
 4062124
 0
-Total time = 1.612345s
-Communication time = 0.086841s
-Copmutation time = 1.343608s
+Total time = 1.624493s
+Communication time = 0.081172s
+Copmutation time = 1.345674s
 NFLOPS = 89645126400.000000
-GFLOPS = 55.599235
+GFLOPS = 55.183444
 Comm min = 2.280039 GB
 Comm max = 3.016752 GB
 Comm avg = 2.611086 GB
-4061069
-c.send_count[1]: 137932 2.466416
-8123186
-c.send_count[2]: 127509 2.280039
 12177876
 c.send_count[3]: 168709 3.016752
+8123186
+c.send_count[2]: 127509 2.280039
+4061069
+c.send_count[1]: 137932 2.466416
 c.send_count[0]: 149940 2.681136

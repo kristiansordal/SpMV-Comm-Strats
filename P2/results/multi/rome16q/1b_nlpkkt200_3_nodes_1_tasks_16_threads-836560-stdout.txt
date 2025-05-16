@@ -9,11 +9,11 @@ Sorting edges
 5414134
 5414944
 0
-Total time = 1.973432s
-Communication time = 0.024414s
-Copmutation time = 1.681896s
+Total time = 1.940826s
+Communication time = 0.021174s
+Copmutation time = 1.678691s
 NFLOPS = 89645126400.000000
-GFLOPS = 45.425998
+GFLOPS = 46.189158
 Comm min = 1.631331 GB
 Comm max = 1.857269 GB
 Comm avg = 1.774895 GB
