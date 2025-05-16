@@ -82,11 +82,11 @@ int main(int argc, char **argv) {
                            MPI_DOUBLE, MPI_COMM_WORLD);
         } else {
             // your normal multi-rank call
-            MPI_Allgatherv(y + displs[rank], // sendbuf
-                           recvcounts[rank], // sendcount
+            MPI_Allgatherv(y + displs[rank],   // sendbuf
+                           c.send_count[rank], // sendcount
                            MPI_DOUBLE,
                            y, // recvbuf
-                           recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+                           c.send_count, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         }
         double tc2 = MPI_Wtime();
         double *tmp = y;

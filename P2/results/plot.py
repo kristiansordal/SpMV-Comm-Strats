@@ -1437,7 +1437,7 @@ def plot_comm_min_avg_max_2x4(results, single):
     plt.close()
 
 
-partition = "defq"
+partition = "rome16q"
 
 
 def main():
@@ -1448,7 +1448,7 @@ def main():
     # for comm_strat in comm_strats:
     path = Path(base_path + partition)
 
-    single = 1
+    single = 0
     gather_results(path, results)
     # plot_gflops_single(results, single)
     # plot_tcomm_multi(results, single)
