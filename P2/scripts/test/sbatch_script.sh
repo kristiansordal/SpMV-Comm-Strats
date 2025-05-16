@@ -13,7 +13,7 @@
 module load openmpi-4.1.6
 module load cmake-3.22.3
 export LC_ALL=C
-export OMPI_MCA_coll_tuned_allgatherv_algorithm=3
+export OMPI_MCA_coll_tuned_allgatherv_algorithm=2
 export OMPI_MCA_pml=ucx
 export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge
