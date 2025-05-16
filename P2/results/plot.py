@@ -12,7 +12,19 @@ import re
 import matplotlib as mpl
 from matplotlib import cm
 
-mpl.rcParams.update({"text.usetex": True, "font.family": "Times New Roman", "font.size": 18})
+mpl.rcParams.update(
+    {
+        "text.usetex": True,  # toggle this if you don’t have TeX installed
+        "font.family": "serif",
+        "font.serif": ["Times New Roman", "Times", "Liberation Serif"],
+        "font.size": 30,
+        "axes.titlesize": 30,
+        "axes.labelsize": 30,
+        "xtick.labelsize": 28,
+        "ytick.labelsize": 24,
+        "legend.fontsize": 28,
+    }
+)
 
 colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
 num_rows_per_matrix = defaultdict(
@@ -237,8 +249,8 @@ def plot_gflops_single(results, single):
                 ax.set_xticklabels([1, 2, 3, 4, 5, 6, 7, 8])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                plt.savefig(f"{matrix}_gflops_multi_{partition}.svg", format="svg")
-                # plt.show()
+                # plt.savefig(f"{matrix}_gflops_multi_{partition}.svg", format="svg")
+                plt.show()
                 plt.close()
 
 
@@ -410,7 +422,7 @@ def plot_tcomm_multi(results, single):
         for mpi in [0, 1]:  # Loop over MPI modes
             if mpi:
                 continue
-            fig, ax = plt.subplots(figsize=(12, 6))
+            fig, ax = plt.subplots(figsize=(6, 6))
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
             # fig.suptitle(f"{matrix}")
@@ -460,8 +472,8 @@ def plot_tcomm_multi(results, single):
                 ax.set_xticklabels([1, 2, 3, 4, 5, 6, 7, 8])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                plt.savefig(f"{matrix}_tcomm_multi_{partition}.svg", format="svg")
-                # plt.show()
+                # plt.savefig(f"{matrix}_tcomm_multi_{partition}.svg", format="svg")
+                plt.show()
                 plt.close()
 
 
@@ -883,8 +895,8 @@ def plot_comm_min_avg_max(results, single):
             ax.legend(by_label.values(), by_label.keys(), fontsize=9, loc="best")
 
             plt.tight_layout()
-            # plt.show()
-            plt.savefig(f"{matrix}_commload_multi_{partition}.svg", format="svg")
+            plt.show()
+            # plt.savefig(f"{matrix}_commload_multi_{partition}.svg", format="svg")
             plt.close()
 
 
@@ -1036,7 +1048,396 @@ def plot_comm_min_avg_max_nonmpi(results):
 #         plt.show()
 
 
-partition = "rome16q"
+def plot_tcomm_2x4(results, single):
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 1) Global font settings
+    # plt.rcParams.update(
+    #     {
+    #         "font.size": 22,  # base font size
+    #         "axes.titlesize": 22,  # subplot title
+    #         "axes.labelsize": 22,  # x/y labels
+    #         "xtick.labelsize": 20,  # tick labels
+    #         "ytick.labelsize": 20,
+    #         "legend.fontsize": 26,  # shared legend
+    #     }
+    # )
+
+    comm_strats_dict = {
+        "1a": "Exchange entire vector",
+        "1b": "Exchange separators",
+        "1c": "Exchange required separators",
+        "1d": "Exchange required elements",
+        "2d": "Exchange required elements, memory scalable",
+    }
+    colors = ["b", "g", "r", "c", "m"]
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # collect the first 8 matrices that have mpi=0 data
+    matrix_names = []
+    first_strat = next(iter(results))
+    for matrix in results[first_strat]:
+        for strat_data in results.values():
+            if matrix in strat_data and 0 in strat_data[matrix]:
+                matrix_names.append(matrix)
+                break
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 2) Bigger figure + grid of 4×2 subplots
+    fig, axs = plt.subplots(4, 2, figsize=(18, 28))
+    axs = axs.flatten()
+
+    all_lines = {}
+
+    for idx, matrix in enumerate(matrix_names[:8]):
+        ax = axs[idx]
+        ax.set_title(matrix)  # uses axes.titlesize
+        ax.set_xlabel("Ranks")  # uses axes.labelsize
+        if idx % 2 == 0:
+            ax.set_ylabel("Communication Time [ms]")
+
+        # plot each strategy
+        for i, comm_strat in enumerate(sorted(results)):
+            strat_mats = results[comm_strat]
+            if matrix not in strat_mats or 0 not in strat_mats[matrix]:
+                continue
+
+            # sort by tasks (single) or nodes (multi)
+            data = sorted(strat_mats[matrix][0], key=lambda r: r.tasks if single else r.nodes)
+            xs = [r.tasks if single else r.nodes for r in data]
+            ys = [r.tcomm * 1000 for r in data]
+
+            (line,) = ax.plot(
+                xs,
+                ys,
+                marker="o",
+                markersize=9,
+                linestyle="-",
+                color=colors[i % len(colors)],
+                label=comm_strats_dict.get(comm_strat, comm_strat),
+            )
+            all_lines.setdefault(comm_strat, line)
+
+        # log‐scale only for the "single" case
+        if single:
+            ax.set_xscale("log")
+            ax.xaxis.set_minor_locator(mticker.NullLocator())
+            ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+            ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        else:
+            ax.set_xticks(range(1, 9))
+            ax.set_xticklabels(range(1, 9))
+
+        # ensure the tick labels pick up our rcParams
+        ax.tick_params(axis="both", which="major")
+        ax.grid(True, linestyle="--", alpha=0.6)
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 3) Tweak spacing to make room at top and between panels
+    fig.subplots_adjust(
+        top=0.85,  # room for legend
+        hspace=0.35,  # vertical space between rows
+        wspace=0.2,  # horizontal space between cols
+    )
+
+    # 4) Shared legend across the top
+    handles = [all_lines[k] for k in all_lines]
+    labels = [comm_strats_dict.get(k, k) for k in all_lines]
+    left = fig.subplotpars.left  # e.g. 0.10
+    right = fig.subplotpars.right  # e.g. 0.90
+    width = right - left  # e.g. 0.80
+
+    # 2) pass a full 4‐tuple to bbox_to_anchor + mode="expand"
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",  # anchor corner of legend box
+        bbox_to_anchor=(left, 0.94, width, 0),  # x0, y0, width, height (height can be zero)
+        mode="expand",  # stretch legend horizontally to fill the width
+        ncol=2,  # 3 per row → 2 rows for 5 items
+        frameon=False,
+    )
+    # fig.legend(
+    #     handles,
+    #     labels,
+    #     loc="upper center",
+    #     # bbox_to_anchor=(0.5, 0.93),  # just below the top edge
+    #     ncol=min(len(handles), 3),
+    #     frameon=True,
+    # )
+
+    # 5) Save with tight bounding box
+    plt.savefig(
+        f"tcomm_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        bbox_inches="tight",
+        format="svg",
+    )
+
+
+def plot_gflops_2x4(results, single):
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 1) Global font settings
+    # plt.rcParams.update(
+    #     {
+    #         "font.size": 22,  # base font size
+    #         "axes.titlesize": 22,  # subplot title
+    #         "axes.labelsize": 22,  # x/y labels
+    #         "xtick.labelsize": 20,  # tick labels
+    #         "ytick.labelsize": 20,
+    #         "legend.fontsize": 26,  # shared legend
+    #     }
+    # )
+
+    comm_strats_dict = {
+        "1a": "Exchange entire vector",
+        "1b": "Exchange separators",
+        "1c": "Exchange required separators",
+        "1d": "Exchange required elements",
+        "2d": "Exchange required elements, memory scalable",
+    }
+    colors = ["b", "g", "r", "c", "m"]
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # collect the first 8 matrices that have mpi=0 data
+    matrix_names = []
+    first_strat = next(iter(results))
+    for matrix in results[first_strat]:
+        for strat_data in results.values():
+            if matrix in strat_data and 0 in strat_data[matrix]:
+                matrix_names.append(matrix)
+                break
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 2) Bigger figure + grid of 4×2 subplots
+    fig, axs = plt.subplots(4, 2, figsize=(18, 28))
+    axs = axs.flatten()
+
+    all_lines = {}
+
+    for idx, matrix in enumerate(matrix_names[:8]):
+        ax = axs[idx]
+        ax.set_title(matrix)  # uses axes.titlesize
+        ax.set_xlabel("Ranks")  # uses axes.labelsize
+        if idx % 2 == 0:
+            ax.set_ylabel("GFLOPS")
+
+        # plot each strategy
+        for i, comm_strat in enumerate(sorted(results)):
+            strat_mats = results[comm_strat]
+            if matrix not in strat_mats or 0 not in strat_mats[matrix]:
+                continue
+
+            # sort by tasks (single) or nodes (multi)
+            data = sorted(strat_mats[matrix][0], key=lambda r: r.tasks if single else r.nodes)
+            xs = [r.tasks if single else r.nodes for r in data]
+            ys = [r.gflops for r in data]
+
+            (line,) = ax.plot(
+                xs,
+                ys,
+                marker="o",
+                markersize=9,
+                linestyle="-",
+                color=colors[i % len(colors)],
+                label=comm_strats_dict.get(comm_strat, comm_strat),
+            )
+            all_lines.setdefault(comm_strat, line)
+
+        # log‐scale only for the "single" case
+        if single:
+            ax.set_xscale("log")
+            ax.xaxis.set_minor_locator(mticker.NullLocator())
+            ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+            ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        else:
+            ax.set_xticks(range(1, 9))
+            ax.set_xticklabels(range(1, 9))
+
+        # ensure the tick labels pick up our rcParams
+        ax.tick_params(axis="both", which="major")
+        ax.grid(True, linestyle="--", alpha=0.6)
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 3) Tweak spacing to make room at top and between panels
+    fig.subplots_adjust(
+        top=0.85,  # room for legend
+        hspace=0.35,  # vertical space between rows
+        wspace=0.2,  # horizontal space between cols
+    )
+
+    # 4) Shared legend across the top
+    handles = [all_lines[k] for k in all_lines]
+    labels = [comm_strats_dict.get(k, k) for k in all_lines]
+    left = fig.subplotpars.left  # e.g. 0.10
+    right = fig.subplotpars.right  # e.g. 0.90
+    width = right - left  # e.g. 0.80
+
+    # 2) pass a full 4‐tuple to bbox_to_anchor + mode="expand"
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",  # anchor corner of legend box
+        bbox_to_anchor=(left, 0.94, width, 0),  # x0, y0, width, height (height can be zero)
+        mode="expand",  # stretch legend horizontally to fill the width
+        ncol=2,  # 3 per row → 2 rows for 5 items
+        frameon=False,
+    )
+    # fig.legend(
+    #     handles,
+    #     labels,
+    #     loc="upper center",
+    #     # bbox_to_anchor=(0.5, 0.93),  # just below the top edge
+    #     ncol=min(len(handles), 3),
+    #     frameon=True,
+    # )
+
+    # 5) Save with tight bounding box
+    plt.savefig(
+        f"gflops_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        bbox_inches="tight",
+        format="svg",
+    )
+
+
+def plot_comm_min_avg_max_2x4(results, single):
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 0) Strategy definitions
+    comm_strats = sorted(k for k in results.keys() if k not in ("1a", "2d"))
+    markers = {"min": "o", "avg": "s", "max": "^"}
+    labels = ["min", "avg", "max"]
+    colors = ["g", "r", "c"]
+    comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
+    comm_strats_dict = {
+        "1a": "Exch. entire vector",
+        "1b": "Exch. separators",
+        "1c": "Exch. req. separators",
+        "1d": "Exch. req. elements",
+        "2d": "Exch. req. elements, memory scalable",
+    }
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 1) Pick out the first 8 matrices with mpi=0 data
+    first_strat = next(iter(results))
+    matrix_names = []
+    for matrix in results[first_strat]:
+        for strat_data in results.values():
+            if matrix in strat_data and 0 in strat_data[matrix]:
+                matrix_names.append(matrix)
+                break
+    matrix_names = matrix_names[:8]
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 2) Create a 4×2 grid of subplots
+    fig, axs = plt.subplots(4, 2, figsize=(18, 28))
+    axs = axs.flatten()
+
+    # 3) Plot each matrix in its own subplot
+    for idx, matrix in enumerate(matrix_names):
+        ax = axs[idx]
+        ax.set_title(matrix)
+        ax.set_xlabel("Ranks")
+        if idx % 2 == 0:
+            ax.set_ylabel("Fraction of $x$ communicated\nper iteration SpMV")
+
+        # gather runs for mpi=0
+        runs_by_strat = {strat: results[strat][matrix].get(0, []) for strat in comm_strats}
+        # all unique rank counts
+        all_tasks = sorted(
+            {(r.tasks if single else r.nodes) for runs in runs_by_strat.values() for r in runs}
+        )
+
+        seen = set()
+        for strat in comm_strats:
+            runs = runs_by_strat[strat]
+            if not runs:
+                continue
+
+            for t in all_tasks:
+                group = [r for r in runs if (r.tasks if single else r.nodes) == t]
+                if not group:
+                    continue
+
+                comm_min = [r.comm_min for r in group]
+                comm_avg = [r.comm_avg for r in group]
+                comm_max = [r.comm_max for r in group]
+
+                for vals, lab in zip([comm_min, comm_avg, comm_max], labels):
+                    legend_label = f"{comm_strats_dict[strat]} ({lab})"
+                    plot_label = legend_label if legend_label not in seen else "_nolegend_"
+                    ax.plot(
+                        [t] * len(vals),
+                        vals,
+                        marker=markers[lab],
+                        markersize=9,
+                        linestyle="None",
+                        color=comm_colors[strat],
+                        label=plot_label,
+                    )
+                    seen.add(legend_label)
+
+        # x-axis formatting
+        if single:
+            ax.set_xscale("log")
+            ax.xaxis.set_minor_locator(mticker.NullLocator())
+            ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+            ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        else:
+            ax.set_xticks(range(1, 9))
+            ax.set_xticklabels(range(1, 9))
+
+        ax.tick_params(axis="both", which="major")
+        ax.grid(True, linestyle="--", alpha=0.5)
+
+    # hide any unused subplots
+    for ax in axs[len(matrix_names) :]:
+        ax.axis("off")
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 4) Tweak spacing to make room for a full-width legend
+    legend_y = 0.94  # vertical position of legend
+    fig.subplots_adjust(
+        top=0.85, hspace=0.35, wspace=0.2
+    )  # leave a bit of headroom above the plots
+
+    # 5) Shared legend exactly matching the width of the 4×2 grid
+    #    (same trick as in your original function)
+    left = fig.subplotpars.left
+    right = fig.subplotpars.right
+    width = right - left
+
+    # collect one set of handles & labels from the axes
+    handles, labls = [], []
+    for ax in axs[: len(matrix_names)]:
+        h, l = ax.get_legend_handles_labels()
+        for hi, li in zip(h, l):
+            if li not in labls:
+                handles.append(hi)
+                labls.append(li)
+
+    print(left)
+    fig.legend(
+        handles,
+        labls,
+        loc="upper left",  # ← pin the *left* side
+        bbox_to_anchor=(0.1, legend_y, width, 0),
+        # mode="expand",
+        ncol=3,
+        frameon=False,
+        handletextpad=0.2,  # less space between symbol and label
+        columnspacing=0.8,  # less space between columns
+        handlelength=1,  # (optional) shorter symbol line
+    )
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # 6) Save and close
+    plt.savefig(
+        f"commload_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        bbox_inches="tight",
+        format="svg",
+    )
+    plt.close()
+
+
+partition = "defq"
 
 
 def main():
@@ -1047,11 +1448,14 @@ def main():
     # for comm_strat in comm_strats:
     path = Path(base_path + partition)
 
-    single = 0
+    single = 1
     gather_results(path, results)
-    plot_gflops_single(results, single)
-    plot_tcomm_multi(results, single)
-    plot_comm_min_avg_max(results, single)
+    # plot_gflops_single(results, single)
+    # plot_tcomm_multi(results, single)
+    plot_tcomm_2x4(results, single)
+    plot_gflops_2x4(results, single)
+    plot_comm_min_avg_max_2x4(results, single)
+    # plot_comm_min_avg_max(results, single)
 
     # plot_comm_load(results)
     # plot_tcomm_single(results)

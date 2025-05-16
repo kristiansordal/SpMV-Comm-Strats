@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
         double *tmp = y;
         y = x;
         x = tmp;
-        spmv_part_flops(g, rank, p[rank], p[rank + 1], x, y, &flops);
+        spmv_part(g, rank, p[rank], p[rank + 1], x, y);
         double tc3 = MPI_Wtime();
         tcomm += tc2 - tc1;
         tcomp += tc3 - tc2;
