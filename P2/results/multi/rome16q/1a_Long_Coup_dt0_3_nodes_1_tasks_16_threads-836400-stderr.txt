@@ -22,3 +22,12 @@ srun: launch/slurm: _task_start: Node n058, 1 tasks started
 srun: launch/slurm: _task_start: Node n060, 1 tasks started
 srun: launch/slurm: _task_start: Node n059, 1 tasks started
 srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: Sent KVS info to 3 nodes, up to 1 tasks per node
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=836400.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n059: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=836400.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n060: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=836400.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n058: task 0: Completed
