@@ -1,0 +1,42 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n060
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 842274
+srun: job-name            : 1d_af_shell10_1_nodes_1_tasks_16_threads
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 842274: nodes(1):`n060', cpu counts: 32(x1)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=842274.0 on host n060, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n060, 1 tasks started
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+srun: Sent KVS info to 1 nodes, up to 1 tasks per node
+[n060:3886158:0:3886158] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+==== backtrace (tid:3886158) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n060:3886158] *** Process received signal ***
+[n060:3886158] Signal: Segmentation fault (11)
+[n060:3886158] Signal code:  (-6)
+[n060:3886158] Failing at address: 0x1bfc003b4c4e
+[n060:3886158] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n060:3886158] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/rome16q/1d(+0x290c)[0x55555555690c]
+[n060:3886158] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n060:3886158] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n060:3886158] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/rome16q/1d(+0x2d45)[0x555555556d45]
+[n060:3886158] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=842274.0 (status=0x008b).
+srun: error: n060: task 0: Segmentation fault (core dumped)
