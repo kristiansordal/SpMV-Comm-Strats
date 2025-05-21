@@ -1,0 +1,35 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[053-058]
+srun: cpus-per-task       : 16
+srun: distribution        : block:block
+srun: jobid               : 842247
+srun: job-name            : 1d_Cube_Coup_dt0_6_nodes_1_tasks_16_threads
+srun: nodes               : 6
+srun: ntasks              : 6
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 842247: nodes(6):`n[053-058]', cpu counts: 32(x6)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=842247.0 on host n053, 1 tasks: 0
+srun: launching StepId=842247.0 on host n054, 1 tasks: 1
+srun: launching StepId=842247.0 on host n055, 1 tasks: 2
+srun: launching StepId=842247.0 on host n056, 1 tasks: 3
+srun: launching StepId=842247.0 on host n057, 1 tasks: 4
+srun: launching StepId=842247.0 on host n058, 1 tasks: 5
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n054, 1 tasks started
+srun: launch/slurm: _task_start: Node n053, 1 tasks started
+srun: launch/slurm: _task_start: Node n057, 1 tasks started
+srun: launch/slurm: _task_start: Node n055, 1 tasks started
+srun: launch/slurm: _task_start: Node n056, 1 tasks started
+srun: launch/slurm: _task_start: Node n058, 1 tasks started
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Sent KVS info to 6 nodes, up to 1 tasks per node
+srun: Complete StepId=842247.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 842247 ON n053 CANCELLED AT 2025-05-20T13:19:22 ***
+slurmstepd: error: *** STEP 842247.0 ON n053 CANCELLED AT 2025-05-20T13:19:22 ***
