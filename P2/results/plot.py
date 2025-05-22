@@ -26,6 +26,13 @@ mpl.rcParams.update(
     }
 )
 
+comm_strats_dict = {
+    "1a": "Strategy A",
+    "1b": "Strategy B",
+    "1c": "Strategy C",
+    "1d": "Strategy D",
+    "2d": "Strategy E",
+}
 colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
 num_rows_per_matrix = defaultdict(
     lambda: 1,
@@ -173,7 +180,6 @@ def gather_results(directory, results):
         comm_min /= num_rows_per_matrix[name]
         comm_avg /= num_rows_per_matrix[name]
         comm_max /= num_rows_per_matrix[name]
-        # comm_min /=
 
         # if comm_strat == "2d":
         # gflops *= 1.5
@@ -197,13 +203,6 @@ def gather_results(directory, results):
 
 
 def plot_gflops_single(results, single):
-    comm_strats_dict = {
-        "1a": "Exchange entire vector",
-        "1b": "Exchange separators",
-        "1c": "Exchange required separators",
-        "1d": "Exchange required elements",
-        "2d": "Exchange required elements, memory scalable",
-    }
     # colors = ["b", "g", "r", "c", "m"]  # Colors for different comm_strats
     mpi_labels = ["1 process per node", "1 process per socket"]
 
@@ -215,7 +214,7 @@ def plot_gflops_single(results, single):
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
             # fig.suptitle(f"{matrix}")
-            ax.set_xlabel("Ranks")
+            ax.set_xlabel(argv[3])
             ax.set_ylabel("GFLOPS")
 
             for i, (comm_strat, matrices) in enumerate(sorted(results.items())):
@@ -282,7 +281,7 @@ def plot_time(results):
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
             fig.suptitle(f"{matrix}")
-            ax.set_xlabel("Ranks")
+            ax.set_xlabel(argv[3])
             ax.set_ylabel("Time [s]")
 
             for i, (comm_strat, matrices) in enumerate(sorted(results.items())):
@@ -328,7 +327,7 @@ def plot_tcomm_single(results):
     for matrix in matrix_list:
         fig, ax = plt.subplots(figsize=(8, 5))
         # ax.set_title(f"GFLOPS vs Tasks for {matrix}")
-        ax.set_xlabel("Ranks")
+        ax.set_xlabel(argv[3])
         ax.set_ylabel("Communication time per iteration SpMV [s]")
 
         for i, strat in enumerate(comm_strats):
@@ -388,7 +387,7 @@ def plot_compare_comm_strat_split(results):
             fig, ax = plt.subplots(figsize=(5, 5))
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
-            ax.set_xlabel("Ranks")
+            ax.set_xlabel(argv[3])
             ax.set_ylabel("GFLOPS")
 
             for i, (comm_strat, matrices) in enumerate(sorted(results.items())):
@@ -435,7 +434,7 @@ def plot_tcomm_multi(results, single):
             # fig.suptitle(f"{matrix} - {mpi_labels[mpi]}")
 
             # fig.suptitle(f"{matrix}")
-            ax.set_xlabel("Ranks")
+            ax.set_xlabel(argv[3])
             ax.set_ylabel("Communication time per iteration SpMV")
 
             for i, (comm_strat, matrices) in enumerate(sorted(results.items())):
@@ -503,7 +502,7 @@ def plot_compare_comm_strat(results):
 
         for mpi, ax in enumerate(axes):
             ax.set_title(mpi_labels[mpi])
-            ax.set_xlabel("Ranks")
+            ax.set_xlabel(argv[3])
             ax.set_ylabel("GFLOPS" if mpi == 0 else "")  # Only label y-axis on the left
 
             for i, (comm_strat, matrices) in enumerate(results.items()):
@@ -549,7 +548,7 @@ def plot_compare_comm_strat(results):
 
 #         for mpi, ax in enumerate(axes):
 #             ax.set_title(mpi_labels[mpi])
-#             ax.set_xlabel("Ranks")
+#             ax.set_xlabel(argv[3])
 #             ax.set_ylabel("GFLOPS" if mpi == 0 else "")  # Only label y-axis on the left
 
 #             for i, (comm_strat, matrices) in enumerate(results.items()):
@@ -749,7 +748,7 @@ def plot_comm_min_avg_max_nonmpi_single(results):
 
         fig, ax = plt.subplots(figsize=(10, 6))
         # ax.set_title(f"Communication Load for {matrix} (single node)")
-        ax.set_xlabel("Ranks")
+        ax.set_xlabel(argv[3])
         ax.set_ylabel("\% of $x$ communicated per iteration SpMV")
 
         added_labels = set()
@@ -829,7 +828,7 @@ def plot_comm_min_avg_max(results, single):
 
         fig, ax = plt.subplots(figsize=(12, 6))
         # ax.set_title(f"Communication Load for {matrix} (single node)")
-        ax.set_xlabel("Ranks")
+        ax.set_xlabel(argv[3])
         ax.set_ylabel("Fraction of $x$ communicated per iteration SpMV")
 
         added_labels = set()
@@ -925,7 +924,7 @@ def plot_comm_min_avg_max_nonmpi(results):
 
         fig, ax = plt.subplots(figsize=(10, 6))
         # ax.set_title(f"Communication Load for {matrix} (non-MPI)")
-        ax.set_xlabel("Ranks")
+        ax.set_xlabel(argv[3])
         ax.set_ylabel("Communication Volume [GB]")
 
         added_labels = set()
@@ -958,7 +957,7 @@ def plot_comm_min_avg_max_nonmpi(results):
 
         ax.set_xticks(all_nodes)
         ax.grid(True, linestyle="--", alpha=0.5)
-        ax.set_xlabel("Ranks")
+        ax.set_xlabel(argv[3])
         ax.set_ylabel("\% of $x$ communicated per iteration SpMV")
 
         # dedupe legend
@@ -1058,30 +1057,6 @@ def plot_comm_min_avg_max_nonmpi(results):
 
 
 def plot_tcomm_2x4(results, single):
-    # ─────────────────────────────────────────────────────────────────────────────
-    # 1) Global font settings
-    # plt.rcParams.update(
-    #     {
-    #         "font.size": 22,  # base font size
-    #         "axes.titlesize": 22,  # subplot title
-    #         "axes.labelsize": 22,  # x/y labels
-    #         "xtick.labelsize": 20,  # tick labels
-    #         "ytick.labelsize": 20,
-    #         "legend.fontsize": 26,  # shared legend
-    #     }
-    # )
-
-    comm_strats_dict = {
-        "1a": "Exchange entire vector",
-        "1b": "Exchange separators",
-        "1c": "Exchange required separators",
-        "1d": "Exchange required elements",
-        "2d": "Exchange required elements, memory scalable",
-    }
-    colors = ["b", "g", "r", "c", "m"]
-
-    # ─────────────────────────────────────────────────────────────────────────────
-    # collect the first 8 matrices that have mpi=0 data
     matrix_names = []
     first_strat = next(iter(results))
     for matrix in sorted(results[first_strat]):
@@ -1100,7 +1075,7 @@ def plot_tcomm_2x4(results, single):
     for idx, matrix in enumerate(sorted(matrix_names[:8])):
         ax = axs[idx]
         ax.set_title(matrix)  # uses axes.titlesize
-        ax.set_xlabel("Ranks")  # uses axes.labelsize
+        ax.set_xlabel(argv[3])  # uses axes.labelsize
         if idx % 2 == 0:
             ax.set_ylabel("Communication Time [ms]")
 
@@ -1160,8 +1135,8 @@ def plot_tcomm_2x4(results, single):
         handles,
         labels,
         loc="upper center",  # anchor corner of legend box
-        bbox_to_anchor=(left, 0.94, width, 0),  # x0, y0, width, height (height can be zero)
-        mode="expand",  # stretch legend horizontally to fill the width
+        bbox_to_anchor=(0.5, 0.94, 0, 0),  # x0, y0, width, height (height can be zero)
+        # mode="expand",  # stretch legend horizontally to fill the width
         ncol=2,  # 3 per row → 2 rows for 5 items
         frameon=False,
     )
@@ -1183,30 +1158,6 @@ def plot_tcomm_2x4(results, single):
 
 
 def plot_gflops_2x4(results, single):
-    # ─────────────────────────────────────────────────────────────────────────────
-    # 1) Global font settings
-    # plt.rcParams.update(
-    #     {
-    #         "font.size": 22,  # base font size
-    #         "axes.titlesize": 22,  # subplot title
-    #         "axes.labelsize": 22,  # x/y labels
-    #         "xtick.labelsize": 20,  # tick labels
-    #         "ytick.labelsize": 20,
-    #         "legend.fontsize": 26,  # shared legend
-    #     }
-    # )
-
-    comm_strats_dict = {
-        "1a": "Exchange entire vector",
-        "1b": "Exchange separators",
-        "1c": "Exchange required separators",
-        "1d": "Exchange required elements",
-        "2d": "Exchange required elements, memory scalable",
-    }
-    colors = ["b", "g", "r", "c", "m"]
-
-    # ─────────────────────────────────────────────────────────────────────────────
-    # collect the first 8 matrices that have mpi=0 data
     matrix_names = []
     first_strat = next(iter(results))
     for matrix in sorted(results[first_strat]):
@@ -1225,7 +1176,7 @@ def plot_gflops_2x4(results, single):
     for idx, matrix in enumerate(sorted(matrix_names[:8])):
         ax = axs[idx]
         ax.set_title(matrix)  # uses axes.titlesize
-        ax.set_xlabel("Ranks")  # uses axes.labelsize
+        ax.set_xlabel(argv[3])  # uses axes.labelsize
         if idx % 2 == 0:
             ax.set_ylabel("GFLOPS")
 
@@ -1285,8 +1236,8 @@ def plot_gflops_2x4(results, single):
         handles,
         labels,
         loc="upper center",  # anchor corner of legend box
-        bbox_to_anchor=(left, 0.94, width, 0),  # x0, y0, width, height (height can be zero)
-        mode="expand",  # stretch legend horizontally to fill the width
+        bbox_to_anchor=(0.5, 0.94, 0, 0),  # x0, y0, width, height (height can be zero)
+        # mode="expand",  # stretch legend horizontally to fill the width
         ncol=2,  # 3 per row → 2 rows for 5 items
         frameon=False,
     )
@@ -1315,13 +1266,6 @@ def plot_comm_min_avg_max_2x4(results, single):
     labels = ["min", "avg", "max"]
     colors = ["g", "r", "c"]
     comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
-    comm_strats_dict = {
-        "1a": "Exch. entire vector",
-        "1b": "Exch. separators",
-        "1c": "Exch. req. separators",
-        "1d": "Exch. req. elements",
-        "2d": "Exch. req. elements, memory scalable",
-    }
 
     # ─────────────────────────────────────────────────────────────────────────────
     # 1) Pick out the first 8 matrices with mpi=0 data
@@ -1345,7 +1289,7 @@ def plot_comm_min_avg_max_2x4(results, single):
     for idx, matrix in enumerate(sorted(matrix_names)):
         ax = axs[idx]
         ax.set_title(matrix)
-        ax.set_xlabel("Ranks")
+        ax.set_xlabel(argv[3])
         if idx % 2 == 0:
             ax.set_ylabel("Fraction of $x$ communicated\nper iteration SpMV")
 
@@ -1429,7 +1373,7 @@ def plot_comm_min_avg_max_2x4(results, single):
         labls,
         loc="upper left",  # ← pin the *left* side
         bbox_to_anchor=(0.1, legend_y, width, 0),
-        # mode="expand",
+        mode="expand",
         ncol=3,
         frameon=False,
         handletextpad=0.2,  # less space between symbol and label
@@ -1449,30 +1393,6 @@ def plot_comm_min_avg_max_2x4(results, single):
 
 
 def plot_t_2x4(results, single):
-    # ─────────────────────────────────────────────────────────────────────────────
-    # 1) Global font settings
-    # plt.rcParams.update(
-    #     {
-    #         "font.size": 22,  # base font size
-    #         "axes.titlesize": 22,  # subplot title
-    #         "axes.labelsize": 22,  # x/y labels
-    #         "xtick.labelsize": 20,  # tick labels
-    #         "ytick.labelsize": 20,
-    #         "legend.fontsize": 26,  # shared legend
-    #     }
-    # )
-
-    comm_strats_dict = {
-        "1a": "Exchange entire vector",
-        "1b": "Exchange separators",
-        "1c": "Exchange required separators",
-        "1d": "Exchange required elements",
-        "2d": "Exchange required elements, memory scalable",
-    }
-    colors = ["b", "g", "r", "c", "m"]
-
-    # ─────────────────────────────────────────────────────────────────────────────
-    # collect the first 8 matrices that have mpi=0 data
     matrix_names = []
     first_strat = next(iter(results))
     for matrix in sorted(results[first_strat]):
@@ -1491,7 +1411,7 @@ def plot_t_2x4(results, single):
     for idx, matrix in enumerate(sorted(matrix_names[:8])):
         ax = axs[idx]
         ax.set_title(matrix)  # uses axes.titlesize
-        ax.set_xlabel("Ranks")  # uses axes.labelsize
+        ax.set_xlabel(argv[3])  # uses axes.labelsize
         if idx % 2 == 0:
             ax.set_ylabel("Total Solver Time [s]")
 
@@ -1551,8 +1471,8 @@ def plot_t_2x4(results, single):
         handles,
         labels,
         loc="upper center",  # anchor corner of legend box
-        bbox_to_anchor=(left, 0.94, width, 0),  # x0, y0, width, height (height can be zero)
-        mode="expand",  # stretch legend horizontally to fill the width
+        bbox_to_anchor=(0.5, 0.94, 0, 0),  # x0, y0, width, height (height can be zero)
+        # mode="expand",  # stretch legend horizontally to fill the width
         ncol=2,  # 3 per row → 2 rows for 5 items
         frameon=False,
     )
@@ -1574,30 +1494,6 @@ def plot_t_2x4(results, single):
 
 
 def plot_tcomp_2x4(results, single):
-    # ─────────────────────────────────────────────────────────────────────────────
-    # 1) Global font settings
-    # plt.rcParams.update(
-    #     {
-    #         "font.size": 22,  # base font size
-    #         "axes.titlesize": 22,  # subplot title
-    #         "axes.labelsize": 22,  # x/y labels
-    #         "xtick.labelsize": 20,  # tick labels
-    #         "ytick.labelsize": 20,
-    #         "legend.fontsize": 26,  # shared legend
-    #     }
-    # )
-
-    comm_strats_dict = {
-        "1a": "Exchange entire vector",
-        "1b": "Exchange separators",
-        "1c": "Exchange required separators",
-        "1d": "Exchange required elements",
-        "2d": "Exchange required elements, memory scalable",
-    }
-    colors = ["b", "g", "r", "c", "m"]
-
-    # ─────────────────────────────────────────────────────────────────────────────
-    # collect the first 8 matrices that have mpi=0 data
     matrix_names = []
     first_strat = next(iter(results))
     for matrix in sorted(results[first_strat]):
@@ -1616,7 +1512,7 @@ def plot_tcomp_2x4(results, single):
     for idx, matrix in enumerate(matrix_names[:8]):
         ax = axs[idx]
         ax.set_title(matrix)  # uses axes.titlesize
-        ax.set_xlabel("Ranks")  # uses axes.labelsize
+        ax.set_xlabel(argv[3])  # uses axes.labelsize
         if idx % 2 == 0:
             ax.set_ylabel("Computation Time [s]")
 
@@ -1676,8 +1572,8 @@ def plot_tcomp_2x4(results, single):
         handles,
         labels,
         loc="upper center",  # anchor corner of legend box
-        bbox_to_anchor=(left, 0.94, width, 0),  # x0, y0, width, height (height can be zero)
-        mode="expand",  # stretch legend horizontally to fill the width
+        bbox_to_anchor=(0.5, 0.94, 0, 0),  # x0, y0, width, height (height can be zero)
+        # mode="expand",  # stretch legend horizontally to fill the width
         ncol=2,  # 3 per row → 2 rows for 5 items
         frameon=False,
     )
@@ -1696,6 +1592,142 @@ def plot_tcomp_2x4(results, single):
         bbox_inches="tight",
         format="svg",
     )
+
+
+def plot_comm_and_tcomm_2x4(results, single, partition):
+    # ──────────────────────────────────────────────────────────────────────
+    # 0) Strategy definitions
+    comm_strats = sorted(k for k in results.keys() if k not in ("1a", "2d"))
+    markers = {"min": "o", "avg": "s", "max": "^"}
+    labels = ["min", "avg", "max"]
+    colors = ["g", "r", "c"]
+    comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
+    tcomm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
+
+    # ──────────────────────────────────────────────────────────────────────
+    # 1) Pick out up to 8 matrices with mpi=0
+    first_strat = next(iter(results))
+    matrix_names = []
+    for matrix in sorted(results[first_strat]):
+        if any(0 in strat_data.get(matrix, {}) for strat_data in results.values()):
+            matrix_names.append(matrix)
+    matrix_names = matrix_names[:8]
+
+    # ──────────────────────────────────────────────────────────────────────
+    # 2) Create 4×2 grid
+    fig, axs = plt.subplots(4, 2, figsize=(18, 28))
+    axs = axs.flatten()
+
+    # collect legend entries
+    all_handles = []
+    all_labels = []
+
+    for idx, matrix in enumerate(sorted(matrix_names)):
+        ax = axs[idx]
+        ax.set_title(matrix)
+        ax.set_xlabel("Problem size")  # or argv[3]
+        if idx % 2 == 0:
+            ax.set_ylabel("Fraction of $x$ communicated\nper iteration SpMV")
+
+        # twin axis for time
+        ax2 = ax.twinx()
+        if idx % 2 == 0:
+            ax2.set_ylabel("Communication Time [ms]")
+
+        # gather runs for mpi=0
+        runs_by_strat = {strat: results[strat][matrix].get(0, []) for strat in comm_strats}
+        all_tasks = sorted(
+            {(r.tasks if single else r.nodes) for runs in runs_by_strat.values() for r in runs}
+        )
+
+        seen = set()
+        for strat in comm_strats:
+            runs = runs_by_strat[strat]
+            if not runs:
+                continue
+
+            # --- plot min/avg/max on ax ---
+            for lab in labels:
+                xs, ys = [], []
+                for t in all_tasks:
+                    group = [r for r in runs if (r.tasks if single else r.nodes) == t]
+                    if not group:
+                        continue
+                    vals = [getattr(r, f"comm_{lab}") for r in group]
+                    xs.extend([t] * len(vals))
+                    ys.extend(vals)
+                if not xs:
+                    continue
+                lbl = f"{comm_strats_dict[strat]} ({lab})"
+                handle = ax.plot(
+                    xs,
+                    ys,
+                    linestyle="None",
+                    marker=markers[lab],
+                    markersize=8,
+                    color=comm_colors[strat],
+                    label=lbl if lbl not in seen else "_nolegend_",
+                )[0]
+                if lbl not in seen:
+                    all_handles.append(handle)
+                    all_labels.append(lbl)
+                seen.add(lbl)
+
+            # --- plot tcomm on ax2 ---
+            data = sorted(results[strat][matrix][0], key=lambda r: (r.tasks if single else r.nodes))
+            xs2 = [r.tasks if single else r.nodes for r in data]
+            ys2 = [r.tcomm * 1000 for r in data]
+            lbl2 = f"{comm_strats_dict.get(strat, strat)} time"
+            handle2 = ax2.plot(
+                xs2,
+                ys2,
+                linestyle="-",
+                marker="o",
+                markersize=6,
+                color=tcomm_colors[strat],
+                label=lbl2,
+            )[0]
+            all_handles.append(handle2)
+            all_labels.append(lbl2)
+
+        # x-axis formatting
+        if single:
+            ax.set_xscale("log")
+            ax.xaxis.set_minor_locator(mticker.NullLocator())
+            ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+        else:
+            ax.set_xticks(range(1, 5))
+        ax.grid(True, linestyle="--", alpha=0.5)
+
+    # hide any unused axes
+    for ax in axs[len(matrix_names) :]:
+        ax.axis("off")
+
+    # ──────────────────────────────────────────────────────────────────────
+    # 3) Shared legend
+    left, right = fig.subplotpars.left, fig.subplotpars.right
+    width = right - left
+    fig.subplots_adjust(top=0.85, hspace=0.35, wspace=0.2)
+    fig.legend(
+        all_handles,
+        all_labels,
+        loc="upper left",
+        bbox_to_anchor=(left, 0.94, width, 0),
+        ncol=3,
+        frameon=False,
+        handletextpad=0.3,
+        columnspacing=1.0,
+        handlelength=1.0,
+    )
+
+    # ──────────────────────────────────────────────────────────────────────
+    # 4) Save & close
+    plt.savefig(
+        f"comm_and_tcomm_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        bbox_inches="tight",
+        format="svg",
+    )
+    plt.close()
 
 
 partition = argv[2]

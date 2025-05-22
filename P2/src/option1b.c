@@ -59,9 +59,6 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i++) {
         recvcounts[i] = p[i + 1] - p[i];
         displs[i] = p[i];
-        if (rank == 0) {
-            printf("%d\n", recvcounts[i]);
-        }
     }
     MPI_Barrier(MPI_COMM_WORLD);
     printf("%d\n", displs[rank]);
@@ -73,13 +70,9 @@ int main(int argc, char **argv) {
         double tc1 = MPI_Wtime();
         if (size == 1) {
             // in-place allgather: leaves y[] untouched
-            MPI_Allgatherv(MPI_IN_PLACE,      // sendbuf
-                           0,                 // sendcount
-                           MPI_DATATYPE_NULL, // sendtype
-                           y,                 // recvbuf
-                           recvcounts,        // recvcounts[0] = g.num_rows
-                           displs,            // displs[0]     = 0
-                           MPI_DOUBLE, MPI_COMM_WORLD);
+            MPI_Allgatherv(MPI_IN_PLACE, 0,
+                           MPI_DOUBLE, // must be a valid type
+                           y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
         } else {
             // your normal multi-rank call
             MPI_Allgatherv(y + displs[rank],   // sendbuf

@@ -92,13 +92,22 @@ int main(int argc, char **argv) {
 
     long double comm_size = 0.0;
 
+    // if (rank == 0) {
+    //     for (int i = 0; i < size; i++) {
+    //         for (int j = 0; j < size; j++) {
+    //             printf("%d,%d,%d\n", i, j, c.send_items[i][j]);
+    //         }
+    //     }
+    // }
+
     for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (c.send_items[i][j] == 1 && j != rank && i != j) {
-                comm_size += c.send_count[i];
-            }
-        }
+        comm_size += c.send_count[i];
     }
+    printf("%d,%Lf\n", rank, comm_size);
+
+    long double total_comm_size = 0.0;
+    MPI_Allreduce(&comm_size, &total_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+    printf("Total communication size: %Lf\n", total_comm_size);
 
     comm_size = (comm_size * 64.0 * 100.0) / (1024.0 * 1024.0 * 1024.0);
 
