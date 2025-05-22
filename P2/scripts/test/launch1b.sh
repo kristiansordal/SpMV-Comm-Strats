@@ -24,15 +24,15 @@ module load hwloc/gcc/2.10.0
 # export OMPI_MCA_pml_ucx_verbose=100
 # export OMPI_MCA_btl_openib_allow_ib=1
 # export OMPI_MCA_btl_openib_warn_no_device_params_found=1
-# export OMPI_MCA_btl_openib_if_include="mlx5_4:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'defq16q'
+# export OMPI_MCA_btl_openib_if_include="mlx5_2:1"          # Use 'ibstat' and look for active HCA(s) as there are 2 IB topologies in partition 'defq16q'
 # export OMPI_MCA_pml="^ucx"
 # export OMPI_MCA_btl_tcp_if_exclude=lo,dis0,eno1,eno2,enp113s0f0,ib0,ib1,enp33s0f0,enp33s0f1,docker0,docker_gwbridge
 
 # export OMP_NUM_THREADS=$omp_num_threads
 # export OMPI_MCA_opal_cuda_support=0                     # new option for above
 
-## Use 'ibv_devinfo' output to determine active HCA (mlx5_4:1 or mlx5_4:1)
-export IBV_DEVICE="mlx5_4"   # Change to mlx5_4 if needed
+## Use 'ibv_devinfo' output to determine active HCA (mlx5_2:1 or mlx5_2:1)
+export IBV_DEVICE="mlx5_2"   # Change to mlx5_2 if needed
 export IBV_PORT=1
 
 export OMPI_MCA_pml=ucx
@@ -40,7 +40,7 @@ export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge  # Exclude unnecessary interfaces
 
 export UCX_TLS=rc,ud,self
-export UCX_NET_DEVICES=mlx5_4:1    # Change to mlx5_4:1 if needed
+export UCX_NET_DEVICES=mlx5_2:1    # Change to mlx5_2:1 if needed
 
 export OMP_NUM_THREADS=$omp_num_threads
 export OMPI_MCA_opal_cuda_support=0
@@ -67,7 +67,7 @@ export OMPI_MCA_pml=ucx
 export OMPI_MCA_btl=self,vader,tcp
 export OMPI_MCA_btl_tcp_if_exclude=lo,eno1,eno2,docker0,docker_gwbridge
 export UCX_TLS=rc,ud,self
-export UCX_NET_DEVICES=mlx5_4:1
+export UCX_NET_DEVICES=mlx5_2:1
 export OMP_NUM_THREADS=$omp_num_threads
 
 
