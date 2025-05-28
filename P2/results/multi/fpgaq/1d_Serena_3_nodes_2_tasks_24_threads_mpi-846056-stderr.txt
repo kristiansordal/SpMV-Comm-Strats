@@ -1,0 +1,151 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-019]
+srun: cpus-per-task       : 24
+srun: distribution        : block:block
+srun: jobid               : 846056
+srun: job-name            : 1d_Serena_3_nodes_2_tasks_24_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 846056: nodes(3):`n[017-019]', cpu counts: 96(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=846056.0 on host n017, 2 tasks: [0-1]
+srun: launching StepId=846056.0 on host n018, 2 tasks: [2-3]
+srun: launching StepId=846056.0 on host n019, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 2 tasks started
+srun: launch/slurm: _task_start: Node n018, 2 tasks started
+srun: launch/slurm: _task_start: Node n019, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+[n019:2835125:0:2835125] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+[n018:44651:0:44651] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+[n017:2832773:0:2832773] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+[n017:2832772:0:2832772] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+[n019:2835126:0:2835126] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+[n018:44650:0:44650] Caught signal 11 (Segmentation fault: address not mapped to object at address (nil))
+==== backtrace (tid:2832772) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n017:2832772] *** Process received signal ***
+[n017:2832772] Signal: Segmentation fault (11)
+[n017:2832772] Signal code:  (-6)
+[n017:2832772] Failing at address: 0x1bfc002b3984
+[n017:2832772] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n017:2832772] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x290c)[0x55555555690c]
+[n017:2832772] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n017:2832772] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n017:2832772] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x2d45)[0x555555556d45]
+[n017:2832772] *** End of error message ***
+==== backtrace (tid:2832773) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n017:2832773] *** Process received signal ***
+[n017:2832773] Signal: Segmentation fault (11)
+[n017:2832773] Signal code:  (-6)
+[n017:2832773] Failing at address: 0x1bfc002b3985
+[n017:2832773] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n017:2832773] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x290c)[0x55555555690c]
+[n017:2832773] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n017:2832773] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n017:2832773] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x2d45)[0x555555556d45]
+[n017:2832773] *** End of error message ***
+==== backtrace (tid:2835126) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n019:2835126] *** Process received signal ***
+[n019:2835126] Signal: Segmentation fault (11)
+[n019:2835126] Signal code:  (-6)
+[n019:2835126] Failing at address: 0x1bfc002b42b6
+[n019:2835126] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n019:2835126] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x290c)[0x55555555690c]
+[n019:2835126] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n019:2835126] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n019:2835126] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x2d45)[0x555555556d45]
+[n019:2835126] *** End of error message ***
+==== backtrace (tid:2835125) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n019:2835125] *** Process received signal ***
+[n019:2835125] Signal: Segmentation fault (11)
+[n019:2835125] Signal code:  (-6)
+[n019:2835125] Failing at address: 0x1bfc002b42b5
+[n019:2835125] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n019:2835125] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x290c)[0x55555555690c]
+[n019:2835125] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n019:2835125] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n019:2835125] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x2d45)[0x555555556d45]
+[n019:2835125] *** End of error message ***
+==== backtrace (tid:  44650) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n018:44650] *** Process received signal ***
+[n018:44650] Signal: Segmentation fault (11)
+[n018:44650] Signal code:  (-6)
+[n018:44650] Failing at address: 0x1bfc0000ae6a
+[n018:44650] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:44650] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x290c)[0x55555555690c]
+[n018:44650] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:44650] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:44650] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x2d45)[0x555555556d45]
+[n018:44650] *** End of error message ***
+==== backtrace (tid:  44651) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x000000000000290c main()  ???:0
+ 2 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+ 3 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+ 4 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+ 5 0x0000000000002d45 _start()  ???:0
+=================================
+[n018:44651] *** Process received signal ***
+[n018:44651] Signal: Segmentation fault (11)
+[n018:44651] Signal code:  (-6)
+[n018:44651] Failing at address: 0x1bfc0000ae6b
+[n018:44651] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n018:44651] [ 1] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x290c)[0x55555555690c]
+[n018:44651] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n018:44651] [ 3] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n018:44651] [ 4] /home/krisor99/SpMV-Comm-Strats/P2/build/fpgaq/1d(+0x2d45)[0x555555556d45]
+[n018:44651] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846056.0 (status=0x008b).
+srun: error: n018: task 2: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846056.0 (status=0x008b).
+srun: error: n018: task 3: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846056.0 (status=0x008b).
+srun: error: n019: task 5: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846056.0 (status=0x008b).
+srun: error: n017: task 1: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846056.0 (status=0x008b).
+srun: error: n019: task 4: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846056.0 (status=0x008b).
+srun: error: n017: task 0: Segmentation fault (core dumped)
