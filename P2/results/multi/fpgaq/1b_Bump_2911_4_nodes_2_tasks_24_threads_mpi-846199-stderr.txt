@@ -1,0 +1,50 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[017-020]
+srun: cpus-per-task       : 24
+srun: distribution        : block:block
+srun: jobid               : 846199
+srun: job-name            : 1b_Bump_2911_4_nodes_2_tasks_24_threads_mpi
+srun: nodes               : 4
+srun: ntasks              : 8
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 846199: nodes(4):`n[017-020]', cpu counts: 96(x4)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=846199.0 on host n017, 2 tasks: [0-1]
+srun: launching StepId=846199.0 on host n018, 2 tasks: [2-3]
+srun: launching StepId=846199.0 on host n019, 2 tasks: [4-5]
+srun: launching StepId=846199.0 on host n020, 2 tasks: [6-7]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n017, 2 tasks started
+srun: launch/slurm: _task_start: Node n018, 2 tasks started
+srun: launch/slurm: _task_start: Node n020, 2 tasks started
+srun: launch/slurm: _task_start: Node n019, 2 tasks started
+srun: Sent KVS info to 4 nodes, up to 2 tasks per node
+srun: Sent KVS info to 4 nodes, up to 2 tasks per node
+[n017:2842455] pml_ucx.c:424  Error: ucp_ep_create(proc=6) failed: Endpoint timeout
+[n017:2842455] pml_ucx.c:477  Error: Failed to resolve UCX endpoint for rank 6
+[n017:2842455] *** An error occurred in MPI_Bcast
+[n017:2842455] *** reported by process [3916890112,0]
+[n017:2842455] *** on communicator MPI_COMM_WORLD
+[n017:2842455] *** MPI_ERR_OTHER: known error not in list
+[n017:2842455] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[n017:2842455] ***    and potentially your MPI job)
+In: PMI_Abort(16, N/A)
+srun: Complete StepId=846199.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 846199.0 ON n017 CANCELLED AT 2025-05-28T12:36:39 ***
+srun: Complete StepId=846199.0+0 received
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=846199.0 (status=0x0009).
+srun: error: n019: tasks 4-5: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=846199.0 (status=0x0009).
+srun: error: n020: tasks 6-7: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846199.0 (status=0x0009).
+srun: error: n017: task 1: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 2 tasks of StepId=846199.0 (status=0x0009).
+srun: error: n018: tasks 2-3: Killed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=846199.0 (status=0x1000).
+srun: error: n017: task 0: Exited with exit code 16
