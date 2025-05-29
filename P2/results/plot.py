@@ -6,6 +6,7 @@ from matplotlib.ticker import LogLocator as LL
 from matplotlib.ticker import LogLocator, LogFormatter
 from matplotlib.patches import Patch
 import matplotlib.ticker as mticker
+import matplotlib.colors as mcolors
 from sys import argv
 import numpy as np
 import re
@@ -138,11 +139,12 @@ def gather_results(directory, results):
     latest_files = defaultdict(lambda: ("", 0))
 
     for file in directory.iterdir():
+        print(file.name)
 
         if (
             not file.is_file()
             or "stderr" in file.name
-            or "mpi" in file.name
+            or "mpi" not in file.name
             # or "nlpkkt200" not in file.name
             # or "Bump" not in file.name
         ):
@@ -169,11 +171,12 @@ def gather_results(directory, results):
 
     for config, (file, job_id) in latest_files.items():
         comm_strat, name, nodes, tasks, threads, mpi = parse_file_name_single(str(file))
-        if threads != 64:
+        if threads != 32:
             continue
         ttot, tcomm, tcomp, gflops, comm_min, comm_max, comm_avg = parse_file_contents(str(file))
         tcomm /= 100
         tcomp /= 100
+        ttot /= 100
         comm_min = (comm_min * (1024 * 1024 * 1024)) / (100 * 64)
         comm_max = (comm_max * (1024 * 1024 * 1024)) / (100 * 64)
         comm_avg = (comm_avg * (1024 * 1024 * 1024)) / (100 * 64)
@@ -246,7 +249,7 @@ def plot_gflops_single(results, single):
                 ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                plt.savefig(f"{matrix}_gflops_single_{partition}.svg", format="svg")
+                plt.savefig(f"{matrix}_gflops_single_{partition}mpi.svg", format="svg")
                 # plt.show()
                 plt.close()
             else:
@@ -257,7 +260,7 @@ def plot_gflops_single(results, single):
                 ax.set_xticklabels([1, 2, 3, 4, 5, 6, 7, 8])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                # plt.savefig(f"{matrix}_gflops_multi_{partition}.svg", format="svg")
+                # plt.savefig(f"{matrix}_gflops_multi_{partition}mpi.svg", format="svg")
                 plt.show()
                 plt.close()
 
@@ -468,7 +471,7 @@ def plot_tcomm_multi(results, single):
                 ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                plt.savefig(f"{matrix}_tcomm_single_{partition}.svg", format="svg")
+                plt.savefig(f"{matrix}_tcomm_single_{partition}mpi.svg", format="svg")
                 # plt.show()
                 plt.close()
             else:
@@ -480,7 +483,7 @@ def plot_tcomm_multi(results, single):
                 ax.set_xticklabels([1, 2, 3, 4, 5, 6, 7, 8])
                 ax.grid(True, linestyle="--", alpha=0.6)
                 plt.tight_layout()
-                # plt.savefig(f"{matrix}_tcomm_multi_{partition}.svg", format="svg")
+                # plt.savefig(f"{matrix}_tcomm_multi_{partition}mpi.svg", format="svg")
                 plt.show()
                 plt.close()
 
@@ -885,7 +888,7 @@ def plot_comm_min_avg_max(results, single):
 
             plt.tight_layout()
             # plt.show()
-            plt.savefig(f"{matrix}_commload_single_{partition}.svg", format="svg")
+            plt.savefig(f"{matrix}_commload_single_{partition}mpi.svg", format="svg")
             plt.close()
         else:
             ax.set_xticks(all_tasks)
@@ -904,7 +907,7 @@ def plot_comm_min_avg_max(results, single):
 
             plt.tight_layout()
             plt.show()
-            # plt.savefig(f"{matrix}_commload_multi_{partition}.svg", format="svg")
+            # plt.savefig(f"{matrix}_commload_multi_{partition}mpi.svg", format="svg")
             plt.close()
 
 
@@ -1151,7 +1154,7 @@ def plot_tcomm_2x4(results, single):
 
     # 5) Save with tight bounding box
     plt.savefig(
-        f"tcomm_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        f"tcomm_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
         bbox_inches="tight",
         format="svg",
     )
@@ -1252,7 +1255,7 @@ def plot_gflops_2x4(results, single):
 
     # 5) Save with tight bounding box
     plt.savefig(
-        f"gflops_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        f"gflops_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
         bbox_inches="tight",
         format="svg",
     )
@@ -1262,8 +1265,8 @@ def plot_comm_min_avg_max_2x4(results, single):
     # ─────────────────────────────────────────────────────────────────────────────
     # 0) Strategy definitions
     comm_strats = sorted(k for k in results.keys() if k not in ("1a", "2d"))
-    markers = {"min": "o", "avg": "s", "max": "^"}
-    labels = ["min", "avg", "max"]
+    markers = {"avg": "o", "max": "^"}
+    labels = ["avg", "max"]
     colors = ["g", "r", "c"]
     comm_colors = {cs: colors[i % len(colors)] for i, cs in enumerate(comm_strats)}
 
@@ -1311,11 +1314,11 @@ def plot_comm_min_avg_max_2x4(results, single):
                 if not group:
                     continue
 
-                comm_min = [r.comm_min for r in group]
+                # comm_min = [r.comm_min for r in group]
                 comm_avg = [r.comm_avg for r in group]
                 comm_max = [r.comm_max for r in group]
 
-                for vals, lab in zip([comm_min, comm_avg, comm_max], labels):
+                for vals, lab in zip([comm_avg, comm_max], labels):
                     legend_label = f"{comm_strats_dict[strat]} ({lab})"
                     plot_label = legend_label if legend_label not in seen else "_nolegend_"
                     ax.plot(
@@ -1385,7 +1388,7 @@ def plot_comm_min_avg_max_2x4(results, single):
     # 6) Save and close
     # plt.show()
     plt.savefig(
-        f"commload_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        f"commload_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
         bbox_inches="tight",
         format="svg",
     )
@@ -1413,7 +1416,7 @@ def plot_t_2x4(results, single):
         ax.set_title(matrix)  # uses axes.titlesize
         ax.set_xlabel(argv[3])  # uses axes.labelsize
         if idx % 2 == 0:
-            ax.set_ylabel("Total Solver Time [s]")
+            ax.set_ylabel("Total Time [ms]")
 
         # plot each strategy
         for i, comm_strat in enumerate(sorted(results)):
@@ -1424,7 +1427,7 @@ def plot_t_2x4(results, single):
             # sort by tasks (single) or nodes (multi)
             data = sorted(strat_mats[matrix][0], key=lambda r: r.tasks if single else r.nodes)
             xs = [r.tasks if single else r.nodes for r in data]
-            ys = [r.t for r in data]
+            ys = [r.t * 1000 for r in data]
 
             (line,) = ax.plot(
                 xs,
@@ -1487,7 +1490,7 @@ def plot_t_2x4(results, single):
 
     # 5) Save with tight bounding box
     plt.savefig(
-        f"t_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        f"t_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
         bbox_inches="tight",
         format="svg",
     )
@@ -1514,7 +1517,7 @@ def plot_tcomp_2x4(results, single):
         ax.set_title(matrix)  # uses axes.titlesize
         ax.set_xlabel(argv[3])  # uses axes.labelsize
         if idx % 2 == 0:
-            ax.set_ylabel("Computation Time [s]")
+            ax.set_ylabel("Computation Time [ms]")
 
         # plot each strategy
         for i, comm_strat in enumerate(sorted(results)):
@@ -1525,7 +1528,7 @@ def plot_tcomp_2x4(results, single):
             # sort by tasks (single) or nodes (multi)
             data = sorted(strat_mats[matrix][0], key=lambda r: r.tasks if single else r.nodes)
             xs = [r.tasks if single else r.nodes for r in data]
-            ys = [r.tcomp for r in data]
+            ys = [r.tcomp * 1000 for r in data]
 
             (line,) = ax.plot(
                 xs,
@@ -1588,7 +1591,7 @@ def plot_tcomp_2x4(results, single):
 
     # 5) Save with tight bounding box
     plt.savefig(
-        f"tcomp_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        f"tcomp_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
         bbox_inches="tight",
         format="svg",
     )
@@ -1723,11 +1726,111 @@ def plot_comm_and_tcomm_2x4(results, single, partition):
     # ──────────────────────────────────────────────────────────────────────
     # 4) Save & close
     plt.savefig(
-        f"comm_and_tcomm_2x4_{'single' if single else 'multi'}_{partition}.svg",
+        f"comm_and_tcomm_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
         bbox_inches="tight",
         format="svg",
     )
     plt.close()
+
+
+def plot_tcomp_tcomm_2x4(results, single):
+    # 1) Pick up to 8 matrices
+    matrix_names = []
+    first_strat = next(iter(results))
+    for matrix in sorted(results[first_strat]):
+        if any(matrix in strat_data and 0 in strat_data[matrix] for strat_data in results.values()):
+            matrix_names.append(matrix)
+    matrix_names = matrix_names[:8]
+
+    # helper to lighten/darken
+    def adjust_lightness(color, amount=0.5):
+        c = np.array(mcolors.to_rgb(color))
+        return tuple(
+            np.clip(c + (np.ones(3) - c) * amount if amount > 0 else c * (1 + amount), 0, 1)
+        )
+
+    # 2) Set up figure
+    fig, axs = plt.subplots(4, 2, figsize=(18, 28))
+    axs = axs.flatten()
+
+    # dicts to hold just one line per strat
+    comp_lines = {}
+    comm_lines = {}
+
+    for idx, matrix in enumerate(matrix_names):
+        ax = axs[idx]
+        ax.set_title(matrix)
+        ax.set_xlabel(argv[3])
+        if idx % 2 == 0:
+            ax.set_ylabel("Time [s]")
+
+        for i, strat in enumerate(sorted(results)):
+            strat_mats = results[strat]
+            if matrix not in strat_mats or 0 not in strat_mats[matrix]:
+                continue
+
+            # sort data
+            data = sorted(strat_mats[matrix][0], key=lambda r: r.tasks if single else r.nodes)
+            xs = [r.tasks if single else r.nodes for r in data]
+            ys_comp = [r.tcomp for r in data]
+            ys_comm = [r.tcomm for r in data]
+
+            base = colors[i % len(colors)]
+            c_dark = adjust_lightness(base, amount=-0.3)
+            c_light = adjust_lightness(base, amount=0.5)
+
+            # plot comp
+            (line_c,) = ax.plot(xs, ys_comp, marker="o", linestyle="-", color=c_dark, markersize=8)
+            # plot comm
+            (line_m,) = ax.plot(
+                xs, ys_comm, marker="s", linestyle="--", color=c_light, markersize=8
+            )
+
+            # only register first appearance for legend
+            if strat not in comp_lines:
+                comp_lines[strat] = line_c
+            if strat not in comm_lines:
+                comm_lines[strat] = line_m
+
+        # axis formatting
+        if single:
+            ax.set_xscale("log")
+            ax.xaxis.set_minor_locator(mticker.NullLocator())
+            ax.set_xticks([1, 2, 4, 8, 16, 32, 64])
+            ax.set_xticklabels([1, 2, 4, 8, 16, 32, 64])
+        else:
+            ax.set_xticks(range(1, 5))
+            ax.set_xticklabels(range(1, 5))
+
+        ax.grid(True, linestyle="--", alpha=0.6)
+        ax.tick_params(axis="both", which="major")
+
+    # 3) Spacing
+    fig.subplots_adjust(top=0.80, hspace=0.35, wspace=0.2)
+
+    # 4) Shared legend: one “comp” + one “comm” per strategy
+    handles = []
+    labels = []
+    for strat in sorted(results):
+        name = comm_strats_dict.get(strat, strat)
+        if strat in comp_lines:
+            handles.append(comp_lines[strat])
+            labels.append(f"{name} comp")
+        if strat in comm_lines:
+            handles.append(comm_lines[strat])
+            labels.append(f"{name} comm")
+
+    fig.legend(
+        handles, labels, loc="upper center", bbox_to_anchor=(0.5, 0.95, 0, 0), ncol=2, frameon=False
+    )
+
+    # 5) Save
+    plt.savefig(
+        f"tcomp_tcomm_2x4_{'single' if single else 'multi'}_{partition}mpi.svg",
+        bbox_inches="tight",
+        format="svg",
+    )
+    plt.close(fig)
 
 
 partition = argv[2]
@@ -1740,9 +1843,13 @@ def main():
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     # for comm_strat in comm_strats:
     path = Path(base_path + partition)
+    # path = Path(
+    #     "/Users/kristiansordal/dev/uib/master/project/SpMV-Comm-Strats/P2/results/multi/defq/test"
+    # )
 
     single = 0
     gather_results(path, results)
+    # plot_tcomp_tcomm_2x4(results, single)
     plot_tcomm_2x4(results, single)
     plot_tcomp_2x4(results, single)
     plot_t_2x4(results, single)

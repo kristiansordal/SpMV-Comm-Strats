@@ -22,20 +22,20 @@ int main(int argc, char **argv) {
 
     if (rank == 0) {
         g = parse_and_validate_mtx(argv[1]);
-        printf("partitioning graph\n");
+        // printf("partitioning graph\n");
         partition_graph(g, size, p);
     }
 
-    if (rank == 0) {
-        printf("distributing graph\n");
-        fflush(stdout);
-    }
+    // if (rank == 0) {
+    //     // printf("distributing graph\n");
+    //     fflush(stdout);
+    // }
 
-    printf("Rank %d at barrier 1\n", rank);
-    fflush(stdout);
+    // printf("Rank %d at barrier 1\n", rank);
+    // fflush(stdout);
     MPI_Barrier(MPI_COMM_WORLD);
-    printf("Rank %d past barrier 1\n", rank);
-    fflush(stdout);
+    // printf("Rank %d past barrier 1\n", rank);
+    // fflush(stdout);
     distribute_graph(&g, rank);
     MPI_Bcast(p, size + 1, MPI_INT, 0, MPI_COMM_WORLD);
 
@@ -63,10 +63,10 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i++)
         displs[i] = p[i];
 
-    if (rank == 0) {
-        printf("starting spmv\n");
-        fflush(stdout);
-    }
+    // if (rank == 0) {
+    //     printf("starting spmv\n");
+    //     fflush(stdout);
+    // }
     t0 = MPI_Wtime();
     long double flops = 0;
     for (int i = 0; i < 100; i++) {
@@ -83,10 +83,10 @@ int main(int argc, char **argv) {
         tcomp += tc2 - tc1;
     }
     t1 = MPI_Wtime();
-    if (rank == 0) {
-        printf("done spmv\n");
-        fflush(stdout);
-    }
+    // if (rank == 0) {
+    //     printf("done spmv\n");
+    //     fflush(stdout);
+    // }
 
     double l2 = 0.0;
     if (rank == 0) {

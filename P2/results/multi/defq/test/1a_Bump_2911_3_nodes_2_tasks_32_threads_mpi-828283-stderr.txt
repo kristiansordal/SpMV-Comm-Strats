@@ -1,0 +1,160 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 828283
+srun: job-name            : 1a_Bump_2911_3_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 828283: nodes(3):`n[001-003]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=828283.0 on host n001, 2 tasks: [0-1]
+srun: launching StepId=828283.0 on host n002, 2 tasks: [2-3]
+srun: launching StepId=828283.0 on host n003, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+[n001:825977:0:825977] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x555554000000)
+[n003:1245671:0:1245671] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x555554000000)
+[n002:969550:0:969550] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x555554000000)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=828283.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n003: task 4: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=828283.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n002: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=828283.0 (status=0x0000).
+srun: launch/slurm: _task_finish: n001: task 0: Completed
+==== backtrace (tid: 825977) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:162
+ 2 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:160
+ 3 0x00000000000a5449 __GI___libc_free()  ./malloc/malloc.c:3390
+ 4 0x000000000002f275 uct_rc_iface_t_cleanup()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/rc/base/rc_iface.c:747
+ 5 0x0000000000048f76 ucs_class_call_cleanup_chain()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/type/class.c:56
+ 6 0x00000000000359cc uct_rc_verbs_iface_t_delete()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/rc/verbs/rc_verbs_iface.c:456
+ 7 0x0000000000045f67 ucp_worker_uct_iface_close()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:788
+ 8 0x0000000000045f67 ucp_worker_iface_cleanup()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:1304
+ 9 0x0000000000046d01 ucp_worker_close_ifaces()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:1050
+10 0x0000000000049bbd ucp_worker_destroy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2533
+11 0x000000000000738b mca_pml_ucx_cleanup()  ???:0
+12 0x0000000000055d5b ompi_mpi_finalize()  ???:0
+13 0x0000000000002791 main()  ???:0
+14 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+15 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+16 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+17 0x0000000000002a85 _start()  ???:0
+=================================
+[n001:825977] *** Process received signal ***
+[n001:825977] Signal: Segmentation fault (11)
+[n001:825977] Signal code:  (-6)
+[n001:825977] Failing at address: 0x1bfc000c9a79
+[n001:825977] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n001:825977] [ 1] /lib/x86_64-linux-gnu/libc.so.6(free+0x69)[0x155554e7c449]
+[n001:825977] [ 2] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x2f275)[0x1555540dd275]
+[n001:825977] [ 3] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_class_call_cleanup_chain+0x76)[0x155554396f76]
+[n001:825977] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x359cc)[0x1555540e39cc]
+[n001:825977] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_iface_cleanup+0xa7)[0x155554400f67]
+[n001:825977] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(+0x46d01)[0x155554401d01]
+[n001:825977] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0x3ed)[0x155554404bbd]
+[n001:825977] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x1555548b438b]
+[n001:825977] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x155555427d5b]
+[n001:825977] [10] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x2791)[0x555555556791]
+[n001:825977] [11] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n001:825977] [12] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n001:825977] [13] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x2a85)[0x555555556a85]
+[n001:825977] *** End of error message ***
+==== backtrace (tid:1245671) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:162
+ 2 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:160
+ 3 0x00000000000a5449 __GI___libc_free()  ./malloc/malloc.c:3390
+ 4 0x000000000002f275 uct_rc_iface_t_cleanup()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/rc/base/rc_iface.c:747
+ 5 0x0000000000048f76 ucs_class_call_cleanup_chain()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/type/class.c:56
+ 6 0x00000000000359cc uct_rc_verbs_iface_t_delete()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/uct/ib/rc/verbs/rc_verbs_iface.c:456
+ 7 0x0000000000045f67 ucp_worker_uct_iface_close()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:788
+ 8 0x0000000000045f67 ucp_worker_iface_cleanup()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:1304
+ 9 0x0000000000046d01 ucp_worker_close_ifaces()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:1050
+10 0x0000000000049bbd ucp_worker_destroy()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucp/core/ucp_worker.c:2533
+11 0x000000000000738b mca_pml_ucx_cleanup()  ???:0
+12 0x0000000000055d5b ompi_mpi_finalize()  ???:0
+13 0x0000000000002791 main()  ???:0
+14 0x0000000000029d90 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:58
+15 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+16 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+17 0x0000000000002a85 _start()  ???:0
+=================================
+[n003:1245671] *** Process received signal ***
+[n003:1245671] Signal: Segmentation fault (11)
+[n003:1245671] Signal code:  (-6)
+[n003:1245671] Failing at address: 0x1bfc001301e7
+[n003:1245671] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n003:1245671] [ 1] /lib/x86_64-linux-gnu/libc.so.6(free+0x69)[0x155554e7c449]
+[n003:1245671] [ 2] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x2f275)[0x1555540dd275]
+[n003:1245671] [ 3] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(ucs_class_call_cleanup_chain+0x76)[0x155554396f76]
+[n003:1245671] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/ucx/libuct_ib.so.0(+0x359cc)[0x1555540e39cc]
+[n003:1245671] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_iface_cleanup+0xa7)[0x155554400f67]
+[n003:1245671] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(+0x46d01)[0x155554401d01]
+[n003:1245671] [ 7] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucp.so.0(ucp_worker_destroy+0x3ed)[0x155554404bbd]
+[n003:1245671] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_pml_ucx.so(mca_pml_ucx_cleanup+0x17b)[0x1555548b438b]
+[n003:1245671] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_mpi_finalize+0x5ab)[0x155555427d5b]
+[n003:1245671] [10] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x2791)[0x555555556791]
+[n003:1245671] [11] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n003:1245671] [12] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n003:1245671] [13] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x2a85)[0x555555556a85]
+[n003:1245671] *** End of error message ***
+==== backtrace (tid: 969550) ====
+ 0 0x0000000000042520 __GI___sigaction()  :0
+ 1 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:162
+ 2 0x00000000000a5449 arena_for_chunk()  ./malloc/arena.c:160
+ 3 0x00000000000a5449 __GI___libc_free()  ./malloc/malloc.c:3390
+ 4 0x00000000000499f7 ucs_vfs_node_decrease_refcount()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:375
+ 5 0x000000000004979d ucs_vfs_node_remove_children()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:329
+ 6 0x000000000004979d ucs_vfs_node_decrease_refcount()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:345
+ 7 0x000000000004979d ucs_vfs_node_remove_children()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:329
+ 8 0x000000000004979d ucs_vfs_node_decrease_refcount()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:345
+ 9 0x000000000004979d ucs_vfs_node_remove_children()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:329
+10 0x000000000004979d ucs_vfs_node_decrease_refcount()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:345
+11 0x0000000000014a1d ucs_vfs_node_remove_children()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:329
+12 0x0000000000014a1d ucs_initializer_dtor0()  /cm/shared/ex3-modules/202309a/defq/src/ucx-1.12.1/src/ucs/vfs/base/vfs_obj.c:822
+13 0x000000000000624e _dl_fini()  ./elf/dl-fini.c:142
+14 0x0000000000045495 __run_exit_handlers()  ./stdlib/exit.c:113
+15 0x0000000000045610 __GI_exit()  ./stdlib/exit.c:143
+16 0x0000000000029d97 __libc_start_call_main()  ./csu/../sysdeps/nptl/libc_start_call_main.h:74
+17 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:392
+18 0x0000000000029e40 __libc_start_main_impl()  ./csu/../csu/libc-start.c:379
+19 0x0000000000002a85 _start()  ???:0
+=================================
+[n002:969550] *** Process received signal ***
+[n002:969550] Signal: Segmentation fault (11)
+[n002:969550] Signal code:  (-6)
+[n002:969550] Failing at address: 0x1bfc000ecb4e
+[n002:969550] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n002:969550] [ 1] /lib/x86_64-linux-gnu/libc.so.6(free+0x69)[0x155554e7c449]
+[n002:969550] [ 2] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x499f7)[0x1555543979f7]
+[n002:969550] [ 3] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x4979d)[0x15555439779d]
+[n002:969550] [ 4] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x4979d)[0x15555439779d]
+[n002:969550] [ 5] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x4979d)[0x15555439779d]
+[n002:969550] [ 6] /cm/shared/ex3-modules/202309a/defq/pkgs/ucx-1.12.1/lib/libucs.so.0(+0x14a1d)[0x155554362a1d]
+[n002:969550] [ 7] /lib64/ld-linux-x86-64.so.2(+0x624e)[0x15555552024e]
+[n002:969550] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x45495)[0x155554e1c495]
+[n002:969550] [ 9] /lib/x86_64-linux-gnu/libc.so.6(on_exit+0x0)[0x155554e1c610]
+[n002:969550] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x29d97)[0x155554e00d97]
+[n002:969550] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n002:969550] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x2a85)[0x555555556a85]
+[n002:969550] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=828283.0 (status=0x008b).
+srun: error: n001: task 1: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=828283.0 (status=0x008b).
+srun: error: n002: task 3: Segmentation fault (core dumped)
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=828283.0 (status=0x008b).
+srun: error: n003: task 5: Segmentation fault (core dumped)

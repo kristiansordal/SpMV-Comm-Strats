@@ -1,0 +1,52 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : n[001-003]
+srun: cpus-per-task       : 32
+srun: distribution        : block:block
+srun: jobid               : 836857
+srun: job-name            : 1a_dielFilterV3real_3_nodes_2_tasks_32_threads_mpi
+srun: nodes               : 3
+srun: ntasks              : 6
+srun: ntasks-per-node     : 2
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 836857: nodes(3):`n[001-003]', cpu counts: 128(x3)
+srun: Implicitly setting --exact, because -c/--cpus-per-task given.
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=836857.0 on host n001, 2 tasks: [0-1]
+srun: launching StepId=836857.0 on host n002, 2 tasks: [2-3]
+srun: launching StepId=836857.0 on host n003, 2 tasks: [4-5]
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node n002, 2 tasks started
+srun: launch/slurm: _task_start: Node n003, 2 tasks started
+srun: launch/slurm: _task_start: Node n001, 2 tasks started
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+srun: Sent KVS info to 3 nodes, up to 2 tasks per node
+munmap_chunk(): invalid pointer
+[n002:2541509] *** Process received signal ***
+[n002:2541509] Signal: Aborted (6)
+[n002:2541509] Signal code:  (-6)
+[n002:2541509] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x155554e19520]
+[n002:2541509] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x155554e6d9fc]
+[n002:2541509] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x155554e19476]
+[n002:2541509] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x155554dff7f3]
+[n002:2541509] [ 4] /lib/x86_64-linux-gnu/libc.so.6(+0x89677)[0x155554e60677]
+[n002:2541509] [ 5] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x155554e77cfc]
+[n002:2541509] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0xa0fdc)[0x155554e77fdc]
+[n002:2541509] [ 7] /lib/x86_64-linux-gnu/libc.so.6(free+0xba)[0x155554e7c49a]
+[n002:2541509] [ 8] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_datatype_destroy+0x69)[0x155555435139]
+[n002:2541509] [ 9] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(ompi_coll_base_allgatherv_intra_neighborexchange+0x23d)[0x15555547fecd]
+[n002:2541509] [10] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_allgatherv_intra_dec_fixed+0xbd)[0x15554ece454d]
+[n002:2541509] [11] /cm/shared/ex3-modules/202309a/defq/pkgs/openmpi-4.1.6/lib/libmpi.so.40(PMPI_Allgatherv+0x115)[0x15555543aca5]
+[n002:2541509] [12] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x2658)[0x555555556658]
+[n002:2541509] [13] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x155554e00d90]
+[n002:2541509] [14] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x155554e00e40]
+[n002:2541509] [15] /home/krisor99/SpMV-Comm-Strats/P2/build/defq/1a(+0x29c5)[0x5555555569c5]
+[n002:2541509] *** End of error message ***
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=836857.0 (status=0x0086).
+srun: error: n002: task 3: Aborted (core dumped)
+srun: Complete StepId=836857.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 836857 ON n001 CANCELLED AT 2025-05-18T05:28:03 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 836857.0 ON n001 CANCELLED AT 2025-05-18T05:28:03 DUE TO TIME LIMIT ***

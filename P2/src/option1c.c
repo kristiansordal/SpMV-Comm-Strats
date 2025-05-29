@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
-    printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
+    // printf("c.send_count[%d]: %d %Lf\n", rank, c.send_count[rank], comm_size);
 
     free(y);
     free(x);

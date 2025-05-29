@@ -103,11 +103,11 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i++) {
         comm_size += c.send_count[i];
     }
-    printf("%d,%Lf\n", rank, comm_size);
+    // printf("%d,%Lf\n", rank, comm_size);
 
     long double total_comm_size = 0.0;
     MPI_Allreduce(&comm_size, &total_comm_size, 1, MPI_LONG_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
-    printf("Total communication size: %Lf\n", total_comm_size);
+    // printf("Total communication size: %Lf\n", total_comm_size);
 
     comm_size = (comm_size * 64.0 * 100.0) / (1024.0 * 1024.0 * 1024.0);
 
